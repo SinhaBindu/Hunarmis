@@ -1,0 +1,391 @@
+﻿<style>
+    body {
+        padding: 0px;
+        margin: 0px;
+        font-family: 'Open Sans', sans-serif;
+        background: #fff;
+    }
+
+    .break {
+        clear: both;
+        height: 10px;
+        display: block;
+    }
+
+    .breaker {
+        clear: both;
+        height: 0.1px;
+        display: block;
+    }
+
+    h1,
+    h2,
+    h3 {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: normal;
+    }
+
+    .dash-header {
+        background: #007135;
+        background: #F6FAFB;
+        padding: 0px;
+    }
+
+    .main-header {
+        display: flex;
+        padding: 5px 20px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .main-header div {
+            flex: 1;
+            text-align: center;
+        }
+
+            .main-header div img {
+                width: 60px
+            }
+
+        .main-header .shiksha-logo img {
+            width: 120px
+        }
+
+        .main-header .right-logo img {
+            width: 120px;
+            padding: 2px;
+            background: #fff;
+            border-radius: 4px;
+        }
+
+    .navigation {
+        background: #FDD65B;
+        background: #3AC569;
+        position: relative;
+        z-index: 999999;
+    }
+
+    .footer {
+        padding: 20px 20px;
+        background: #007135;
+        color: #fff;
+        margin-top: 20px;
+    }
+
+        .footer h3 {
+            font-size: 23px;
+            font-weight: 500;
+            margin: 10px 0;
+        }
+
+        .footer p {
+            line-height: 24px;
+            margin: 7px 0;
+        }
+
+    .manage-footer {
+        margin: auto;
+        max-width: 1200px;
+        display: flex;
+        gap: 20px;
+    }
+
+    .contact-details,
+    .map {
+        flex: 1;
+    }
+
+    .mapper {
+        border: 5px solid #fff;
+    }
+
+    .footer .fa-map-marker {
+        font-size: 25px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+        float: left;
+    }
+
+    .footer .fa-phone,
+    .footer .fa-envelope,
+    .footer .fa-globe {
+        font-size: 20px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        float: left;
+    }
+
+    .alumni-control {
+        margin: auto;
+        max-width: 800px;
+        padding: 20px 0 10px;
+    }
+
+        .alumni-control img {
+            width: 100%;
+        }
+
+    .product_slider .amazingcarousel-prev {
+        left: -30px;
+        top: 220px;
+        z-index: 3;
+    }
+
+    .product_slider .amazingcarousel-next {
+        right: -30px;
+        top: 220px;
+        z-index: 3;
+    }
+
+    .archieve-details {
+        margin: auto;
+        max-width: 1100px;
+        padding: 20px;
+        display: flex;
+        gap: 20px;
+    }
+
+    .archieve-list {
+        flex: 1px;
+        padding: 10px;
+        background: #F2F2F2
+    }
+
+        .archieve-list h3 {
+            color: #fff;
+            font-size: 20px;
+            padding: 8px 0;
+            margin-top: 0px
+        }
+
+    .policy-title {
+        background: #007135;
+    }
+
+    .resource-title {
+        background: #F79134;
+    }
+
+    .archieve-doc {
+        display: flex;
+        gap: 20px;
+        padding: 15px;
+        background: #fff;
+        border-radius: 5px;
+        align-items: center;
+        margin-bottom: 12px;
+        justify-content: space-between;
+    }
+
+        .archieve-doc p {
+            font-size: 16px;
+            margin: 0px
+        }
+
+        .archieve-doc a {
+            padding: 7px 15px;
+            background: #3AC569;
+            color: #fff;
+            border-radius: 4px;
+            margin-left: 12px;
+        }
+
+            .archieve-doc a:hover {
+                background: #F79134;
+            }
+
+    .search-record {
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+        background: #DBFFE0;
+        border-top: 4px solid #3AC569;
+        max-width: 1060px;
+        margin: auto;
+    }
+
+    .form-group-control {
+        flex: 1;
+        text-align: left;
+    }
+
+        .form-group-control input {
+            display: block;
+            width: 92%;
+            padding: 8px 12px;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        .form-group-control select {
+            display: block;
+            width: 92%;
+            padding: 11px 12px;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+    .search_button {
+        display: inline-block;
+        font-weight: 400;
+        color: #fff;
+        background: #3AC569;
+        text-align: center;
+        vertical-align: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        border: 1px solid transparent;
+        padding: 5px 22px;
+        height: 43px;
+        margin-top: 20px;
+        margin-left: -22px;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+        .search_button:hover {
+            background: #229147;
+        }
+
+    .table {
+        color: #212529;
+        border-collapse: collapse;
+        width: 100% !important;
+    }
+
+    table thead th {
+        background: #3AC569;
+        color: #fff;
+        font-size: 16px;
+        padding: 11px 12px;
+    }
+
+    table tbody td {
+        background: #fff;
+        padding: 15px 15px;
+        border: 1px solid #dee2e6;
+    }
+
+    .table-btn {
+        padding: 7px 15px;
+        background: #3AC569;
+        color: #fff;
+        border-radius: 4px;
+        margin-left: 12px;
+    }
+
+        .table-btn:hover {
+            background: #F79134;
+        }
+
+    .archieve-table {
+        margin: auto;
+        max-width: 1100px;
+        margin-top: 30px
+    }
+
+    @@media all and (max-width: 1250px) {
+    }
+
+    @@media all and (max-width: 1100px) {
+    }
+
+    @@media all and (max-width: 1024px) {
+    }
+
+    @@media all and (max-width: 900px) {
+        .archieve-details {
+            flex-direction: column
+        }
+    }
+
+    @@media all and (max-width: 768px) {
+        .main-header div img {
+            width: 60px
+        }
+
+        .main-header .right-logo img, .main-header .shiksha-logo img {
+            width: 120px
+        }
+
+        .manage-footer {
+            flex-direction: column;
+        }
+
+        .footer p {
+            font-size: 14px;
+        }
+    }
+
+    @@media all and (max-width: 600px) {
+        .main-header div img {
+            width: 40px
+        }
+
+        .main-header .right-logo img, .main-header .shiksha-logo img {
+            width: 80px
+        }
+    }
+</style>
+<!-- Header -->
+<div class="dash-header">
+    <div class="main-header">
+        <div class="left-logo">
+            <img src="~/Content/images/jepc.png" alt="Government of Jharkhand">
+        </div>
+        <div class="center-logo">
+            <img src="~/Content/images/goj.png" alt="Jharkhand education">
+        </div>
+        <div class="shiksha-logo">
+            <img src="~/Content/images/shiksha-ka-adhikar.png" alt="Shiksha ka Adhikar">
+        </div>
+        <div class="right-logo">
+            <img src="~/Content/images/care-india.png" alt="Care India">
+        </div>
+    </div>
+</div>
+<!-- Navigation -->
+<div class="navigation">
+    <nav>
+        <div class="nav-mobile"><a id="navbar-toggle" href="javascript:void(0)"><span></span></a></div>
+        <ul class="nav-list">
+            <li>
+                <a href="~/Home/KgbvOverview" class='under-bg'><span><i class="fa fa-home"></i></span> Overview</a>
+            </li>
+            <li>
+                <a href="~/Home/alumni" class='under-bg2'>
+                    <span><i class="fa fa-graduation-cap"></i></span>
+                    Alumni
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class='under-bg3'>Resources</a>
+                <ul class="navbar-dropdown">
+                    <li><a href="~/Home/resources?dt=Policy">Policy</a></li>
+                    <li><a href="~/Home/resources?dt=Guidelines">Guidelines</a></li>
+                    <li><a href="~/Home/resources?dt=GovernmentOrder">GovernmentOrder</a></li>
+                </ul>
+            </li>
+            <li class=''><a href="~/account/login"><span><i class="fa fa-sign-in"></i></span> Login</a></li>
+        </ul>
+    </nav>
+</div>
