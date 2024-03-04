@@ -19,6 +19,7 @@
         <AssociationConnector Association="Hunar_DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="Hunar_DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="Hunar_DBModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_UserLogin" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -36,5 +36,6 @@ namespace Hunarmis.Models
         public virtual DbSet<TrainingCenter_Master> TrainingCenter_Master { get; set; }
         public virtual DbSet<Educational_Master> Educational_Master { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<tbl_UserLogin> tbl_UserLogin { get; set; }
     }
 }

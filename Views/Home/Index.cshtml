@@ -110,7 +110,7 @@
                 IsCallSchool();
             });
 
-            if ('@User.IsInRole(UserRoles.BRP)' == "True" || '@User.IsInRole(UserRoles.CRP)' == "True" || '@User.IsInRole(UserRoles.Warden)' == "True") {
+            @*if ('@User.IsInRole(UserRoles.BRP)' == "True" || '@User.IsInRole(UserRoles.CRP)' == "True" || '@User.IsInRole(UserRoles.Warden)' == "True") {
                 setTimeout(function () {
                     $('#SchoolId').val('@CommonModel.SessionLog.SchoolId_fk');
                     $('#SchoolId').trigger('change');
@@ -123,7 +123,7 @@
                     LoadReport();
                 }, 2000);
 
-            }
+            }*@
 
            
         });
@@ -152,12 +152,12 @@
                     BindSchool('SchoolId', $('input[name=SchoolType]').val(), 0, true);
             }*@
              var selectedvalue = $('input[name=SchoolType]:checked', '#tblList-frm').val();
-            if ('@CommonModel.IsRole()' == 'False') {
+            @*if ('@CommonModel.IsRole()' == 'False') {
                 BindSchool('SchoolId', selectedvalue, '@CommonModel.SessionLog.SchoolId_fk');
             }
             else {
                 BindSchool('SchoolId', selectedvalue, 0);
-            }
+            }*@
         }
 
         function LoadReport() {

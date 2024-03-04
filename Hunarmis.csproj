@@ -263,6 +263,9 @@
     <Compile Include="Models\State_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_UserLogin.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TrainingAgency_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>

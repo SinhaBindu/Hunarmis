@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Hunarmis.Models;
+using NLog.LayoutRenderers;
 
 namespace Hunarmis.Controllers
 {
@@ -27,7 +28,6 @@ namespace Hunarmis.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
         }
-
         public ApplicationSignInManager SignInManager
         {
             get
@@ -68,6 +68,7 @@ namespace Hunarmis.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -79,7 +80,15 @@ namespace Hunarmis.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    var asptblID = _db.AspNetUsers.Where(x => x.Email == model.Email.Trim())?.FirstOrDefault().Id;
+                    var tbl = new tbl_UserLogin();
+                    tbl.UserId = asptblID;
+                    tbl.InDate = DateTime.Now;
+                    tbl.IsActive = true;
+                    _db.tbl_UserLogin.Add(tbl);
+                    _db.SaveChanges();
+                    return RedirectToAction("About", "Home");
+                //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -170,7 +179,7 @@ namespace Hunarmis.Controllers
             {
                 if (!string.IsNullOrWhiteSpace(model.Id))
                 {
-                    model.Password = !string.IsNullOrWhiteSpace(model.Password)? model.Password: model.PhoneNo.Trim();
+                    model.Password = !string.IsNullOrWhiteSpace(model.Password) ? model.Password : model.PhoneNo.Trim();
                     var tbLu = db_.AspNetUsers.Find(model.Id);
                     tbLu.UserName = model.PhoneNo;
                     tbLu.EmpName = model.Name;

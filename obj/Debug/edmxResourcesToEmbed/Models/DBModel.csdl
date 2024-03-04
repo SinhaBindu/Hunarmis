@@ -24,6 +24,7 @@
       <End Role="AspNetRole" EntitySet="AspNetRoles" />
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
+    <EntitySet Name="tbl_UserLogin" EntityType="Hunar_DBModel.tbl_UserLogin" />
   </EntityContainer>
   <EntityType Name="AspNetRole">
     <Key>
@@ -199,4 +200,14 @@
     <End Type="Hunar_DBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
     <End Type="Hunar_DBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
   </Association>
+  <EntityType Name="tbl_UserLogin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="InDate" Type="DateTime" Precision="3" />
+    <Property Name="OutDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
 </Schema>
