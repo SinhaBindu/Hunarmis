@@ -478,6 +478,8 @@
     <Content Include="Content\js\jquery-ui-timepicker-addon.min.js" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\nifty.min.js" />
+    <Content Include="Content\login\login-icon.png" />
+    <Content Include="Content\login\login-photo.jpg" />
     <Content Include="Content\plugins\animate-css\animate.min.css" />
     <Content Include="Content\plugins\bootbox\bootbox.min.js" />
     <Content Include="Content\plugins\bootstrap-datepicker\bootstrap-datepicker.min.css" />
