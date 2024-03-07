@@ -199,6 +199,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\ParticipantController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,6 +218,12 @@
     <Compile Include="Manager\HtmlToText.cs" />
     <Compile Include="Manager\JsonResponseData.cs" />
     <Compile Include="Manager\OMSPManager.cs" />
+    <Compile Include="Models\DBModel1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ParticitantModel.cs" />
     <Compile Include="Manager\SPManager.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs">
@@ -261,6 +268,12 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\State_Master.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Participant.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Participant_Calling.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_UserLogin.cs">
@@ -1284,7 +1297,7 @@
     <Content Include="Models\DBModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DBModel.edmx</DependentUpon>
-      <LastGenOutput>DBModel.cs</LastGenOutput>
+      <LastGenOutput>DBModel1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\amazingcarousel.js" />
     <Content Include="Scripts\app.js" />
@@ -1431,6 +1444,8 @@
     <Content Include="Views\Master\UserDetaillist.cshtml" />
     <Content Include="Views\Master\_UserDetailData.cshtml" />
     <Content Include="Views\Home\_Index.cshtml" />
+    <Content Include="Views\Participant\AddPartictant.cshtml" />
+    <Content Include="Views\Participant\AddPartictant - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

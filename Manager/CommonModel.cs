@@ -210,6 +210,14 @@ namespace Hunarmis.Manager
               .GetCustomAttribute<DisplayAttribute>()
               ?.GetName();
         }
+        public static List<SelectListItem> GetYesNo()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            list.Add(new SelectListItem { Value = "Yes", Text = "Yes" });
+            list.Add(new SelectListItem { Value = "No", Text = "No" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
         public static List<SelectListItem> GetGender()
         {
             List<SelectListItem> list = new List<SelectListItem>();
@@ -301,6 +309,22 @@ namespace Hunarmis.Manager
                 throw;
             }
         }
+        public static List<SelectListItem> GetBatch(bool IsAll = false, int DistrictId = 0)
+        {
+            try
+            {
+                var items = new SelectList(dbe.Batch_Master.Where(x => x.IsActive == true), "Id", "BatchName").OrderBy(x => x.Text).ToList();
+                if (IsAll)
+                {
+                    items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                return items;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public static List<SelectListItem> GetEducational(bool IsAll = false, int DistrictId = 0, int BlockId = 0)
         {
             try
@@ -349,7 +373,36 @@ namespace Hunarmis.Manager
                 throw;
             }
         }
-
+        public static List<SelectListItem> GetLocatedKM()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem { Value = "", Text = "Select" });
+            list.Add(new SelectListItem { Value = "1", Text = "Less than 10Km" });
+            list.Add(new SelectListItem { Value = "2", Text = "10 Km - 25 Km" });
+            list.Add(new SelectListItem { Value = "3", Text = "25 Km - 50 Km" });
+            list.Add(new SelectListItem { Value = "4", Text = "More than 50 Km" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
+        public static List<SelectListItem> GetBenefit()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem { Value = "", Text = "Select" });
+            list.Add(new SelectListItem { Value = "1", Text = "Food" });
+            list.Add(new SelectListItem { Value = "2", Text = "Accommodation" });
+            list.Add(new SelectListItem { Value = "3", Text = "Travel allowance" });
+            list.Add(new SelectListItem { Value = "4", Text = "Medical Insurance" });
+            list.Add(new SelectListItem { Value = "5", Text = "Other" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
+        public static List<SelectListItem> GetEmployed()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem { Value = "", Text = "Select" });
+            list.Add(new SelectListItem { Value = "1", Text = "Didn't get selected in interviews" });
+            list.Add(new SelectListItem { Value = "2", Text = "Not interested to work" });
+            list.Add(new SelectListItem { Value = "3", Text = "Other" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
 
         private static List<T> ConvertDataTable<T>(DataTable dt)
         {

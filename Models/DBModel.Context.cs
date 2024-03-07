@@ -28,7 +28,6 @@ namespace Hunarmis.Models
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<Batch_Master> Batch_Master { get; set; }
         public virtual DbSet<Courses_Master> Courses_Master { get; set; }
         public virtual DbSet<District_Master> District_Master { get; set; }
         public virtual DbSet<State_Master> State_Master { get; set; }
@@ -37,5 +36,8 @@ namespace Hunarmis.Models
         public virtual DbSet<Educational_Master> Educational_Master { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<tbl_UserLogin> tbl_UserLogin { get; set; }
+        public virtual DbSet<Batch_Master> Batch_Master { get; set; }
+        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
+        public virtual DbSet<tbl_Participant_Calling> tbl_Participant_Calling { get; set; }
     }
 }
