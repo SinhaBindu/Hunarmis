@@ -17,123 +17,127 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
-        public ActionResult AddPartictant()
+        public ActionResult AddParticitant(Guid? Id)
         {
             ParticitantModel model = new ParticitantModel();
+            if (Id != Guid.Empty)
+            {
+                var tbl = db.tbl_Participant.Find(Id);
+                model.ID = tbl.ID;
+                model.RegID = tbl.RegID;
+                model.FirstName = tbl.FirstName;
+                model.MiddleName = tbl.MiddleName;
+                model.LastName = tbl.LastName;
+                model.Gender = tbl.Gender;
+                model.Age = tbl.Age;
+                model.AadharCardNo = tbl.AadharCardNo;
+                model.EmailID = tbl.EmailID;
+                model.PhoneNo = tbl.PhoneNo;
+                model.AlternatePhoneNo = tbl.AlternatePhoneNo;  
+                model.BatchId = tbl.BatchId;
+                model.CourseEnrolled = tbl.CourseEnrolled;
+                model.TrainingCenterID = tbl.TrainingCenterID;
+                model.TrainerName = tbl.TrainerName;
+                model.AssessmentScore = tbl.AssessmentScore;    
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult AddPartictant(ParticitantModel model)
+        {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            JsonResponseData response = new JsonResponseData();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var getdt = db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
+                    if (getdt.Any(x => x.PhoneNo == model.PhoneNo.Trim() && model.ID != Guid.Empty))
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Registration.<br /> <span> Case ID : <strong>" + getdt?.FirstOrDefault().CaseID + " </strong>  </span>", Data = null };
+                        var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse1.MaxJsonLength = int.MaxValue;
+                        return resResponse1;
+                    }
+                    var tbl = model.ID != Guid.Empty ? db.tbl_Participant.Find(model.ID) : new tbl_Participant();
+                    if (tbl != null)
+                    {
+                        tbl.FirstName = !(string.IsNullOrWhiteSpace(model.FirstName)) ? model.FirstName.Trim() : model.FirstName;
+                        tbl.MiddleName = !(string.IsNullOrWhiteSpace(model.MiddleName)) ? model.MiddleName.Trim() : model.MiddleName;
+                        tbl.LastName = !(string.IsNullOrWhiteSpace(model.LastName)) ? model.LastName.Trim() : model.LastName;
+                        //  tbl.StateId = db.State_Mast.Where(x => x.ID == sid).FirstOrDefault().ID.ToString();
+                        tbl.Gender = !(string.IsNullOrWhiteSpace(model.Gender)) ? model.Gender.Trim() : model.Gender;
+                        tbl.Age = !(string.IsNullOrWhiteSpace(model.Age)) ? model.Age.Trim() : model.Age;
+                        tbl.PhoneNo = !(string.IsNullOrWhiteSpace(model.PhoneNo)) ? model.PhoneNo.Trim() : model.PhoneNo;
+                        tbl.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(model.AlternatePhoneNo)) ? model.AlternatePhoneNo.Trim() : model.AlternatePhoneNo;
+                        tbl.EmailID = !(string.IsNullOrWhiteSpace(model.EmailID)) ? model.EmailID.Trim() : model.EmailID;
+                        tbl.AadharCardNo = !(string.IsNullOrWhiteSpace(model.AadharCardNo)) ? model.AadharCardNo.Trim() : model.AadharCardNo;
+                        tbl.BatchId = model.BatchId;
+                        tbl.AssessmentScore = !(string.IsNullOrWhiteSpace(model.AssessmentScore)) ? model.AssessmentScore.Trim() : model.AssessmentScore;
+                        tbl.EduQualificationID = model.EduQualificationID;
+                        tbl.CourseEnrolled = model.CourseEnrolled;
+                        tbl.TrainingCenterID = model.TrainingCenterID;
+                        tbl.TrainerName = !(string.IsNullOrWhiteSpace(model.TrainerName)) ? model.TrainerName.Trim() : model.TrainerName;
+
+                        if (model.ID == Guid.Empty)
+                        {
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                //tbl.CreatedBy = MvcApplication.CUser.Id;
+                            }
+                            tbl.CreatedOn = DateTime.Now;
+                            db.tbl_Participant.Add(tbl);
+                        }
+                        else
+                        {
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                // tbl.UpdatedBy = MvcApplication.CUser.Id;
+                            }
+                            tbl.UpdatedOn = DateTime.Now;
+                        }
+                        results = db.SaveChanges();
+                    }
+                    if (results > 0)
+                    {
+                        // var taskres = CU_RegLogin(model, tbl.ID);
+                        var case_id = db_.tbl_Participant.Where(x => x.PhoneNo == model.PhoneNo.Trim() && x.EmailID == model.EmailID.Trim())?.FirstOrDefault().RegID; //if (case_id != null) { }
+                        if (model.ID != Guid.Empty)
+                        {
+                            response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been Updated successfully ! \r\nPlease Note Your <br /> <span> Case ID : <strong>" + case_id + " </strong> </span>", Data = null };
+                            var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                            resResponse3.MaxJsonLength = int.MaxValue;
+                            return resResponse3;
+                        }
+                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been successfully registered! \r\nPlease Note Your <br /> <span> Case ID : <strong>" + case_id + " </strong> </span>", Data = null };
+                        var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse1.MaxJsonLength = int.MaxValue;
+                        return resResponse1;
+                    }
+                }
+                else
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "All Record Required !!", Data = null };
+                    var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse1.MaxJsonLength = int.MaxValue;
+                    return resResponse1;
+                };
+            }
+            catch (Exception)
+            {
+                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error.", Data = null };
+                var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                resResponse1.MaxJsonLength = int.MaxValue;
+                return resResponse1;
+            }
             return View();
         }
-        // [HttpPost]
-        //public ActionResult AddPartictant(ParticitantModel model)
-        //{
-        //    Hunar_DBEntities db_ = new Hunar_DBEntities();
-        //    JsonResponseData response = new JsonResponseData();
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var getdt = db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
-        //            if (getdt.Any(x => x.PhoneNo == model.PhoneNo.Trim() && model.ID ==Guid.Empty))
-        //            {
-        //                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Registration.<br /> <span> Case ID : <strong>" + getdt?.FirstOrDefault().CaseID + " </strong>  </span>", Data = null };
-        //                var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
-        //                resResponse1.MaxJsonLength = int.MaxValue;
-        //                return resResponse1;
-        //            }
-        //            var tbl = model.ID != Guid.Empty ? db.tbl_Participant.Find(model.ID) : new tbl_Participant();
-        //            if (tbl != null)
-        //            {
-        //                tbl.tbl_Participant_Child = model.RegID;
-        //                tbl. = !(string.IsNullOrWhiteSpace(model.Name)) ? model.Name.Trim() : model.Name;
-        //                tbl.MotherName = !(string.IsNullOrWhiteSpace(model.MotherName)) ? model.MotherName.Trim() : model.MotherName;
-        //                tbl.FatherName = !(string.IsNullOrWhiteSpace(model.FatherName)) ? model.FatherName.Trim() : model.FatherName;
-        //                var sid = Convert.ToInt32(eState.Jharkhand);
-        //                tbl.StateId = db.State_Mast.Where(x => x.ID == sid).FirstOrDefault().ID.ToString();
-        //                tbl.DistrictId = model.DistrictId;
-        //                tbl.BlockId = model.BlockId;
-        //                tbl.PanchayatId = model.PanchayatId;
-        //                tbl.VillageId = model.VillageId;
-        //                tbl.SchoolId = model.SchoolId;
-        //                tbl.ClassId = model.ClassId;
-        //                //if ("990099" == model.VillageId)
-        //                //{
-        //                //    tbl.VillageOther = !(string.IsNullOrWhiteSpace(model.VillageOther)) ? model.VillageOther.Trim() : model.VillageOther;
-        //                //}
-        //                //tbl.DOB = model.DOB;
-        //                //tbl.Age = model.Age;
-        //                //tbl.MobileNo = !(string.IsNullOrWhiteSpace(model.MobileNo)) ? model.MobileNo.Trim() : model.MobileNo;
-        //                //tbl.Sex = "Female";//!(string.IsNullOrWhiteSpace(model.Sex)) ? model.Sex.Trim() : model.Sex;
-        //                //tbl.Cast = !(string.IsNullOrWhiteSpace(model.Cast)) ? model.Cast.Trim() : model.Cast;
-        //                //tbl.IsActive = true; tbl.IsDeleted = false;
-
-        //                ////tbl.Visited = model.Visited;
-        //                ////tbl.IsSkillTraining = model.IsSkillTraining;
-        //                ////tbl.IsMarriage = model.IsMarriage;
-        //                ////tbl.IsStudy = model.IsStudy;
-        //                ////tbl.SocialClass = !(string.IsNullOrWhiteSpace(model.SocialClass)) ? model.SocialClass.Trim() : model.SocialClass;
-        //                ////tbl.TillStudied = model.TillStudied;
-        //                ////tbl.IsWork = model.IsWork;
-        //                ////tbl.Reason = model.Reason;
-        //                ////tbl.IsPsychometric = model.IsPsychometric;
-        //                ////tbl.PsyYes_Result = !(string.IsNullOrWhiteSpace(model.PsyYes_Result)) ? model.PsyYes_Result.Trim() : model.PsyYes_Result;
-        //                ////tbl.Advice = model.Advice;
-        //                ////tbl.IsFollowUp = model.IsFollowUp;
-        //                ////tbl.FollowUp = !(string.IsNullOrWhiteSpace(model.FollowUp)) ? model.FollowUp.Trim() : model.FollowUp;
-
-        //                //if (model.ID == 0)
-        //                //{
-        //                //    if (User.Identity.IsAuthenticated)
-        //                //    {
-        //                //        tbl.CreatedBy = MvcApplication.CUser.Id;
-        //                //    }
-        //                //    tbl.CreatedDt = DateTime.Now;
-        //                //    db.tbl_Registration.Add(tbl);
-        //                //}
-        //                //else
-        //                //{
-        //                //    if (User.Identity.IsAuthenticated)
-        //                //    {
-        //                //        tbl.UpdatedBY = MvcApplication.CUser.Id;
-        //                //    }
-        //                //    tbl.UpdatedDt = DateTime.Now;
-        //                //}
-        //                results = db.SaveChanges();
-        //            }
-        //            if (results > 0)
-        //            {
-        //                // var taskres = CU_RegLogin(model, tbl.ID);
-        //                var case_id = db_.tbl_Registration.Where(x => x.Name == model.Name.Trim() && x.FatherName == model.FatherName.Trim() && x.MotherName == model.MotherName.Trim() && x.DOB == model.DOB)?.FirstOrDefault().CaseID; //if (case_id != null) { }
-        //                if (model.ID > 0)
-        //                {
-        //                    response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been Updated successfully ! \r\nPlease Note Your <br /> <span> Case ID : <strong>" + case_id + " </strong> </span>", Data = null };
-        //                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
-        //                    resResponse3.MaxJsonLength = int.MaxValue;
-        //                    return resResponse3;
-        //                }
-        //                response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been successfully registered! \r\nPlease Note Your <br /> <span> Case ID : <strong>" + case_id + " </strong> </span>", Data = null };
-        //                var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
-        //                resResponse1.MaxJsonLength = int.MaxValue;
-        //                return resResponse1;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "All Record Required !!", Data = null };
-        //            var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
-        //            resResponse1.MaxJsonLength = int.MaxValue;
-        //            return resResponse1;
-        //        };
-        //    }
-        //    catch (Exception)
-        //    {
-        //        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error.", Data = null };
-        //        var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
-        //        resResponse1.MaxJsonLength = int.MaxValue;
-        //        return resResponse1;
-        //    }
-
-
-        //    return View();
-        //}
+        public ActionResult AddPartCalling()
+        {
+            ParticipantChildModel model = new ParticipantChildModel();
+            return View();
+        }
+        [HttpPost]
         public ActionResult AddPartCalling(Guid? Id)
         {
             ParticipantChildModel model = new ParticipantChildModel();

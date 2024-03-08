@@ -1,5 +1,6 @@
 ﻿using Hunarmis.Manager;
 using Hunarmis.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -59,6 +60,145 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);//DO TO
             }
         }
+
+        #region Master
+        public ActionResult GetStateList(bool SelectAll)
+        {
+            try
+            {
+                var items = CommonModel.GetState(SelectAll);
+                if (items != null)
+                {
+                    var data = JsonConvert.SerializeObject(items);
+                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetDistrictList(string SelectAll, int StateId)
+        {
+            try
+            {
+                var items = CommonModel.GetDistrict(SelectAll, StateId);
+                if (items != null)
+                {
+                    var data = JsonConvert.SerializeObject(items);
+                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetBatchList(bool SelectAll)
+        {
+            try
+            {
+                var items = CommonModel.GetBatch(SelectAll);
+                if (items != null)
+                {
+                    var data = JsonConvert.SerializeObject(items);
+                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetTrainingAgencyList(bool SelectAll)
+        {
+            try
+            {
+                var items = CommonModel.GetTrainingAgency(SelectAll);
+                if (items != null)
+                {
+                    var data = JsonConvert.SerializeObject(items);
+                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetTrainingCenterList(bool SelectAll,int DistrictId,int TrainingAgencyId)
+        {
+            try
+            {
+                var items = CommonModel.GetTrainingCenter(SelectAll, DistrictId, TrainingAgencyId);
+                if (items != null)
+                {
+                    var data = JsonConvert.SerializeObject(items);
+                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        //public ActionResult GetBlckList(int DistrictId)
+        //{
+        //    try
+        //    {
+        //        var items = SP_Model.SPBlock(DistrictId);
+        //        if (items != null)
+        //        {
+        //            var data = JsonConvert.SerializeObject(items);
+        //            return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+        //        }
+        //        return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+        //public ActionResult GetYearList(int IsAll = 0)
+        //{
+        //    try
+        //    {
+        //        var items = CommonModel.GetYear(IsAll);
+        //        if (items != null)
+        //        {
+        //            var data = JsonConvert.SerializeObject(items);
+        //            return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+        //        }
+        //        return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+        //public ActionResult GetMonthList(int IsAll = 0)
+        //{
+        //    try
+        //    {
+        //        var items = CommonModel.GetMonth(IsAll);
+        //        if (items != null)
+        //        {
+        //            var data = JsonConvert.SerializeObject(items);
+        //            return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+        //        }
+        //        return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+        #endregion
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;

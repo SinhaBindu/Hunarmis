@@ -1,0 +1,214 @@
+﻿@model Hunarmis.Models.FilterModel
+@{
+
+}
+<style>
+    .table th {
+        font-size: 14px;
+        background: #fff;
+    }
+
+    .table td {
+        font-size: 13px;
+    }
+
+    .dataTables_filter, .dataTables_length {
+        margin-bottom: 15px;
+    }
+
+    .actives2 {
+        color: #009CFF !important;
+        background: #FFFFFF;
+        border-color: #009CFF;
+    }
+</style>
+<div class="breadcrumb">
+    <h2>Particitant Lists</h2>
+    <p><a href="~/Particitant/AddParticitant">Add Particitant</a> / Particitant Lists</p>
+</div>
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <fieldset class="border rounded-3 p-3">
+                        <legend class="float-none w-auto px-2">Search By</legend>
+                        @using (Html.BeginForm("BFYList", "Beneficiary", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+                        {
+                            <div class="row g-4">
+                                <div class="col-sm-12">
+                                    <div class="bg-light rounded h-100 p-4">
+                                        @*<div class="row mb-3">
+                                            <div class="col-sm-4">
+                                                <div class="position-relative form-group">
+                                                    @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="position-relative form-group">
+                                                    @Html.LabelFor(model => model.BlockId, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                    @Html.ValidationMessageFor(model => model.BlockId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="position-relative form-group">
+                                                    @Html.LabelFor(model => model.PanchayatId, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                    @Html.ValidationMessageFor(model => model.PanchayatId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-4">
+                                                <div class="position-relative form-group">
+                                                    @Html.LabelFor(model => model.VOId, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.VOId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                    @Html.ValidationMessageFor(model => model.VOId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="position-relative form-group">
+                                                    @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.Year, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="position-relative form-group">
+                                                    @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.Month, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                    @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <span class="check-spacer">
+                                                <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Filter" />
+                                            </span>&nbsp;&nbsp;&nbsp;
+                                            <span class="check-spacer">
+                                                <a href="~/Beneficiary/BFYList" class="btn btn-info"><i class="fa fa-refresh"></i>Refresh</a>
+                                            </span>
+                                        </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </fieldset>
+
+                    <div class="row">
+                        <div class="col=md-12" id="div-download"></div>
+                        <div class="col=md-6"></div>
+                        <div class="col=md-6"></div>
+                        <div class="col=md-6"></div>
+                        <div class="col-md-12">
+                            <div id="subdata"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/JS/Master.js"></script>
+
+    @*<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
+
+    <script>
+        $(document).ready(function () {
+
+        //    GetYearList("Year", 0);
+        //    GetMonthList("Month", 0);
+        //    GetDistrict("DistrictId", 0);
+        //    $('#DistrictId').change(function () {
+        //        GetBlock("BlockId", 0, $(this).val());
+        //    });
+        //    $('#BlockId').change(function () {
+        //        GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $(this).val());
+        //    });
+        //    $('#PanchayatId').change(function () {
+        //        GetVillage("VOId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
+        //    });
+        //    /* Role Wise */
+        //    BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
+
+        //    BindData();
+
+        //    $("#formid").submit(function (e) {
+        //        e.preventDefault();
+        //        BindData();
+        //    });
+
+        //    BindData();
+        //});
+        //function BindData() {
+        //    $("#subdata").html('');
+        //    var filtermodel = new Object();
+        //    filtermodel.DistrictId = $('#DistrictId').val() == '' ? '' : $('#DistrictId').val();
+        //    filtermodel.BlockId = $('#BlockId').val() == '' ? '' : $('#BlockId').val();
+        //    filtermodel.PanchayatId = $('#PanchayatId').val() == '' ? '' : $('#PanchayatId').val();
+        //    filtermodel.VoId = $('#VOId').val() == '' ? '' : $('#VOId').val();
+        //    filtermodel.Year = $('#Year').val() == '' ? '' : $('#Year').val();
+        //    filtermodel.Month = $('#Month').val() == '' ? '' : $('#Month').val();
+        //    var formData = $('#formid').serialize();
+
+        //    $.ajax({
+        //        type: "GET",
+        //        url: document.baseURI + "/Beneficiary/GetBFYList",
+        //        data: filtermodel,//JSON.stringify({ 'Roles': '' }),
+        //        //cache: false,
+        //        success: function (res) {
+        //            if (res.IsSuccess) {
+        //                $("#subdata").html(res.Data);
+
+        //                if ($.fn.dataTable.isDataTable('#tbl')) {
+        //                    $("#tbl").dataTable().fnDestroy();
+        //                }
+        //                table = $('#tbl').DataTable({
+        //                    //scrollY: "400px",
+        //                    //scrollX: true,
+        //                    //scrollCollapse: true,
+        //                    //paging: false,
+        //                    pageLength: 100,
+        //                    fixedColumns: {
+        //                        leftColumns: 1,
+        //                        rightColumns: 1
+        //                    },
+        //                    buttons: [{
+        //                        extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Beneficiary Lists',//$('#IDDistrict option:selected').text() +
+        //                        className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+        //                        filename: 'Beneficiary List',
+        //                        exportOptions: { modifier: { page: 'all' } }
+        //                    }],
+        //                });
+        //                $('.dataTables_filter input[type="search"]').css(
+        //                    { 'width': '500px', 'display': 'inline-block' }
+        //                );
+        //                $('#div-download').empty();
+        //                table.buttons().container().appendTo($('#div-download'));
+        //            }
+        //            else {
+        //                $("#subdata").html(res.Data);
+        //            }
+        //        },
+        //        error: function (req, error) {
+        //            if (error === 'error') { error = req.statusText; }
+        //            var errormsg = 'There was a communication error: ' + error;
+        //            //Do To Message display
+        //        }
+        //    });
+        //}
+    </script>
+}
+

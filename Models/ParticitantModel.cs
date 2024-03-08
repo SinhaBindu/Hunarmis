@@ -22,12 +22,15 @@ namespace Hunarmis.Models
         public string AlternatePhoneNo { get; set; }
         public string EmailID { get; set; }
         public string AadharCardNo { get; set; }
-        public Nullable<System.DateTime> BatchId { get; set; }
-        public Nullable<int> BatchStartDate { get; set; }
-        public Nullable<int> BatchEndDate { get; set; }
+        public Nullable<int> BatchId { get; set; }
+        public Nullable<DateTime> BatchStartDate { get; set; }
+        public Nullable<DateTime> BatchEndDate { get; set; }
         public string AssessmentScore { get; set; }
         public Nullable<int> EduQualificationID { get; set; }
         public Nullable<int> CourseEnrolled { get; set; }
+        public Nullable<int> StateID { get; set; }
+        public Nullable<int> DistrictID { get; set; }
+        public Nullable<int> TrainingAgencyID { get; set; }
         public Nullable<int> TrainingCenterID { get; set; }
         public string TrainerName { get; set; }
         public Nullable<bool> IsActive { get; set; }
@@ -46,6 +49,7 @@ namespace Hunarmis.Models
         public System.Guid ID { get; set; }
         public Nullable<int> IsCalling { get; set; }
         public Nullable<System.Guid> ParticipantId_fk { get; set; }
+        public System.Guid RegId { get; set; }
         public string IsAssessmentCert { get; set; }
         public string IsPresent { get; set; }
         public string IsComfortable { get; set; }

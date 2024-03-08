@@ -130,59 +130,59 @@ namespace Hunarmis.Manager
             return "all";
         }
 
-    //    public static UserViewModel User
-    //    {
-    //         return "";
-        
-    //    //get
-    //    //{
-    //    //    if (HttpContext.Current.User.Identity.IsAuthenticated)
-    //    //    {
-    //    //        if (HttpContext.Current.Session["User"] != null)
-    //    //        {
-    //    //            return (UserViewModel)HttpContext.Current.Session["User"];
-    //    //        }
-    //    //        //    else
-    //    //        //    //{
-    //    //        //    //    var u = dbe.AspNetUsers.Single(x => x.UserName == HttpContext.Current.User.Identity.Name);
-    //    //        //    //    var locations = (from l in dbe.MST_Location
-    //    //        //    //                     join ul in dbe.AspNetUsers_Location on l.ID equals ul.LocationId into loctionGroup
-    //    //        //    //                     from uLoc in loctionGroup.DefaultIfEmpty()
-    //    //        //    //                     where ((u.LocationID != 0 && uLoc.UserId.ToString() == u.Id) || u.LocationID == 0)
-    //    //        //    //                     && l.IsActive.Value
-    //    //        //    //                     select l).ToList();
-    //    //        //    //    var Organizations = (from o in dbe.MST_Organization
-    //    //        //    //                         where ((u.IDOrganization != 0 && o.ID == u.IDOrganization) || u.IDOrganization == 0)
-    //    //        //    //                         && o.IsActive
-    //    //        //    //                         select o).ToList();
+        //    public static UserViewModel User
+        //    {
+        //         return "";
 
-    //    //        //        var role = GetUserRole();
-    //    //        //        var forAll = new List<string>() { "All", "CPMU" };
+        //    //get
+        //    //{
+        //    //    if (HttpContext.Current.User.Identity.IsAuthenticated)
+        //    //    {
+        //    //        if (HttpContext.Current.Session["User"] != null)
+        //    //        {
+        //    //            return (UserViewModel)HttpContext.Current.Session["User"];
+        //    //        }
+        //    //        //    else
+        //    //        //    //{
+        //    //        //    //    var u = dbe.AspNetUsers.Single(x => x.UserName == HttpContext.Current.User.Identity.Name);
+        //    //        //    //    var locations = (from l in dbe.MST_Location
+        //    //        //    //                     join ul in dbe.AspNetUsers_Location on l.ID equals ul.LocationId into loctionGroup
+        //    //        //    //                     from uLoc in loctionGroup.DefaultIfEmpty()
+        //    //        //    //                     where ((u.LocationID != 0 && uLoc.UserId.ToString() == u.Id) || u.LocationID == 0)
+        //    //        //    //                     && l.IsActive.Value
+        //    //        //    //                     select l).ToList();
+        //    //        //    //    var Organizations = (from o in dbe.MST_Organization
+        //    //        //    //                         where ((u.IDOrganization != 0 && o.ID == u.IDOrganization) || u.IDOrganization == 0)
+        //    //        //    //                         && o.IsActive
+        //    //        //    //                         select o).ToList();
 
-    //    //        //        var user = new UserViewModel
-    //    //        //        {
-    //    //        //            Id = u.Id,
-    //    //        //            Name = u.Name,
-    //    //        //            Email = u.Email,
-    //    //        //            IDOrganization = u.IDOrganization.Value,
-    //    //        //            LocationID = u.LocationID.Value,
-    //    //        //            PhoneNumber = u.PhoneNumber,
-    //    //        //            Role = u.AspNetRoles.First()?.Name,
-    //    //        //            OrganizationName = string.Join(", ", Organizations.Select(x => x.Name)),
-    //    //        //            LocationName = string.Join(", ", locations.Select(x => x.Name)),
-    //    //        //            Locations = locations
-    //    //        //        };
-    //    //        //        HttpContext.Current.Session["User"] = user;
-    //    //        //        return user;
-    //    //        //    }
-    //    //    }
-    //    //    else
-    //    //    {
-    //    //        HttpContext.Current.Response.Redirect("~/Account/Login", false);
-    //    //        return null;
-    //    //    }
-    //    //}
-    //}
+        //    //        //        var role = GetUserRole();
+        //    //        //        var forAll = new List<string>() { "All", "CPMU" };
+
+        //    //        //        var user = new UserViewModel
+        //    //        //        {
+        //    //        //            Id = u.Id,
+        //    //        //            Name = u.Name,
+        //    //        //            Email = u.Email,
+        //    //        //            IDOrganization = u.IDOrganization.Value,
+        //    //        //            LocationID = u.LocationID.Value,
+        //    //        //            PhoneNumber = u.PhoneNumber,
+        //    //        //            Role = u.AspNetRoles.First()?.Name,
+        //    //        //            OrganizationName = string.Join(", ", Organizations.Select(x => x.Name)),
+        //    //        //            LocationName = string.Join(", ", locations.Select(x => x.Name)),
+        //    //        //            Locations = locations
+        //    //        //        };
+        //    //        //        HttpContext.Current.Session["User"] = user;
+        //    //        //        return user;
+        //    //        //    }
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        HttpContext.Current.Response.Redirect("~/Account/Login", false);
+        //    //        return null;
+        //    //    }
+        //    //}
+        //}
 
         public class User_Model
         {
@@ -234,7 +234,7 @@ namespace Hunarmis.Manager
             {
                 //if (HttpContext.Current.User.IsInRole(RoleNameCont.State) || HttpContext.Current.User.IsInRole(RoleNameCont.Admin))
                 //{
-                    items = new SelectList(db_.AspNetRoles.ToList(), "ID", "Name").OrderBy(x => x.Text).ToList();
+                items = new SelectList(db_.AspNetRoles.ToList(), "ID", "Name").OrderBy(x => x.Text).ToList();
                 //}
                 //else
                 //{
@@ -242,7 +242,7 @@ namespace Hunarmis.Manager
                 //}
                 if (IsAll)
                 {
-                    items.Insert(0, new SelectListItem { Value = "", Text = "Select",Selected=true });
+                    items.Insert(0, new SelectListItem { Value = "", Text = "Select", Selected = true });
                 }
                 return items;
             }
@@ -269,7 +269,7 @@ namespace Hunarmis.Manager
                 throw;
             }
         }
-        public static List<SelectListItem> GetDistrict(string IsSelectAll="0", int StateId = 1)
+        public static List<SelectListItem> GetDistrict(string IsSelectAll = "0", int StateId = 1)
         {
             try
             {
@@ -277,8 +277,8 @@ namespace Hunarmis.Manager
                 //dt = SP_Model.SPDistrict();
                 //var listitem = ConvertDataTable<SelectListItem>(dt);
                 var listitem = new SelectList(dbe.District_Master.Where(x => x.IsActive == true && x.StateId == StateId), "ID", "DistrictName").OrderBy(x => x.Text).ToList();
-                 listitem = new SelectList(listitem, "Value", "Text").OrderBy(x => x.Text).ToList();
-                if (IsSelectAll=="0")
+                listitem = new SelectList(listitem, "Value", "Text").OrderBy(x => x.Text).ToList();
+                if (IsSelectAll == "0")
                 {
                     listitem.Insert(0, new SelectListItem { Value = "0", Text = "All" });
                 }
@@ -309,7 +309,7 @@ namespace Hunarmis.Manager
                 throw;
             }
         }
-        public static List<SelectListItem> GetBatch(bool IsAll = false, int DistrictId = 0)
+        public static List<SelectListItem> GetBatch(bool IsAll = false)
         {
             try
             {
@@ -341,7 +341,7 @@ namespace Hunarmis.Manager
                 throw;
             }
         }
-        public static List<SelectListItem> GetTrainingAgency(bool IsAll = false, int DistrictId = 0, int BlockId = 0, int PanchayatId = 0)
+        public static List<SelectListItem> GetTrainingAgency(bool IsAll = false)
         {
             try
             {
@@ -357,11 +357,12 @@ namespace Hunarmis.Manager
                 throw;
             }
         }
-        public static List<SelectListItem> GetTrainingCenter(bool IsAll = false, int DistrictId = 0, int BlockId = 0, int PanchayatId = 0)
+        public static List<SelectListItem> GetTrainingCenter(bool IsAll = false, int DistrictId = 0, int TrainingAgencyId = 0)
         {
             try
             {
-                var items = new SelectList(dbe.TrainingCenter_Master.Where(x => x.IsActive == true), "ID", "TrainingCenter").OrderBy(x => x.Text).ToList();
+                //&& x.TrainingAgencyID_fk == TrainingAgencyId
+                var items = new SelectList(dbe.TrainingCenter_Master.Where(x => x.IsActive == true && x.DistrictID_fk == DistrictId ), "ID", "TrainingCenter").OrderBy(x => x.Text).ToList();
                 if (IsAll)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
