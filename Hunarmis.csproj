@@ -444,6 +444,7 @@
     <Content Include="Content\images\not-found.png" />
     <Content Include="Content\images\no_image.JPG" />
     <Content Include="Content\images\orange-angle-bg.png" />
+    <Content Include="Content\images\pci.png" />
     <Content Include="Content\images\pcilogo.png" />
     <Content Include="Content\images\pi-logo.png" />
     <Content Include="Content\images\program-goals-bg.jpg" />
@@ -451,6 +452,7 @@
     <Content Include="Content\images\reading.png" />
     <Content Include="Content\images\red-angle-bg.png" />
     <Content Include="Content\images\red-left.png" />
+    <Content Include="Content\images\register.jpg" />
     <Content Include="Content\images\School-Management.png" />
     <Content Include="Content\images\success.png" />
     <Content Include="Content\images\title-bg.png" />

@@ -19,6 +19,12 @@
         .treeview ul li a i {
             font-size: 13px !important;
         }
+    #mainnav-menu i {
+        color: #7700E0
+    }
+    #mainnav-menu .active-sub i {
+        color: #fff !important;
+    } 
 </style>
 
 <nav id="mainnav-container">
@@ -60,7 +66,7 @@
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>List</span>", "Index", "School")</li>
                                     </ul>
                                 </li>*@
-                            <hr style="border-bottom: 1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                            <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                            
                             <li class="treeview">
                                 <a href="#">
@@ -75,7 +81,7 @@
                                     <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>List</span>", "Index", "Infra")</li>
                                 </ul>
                             </li>
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                             <li class="treeview">
                                 <a href="#">
@@ -90,7 +96,7 @@
                                     <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>Yearly List</span>", "Index", "CHILD", new { Parameter = 2 })</li>
                                 </ul>
                             </li>
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                             <li class="treeview">
                                 <a href="#">
@@ -103,7 +109,7 @@
                                     <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>List</span>", "Index", "HR")</li>
                                 </ul>
                             </li>
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                             <li class="treeview">
                                 <a href="#">
@@ -116,7 +122,7 @@
                                     <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>List</span>", "Index", "Academic")</li>
                                 </ul>
                             </li>
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                             <li class="treeview">
                                 <a href="#">
@@ -130,7 +136,7 @@
                                     <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>List</span>", "Index", "Support")</li>
                                 </ul>
                             </li>
-                            <hr style="border-bottom: 1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                            <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-check-square"></i>
@@ -145,7 +151,7 @@
                                     <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>Monthly Avg. Attendance</span>", "DailyAttendance", "Attendance")</li>
                                 </ul>
                             </li>
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                             //if ((!User.IsInRole(KGBV_JH.Models.UserRoles.Admin)) || (!User.IsInRole(KGBV_JH.Models.UserRoles.Admin)))
                             //{
@@ -164,7 +170,7 @@
                                     @*<li>@Html.ActionLinkMenu("<i class='fa fa-street-view'></i> <span>Infra</span>", "AnalyticInfra", "Analytics")</li>*@
                                 </ul>
                             </li>
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                             //}
                             
@@ -180,7 +186,7 @@
                                     <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>List</span>", "Index", "Safety")</li>
                                 </ul>
                             </li>
-                            <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                            <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-bar-chart"></i>
@@ -196,7 +202,7 @@
                                 </ul>
                             </li>
 
-                            <hr style="border-bottom: 1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                            <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                             //if (User.IsInRole(KGBV_JH.Models.UserRoles.Sadmin))
                             //{
@@ -240,7 +246,7 @@
                             //}
                             //else if (User.IsInRole(KGBV_JH.Models.UserRoles.Admin))
                             //{
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                                 <li class="treeview">
                                     <a href="#">
@@ -254,7 +260,7 @@
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-street-view'></i> <span>Monthly Expenses</span>", "MonthlyExpensesList", "Finance")</li>*@
                                     </ul>
                                 </li>
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                                 <li class="treeview">
                                     <a href="#">
@@ -269,7 +275,7 @@
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>Identification List</span>", "Index", "School")</li>
                                     </ul>
                                 </li>
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                                 @*@Html.ActionLinkMenu("<i class='fa fa-sitemap'></i> <span class=\"menu-title\">Guide Master</span>", "Guide", "Admin")
                                     @Html.ActionLinkMenu("<i class='fa fa-sitemap'></i> <span class=\"menu-title\">Village Master</span>", "Village", "Admin")
@@ -320,7 +326,7 @@
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-key'></i> <span>Reset Password</span>", "UserResetPassword", "Account")</li>
                                     </ul>
                                 </li>
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                             //}
 
@@ -356,7 +362,7 @@
                         {
                             @Html.ActionLinkMenu("<i class='fa fa-home'></i> <span class=\"menu-title\">Dashboard</span>", "Index", "Home")
 
-                            <hr style="border-bottom: 1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                            <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-building"></i>
@@ -368,7 +374,7 @@
                                     <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>List</span>", "Index", "Infra")</li>
                                 </ul>
                             </li>
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                             <li class="treeview">
                                 <a href="#">
@@ -381,7 +387,7 @@
                                     <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>Yearly List</span>", "Index", "CHILD", new { Parameter = 2 })</li>
                                 </ul>
                             </li>
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                             <li class="treeview">
                                 <a href="#">
@@ -393,7 +399,7 @@
                                     <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>List</span>", "Index", "HR")</li>
                                 </ul>
                             </li>
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                             <li class="treeview">
                                 <a href="#">
@@ -405,7 +411,7 @@
                                     <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>List</span>", "Index", "Academic")</li>
                                 </ul>
                             </li>
-                              <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                              <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                             <li class="treeview">
                                 <a href="#">
@@ -417,7 +423,7 @@
                                     <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>List</span>", "Index", "Support")</li>
                                 </ul>
                             </li>
-                            <hr style="border-bottom: 1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                            <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-check-square"></i>
@@ -439,7 +445,7 @@
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-street-view'></i> <span>Add</span>", "EntryVlidate", "Finance")</li>
                                     </ul>
                                 </li>*@
-                            <hr style="border-bottom:1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                            <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-bar-chart"></i>
@@ -454,7 +460,7 @@
                                 </ul>
                             </li>
 
-                            <hr style="border-bottom: 1px solid #808080; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                            <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
 
                         }
                         <li>
