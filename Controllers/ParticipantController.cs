@@ -54,7 +54,7 @@ namespace Hunarmis.Controllers
                     var getdt = db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
                     if (getdt.Any(x => x.PhoneNo == model.PhoneNo.Trim() && model.ID != Guid.Empty))
                     {
-                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Registration.<br /> <span> Case ID : <strong>" + getdt?.FirstOrDefault().CaseID + " </strong>  </span>", Data = null };
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Registration.<br /> <span> Case ID : <strong> </strong>  </span>", Data = null };
                         var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                         resResponse1.MaxJsonLength = int.MaxValue;
                         return resResponse1;
