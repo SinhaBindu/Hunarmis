@@ -19,11 +19,11 @@
         .treeview ul li a i {
             font-size: 13px !important;
         }
-    #mainnav-menu i {
+    #mainnav-menu .main-icon {
         color: #7700E0
     }
-    #mainnav-menu .active-sub i {
-        color: #7700E0 !important;
+    #mainnav-menu .active-sub .main-icon {
+        color: #fff !important;
     } 
 </style>
 
@@ -49,7 +49,7 @@
                     <ul id="mainnav-menu" class="list-group">
                         @if (!IsViewer)
                         {
-                            @Html.ActionLinkMenu("<i class='fa fa-home'></i> <span class=\"menu-title\">Dashboard</span>", "Index", "Home")
+                            @Html.ActionLinkMenu("<i class='fa fa-home main-icon'></i> <span class=\"menu-title\">Dashboard</span>", "Index", "Home")
                             @*@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span class=\"menu-title\">Ona Infra</span>", "OnaInfra", "Infra")*@
 
                             @*
@@ -70,7 +70,7 @@
                            
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-user"></i>
+                                    <i class="fa fa-user main-icon"></i>
                                     <span class="menu-title">Participant</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -85,7 +85,7 @@
 
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-female"></i>
+                                    <i class="fa fa-female main-icon"></i>
                                     <span class="menu-title">Child Entitlements</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -100,7 +100,7 @@
 
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-address-book"></i>
+                                    <i class="fa fa-address-book main-icon"></i>
                                     <span class="menu-title">HR</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -113,7 +113,7 @@
 
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-graduation-cap"></i>
+                                    <i class="fa fa-graduation-cap main-icon"></i>
                                     <span class="menu-title">Academics</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -126,7 +126,7 @@
 
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-address-card"></i>
+                                    <i class="fa fa-address-card main-icon"></i>
                                     <span class="menu-title">Management</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -139,7 +139,7 @@
                             <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-check-square"></i>
+                                    <i class="fa fa-check-square main-icon"></i>
                                     <span class="menu-title">Attendance</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -157,7 +157,7 @@
                             //{
                                 <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-money"></i>
+                                    <i class="fa fa-money main-icon"></i>
                                     <span class="menu-title">Finance</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -176,7 +176,7 @@
                             
                              <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-shield"></i>
+                                    <i class="fa fa-shield main-icon"></i>
                                     <span class="menu-title">Safety Audit</span>
                                     <i class="arrow"></i>
 
@@ -189,7 +189,7 @@
                             <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-bar-chart"></i>
+                                    <i class="fa fa-bar-chart main-icon"></i>
                                     <span class="menu-title">Analytics</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -250,7 +250,7 @@
 
                                 <li class="treeview">
                                     <a href="#">
-                                        <i class="fa fa-money"></i>
+                                        <i class="fa fa-money main-icon"></i>
                                         <span class="menu-title">Finance</span>
                                         <i class="arrow"></i>
                                     </a>
@@ -264,7 +264,7 @@
 
                                 <li class="treeview">
                                     <a href="#">
-                                        <i class="fa fa-file"></i>
+                                        <i class="fa fa-file main-icon"></i>
                                         <span class="menu-title">Manage Resources</span>
                                         <i class="arrow"></i>
                                     </a>
@@ -316,7 +316,7 @@
                                     </li>*@
                                 <li class="treeview">
                                     <a href="#">
-                                        <i class="fa fa-cog"></i>
+                                        <i class="fa fa-cog main-icon"></i>
                                         <span class="menu-title">Manage User</span>
                                         <i class="arrow"></i>
                                     </a>
@@ -365,7 +365,7 @@
                             <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-building"></i>
+                                    <i class="fa fa-building main-icon"></i>
                                     <span class="menu-title">Infrastructure</span>
                                     <i class="arrow"></i>
 
@@ -378,7 +378,7 @@
 
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-female"></i>
+                                    <i class="fa fa-female main-icon"></i>
                                     <span class="menu-title">Child Entitlements</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -391,7 +391,7 @@
 
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-address-book"></i>
+                                    <i class="fa fa-address-book main-icon"></i>
                                     <span class="menu-title">HR</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -403,7 +403,7 @@
 
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-graduation-cap"></i>
+                                    <i class="fa fa-graduation-cap main-icon"></i>
                                     <span class="menu-title">Academics</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -415,7 +415,7 @@
 
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-address-card"></i>
+                                    <i class="fa fa-address-card main-icon"></i>
                                     <span class="menu-title">Management</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -426,7 +426,7 @@
                             <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-check-square"></i>
+                                    <i class="fa fa-check-square main-icon"></i>
                                     <span class="menu-title">Attendance</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -448,7 +448,7 @@
                             <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-bar-chart"></i>
+                                    <i class="fa fa-bar-chart main-icon"></i>
                                     <span class="menu-title">Analytics</span>
                                     <i class="arrow"></i>
                                 </a>
@@ -465,7 +465,7 @@
                         }
                         <li>
                             <a href="javascript:document.getElementById('logoutForm').submit()">
-                                <i class="fa fa-sign-out"></i>
+                                <i class="fa fa-sign-out main-icon"></i>
                                 <span class="menu-title log-out">
                                     Logout
                                 </span>

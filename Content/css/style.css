@@ -896,3 +896,24 @@ tbody td {
 .manual-title-color {
     color: #61D2CC
 }
+
+.btn-register, .btn-reset {
+    padding: 9px 22px;
+    border-radius: 6px;
+    background: #7700E0;
+    border: none;
+    color: #fff;
+    margin-right: 12px;
+}
+
+    .btn-register:hover {
+        background: #27004A;
+        color: #E1BEFF
+    }
+    .btn-reset {
+        background: #E4701E !important;
+    }
+        .btn-reset:hover {
+            background: #6B3005 !important;
+            color: #fff
+        }
