@@ -2,10 +2,10 @@
 @using Hunarmis.Manager;
 
 @{
-    ViewBag.Title = "Participant";
+    ViewBag.Title = "Questionnaire";
     ViewBag.TitleIcon = "fa fa-user";
-    ViewBag.SemiTitle = "Participant";
-    ViewBag.SemiTitleLink = "~/";
+    ViewBag.SemiTitle = "Questionnaire";
+    ViewBag.SemiTitleLink = "/";
     string IsSadmin = string.Empty;
 }
 <link href="~/Content/plugins/multiple-email/email.multiple.css" rel="stylesheet" />
@@ -59,7 +59,7 @@
                             @Html.HiddenFor(m => m.ID)
                             @Html.HiddenFor(m => m.ParticipantId_fk)
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>Enrollment Information</p>
+                            <p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>Questionnaire Information</p>
                             <div class="form-group">
                                 @Html.LabelFor(model => model.IsAssessmentCert, htmlAttributes: new { @class = "control-label col-lg-2" })
                                 <div class="checkbox">
@@ -222,7 +222,7 @@
                                     @Html.ValidationMessageFor(model => model.EmployedId, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="mark-devide"></div>
-                            </div> 
+                            </div>
                             <div class="form-group">
                                 @Html.LabelFor(model => model.IsGettingjob, htmlAttributes: new { @class = "control-label col-lg-2" })
                                 <div class="col-lg-8">
@@ -242,7 +242,7 @@
                                 </div>
                                 <div class="mark-devide"></div>
                             </div>
-                           
+
                             <div class="form-group">
                                 <div class="col-md-2"></div>
                                 <div class="col-md-10 pull-right">
@@ -264,9 +264,9 @@
 @section Scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Content/plugins/multiple-email/jquery.email.multiple.js"></script>
+    @*<script src="~/Content/plugins/multiple-email/jquery.email.multiple.js"></script>
     <script src="~/Scripts/CustomValidator.js"></script>
-    <script src="~/Scripts/Custom/Employee.js"></script>
+    <script src="~/Scripts/Custom/Employee.js"></script>*@
     <script>
        @* $('#DesignationId').val('@Model.DesignationId').select2();*@
         $(document).ready(function () {

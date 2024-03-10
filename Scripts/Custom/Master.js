@@ -45,7 +45,7 @@ function BindYear(ElementId, SelectedValue, SelectAll) {
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
-                var data = resp.res;
+                 var data = JSON.parse(resp.res);
                 if (SelectAll) {
                     $('#' + ElementId).append($("<option>").val('0').text('All'));
                 }
@@ -82,7 +82,7 @@ function BindFinYear(ElementId, SelectedValue, SelectAll) {
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
-                var data = resp.res;
+                 var data = JSON.parse(resp.res);
                 if (SelectAll) {
                     $('#' + ElementId).append($("<option>").val('0').text('All'));
                 }
@@ -119,7 +119,7 @@ function BindStateList(ElementId, SelectedValue, SelectAll) {
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
-                var data = resp.res;
+                 var data = JSON.parse(resp.res);
                 $.each(data, function (i, exp) {
                     $('#' + ElementId).append($("<option>").val(exp.Value).text(exp.Text));
                 });
@@ -154,7 +154,7 @@ function BindDistrict(ElementId, SelectedValue, SelectAll,Para) {
             dataType: "json",
             success: function (resp) {
                 if (resp.IsSuccess) {
-                    var data = resp.res;
+                     var data = JSON.parse(resp.res);
                     $.each(data, function (i, exp) {
                         $('#' + ElementId).append($("<option>").val(exp.Value).text(exp.Text));
                     });
@@ -189,7 +189,7 @@ function BindBatchList(ElementId, SelectedValue, SelectAll) {
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
-                var data = resp.res;
+                 var data = JSON.parse(resp.res);
                 $.each(data, function (i, exp) {
                     $('#' + ElementId).append($("<option>").val(exp.Value).text(exp.Text));
                 });
@@ -224,7 +224,7 @@ function BindTrainingAgency(ElementId, SelectedValue, SelectAll) {
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
-                var data = resp.res;
+                var data = JSON.parse(resp.res);
                 $.each(data, function (i, exp) {
                     $('#' + ElementId).append($("<option>").val(exp.Value).text(exp.Text));
                 });
@@ -259,7 +259,7 @@ function BindTrainingCenter(ElementId, SelectedValue, SelectAll, Para1,Para2) {
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
-                var data = resp.res;
+                 var data = JSON.parse(resp.res);
                 $.each(data, function (i, exp) {
                     $('#' + ElementId).append($("<option>").val(exp.Value).text(exp.Text));
                 });

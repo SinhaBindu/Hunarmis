@@ -254,9 +254,10 @@ namespace Hunarmis.Manager
         }
         public static List<SelectListItem> GetState(bool IsAll = false)
         {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
             try
             {
-                var items = new SelectList(dbe.State_Master, "ID", "StateName").OrderBy(x => x.Text).ToList();
+                var items = new SelectList(_db.State_Master, "ID", "StateName").OrderBy(x => x.Text).ToList();
                 if (IsAll)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
@@ -271,12 +272,14 @@ namespace Hunarmis.Manager
         }
         public static List<SelectListItem> GetDistrict(string IsSelectAll = "0", int StateId = 1)
         {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+
             try
             {
                 DataTable dt = new DataTable();
                 //dt = SP_Model.SPDistrict();
                 //var listitem = ConvertDataTable<SelectListItem>(dt);
-                var listitem = new SelectList(dbe.District_Master.Where(x => x.IsActive == true && x.StateId == StateId), "ID", "DistrictName").OrderBy(x => x.Text).ToList();
+                var listitem = new SelectList(_db.District_Master.Where(x => x.IsActive == true && x.StateId == StateId), "ID", "DistrictName").OrderBy(x => x.Text).ToList();
                 listitem = new SelectList(listitem, "Value", "Text").OrderBy(x => x.Text).ToList();
                 if (IsSelectAll == "0")
                 {
@@ -295,9 +298,10 @@ namespace Hunarmis.Manager
         }
         public static List<SelectListItem> GetCourses(bool IsAll = false, int DistrictId = 0)
         {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
             try
             {
-                var items = new SelectList(dbe.Courses_Master.Where(x => x.IsActive == true), "ID", "CourseName").OrderBy(x => x.Text).ToList();
+                var items = new SelectList(_db.Courses_Master.Where(x => x.IsActive == true), "ID", "CourseName").OrderBy(x => x.Text).ToList();
                 if (IsAll)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
@@ -311,9 +315,16 @@ namespace Hunarmis.Manager
         }
         public static List<SelectListItem> GetBatch(bool IsAll = false)
         {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List <SelectListItem> items = new List<SelectListItem>();
             try
             {
-                var items = new SelectList(dbe.Batch_Master.Where(x => x.IsActive == true), "Id", "BatchName").OrderBy(x => x.Text).ToList();
+                DataTable dt = SPManager.SP_Batch();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    items.Add(new SelectListItem { Value = dr["ID"].ToString(), Text = dr["BatchName"].ToString() });
+                }
+                //new SelectList(_db.Batch_Master.Where(x => x.IsActive == true), "Id", "BatchName").OrderBy(x => x.Text).ToList();
                 if (IsAll)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
@@ -327,9 +338,10 @@ namespace Hunarmis.Manager
         }
         public static List<SelectListItem> GetEducational(bool IsAll = false, int DistrictId = 0, int BlockId = 0)
         {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
             try
             {
-                var items = new SelectList(dbe.Educational_Master.Where(x => x.IsActive == true), "ID", "QualificationName").OrderBy(x => x.Text).ToList();
+                var items = new SelectList(_db.Educational_Master.Where(x => x.IsActive == true), "ID", "QualificationName").OrderBy(x => x.Text).ToList();
                 if (IsAll)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
@@ -343,9 +355,10 @@ namespace Hunarmis.Manager
         }
         public static List<SelectListItem> GetTrainingAgency(bool IsAll = false)
         {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
             try
             {
-                var items = new SelectList(dbe.TrainingAgency_Master.Where(x => x.IsActive == true), "ID", "TrainingAgencyName").OrderBy(x => x.Text).ToList();
+                var items = new SelectList(_db.TrainingAgency_Master.Where(x => x.IsActive == true), "ID", "TrainingAgencyName").OrderBy(x => x.Text).ToList();
                 if (IsAll)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
@@ -359,10 +372,11 @@ namespace Hunarmis.Manager
         }
         public static List<SelectListItem> GetTrainingCenter(bool IsAll = false, int DistrictId = 0, int TrainingAgencyId = 0)
         {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
             try
             {
                 //&& x.TrainingAgencyID_fk == TrainingAgencyId
-                var items = new SelectList(dbe.TrainingCenter_Master.Where(x => x.IsActive == true && x.DistrictID_fk == DistrictId ), "ID", "TrainingCenter").OrderBy(x => x.Text).ToList();
+                var items = new SelectList(_db.TrainingCenter_Master.Where(x => x.IsActive == true && x.DistrictID_fk==DistrictId && x.TrainingAgencyID_fk == TrainingAgencyId ), "ID", "TrainingCenter").OrderBy(x => x.Text).ToList();
                 if (IsAll)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });

@@ -32,12 +32,12 @@ namespace Hunarmis.Models
         public virtual DbSet<District_Master> District_Master { get; set; }
         public virtual DbSet<State_Master> State_Master { get; set; }
         public virtual DbSet<TrainingAgency_Master> TrainingAgency_Master { get; set; }
-        public virtual DbSet<TrainingCenter_Master> TrainingCenter_Master { get; set; }
         public virtual DbSet<Educational_Master> Educational_Master { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<tbl_UserLogin> tbl_UserLogin { get; set; }
         public virtual DbSet<Batch_Master> Batch_Master { get; set; }
-        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<tbl_Participant_Calling> tbl_Participant_Calling { get; set; }
+        public virtual DbSet<TrainingCenter_Master> TrainingCenter_Master { get; set; }
+        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
     }
 }

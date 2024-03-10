@@ -1,6 +1,10 @@
-﻿using Hunarmis.Models;
+﻿using Hunarmis.Manager;
+using Hunarmis.Models;
+//using Microsoft.AspNetCore.Cors;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
@@ -17,10 +21,10 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
-        public ActionResult AddParticitant(Guid? Id)
+        public ActionResult AddParticipant(Guid? Id)
         {
-            ParticitantModel model = new ParticitantModel();
-            if (Id != Guid.Empty)
+            ParticipantModel model = new ParticipantModel();
+            if (Id != Guid.Empty && Id != null)
             {
                 var tbl = db.tbl_Participant.Find(Id);
                 model.ID = tbl.ID;
@@ -33,17 +37,23 @@ namespace Hunarmis.Controllers
                 model.AadharCardNo = tbl.AadharCardNo;
                 model.EmailID = tbl.EmailID;
                 model.PhoneNo = tbl.PhoneNo;
-                model.AlternatePhoneNo = tbl.AlternatePhoneNo;  
+                model.AlternatePhoneNo = tbl.AlternatePhoneNo;
+                model.AssessmentScore = tbl.AssessmentScore;
                 model.BatchId = tbl.BatchId;
-                model.CourseEnrolled = tbl.CourseEnrolled;
+                model.EduQualificationID = tbl.EduQualificationID;
+                model.EduQualOther = tbl.EduQualOther;
+                model.CourseEnrolledID = tbl.CourseEnrolledID;
+                model.StateID = tbl.StateID;
+                model.DistrictID = tbl.DistrictID;
+                model.TrainingAgencyID = tbl.TrainingAgencyID;
                 model.TrainingCenterID = tbl.TrainingCenterID;
                 model.TrainerName = tbl.TrainerName;
-                model.AssessmentScore = tbl.AssessmentScore;    
             }
             return View(model);
         }
         [HttpPost]
-        public ActionResult AddPartictant(ParticitantModel model)
+        //[EnableCors("*")]
+        public ActionResult AddParticipant(ParticipantModel model)
         {
             Hunar_DBEntities db_ = new Hunar_DBEntities();
             JsonResponseData response = new JsonResponseData();
@@ -72,19 +82,24 @@ namespace Hunarmis.Controllers
                         tbl.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(model.AlternatePhoneNo)) ? model.AlternatePhoneNo.Trim() : model.AlternatePhoneNo;
                         tbl.EmailID = !(string.IsNullOrWhiteSpace(model.EmailID)) ? model.EmailID.Trim() : model.EmailID;
                         tbl.AadharCardNo = !(string.IsNullOrWhiteSpace(model.AadharCardNo)) ? model.AadharCardNo.Trim() : model.AadharCardNo;
-                        tbl.BatchId = model.BatchId;
                         tbl.AssessmentScore = !(string.IsNullOrWhiteSpace(model.AssessmentScore)) ? model.AssessmentScore.Trim() : model.AssessmentScore;
+                        tbl.BatchId = model.BatchId;
                         tbl.EduQualificationID = model.EduQualificationID;
-                        tbl.CourseEnrolled = model.CourseEnrolled;
+                        tbl.EduQualOther = model.EduQualificationID == 4 ? model.EduQualOther : null;
+                        tbl.CourseEnrolledID = model.CourseEnrolledID;
+                        tbl.StateID = model.StateID;
+                        tbl.DistrictID = model.DistrictID;
+                        tbl.TrainingAgencyID = model.TrainingAgencyID;
                         tbl.TrainingCenterID = model.TrainingCenterID;
                         tbl.TrainerName = !(string.IsNullOrWhiteSpace(model.TrainerName)) ? model.TrainerName.Trim() : model.TrainerName;
-
+                        tbl.IsActive = true;
                         if (model.ID == Guid.Empty)
                         {
                             if (User.Identity.IsAuthenticated)
                             {
                                 //tbl.CreatedBy = MvcApplication.CUser.Id;
                             }
+                            tbl.ID = Guid.NewGuid();
                             tbl.CreatedOn = DateTime.Now;
                             db.tbl_Participant.Add(tbl);
                         }
@@ -101,15 +116,15 @@ namespace Hunarmis.Controllers
                     if (results > 0)
                     {
                         // var taskres = CU_RegLogin(model, tbl.ID);
-                        var case_id = db_.tbl_Participant.Where(x => x.PhoneNo == model.PhoneNo.Trim() && x.EmailID == model.EmailID.Trim())?.FirstOrDefault().RegID; //if (case_id != null) { }
+                        var reg_id = db_.tbl_Participant.Where(x => x.PhoneNo == model.PhoneNo.Trim() && x.EmailID == model.EmailID.Trim())?.FirstOrDefault().RegID; //if (case_id != null) { }
                         if (model.ID != Guid.Empty)
                         {
-                            response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been Updated successfully ! \r\nPlease Note Your <br /> <span> Case ID : <strong>" + case_id + " </strong> </span>", Data = null };
+                            response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been Updated successfully ! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + reg_id + " </strong> </span>", Data = null };
                             var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
                             resResponse3.MaxJsonLength = int.MaxValue;
                             return resResponse3;
                         }
-                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been successfully registered! \r\nPlease Note Your <br /> <span> Case ID : <strong>" + case_id + " </strong> </span>", Data = null };
+                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been successfully registered! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + reg_id + " </strong> </span>", Data = null };
                         var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                         resResponse1.MaxJsonLength = int.MaxValue;
                         return resResponse1;
@@ -132,20 +147,15 @@ namespace Hunarmis.Controllers
             }
             return View();
         }
-        public ActionResult AddPartCalling()
-        {
-            ParticipantChildModel model = new ParticipantChildModel();
-            return View();
-        }
-        [HttpPost]
         public ActionResult AddPartCalling(Guid? Id)
         {
             ParticipantChildModel model = new ParticipantChildModel();
-            if (Id != Guid.Empty)
+            if (Id != Guid.Empty && Id!=null)
             {
             }
             return View(model);
         }
+        [HttpPost]
         public ActionResult AddPartCalling(ParticipantChildModel model)
         {
             Hunar_DBEntities db_ = new Hunar_DBEntities();
@@ -215,5 +225,53 @@ namespace Hunarmis.Controllers
             }
             return View();
         }
+        public ActionResult ParticipantList()
+        {
+            FilterModel model = new FilterModel();  
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult GetPartList(FilterModel model)
+        {
+            DataTable tbllist = new DataTable();
+            var html = "";
+            try
+            {
+                tbllist = SPManager.SP_ParticipantList(model);
+                bool IsCheck = false;
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                    html = ConvertViewToString("_PartData", tbllist);
+                    var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+                else
+                {
+                    var res = Json(new { IsSuccess = IsCheck, Data = "Record Not Found !!" }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
+        private string ConvertViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using (StringWriter writer = new StringWriter())
+            {
+                ViewEngineResult vResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext vContext = new ViewContext(this.ControllerContext, vResult.View, ViewData, new TempDataDictionary(), writer);
+                vResult.View.Render(vContext, writer);
+                return writer.ToString();
+            }
+        }
+
     }
 }

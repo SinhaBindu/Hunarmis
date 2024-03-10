@@ -1,5 +1,5 @@
 ﻿@using System.Data
-@using FP.Manager
+@using Hunarmis.Manager
 @{
     DataTable dt = new DataTable();
     dt = Model;
@@ -14,17 +14,18 @@
         <table class="table table-bordered table-striped" id="tbl">
             <thead class="text-center">
                 <tr>
-                    <th>Srno.</th>
-                    <th>Beneficiary<br /> ID</th>
-                    <th>District</th>
-                    <th>Block</th>
-                    <th>Panchayat</th>
-                    <th>Village <br />Organization</th>
-                    <th>Reporting <br />Month</th>
-                    <th>Health <br />Center </th>
-                    <th>Name of<br />Beneficiary</th>
-                    <th>Beneficiary Mobile No</th>
-                    <th>Edit</th>
+                    <th class="text-center">Srno.</th>
+                    <th class="text-center">Center Name</th>
+                    <th class="text-center">Registration<br /> ID</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Phone No</th>
+                    <th class="text-center">Email ID</th>
+                    <th class="text-center">Aadhar <br />Card No.</th>
+                    <th class="text-center">Batch Name</th>
+                    <th class="text-center">Batch Start Date</th>
+                    <th class="text-center">Batch End Date</th>
+                    <th class="text-center">Assessment<br /> Score</th>
+                    <th class="text-center">Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,17 +37,18 @@
                         {
                             <tr>
                                 <td class="text-center">@(srno++)</td>
-                                <td class="text-center">@dr["BFYID"]</td>
-                                <td class="text-left">@dr["DistrictName"]</td>
-                                <td class="text-left">@dr["Block"]</td>
-                                <td class="text-left">@dr["Panchayat"]</td>
-                                <td class="text-left">@dr["VO"]</td>
-                                <td class="text-center">@dr["ReportingDate"]</td>
-                                <td class="text-left">@dr["HealthCenter"]</td>
-                                <td class="text-left">@dr["BFYName"]</td>
-                                <td class="text-center">@dr["BFYMobileNo"]</td>
+                                <td class="text-left">@dr["TrainingCenter"]</td>
+                                <td class="text-center"><strong>@dr["RegID"]</strong></td>
+                                <td class="text-left">@dr["FullName"]</td>
+                                <td class="text-center">@dr["PhoneNo"]</td>
+                                <td class="text-left">@dr["EmailID"]</td>
+                                <td class="text-center">@dr["AadharCardNo"]</td>
+                                <td class="text-left">@dr["BatchName"]</td>
+                                <td class="text-center">@dr["BatchStartDate"]</td>
+                                <td class="text-center">@dr["BatchEndDate"]</td>
+                                <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
                                 <td class="text-center">
-                                    <a href="~/Beneficiary/Beneficiary?id=@dr["BpkID"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                    <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>
                         }

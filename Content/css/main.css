@@ -1342,7 +1342,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     border-radius: 3px;
 }
 #mainnav-menu .active-sub i {
-    color: #fff !important
+    color: #7700E0 !important
 }
 #mainnav-menu > .active-sub .active-sub > a, #mainnav-menu > .active-sub .active-sub > a:hover {
     color: #25476a;

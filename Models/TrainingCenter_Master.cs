@@ -16,7 +16,7 @@ namespace Hunarmis.Models
     {
         public int Id { get; set; }
         public Nullable<int> DistrictID_fk { get; set; }
-        public string TrainingAgencyID_fk { get; set; }
+        public Nullable<int> TrainingAgencyID_fk { get; set; }
         public string TrainingCenter { get; set; }
         public string Location { get; set; }
         public Nullable<bool> IsActive { get; set; }

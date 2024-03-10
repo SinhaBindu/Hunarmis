@@ -23,7 +23,7 @@
         color: #7700E0
     }
     #mainnav-menu .active-sub i {
-        color: #fff !important;
+        color: #7700E0 !important;
     } 
 </style>
 
@@ -70,15 +70,15 @@
                            
                             <li class="treeview">
                                 <a href="#">
-                                    <i class="fa fa-building"></i>
-                                    <span class="menu-title">Infrastructure</span>
+                                    <i class="fa fa-user"></i>
+                                    <span class="menu-title">Participant</span>
                                     <i class="arrow"></i>
-
                                 </a>
                                 <ul class="collapse treeview-menu">
                                     @*<li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Ona Infra</span>", "OnaInfra", "Infra")</li>*@
-                                    <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Add</span>", "Add", "Infra")</li>
-                                    <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>List</span>", "Index", "Infra")</li>
+                                    <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Add</span>", "AddParticipant", "Participant")</li>
+                                    <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>List</span>", "ParticipantList", "Participant")</li>
+                                    <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Questionnaire</span>", "AddPartCalling", "Participant")</li>
                                 </ul>
                             </li>
                               <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />

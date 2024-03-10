@@ -62,6 +62,8 @@
     </Key>
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="BatchName" Type="nvarchar" MaxLength="200" />
+    <Property Name="BatchStartDate" Type="datetime" />
+    <Property Name="BatchEndDate" Type="datetime" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="CreatedOn" Type="datetime" />
@@ -117,6 +119,76 @@
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
   </EntityType>
+  <EntityType Name="tbl_Participant">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RegID" Type="nvarchar" MaxLength="50" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="200" />
+    <Property Name="MiddleName" Type="nvarchar" MaxLength="200" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+    <Property Name="Age" Type="nvarchar" MaxLength="20" />
+    <Property Name="PhoneNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="AlternatePhoneNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="EmailID" Type="nvarchar" MaxLength="200" />
+    <Property Name="AadharCardNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="BatchId" Type="int" />
+    <Property Name="AssessmentScore" Type="nvarchar" MaxLength="50" />
+    <Property Name="EduQualificationID" Type="int" />
+    <Property Name="EduQualOther" Type="nvarchar" MaxLength="1200" />
+    <Property Name="CourseEnrolledID" Type="int" />
+    <Property Name="StateID" Type="int" />
+    <Property Name="DistrictID" Type="int" />
+    <Property Name="TrainingAgencyID" Type="int" />
+    <Property Name="TrainingCenterID" Type="int" />
+    <Property Name="TrainerName" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Participant_Calling">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsCalling" Type="int" />
+    <Property Name="CallingDate" Type="date" />
+    <Property Name="ParticipantId_fk" Type="uniqueidentifier" />
+    <Property Name="IsAssessmentCert" Type="nvarchar" MaxLength="20" />
+    <Property Name="IsPresent" Type="nvarchar" MaxLength="20" />
+    <Property Name="IsComfortable" Type="nvarchar" MaxLength="20" />
+    <Property Name="EmpCompany" Type="nvarchar" MaxLength="500" />
+    <Property Name="FirstJobTraining" Type="nvarchar" MaxLength="500" />
+    <Property Name="DOJ" Type="datetime" />
+    <Property Name="CurrentEmployer" Type="nvarchar" MaxLength="500" />
+    <Property Name="Designation" Type="nvarchar" MaxLength="200" />
+    <Property Name="SalaryPackage" Type="nvarchar" MaxLength="50" />
+    <Property Name="CurrentlyWorking" Type="nvarchar" MaxLength="200" />
+    <Property Name="WorkingKM" Type="int" />
+    <Property Name="WorkingKMOther" Type="nvarchar" MaxLength="50" />
+    <Property Name="Traininghelp" Type="nvarchar" MaxLength="200" />
+    <Property Name="SalaryWages" Type="nvarchar" MaxLength="200" />
+    <Property Name="ExpectationJobRole" Type="nvarchar" MaxLength="200" />
+    <Property Name="WorkPlaceSafe" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsMSBenefit" Type="nvarchar" MaxLength="20" />
+    <Property Name="MSBenefitId" Type="int" />
+    <Property Name="MSOther" Type="nvarchar" MaxLength="200" />
+    <Property Name="AnyChallenges" Type="nvarchar" MaxLength="20" />
+    <Property Name="AreaSupport" Type="nvarchar" MaxLength="500" />
+    <Property Name="EmployedId" Type="int" />
+    <Property Name="EmployedOther" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsGettingjob" Type="nvarchar" MaxLength="20" />
+    <Property Name="PlacedStatus" Type="nvarchar" MaxLength="20" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
   <EntityType Name="tbl_UserLogin">
     <Key>
       <PropertyRef Name="Id" />
@@ -145,7 +217,7 @@
     </Key>
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="DistrictID_fk" Type="int" />
-    <Property Name="TrainingAgencyID_fk" Type="nvarchar(max)" />
+    <Property Name="TrainingAgencyID_fk" Type="int" />
     <Property Name="TrainingCenter" Type="nvarchar(max)" />
     <Property Name="Location" Type="nvarchar(max)" />
     <Property Name="IsActive" Type="bit" />
@@ -221,6 +293,8 @@
     <EntitySet Name="District_Master" EntityType="Self.District_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Educational_Master" EntityType="Self.Educational_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="State_Master" EntityType="Self.State_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Participant" EntityType="Self.tbl_Participant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Participant_Calling" EntityType="Self.tbl_Participant_Calling" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_UserLogin" EntityType="Self.tbl_UserLogin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrainingAgency_Master" EntityType="Self.TrainingAgency_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrainingCenter_Master" EntityType="Self.TrainingCenter_Master" Schema="dbo" store:Type="Tables" />

@@ -4,12 +4,10 @@
     <EntitySet Name="AspNetRoles" EntityType="Hunar_DBModel.AspNetRole" />
     <EntitySet Name="AspNetUserClaims" EntityType="Hunar_DBModel.AspNetUserClaim" />
     <EntitySet Name="AspNetUserLogins" EntityType="Hunar_DBModel.AspNetUserLogin" />
-    <EntitySet Name="Batch_Master" EntityType="Hunar_DBModel.Batch_Master" />
     <EntitySet Name="Courses_Master" EntityType="Hunar_DBModel.Courses_Master" />
     <EntitySet Name="District_Master" EntityType="Hunar_DBModel.District_Master" />
     <EntitySet Name="State_Master" EntityType="Hunar_DBModel.State_Master" />
     <EntitySet Name="TrainingAgency_Master" EntityType="Hunar_DBModel.TrainingAgency_Master" />
-    <EntitySet Name="TrainingCenter_Master" EntityType="Hunar_DBModel.TrainingCenter_Master" />
     <EntitySet Name="Educational_Master" EntityType="Hunar_DBModel.Educational_Master" />
     <EntitySet Name="AspNetUsers" EntityType="Hunar_DBModel.AspNetUser" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Hunar_DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -25,6 +23,10 @@
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
     <EntitySet Name="tbl_UserLogin" EntityType="Hunar_DBModel.tbl_UserLogin" />
+    <EntitySet Name="Batch_Master" EntityType="Hunar_DBModel.Batch_Master" />
+    <EntitySet Name="tbl_Participant_Calling" EntityType="Hunar_DBModel.tbl_Participant_Calling" />
+    <EntitySet Name="TrainingCenter_Master" EntityType="Hunar_DBModel.TrainingCenter_Master" />
+    <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
   </EntityContainer>
   <EntityType Name="AspNetRole">
     <Key>
@@ -54,18 +56,6 @@
     <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AspNetUser" Relationship="Hunar_DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
-  </EntityType>
-  <EntityType Name="Batch_Master">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="BatchName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Updated" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="Courses_Master">
     <Key>
@@ -110,21 +100,6 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" />
     <Property Name="TrainingAgencyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Updated" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="TrainingCenter_Master">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="DistrictID_fk" Type="Int32" />
-    <Property Name="TrainingAgencyID_fk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="TrainingCenter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="IsActive" Type="Boolean" />
     <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />
@@ -209,5 +184,104 @@
     <Property Name="InDate" Type="DateTime" Precision="3" />
     <Property Name="OutDate" Type="DateTime" Precision="3" />
     <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Batch_Master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="BatchName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="BatchStartDate" Type="DateTime" Precision="3" />
+    <Property Name="BatchEndDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Updated" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbl_Participant_Calling">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="IsCalling" Type="Int32" />
+    <Property Name="CallingDate" Type="DateTime" Precision="0" />
+    <Property Name="ParticipantId_fk" Type="Guid" />
+    <Property Name="IsAssessmentCert" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IsPresent" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IsComfortable" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EmpCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="FirstJobTraining" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DOJ" Type="DateTime" Precision="3" />
+    <Property Name="CurrentEmployer" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Designation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="SalaryPackage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentlyWorking" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="WorkingKM" Type="Int32" />
+    <Property Name="WorkingKMOther" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Traininghelp" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="SalaryWages" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ExpectationJobRole" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="WorkPlaceSafe" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsMSBenefit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="MSBenefitId" Type="Int32" />
+    <Property Name="MSOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="AnyChallenges" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="AreaSupport" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="EmployedId" Type="Int32" />
+    <Property Name="EmployedOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsGettingjob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="PlacedStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TrainingCenter_Master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="DistrictID_fk" Type="Int32" />
+    <Property Name="TrainingAgencyID_fk" Type="Int32" />
+    <Property Name="TrainingCenter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Updated" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbl_Participant">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="RegID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Age" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="AlternatePhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EmailID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="AadharCardNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="BatchId" Type="Int32" />
+    <Property Name="AssessmentScore" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EduQualificationID" Type="Int32" />
+    <Property Name="EduQualOther" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
+    <Property Name="CourseEnrolledID" Type="Int32" />
+    <Property Name="StateID" Type="Int32" />
+    <Property Name="DistrictID" Type="Int32" />
+    <Property Name="TrainingAgencyID" Type="Int32" />
+    <Property Name="TrainingCenterID" Type="Int32" />
+    <Property Name="TrainerName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>

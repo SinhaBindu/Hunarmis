@@ -28,19 +28,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Batch_Master">
-      <EntityTypeMapping TypeName="Hunar_DBModel.Batch_Master">
-        <MappingFragment StoreEntitySet="Batch_Master">
-          <ScalarProperty Name="Updated" ColumnName="Updated" />
-          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="BatchName" ColumnName="BatchName" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Courses_Master">
       <EntityTypeMapping TypeName="Hunar_DBModel.Courses_Master">
         <MappingFragment StoreEntitySet="Courses_Master">
@@ -90,22 +77,6 @@
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="TrainingAgencyName" ColumnName="TrainingAgencyName" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="TrainingCenter_Master">
-      <EntityTypeMapping TypeName="Hunar_DBModel.TrainingCenter_Master">
-        <MappingFragment StoreEntitySet="TrainingCenter_Master">
-          <ScalarProperty Name="Updated" ColumnName="Updated" />
-          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="Location" ColumnName="Location" />
-          <ScalarProperty Name="TrainingCenter" ColumnName="TrainingCenter" />
-          <ScalarProperty Name="TrainingAgencyID_fk" ColumnName="TrainingAgencyID_fk" />
-          <ScalarProperty Name="DistrictID_fk" ColumnName="DistrictID_fk" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -162,6 +133,109 @@
           <ScalarProperty Name="InDate" ColumnName="InDate" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Batch_Master">
+      <EntityTypeMapping TypeName="Hunar_DBModel.Batch_Master">
+        <MappingFragment StoreEntitySet="Batch_Master">
+          <ScalarProperty Name="Updated" ColumnName="Updated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="BatchEndDate" ColumnName="BatchEndDate" />
+          <ScalarProperty Name="BatchStartDate" ColumnName="BatchStartDate" />
+          <ScalarProperty Name="BatchName" ColumnName="BatchName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Participant_Calling">
+      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant_Calling">
+        <MappingFragment StoreEntitySet="tbl_Participant_Calling">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PlacedStatus" ColumnName="PlacedStatus" />
+          <ScalarProperty Name="IsGettingjob" ColumnName="IsGettingjob" />
+          <ScalarProperty Name="EmployedOther" ColumnName="EmployedOther" />
+          <ScalarProperty Name="EmployedId" ColumnName="EmployedId" />
+          <ScalarProperty Name="AreaSupport" ColumnName="AreaSupport" />
+          <ScalarProperty Name="AnyChallenges" ColumnName="AnyChallenges" />
+          <ScalarProperty Name="MSOther" ColumnName="MSOther" />
+          <ScalarProperty Name="MSBenefitId" ColumnName="MSBenefitId" />
+          <ScalarProperty Name="IsMSBenefit" ColumnName="IsMSBenefit" />
+          <ScalarProperty Name="WorkPlaceSafe" ColumnName="WorkPlaceSafe" />
+          <ScalarProperty Name="ExpectationJobRole" ColumnName="ExpectationJobRole" />
+          <ScalarProperty Name="SalaryWages" ColumnName="SalaryWages" />
+          <ScalarProperty Name="Traininghelp" ColumnName="Traininghelp" />
+          <ScalarProperty Name="WorkingKMOther" ColumnName="WorkingKMOther" />
+          <ScalarProperty Name="WorkingKM" ColumnName="WorkingKM" />
+          <ScalarProperty Name="CurrentlyWorking" ColumnName="CurrentlyWorking" />
+          <ScalarProperty Name="SalaryPackage" ColumnName="SalaryPackage" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="CurrentEmployer" ColumnName="CurrentEmployer" />
+          <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+          <ScalarProperty Name="FirstJobTraining" ColumnName="FirstJobTraining" />
+          <ScalarProperty Name="EmpCompany" ColumnName="EmpCompany" />
+          <ScalarProperty Name="IsComfortable" ColumnName="IsComfortable" />
+          <ScalarProperty Name="IsPresent" ColumnName="IsPresent" />
+          <ScalarProperty Name="IsAssessmentCert" ColumnName="IsAssessmentCert" />
+          <ScalarProperty Name="ParticipantId_fk" ColumnName="ParticipantId_fk" />
+          <ScalarProperty Name="CallingDate" ColumnName="CallingDate" />
+          <ScalarProperty Name="IsCalling" ColumnName="IsCalling" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TrainingCenter_Master">
+      <EntityTypeMapping TypeName="Hunar_DBModel.TrainingCenter_Master">
+        <MappingFragment StoreEntitySet="TrainingCenter_Master">
+          <ScalarProperty Name="Updated" ColumnName="Updated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="TrainingCenter" ColumnName="TrainingCenter" />
+          <ScalarProperty Name="TrainingAgencyID_fk" ColumnName="TrainingAgencyID_fk" />
+          <ScalarProperty Name="DistrictID_fk" ColumnName="DistrictID_fk" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Participant">
+      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant">
+        <MappingFragment StoreEntitySet="tbl_Participant">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TrainerName" ColumnName="TrainerName" />
+          <ScalarProperty Name="TrainingCenterID" ColumnName="TrainingCenterID" />
+          <ScalarProperty Name="TrainingAgencyID" ColumnName="TrainingAgencyID" />
+          <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="CourseEnrolledID" ColumnName="CourseEnrolledID" />
+          <ScalarProperty Name="EduQualOther" ColumnName="EduQualOther" />
+          <ScalarProperty Name="EduQualificationID" ColumnName="EduQualificationID" />
+          <ScalarProperty Name="AssessmentScore" ColumnName="AssessmentScore" />
+          <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+          <ScalarProperty Name="AadharCardNo" ColumnName="AadharCardNo" />
+          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+          <ScalarProperty Name="AlternatePhoneNo" ColumnName="AlternatePhoneNo" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="RegID" ColumnName="RegID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
