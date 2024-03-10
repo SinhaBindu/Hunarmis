@@ -15,6 +15,8 @@ namespace Hunarmis.Models
     public partial class tbl_Participant_Calling
     {
         public System.Guid ID { get; set; }
+        public Nullable<int> QuesMonth { get; set; }
+        public Nullable<int> QuesYear { get; set; }
         public Nullable<int> IsCalling { get; set; }
         public Nullable<System.DateTime> CallingDate { get; set; }
         public Nullable<System.Guid> ParticipantId_fk { get; set; }

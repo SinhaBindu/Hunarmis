@@ -64,7 +64,7 @@ namespace Hunarmis.Controllers
                     var getdt = db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
                     if (getdt.Any(x => x.PhoneNo == model.PhoneNo.Trim() && model.ID != Guid.Empty))
                     {
-                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Registration.<br /> <span> Case ID : <strong> </strong>  </span>", Data = null };
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Registration.<br /> <span> Reg ID : <strong> " + getdt?.FirstOrDefault().RegID + " </strong>  </span>", Data = null };
                         var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                         resResponse1.MaxJsonLength = int.MaxValue;
                         return resResponse1;
@@ -147,10 +147,25 @@ namespace Hunarmis.Controllers
             }
             return View();
         }
-        public ActionResult AddPartCalling(Guid? Id)
+        public ActionResult AddPartCalling(Guid? Id, Guid? PartId)
         {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
             ParticipantChildModel model = new ParticipantChildModel();
-            if (Id != Guid.Empty && Id!=null)
+            if (PartId != Guid.Empty && PartId != null)
+            {
+                model.ParticipantId_fk = PartId;
+                var getdt = db_.tbl_Participant.Where(x => x.IsActive == true && x.ID == PartId)?.FirstOrDefault();
+                if (getdt != null)
+                {
+                    model.RegID = getdt.RegID;
+                    model.FullName = getdt.FirstName + " " + getdt.MiddleName + " " + getdt.LastName;
+                    var batch = db_.Batch_Master.Where(x => x.Id == getdt.BatchId)?.FirstOrDefault();
+                    model.BatchName = batch != null ? batch.BatchName : null;
+                    model.SBatchDt = batch != null ? CommonModel.FormateDtDMY(batch.BatchStartDate.ToString()) : null;
+                    model.EBatchDt = batch != null ? CommonModel.FormateDtDMY(batch.BatchEndDate.ToString()) : null;
+                }
+            }
+            if (Id != Guid.Empty && Id != null)
             {
             }
             return View(model);
@@ -164,10 +179,10 @@ namespace Hunarmis.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var getdt = db_.tbl_Participant.Where(x => x.IsActive == true && x.ID == model.ParticipantId_fk).ToList();
-                    if (db_.tbl_Participant_Calling.Any(x => x.ParticipantId_fk == model.ParticipantId_fk && model.ID == Guid.Empty))
+                    var getdt = db_.tbl_Participant.Where(x => x.IsActive == true && x.ID == model.ParticipantId_fk)?.FirstOrDefault();
+                    if (db_.tbl_Participant_Calling.Any(x => x.ParticipantId_fk == model.ParticipantId_fk && model.ID == Guid.Empty && (x.QuesMonth == model.QuesMonth && x.QuesYear == model.QuesYear)))
                     {
-                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "This Participant Is Already Exists.<br /> <span> Emp Code : <strong>" + getdt.FirstOrDefault().RegID + " </strong>  </span>", Data = null };
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "This Participant Is Already Exists.<br /> <span> Reg ID : <strong>" + getdt.RegID + " </strong>  </span>", Data = null };
                         var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                         resResponse1.MaxJsonLength = int.MaxValue;
                         return resResponse1;
@@ -175,46 +190,74 @@ namespace Hunarmis.Controllers
                     var tbl = model.ID != Guid.Empty ? db.tbl_Participant_Calling.Find(model.ID) : new tbl_Participant_Calling();
                     if (tbl != null)
                     {
+                        tbl.QuesMonth = model.QuesMonth;
+                        tbl.QuesYear = model.QuesYear;
+                        tbl.IsCalling = model.IsCalling;
+                        tbl.CallingDate = model.CallingDate;
+                        tbl.IsAssessmentCert = model.IsAssessmentCert;
+                        tbl.IsPresent = model.IsPresent;
+                        tbl.IsComfortable = model.IsComfortable;
+                        tbl.EmpCompany = model.EmpCompany;
+                        tbl.FirstJobTraining = model.FirstJobTraining;
+                        tbl.DOJ = model.DOJ;
+                        tbl.CurrentEmployer = model.CurrentEmployer;
+                        tbl.Designation = model.Designation;
+                        tbl.SalaryPackage = model.SalaryPackage;
+                        tbl.CurrentlyWorking = model.CurrentlyWorking;
+                        tbl.WorkingKM = model.WorkingKM;
+                        tbl.WorkingKMOther = model.WorkingKMOther;
+                        tbl.Traininghelp = model.Traininghelp;
+                        tbl.SalaryWages = model.SalaryWages;
+                        tbl.ExpectationJobRole = model.ExpectationJobRole;
+                        tbl.WorkPlaceSafe = model.WorkPlaceSafe;
+                        tbl.IsMSBenefit = model.IsMSBenefit;
+                        tbl.MSBenefitId = model.MSBenefitId;
+                        tbl.MSOther = model.MSOther;
+                        tbl.AnyChallenges = model.AnyChallenges;
+                        tbl.AreaSupport = model.AreaSupport;
+                        tbl.EmployedId = model.EmployedId;
+                        tbl.EmployedOther = model.EmployedOther;
+                        tbl.IsGettingjob = model.IsGettingjob;
+                        tbl.PlacedStatus = model.PlacedStatus;
+                        tbl.IsActive = true;
+                        if (model.ID == Guid.Empty)
+                        {
+                            tbl.ID = Guid.NewGuid();
+                            tbl.ParticipantId_fk = model.ParticipantId_fk;
+                            tbl.CreatedBy = User.Identity.Name;
+                            tbl.CreatedOn = DateTime.Now;
+                            db.tbl_Participant_Calling.Add(tbl);
+                        }
+                        else if (model.ID != Guid.Empty)
+                        {
+                            tbl.UpdatedBy = User.Identity.Name;
+                            tbl.UpdatedOn = DateTime.Now;
+                        }
+                        results = db.SaveChanges();
                         if (results > 0)
                         {
-                            tbl.ParticipantId_fk = model.ParticipantId_fk;
-                            tbl.IsCalling = model.IsCalling;
-                            tbl.ParticipantId_fk = model.ParticipantId_fk;
-                            tbl.ParticipantId_fk = model.ParticipantId_fk;
-                            tbl.ParticipantId_fk = model.ParticipantId_fk;
-                            if (model.ID == Guid.Empty)
-                            {
-                                tbl.ID = Guid.NewGuid();
-                                tbl.CreatedBy = User.Identity.Name;
-                                tbl.CreatedOn = DateTime.Now;
-                                response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been Updated successfully ! \r\nPlease Note Your <br /> <span> Emp Code : <strong>" + getdt.FirstOrDefault().RegID + " </strong> </span>", Data = null };
-                                var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
-                                resResponse3.MaxJsonLength = int.MaxValue;
-                                return resResponse3;
-                            }
+                            var reg_id = db_.tbl_Participant.Where(x => x.ID == model.ParticipantId_fk)?.FirstOrDefault().RegID; //if (case_id != null) { }
                             if (model.ID != Guid.Empty)
                             {
-                                tbl.UpdatedBy = User.Identity.Name;
-                                tbl.UpdatedOn = DateTime.Now;
-                                response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been Updated successfully ! \r\nPlease Note Your <br /> <span> Emp Code : <strong>" + getdt.FirstOrDefault().RegID + " </strong> </span>", Data = null };
+                                response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been Updated successfully ! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + reg_id + " </strong> </span>", Data = null };
                                 var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
                                 resResponse3.MaxJsonLength = int.MaxValue;
                                 return resResponse3;
                             }
-                            response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been successfully registered! \r\nPlease Note Your <br /> <span> Emp Code : <strong>" + getdt.FirstOrDefault().RegID + " </strong> </span>", Data = null };
+                            response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been successfully Questionnaire! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + reg_id + " </strong> </span>", Data = null };
                             var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                             resResponse1.MaxJsonLength = int.MaxValue;
                             return resResponse1;
                         }
                     }
-                    else
-                    {
-                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "All Record Required !!", Data = null };
-                        var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
-                        resResponse1.MaxJsonLength = int.MaxValue;
-                        return resResponse1;
-                    };
                 }
+                else
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "All Record Required !!", Data = null };
+                    var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse1.MaxJsonLength = int.MaxValue;
+                    return resResponse1;
+                };
             }
             catch (Exception)
             {
@@ -223,14 +266,16 @@ namespace Hunarmis.Controllers
                 resResponse1.MaxJsonLength = int.MaxValue;
                 return resResponse1;
             }
-            return View();
+            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "All Record Required !", Data = null };
+            var resResponse = Json(response, JsonRequestBehavior.AllowGet);
+            resResponse.MaxJsonLength = int.MaxValue;
+            return resResponse;
         }
         public ActionResult ParticipantList()
         {
-            FilterModel model = new FilterModel();  
+            FilterModel model = new FilterModel();
             return View(model);
         }
-
         [HttpPost]
         public ActionResult GetPartList(FilterModel model)
         {

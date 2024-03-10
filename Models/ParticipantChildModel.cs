@@ -12,9 +12,18 @@ namespace Hunarmis.Models
             ID = Guid.Empty;
         }
         public System.Guid ID { get; set; }
+        public Nullable<int> QuesMonth { get; set; }
+        public Nullable<int> QuesYear { get; set; }
         public Nullable<int> IsCalling { get; set; }
+        public Nullable<System.DateTime> CallingDate { get; set; }
         public Nullable<System.Guid> ParticipantId_fk { get; set; }
-        public System.Guid RegId { get; set; }
+        public Nullable<System.Guid> PartId { get; set; }
+        public string RegID { get; set; }
+        public string FullName { get; set; }
+        public string BatchId { get; set; }
+        public string BatchName { get; set; }
+        public string SBatchDt { get; set; }
+        public string EBatchDt { get; set; }
         public string IsAssessmentCert { get; set; }
         public string IsPresent { get; set; }
         public string IsComfortable { get; set; }

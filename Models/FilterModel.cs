@@ -30,7 +30,9 @@ namespace Hunarmis.Models
         [Display(Name = "Role")]
         public string Roles { get; set; }
         public string CutUser { get; set; }
+        public int MonthId { get; set; }
         public string Month { get; set; }
+        public int YearId { get; set; }
         public string Year { get; set; }
         public string Type { get; set; }
         public string Search { get; set; }

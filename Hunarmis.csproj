@@ -350,6 +350,9 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FilterModel.cs" />
+    <Compile Include="Models\Month_Master.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ParticipantChildModel.cs" />
     <Compile Include="Models\ParticipantModel.cs" />
     <Compile Include="Manager\SPManager.cs" />
@@ -411,6 +414,9 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TrainingCenter_Master.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Year_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

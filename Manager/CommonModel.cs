@@ -388,35 +388,77 @@ namespace Hunarmis.Manager
                 throw;
             }
         }
-        public static List<SelectListItem> GetLocatedKM()
+        public static List<SelectListItem> GetLocatedKM(bool IsAll=false)
         {
-            List<SelectListItem> list = new List<SelectListItem>();
-            list.Add(new SelectListItem { Value = "", Text = "Select" });
-            list.Add(new SelectListItem { Value = "1", Text = "Less than 10Km" });
-            list.Add(new SelectListItem { Value = "2", Text = "10 Km - 25 Km" });
-            list.Add(new SelectListItem { Value = "3", Text = "25 Km - 50 Km" });
-            list.Add(new SelectListItem { Value = "4", Text = "More than 50 Km" });
-            return list.OrderByDescending(x => x.Text).ToList();
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            try
+            {
+                var items = new SelectList(_db.LocatedKM_Master, "ID", "KM").OrderBy(x => Convert.ToInt32(x.Value)).ToList();
+                if (IsAll)
+                {
+                    items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                return items;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            //List<SelectListItem> list = new List<SelectListItem>();
+            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            //list.Add(new SelectListItem { Value = "1", Text = "Less than 10Km" });
+            //list.Add(new SelectListItem { Value = "2", Text = "10 Km - 25 Km" });
+            //list.Add(new SelectListItem { Value = "3", Text = "25 Km - 50 Km" });
+            //list.Add(new SelectListItem { Value = "4", Text = "More than 50 Km" });
+            //return list.OrderByDescending(x => x.Text).ToList();
         }
-        public static List<SelectListItem> GetBenefit()
+        public static List<SelectListItem> GetBenefit(bool IsAll = false)
         {
-            List<SelectListItem> list = new List<SelectListItem>();
-            list.Add(new SelectListItem { Value = "", Text = "Select" });
-            list.Add(new SelectListItem { Value = "1", Text = "Food" });
-            list.Add(new SelectListItem { Value = "2", Text = "Accommodation" });
-            list.Add(new SelectListItem { Value = "3", Text = "Travel allowance" });
-            list.Add(new SelectListItem { Value = "4", Text = "Medical Insurance" });
-            list.Add(new SelectListItem { Value = "5", Text = "Other" });
-            return list.OrderByDescending(x => x.Text).ToList();
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            try
+            {
+                var items = new SelectList(_db.Benefit_Master, "ID", "Benefit").OrderBy(x => Convert.ToInt32(x.Value)).ToList();
+                if (IsAll)
+                {
+                    items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                return items;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            //List<SelectListItem> list = new List<SelectListItem>();
+            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            //list.Add(new SelectListItem { Value = "1", Text = "Food" });
+            //list.Add(new SelectListItem { Value = "2", Text = "Accommodation" });
+            //list.Add(new SelectListItem { Value = "3", Text = "Travel allowance" });
+            //list.Add(new SelectListItem { Value = "4", Text = "Medical Insurance" });
+            //list.Add(new SelectListItem { Value = "5", Text = "Other" });
+            //return list.OrderByDescending(x => x.Text).ToList();
         }
-        public static List<SelectListItem> GetEmployed()
+        public static List<SelectListItem> GetEmployed(bool IsAll = false)
         {
-            List<SelectListItem> list = new List<SelectListItem>();
-            list.Add(new SelectListItem { Value = "", Text = "Select" });
-            list.Add(new SelectListItem { Value = "1", Text = "Didn't get selected in interviews" });
-            list.Add(new SelectListItem { Value = "2", Text = "Not interested to work" });
-            list.Add(new SelectListItem { Value = "3", Text = "Other" });
-            return list.OrderByDescending(x => x.Text).ToList();
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            try
+            {
+                var items = new SelectList(_db.JobEmployed_Master, "ID", "JobInterest").OrderBy(x => Convert.ToInt32(x.Value)).ToList();
+                if (IsAll)
+                {
+                    items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                return items;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            //List<SelectListItem> list = new List<SelectListItem>();
+            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            //list.Add(new SelectListItem { Value = "1", Text = "Didn't get selected in interviews" });
+            //list.Add(new SelectListItem { Value = "2", Text = "Not interested to work" });
+            //list.Add(new SelectListItem { Value = "3", Text = "Other" });
+            //return list.OrderByDescending(x => x.Text).ToList();
         }
 
         private static List<T> ConvertDataTable<T>(DataTable dt)
@@ -794,7 +836,7 @@ namespace Hunarmis.Manager
         #endregion
 
         #region Monthly,Year
-        public static List<SelectListItem> GetMonthList()
+        public static List<SelectListItem> GetFunMonthList()
         {
             List<SelectListItem> list = new List<SelectListItem>();
             for (int i = 0; i <= 11; i++)
@@ -803,7 +845,7 @@ namespace Hunarmis.Manager
             }
             return list.ToList();
         }
-        public static List<SelectListItem> GetYearList()
+        public static List<SelectListItem> GetFunYearList()
         {
             List<SelectListItem> list = new List<SelectListItem>();
             DateTime dt = DateTime.Now;
@@ -824,8 +866,41 @@ namespace Hunarmis.Manager
                 list.Add(new SelectListItem { Value = item.ToString(), Text = item.ToString() });
 
             }
-
             return list.ToList();
+        }
+        public static List<SelectListItem> GetMonth(bool IsAll = false)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            try
+            {
+                var items = new SelectList(_db.Month_Master, "ID", "MonthName").OrderBy(x => Convert.ToInt32(x.Value)).ToList();
+                if (IsAll)
+                {
+                    items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                return items;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static List<SelectListItem> GetYear(bool IsAll = false)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            try
+            {
+                var items = new SelectList(_db.Year_Master, "ID", "Year").OrderByDescending(x => Convert.ToInt32(x.Value)).ToList();
+                if (IsAll)
+                {
+                    items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                return items;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         #endregion
 
@@ -921,82 +996,6 @@ namespace Hunarmis.Manager
         {
             return Decimal.TryParse(str, out decimal res) ? res : 0M;
         }
-
-        #region Base Line Common Functions
-
-        public static List<SelectListItem> GetInterviewQ101List()
-        {
-            List<SelectListItem> lists = new List<SelectListItem>();
-            lists.Add(new SelectListItem() { Text = "All", Value = "all", Selected = true });
-            lists.Add(new SelectListItem() { Text = "1.Hospitalized from 1-Jan to 31-Dec-2021 (Due to illness or accident)", Value = "1", Selected = true });
-            lists.Add(new SelectListItem() { Text = "2.Had consulted any Health Care Provider in the last 15 days (excluding those for hospitalization)", Value = "2" });
-            lists.Add(new SelectListItem() { Text = "3.Delivered from 1st-Jan to 31-Dec-2021 (Woman) ", Value = "3" });
-            lists.Add(new SelectListItem() { Text = "4.Children aged 2 years or less", Value = "4" });
-            return lists.OrderBy(x => x.Value).ToList();
-        }
-        public static List<SelectListItem> GetSettlementTyList()
-        {
-            List<SelectListItem> lists = new List<SelectListItem>();
-            lists.Add(new SelectListItem() { Text = "All", Value = "all", Selected = true });
-            lists.Add(new SelectListItem() { Text = "Rural", Value = "1" });
-            lists.Add(new SelectListItem() { Text = "Urban", Value = "2" });
-            return lists.OrderBy(x => x.Value).ToList();
-        }
-        public static List<SelectListItem> GetStateList()
-        {
-            List<SelectListItem> lists = new List<SelectListItem>();
-            //lists.Add(new SelectListItem() { Text = "All", Value = "all", Selected = true });
-            lists.Add(new SelectListItem() { Text = "BIHAR", Value = "BIHAR" });
-            lists.Add(new SelectListItem() { Text = "JHARKHAND", Value = "JHARKHAND" });
-            lists.Add(new SelectListItem() { Text = "UTTARPRADESH", Value = "UTTARPRADESH" });
-            return lists.OrderBy(x => x.Value).ToList();
-        }
-        public static List<SelectListItem> GetToolName()
-        {
-            List<SelectListItem> lists = new List<SelectListItem>();
-            lists.Add(new SelectListItem() { Text = "School Infra Tool", Value = "1", Selected = true });
-            lists.Add(new SelectListItem() { Text = "Classroom Observation", Value = "2" });
-            lists.Add(new SelectListItem() { Text = "Teacher assessment Tool", Value = "3" });
-            lists.Add(new SelectListItem() { Text = "School Rediness", Value = "4" });
-            lists.Add(new SelectListItem() { Text = "Hindi Assessment", Value = "5" });
-            lists.Add(new SelectListItem() { Text = "Math Assessment", Value = "6" });
-            lists.Add(new SelectListItem() { Text = "Parent Tool", Value = "7" });
-            lists.Add(new SelectListItem() { Text = "SMC Tool", Value = "8" });
-            lists.Add(new SelectListItem() { Text = "AWC Observation", Value = "9" });
-            lists.Add(new SelectListItem() { Text = "AWW Tool", Value = "10" });
-            lists.Add(new SelectListItem() { Text = "BRP/BEO Tool", Value = "11" });
-            lists.Add(new SelectListItem() { Text = "DEO/DPO Tool", Value = "12" });
-            lists.Add(new SelectListItem() { Text = "DIET Tool", Value = "13" });
-            return lists.OrderBy(x => Convert.ToInt16(x.Value)).ToList();
-        }
-        public static void InsertLogin(string Username)
-        {
-            try
-            {
-                StoredProcedure sp = new StoredProcedure("InsertLoginDate");
-                sp.Command.AddParameter("@Username", Username, DbType.String);
-                sp.Execute();
-            }
-            catch (Exception ex)
-            {
-                string ErrorMsg = ex.Message;
-            }
-        }
-        public static string GetBaseUrlWithHTTPs()
-        {
-            var request = HttpContext.Current.Request;
-            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
-            if (appUrl != "/")
-                appUrl = "/" + appUrl;
-            var baseUrl = string.Format("{0}://{1}{2}",
-                request.Url.Scheme, //request.Url.Scheme gives https or http
-                request.Url.Authority, //request.Url.Authority gives qawithexperts/com
-                    appUrl); //appUrl = /questions/111/ok-this-is-url
-
-            return baseUrl;
-        }
-
-        #endregion End of Base Line Common Functions
 
         public class RoleNameCont
         {

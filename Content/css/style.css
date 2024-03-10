@@ -811,7 +811,7 @@ tbody td {
 
 .panel .form-padding .form-group {
     margin-bottom: 12px !important;
-    display: block !important;
+    /*display: block !important;*/
     clear: both !important;
 }
 

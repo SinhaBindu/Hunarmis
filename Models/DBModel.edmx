@@ -75,6 +75,13 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="Updated" Type="datetime" />
         </EntityType>
+        <EntityType Name="Benefit_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Benefit" Type="nvarchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="Courses_Master">
           <Key>
             <PropertyRef Name="Id" />
@@ -111,6 +118,27 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="Updated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="JobEmployed_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="JobInterest" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="LocatedKM_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="KM" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Month_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="MonthName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="State_Master">
           <Key>
@@ -160,6 +188,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuesMonth" Type="int" />
+          <Property Name="QuesYear" Type="int" />
           <Property Name="IsCalling" Type="int" />
           <Property Name="CallingDate" Type="date" />
           <Property Name="ParticipantId_fk" Type="uniqueidentifier" />
@@ -231,6 +261,13 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="Updated" Type="datetime" />
         </EntityType>
+        <EntityType Name="Year_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Year" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -294,15 +331,20 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Batch_Master" EntityType="Self.Batch_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Benefit_Master" EntityType="Self.Benefit_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Courses_Master" EntityType="Self.Courses_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District_Master" EntityType="Self.District_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Educational_Master" EntityType="Self.Educational_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobEmployed_Master" EntityType="Self.JobEmployed_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LocatedKM_Master" EntityType="Self.LocatedKM_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Month_Master" EntityType="Self.Month_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State_Master" EntityType="Self.State_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Participant" EntityType="Self.tbl_Participant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Participant_Calling" EntityType="Self.tbl_Participant_Calling" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_UserLogin" EntityType="Self.tbl_UserLogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainingAgency_Master" EntityType="Self.TrainingAgency_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainingCenter_Master" EntityType="Self.TrainingCenter_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Year_Master" EntityType="Self.Year_Master" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -348,9 +390,14 @@
           </AssociationSet>
           <EntitySet Name="tbl_UserLogin" EntityType="Hunar_DBModel.tbl_UserLogin" />
           <EntitySet Name="Batch_Master" EntityType="Hunar_DBModel.Batch_Master" />
-          <EntitySet Name="tbl_Participant_Calling" EntityType="Hunar_DBModel.tbl_Participant_Calling" />
           <EntitySet Name="TrainingCenter_Master" EntityType="Hunar_DBModel.TrainingCenter_Master" />
           <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
+          <EntitySet Name="tbl_Participant_Calling" EntityType="Hunar_DBModel.tbl_Participant_Calling" />
+          <EntitySet Name="Month_Master" EntityType="Hunar_DBModel.Month_Master" />
+          <EntitySet Name="Year_Master" EntityType="Hunar_DBModel.Year_Master" />
+          <EntitySet Name="Benefit_Master" EntityType="Hunar_DBModel.Benefit_Master" />
+          <EntitySet Name="JobEmployed_Master" EntityType="Hunar_DBModel.JobEmployed_Master" />
+          <EntitySet Name="LocatedKM_Master" EntityType="Hunar_DBModel.LocatedKM_Master" />
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -523,45 +570,6 @@
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Updated" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tbl_Participant_Calling">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="IsCalling" Type="Int32" />
-          <Property Name="CallingDate" Type="DateTime" Precision="0" />
-          <Property Name="ParticipantId_fk" Type="Guid" />
-          <Property Name="IsAssessmentCert" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="IsPresent" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="IsComfortable" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="EmpCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="FirstJobTraining" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="DOJ" Type="DateTime" Precision="3" />
-          <Property Name="CurrentEmployer" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Designation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SalaryPackage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CurrentlyWorking" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="WorkingKM" Type="Int32" />
-          <Property Name="WorkingKMOther" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Traininghelp" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SalaryWages" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="ExpectationJobRole" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="WorkPlaceSafe" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="IsMSBenefit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MSBenefitId" Type="Int32" />
-          <Property Name="MSOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="AnyChallenges" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="AreaSupport" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="EmployedId" Type="Int32" />
-          <Property Name="EmployedOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsGettingjob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="PlacedStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="TrainingCenter_Master">
           <Key>
             <PropertyRef Name="Id" />
@@ -607,6 +615,82 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_Participant_Calling">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="QuesMonth" Type="Int32" />
+          <Property Name="QuesYear" Type="Int32" />
+          <Property Name="IsCalling" Type="Int32" />
+          <Property Name="CallingDate" Type="DateTime" Precision="0" />
+          <Property Name="ParticipantId_fk" Type="Guid" />
+          <Property Name="IsAssessmentCert" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsPresent" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsComfortable" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EmpCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FirstJobTraining" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DOJ" Type="DateTime" Precision="3" />
+          <Property Name="CurrentEmployer" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SalaryPackage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentlyWorking" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WorkingKM" Type="Int32" />
+          <Property Name="WorkingKMOther" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Traininghelp" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SalaryWages" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ExpectationJobRole" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WorkPlaceSafe" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsMSBenefit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MSBenefitId" Type="Int32" />
+          <Property Name="MSOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AnyChallenges" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AreaSupport" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EmployedId" Type="Int32" />
+          <Property Name="EmployedOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsGettingjob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PlacedStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Month_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="MonthName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Year_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Benefit_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Benefit" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="JobEmployed_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="JobInterest" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LocatedKM_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="KM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -764,46 +848,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Participant_Calling">
-            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant_Calling">
-              <MappingFragment StoreEntitySet="tbl_Participant_Calling">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="PlacedStatus" ColumnName="PlacedStatus" />
-                <ScalarProperty Name="IsGettingjob" ColumnName="IsGettingjob" />
-                <ScalarProperty Name="EmployedOther" ColumnName="EmployedOther" />
-                <ScalarProperty Name="EmployedId" ColumnName="EmployedId" />
-                <ScalarProperty Name="AreaSupport" ColumnName="AreaSupport" />
-                <ScalarProperty Name="AnyChallenges" ColumnName="AnyChallenges" />
-                <ScalarProperty Name="MSOther" ColumnName="MSOther" />
-                <ScalarProperty Name="MSBenefitId" ColumnName="MSBenefitId" />
-                <ScalarProperty Name="IsMSBenefit" ColumnName="IsMSBenefit" />
-                <ScalarProperty Name="WorkPlaceSafe" ColumnName="WorkPlaceSafe" />
-                <ScalarProperty Name="ExpectationJobRole" ColumnName="ExpectationJobRole" />
-                <ScalarProperty Name="SalaryWages" ColumnName="SalaryWages" />
-                <ScalarProperty Name="Traininghelp" ColumnName="Traininghelp" />
-                <ScalarProperty Name="WorkingKMOther" ColumnName="WorkingKMOther" />
-                <ScalarProperty Name="WorkingKM" ColumnName="WorkingKM" />
-                <ScalarProperty Name="CurrentlyWorking" ColumnName="CurrentlyWorking" />
-                <ScalarProperty Name="SalaryPackage" ColumnName="SalaryPackage" />
-                <ScalarProperty Name="Designation" ColumnName="Designation" />
-                <ScalarProperty Name="CurrentEmployer" ColumnName="CurrentEmployer" />
-                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
-                <ScalarProperty Name="FirstJobTraining" ColumnName="FirstJobTraining" />
-                <ScalarProperty Name="EmpCompany" ColumnName="EmpCompany" />
-                <ScalarProperty Name="IsComfortable" ColumnName="IsComfortable" />
-                <ScalarProperty Name="IsPresent" ColumnName="IsPresent" />
-                <ScalarProperty Name="IsAssessmentCert" ColumnName="IsAssessmentCert" />
-                <ScalarProperty Name="ParticipantId_fk" ColumnName="ParticipantId_fk" />
-                <ScalarProperty Name="CallingDate" ColumnName="CallingDate" />
-                <ScalarProperty Name="IsCalling" ColumnName="IsCalling" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TrainingCenter_Master">
             <EntityTypeMapping TypeName="Hunar_DBModel.TrainingCenter_Master">
               <MappingFragment StoreEntitySet="TrainingCenter_Master">
@@ -848,6 +892,88 @@
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="RegID" ColumnName="RegID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Participant_Calling">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant_Calling">
+              <MappingFragment StoreEntitySet="tbl_Participant_Calling">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PlacedStatus" ColumnName="PlacedStatus" />
+                <ScalarProperty Name="IsGettingjob" ColumnName="IsGettingjob" />
+                <ScalarProperty Name="EmployedOther" ColumnName="EmployedOther" />
+                <ScalarProperty Name="EmployedId" ColumnName="EmployedId" />
+                <ScalarProperty Name="AreaSupport" ColumnName="AreaSupport" />
+                <ScalarProperty Name="AnyChallenges" ColumnName="AnyChallenges" />
+                <ScalarProperty Name="MSOther" ColumnName="MSOther" />
+                <ScalarProperty Name="MSBenefitId" ColumnName="MSBenefitId" />
+                <ScalarProperty Name="IsMSBenefit" ColumnName="IsMSBenefit" />
+                <ScalarProperty Name="WorkPlaceSafe" ColumnName="WorkPlaceSafe" />
+                <ScalarProperty Name="ExpectationJobRole" ColumnName="ExpectationJobRole" />
+                <ScalarProperty Name="SalaryWages" ColumnName="SalaryWages" />
+                <ScalarProperty Name="Traininghelp" ColumnName="Traininghelp" />
+                <ScalarProperty Name="WorkingKMOther" ColumnName="WorkingKMOther" />
+                <ScalarProperty Name="WorkingKM" ColumnName="WorkingKM" />
+                <ScalarProperty Name="CurrentlyWorking" ColumnName="CurrentlyWorking" />
+                <ScalarProperty Name="SalaryPackage" ColumnName="SalaryPackage" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="CurrentEmployer" ColumnName="CurrentEmployer" />
+                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+                <ScalarProperty Name="FirstJobTraining" ColumnName="FirstJobTraining" />
+                <ScalarProperty Name="EmpCompany" ColumnName="EmpCompany" />
+                <ScalarProperty Name="IsComfortable" ColumnName="IsComfortable" />
+                <ScalarProperty Name="IsPresent" ColumnName="IsPresent" />
+                <ScalarProperty Name="IsAssessmentCert" ColumnName="IsAssessmentCert" />
+                <ScalarProperty Name="ParticipantId_fk" ColumnName="ParticipantId_fk" />
+                <ScalarProperty Name="CallingDate" ColumnName="CallingDate" />
+                <ScalarProperty Name="IsCalling" ColumnName="IsCalling" />
+                <ScalarProperty Name="QuesYear" ColumnName="QuesYear" />
+                <ScalarProperty Name="QuesMonth" ColumnName="QuesMonth" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Month_Master">
+            <EntityTypeMapping TypeName="Hunar_DBModel.Month_Master">
+              <MappingFragment StoreEntitySet="Month_Master">
+                <ScalarProperty Name="MonthName" ColumnName="MonthName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Year_Master">
+            <EntityTypeMapping TypeName="Hunar_DBModel.Year_Master">
+              <MappingFragment StoreEntitySet="Year_Master">
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Benefit_Master">
+            <EntityTypeMapping TypeName="Hunar_DBModel.Benefit_Master">
+              <MappingFragment StoreEntitySet="Benefit_Master">
+                <ScalarProperty Name="Benefit" ColumnName="Benefit" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobEmployed_Master">
+            <EntityTypeMapping TypeName="Hunar_DBModel.JobEmployed_Master">
+              <MappingFragment StoreEntitySet="JobEmployed_Master">
+                <ScalarProperty Name="JobInterest" ColumnName="JobInterest" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocatedKM_Master">
+            <EntityTypeMapping TypeName="Hunar_DBModel.LocatedKM_Master">
+              <MappingFragment StoreEntitySet="LocatedKM_Master">
+                <ScalarProperty Name="KM" ColumnName="KM" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
