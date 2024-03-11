@@ -144,7 +144,7 @@ body {
     color: #fff;
     padding: 3px 0 10px;
     z-index: 2;
-    background: #0E5C04;
+    background: #FFB300;
 }
 
 .fixed-divider {
@@ -917,3 +917,24 @@ tbody td {
             background: #6B3005 !important;
             color: #fff
         }
+.edit-icon, .slack-icon, .check-icon {
+    padding: 3px 5px;
+    border-radius: 4px;
+    background: #F7C328;
+    color: #fff !important;
+    font-size: 12px;
+}
+.check-icon {
+    background: #36B058;
+}
+.slack-icon {
+    background: #EF3F23;
+}
+    .edit-icon:hover, .slack-icon:hover, .check-icon:hover {
+        color: #fff;
+        opacity: 0.8
+    }
+/* ===== IMPORTANT */
+.content-manage {
+    padding: 0 20px
+}

@@ -31,13 +31,14 @@
                             <i class="fa fa-list spacerright2"></i>@ViewBag.Title
                         </p>
                     </div>
-                    <div id="div-download"></div>
-                    @using (Html.BeginForm("GetUserDetailData", "Master", FormMethod.Post, new { id = "submission-form" }))
-                    {
-
-                        <div id="submission-data">
-                        </div>
-                    }
+                    <div class="content-manage">
+                        <div id="div-download"></div>
+                        @using (Html.BeginForm("GetUserDetailData", "Master", FormMethod.Post, new { id = "submission-form" }))
+                        {
+                            <div id="submission-data">
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

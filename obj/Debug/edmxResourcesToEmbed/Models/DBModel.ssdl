@@ -70,6 +70,13 @@
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
   </EntityType>
+  <EntityType Name="Benefit_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Benefit" Type="nvarchar" MaxLength="200" />
+  </EntityType>
   <EntityType Name="Courses_Master">
     <Key>
       <PropertyRef Name="Id" />
@@ -106,6 +113,27 @@
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
+  </EntityType>
+  <EntityType Name="JobEmployed_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="JobInterest" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="LocatedKM_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="KM" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Month_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="MonthName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="State_Master">
     <Key>
@@ -155,6 +183,8 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="QuesMonth" Type="int" />
+    <Property Name="QuesYear" Type="int" />
     <Property Name="IsCalling" Type="int" />
     <Property Name="CallingDate" Type="date" />
     <Property Name="ParticipantId_fk" Type="uniqueidentifier" />
@@ -226,6 +256,13 @@
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
   </EntityType>
+  <EntityType Name="Year_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Year" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -289,15 +326,20 @@
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Batch_Master" EntityType="Self.Batch_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Benefit_Master" EntityType="Self.Benefit_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Courses_Master" EntityType="Self.Courses_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="District_Master" EntityType="Self.District_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Educational_Master" EntityType="Self.Educational_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobEmployed_Master" EntityType="Self.JobEmployed_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LocatedKM_Master" EntityType="Self.LocatedKM_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Month_Master" EntityType="Self.Month_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="State_Master" EntityType="Self.State_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Participant" EntityType="Self.tbl_Participant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Participant_Calling" EntityType="Self.tbl_Participant_Calling" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_UserLogin" EntityType="Self.tbl_UserLogin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrainingAgency_Master" EntityType="Self.TrainingAgency_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrainingCenter_Master" EntityType="Self.TrainingCenter_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Year_Master" EntityType="Self.Year_Master" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />

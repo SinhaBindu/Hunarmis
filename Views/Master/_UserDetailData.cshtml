@@ -33,25 +33,25 @@
                                 foreach (DataRow dr in dt.Rows)
                                 {
                                     <tr>
-                                        <td class="text-center">@(sno++)</td>
+                                        <td class="text-left">@(sno++)</td>
                                         <td class="text-left">@dr["Name"]</td>
                                         <td class="text-left">@dr["Email"]</td>
                                         <td class="text-left">@dr["PhoneNumber"]</td>
                                         <td class="text-left">@dr["Role"]</td>
                                         <td class="text-left">@dr["DistrictName"]</td>
                                         <td title="Edit">
-                                            <a href="~/Account/Register?id=@dr["Id"]" style='font-size: medium;'>Edit <i class="fa fa-edit"></i></a>
+                                            <a href="~/Account/Register?id=@dr["Id"]" class="edit-icon"><i class="fa fa-edit"></i></a>
                                         </td>
                                         @if (dr["LockoutEnabled"].ToString() == "False")
                                         {
                                             <td title="Disable">
-                                                <a href="~/Account/Register_Enable?id=@dr["Id"]" class='fa fa-slack'  style='color: Red; font-size: medium;'></a>
+                                                <a href="~/Account/Register_Enable?id=@dr["Id"]" class="slack-icon"><i class="fa fa-slack"></i></a>
                                             </td>
                                         }
                                         else
                                         {
                                             <td title="Enabled">
-                                                <a href="~/Account/Register_Lock?id=@dr["Id"]" class='fa fa-check'  style='color: forestgreen; font-size:medium;'></a>
+                                                <a href="~/Account/Register_Lock?id=@dr["Id"]" class="check-icon"><i class="fa fa-check"></i></a>
                                             </td>
                                         }
 
