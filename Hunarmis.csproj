@@ -344,12 +344,21 @@
     <Compile Include="Manager\HtmlToText.cs" />
     <Compile Include="Manager\JsonResponseData.cs" />
     <Compile Include="Manager\OMSPManager.cs" />
+    <Compile Include="Models\Benefit_Master.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DBModel1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FilterModel.cs" />
+    <Compile Include="Models\JobEmployed_Master.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LocatedKM_Master.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Month_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -1584,6 +1593,8 @@
     <Content Include="Views\Participant\AddParticipant.cshtml" />
     <Content Include="Views\Participant\ParticipantList.cshtml" />
     <Content Include="Views\Participant\_PartData.cshtml" />
+    <Content Include="Views\Participant\PartQuestionList.cshtml" />
+    <Content Include="Views\Participant\_PartQuesData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

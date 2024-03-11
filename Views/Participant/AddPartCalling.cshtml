@@ -189,6 +189,7 @@
                                 </div>
                                 <div class="mark-devide"></div>
                             </div>
+                            <h4>@Hunarmis.Models.DplyPartCalName.SectionGeneral</h4>
                             <div class="form-group">
                                 @Html.LabelFor(model => model.SalaryWages, htmlAttributes: new { @class = "control-label col-lg-2" })
                                 <div class="col-lg-8">
@@ -267,16 +268,20 @@
                                 </div>
                                 <div class="mark-devide"></div>
                             </div>
-                            <div class="form-group" id="div-PlacedStatus" style="display:none;">
-                                @Html.LabelFor(model => model.PlacedStatus, htmlAttributes: new { @class = "control-label col-lg-2" })
-                                <div class="checkbox">
-                                    @foreach (var item in CommonModel.GetYesNo())
-                                    {
-                                        @Html.RadioButtonFor(model => model.PlacedStatus, item.Value, new { id = "PlacedStatus" + item.Value }) @item.Text
-                                    }
-                                    @Html.ValidationMessageFor(model => model.PlacedStatus, "", new { @class = "text-danger" })
+                            @*id="div-PlacedStatus" style="display:none;"*@
+                            <div id="div-PlacedStatus">
+                                <h4>@Hunarmis.Models.DplyPartCalName.SectionPlacement</h4>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PlacedStatus, htmlAttributes: new { @class = "control-label col-lg-2" })
+                                    <div class="checkbox">
+                                        @foreach (var item in CommonModel.GetYesNo())
+                                        {
+                                            @Html.RadioButtonFor(model => model.PlacedStatus, item.Value, new { id = "PlacedStatus" + item.Value }) @item.Text
+                                        }
+                                        @Html.ValidationMessageFor(model => model.PlacedStatus, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
                                 </div>
-                                <div class="mark-devide"></div>
                             </div>
 
                             <div class="form-group">
@@ -284,7 +289,7 @@
                                 <div class="col-md-10 pull-right">
                                     <span class="webshow ">
                                         @*<button type="submit" class="previous btn btn-primary btn-lg">Submit</button>*@
-                                        <input type="submit" name="btnsubmit" value="Submit" id="btnsubmit" class="previous btn btn-primary btn-lg" />
+                                        <input type="submit" name="btnsubmit" value="Submit" id="btnsubmit" class="previous btn-lg btn-register" />
                                         @*<a href="~/Partictant/AddPartCalling" class="btn btn-dark btn-lg">Reset</a>*@
                                     </span>
                                 </div>

@@ -33,9 +33,9 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SP_PartCallingList(FilterModel model)
+        public static DataTable SP_PartQuesList(FilterModel model)
         {
-            StoredProcedure sp = new StoredProcedure("SP_PartCalling");
+            StoredProcedure sp = new StoredProcedure("SP_PartQuesList");
             sp.Command.AddParameter("@MonthId", model.MonthId, DbType.Int32);
             sp.Command.AddParameter("@YearId", model.YearId, DbType.Int32);
             DataTable dt = sp.ExecuteDataSet().Tables[0];

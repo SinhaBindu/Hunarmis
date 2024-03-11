@@ -35,7 +35,7 @@
                 <div class="panel">
                     <fieldset class="border rounded-3 p-3">
                         <legend class="float-none w-auto px-2">Search By</legend>
-                        @using (Html.BeginForm("GetPartQuestionList", "Participant", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+                        @using (Html.BeginForm("GetPartList", "Participant", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
                         {
                             <div class="col-md-12">@Html.Partial("_Alerts")</div>
                             <div class="panel-bodys">
@@ -163,7 +163,7 @@
 
             $.ajax({
                 type: "Get",
-                url: document.baseURI + "/Participant/GetPartQuestionList",
+                url: document.baseURI + "/Participant/GetPartList",
                 data: filtermodel,//JSON.stringify({ 'Roles': '' }),
                 //cache: false,
                 success: function (res) {

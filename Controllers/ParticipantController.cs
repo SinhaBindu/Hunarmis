@@ -276,7 +276,6 @@ namespace Hunarmis.Controllers
             FilterModel model = new FilterModel();
             return View(model);
         }
-        [HttpPost]
         public ActionResult GetPartList(FilterModel model)
         {
             DataTable tbllist = new DataTable();
@@ -289,6 +288,40 @@ namespace Hunarmis.Controllers
                 {
                     IsCheck = true;
                     html = ConvertViewToString("_PartData", tbllist);
+                    var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+                else
+                {
+                    var res = Json(new { IsSuccess = IsCheck, Data = "Record Not Found !!" }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
+        public ActionResult PartQuestionList()
+        {
+            FilterModel model = new FilterModel();
+            return View(model);
+        }
+        public ActionResult GetPartQuestionList(FilterModel model)
+        {
+            DataTable tbllist = new DataTable();
+            var html = "";
+            try
+            {
+                tbllist = SPManager.SP_PartQuesList(model);
+                bool IsCheck = false;
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                    html = ConvertViewToString("_PartQuesData", tbllist);
                     var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
                     res.MaxJsonLength = int.MaxValue;
                     return res;
