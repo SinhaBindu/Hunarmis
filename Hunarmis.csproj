@@ -1595,6 +1595,7 @@
     <Content Include="Views\Participant\_PartData.cshtml" />
     <Content Include="Views\Participant\PartQuestionList.cshtml" />
     <Content Include="Views\Participant\_PartQuesData.cshtml" />
+    <Content Include="Views\Participant\QuesResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

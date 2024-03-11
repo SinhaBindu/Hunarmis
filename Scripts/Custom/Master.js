@@ -30,15 +30,15 @@ $(".numberonly").on("input", function (evt) {
     }
 });
 
-function BindYear(ElementId, SelectedValue, SelectAll) {
+function BindYearList(ElementId, SelectedValue, SelectAll) {
     $('#' + ElementId).empty();
     $('#' + ElementId).prop("disabled", false);
-    $('#' + ElementId).append($("<option>").val('').text('Select'));
+    //$('#' + ElementId).append($("<option>").val('').text('Select'));
     $.ajax({
         //url: document.baseURI + "/Master/GetHSCDistrict",
-        url: document.baseURI + "Home/GetDDLYear",
+        url: document.baseURI + "Master/GetYearList",
         type: "Post",
-        data: '',
+        data: JSON.stringify({ 'SelectAll': SelectAll }),
         contentType: "application/json; charset=utf-8",
         //global: false,
         //async: false,
@@ -67,15 +67,15 @@ function BindYear(ElementId, SelectedValue, SelectAll) {
     $('#' + ElementId).trigger("chosen:updated");
 }
 
-function BindFinYear(ElementId, SelectedValue, SelectAll) {
+function BindMonthList(ElementId, SelectedValue, SelectAll) {
     $('#' + ElementId).empty();
     $('#' + ElementId).prop("disabled", false);
     //$('#' + ElementId).append($("<option>").val('').text('Select'));
     $.ajax({
         //url: document.baseURI + "/Master/GetHSCDistrict",
-        url: document.baseURI + "Home/GetDDLFinYear",
+        url: document.baseURI + "Master/GetMonthList",
         type: "Post",
-        data: '',
+        data: JSON.stringify({ 'SelectAll': SelectAll }),
         contentType: "application/json; charset=utf-8",
         //global: false,
         //async: false,

@@ -36,8 +36,10 @@ namespace Hunarmis.Manager
         public static DataTable SP_PartQuesList(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_PartQuesList");
-            sp.Command.AddParameter("@MonthId", model.MonthId, DbType.Int32);
             sp.Command.AddParameter("@YearId", model.YearId, DbType.Int32);
+            sp.Command.AddParameter("@MonthId", model.MonthId, DbType.Int32);
+            sp.Command.AddParameter("@BatchId", model.BatchId, DbType.Int32);
+            sp.Command.AddParameter("@ParticipantQuestionId", model.ParticipantQuestionId, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

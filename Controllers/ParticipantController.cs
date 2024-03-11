@@ -339,6 +339,13 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
             }
         }
+        public ActionResult QuesResponse(string PartQuestId)
+        {
+            FilterModel model = new FilterModel();
+            model.ParticipantQuestionId = PartQuestId;  
+            DataTable dt = SPManager.SP_PartQuesList(model);
+            return View(dt);
+        }
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;

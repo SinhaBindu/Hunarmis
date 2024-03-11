@@ -316,7 +316,7 @@ namespace Hunarmis.Manager
         public static List<SelectListItem> GetBatch(bool IsAll = false)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
-            List <SelectListItem> items = new List<SelectListItem>();
+            List<SelectListItem> items = new List<SelectListItem>();
             try
             {
                 DataTable dt = SPManager.SP_Batch();
@@ -376,7 +376,7 @@ namespace Hunarmis.Manager
             try
             {
                 //&& x.TrainingAgencyID_fk == TrainingAgencyId
-                var items = new SelectList(_db.TrainingCenter_Master.Where(x => x.IsActive == true && x.DistrictID_fk==DistrictId && x.TrainingAgencyID_fk == TrainingAgencyId ), "ID", "TrainingCenter").OrderBy(x => x.Text).ToList();
+                var items = new SelectList(_db.TrainingCenter_Master.Where(x => x.IsActive == true && x.DistrictID_fk == DistrictId && x.TrainingAgencyID_fk == TrainingAgencyId), "ID", "TrainingCenter").OrderBy(x => x.Text).ToList();
                 if (IsAll)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
@@ -388,7 +388,7 @@ namespace Hunarmis.Manager
                 throw;
             }
         }
-        public static List<SelectListItem> GetLocatedKM(bool IsAll=false)
+        public static List<SelectListItem> GetLocatedKM(bool IsAll = false)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
             try
@@ -868,15 +868,19 @@ namespace Hunarmis.Manager
             }
             return list.ToList();
         }
-        public static List<SelectListItem> GetMonth(bool IsAll = false)
+        public static List<SelectListItem> GetMonth(int IsAll = 1)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
             try
             {
                 var items = new SelectList(_db.Month_Master, "ID", "MonthName").OrderBy(x => Convert.ToInt32(x.Value)).ToList();
-                if (IsAll)
+                if (IsAll == 0)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                if (IsAll == 1)
+                {
+                    items.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
                 }
                 return items;
             }
@@ -885,15 +889,19 @@ namespace Hunarmis.Manager
                 throw;
             }
         }
-        public static List<SelectListItem> GetYear(bool IsAll = false)
+        public static List<SelectListItem> GetYear(int IsAll = 1)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
             try
             {
                 var items = new SelectList(_db.Year_Master, "ID", "Year").OrderByDescending(x => Convert.ToInt32(x.Value)).ToList();
-                if (IsAll)
+                if (IsAll == 0)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                if (IsAll == 1)
+                {
+                    items.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
                 }
                 return items;
             }

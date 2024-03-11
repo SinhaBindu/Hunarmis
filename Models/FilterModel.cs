@@ -9,7 +9,9 @@ namespace Hunarmis.Models
     public class FilterModel
     {
         [Display(Name = "Candidate")]
-        public string PartId { get; set; }
+        public string ParticipantId { get; set; }
+        [Display(Name = "Candidate")]
+        public string ParticipantQuestionId { get; set; }
         [Display(Name = "Candidate Reg No")]
         public string RegNo { get; set; }
         [Display(Name ="District")]
@@ -30,11 +32,17 @@ namespace Hunarmis.Models
         [Display(Name = "Role")]
         public string Roles { get; set; }
         public string CutUser { get; set; }
+        [Display(Name = "Month")]
         public int MonthId { get; set; }
+        [Display(Name = "Month")]
         public string Month { get; set; }
+        [Display(Name = "Year")]
         public int YearId { get; set; }
+        [Display(Name = "Year")]
         public string Year { get; set; }
+        [Display(Name = "Type")]
         public string Type { get; set; }
+        [Display(Name = "Search")]
         public string Search { get; set; }
     }
 }

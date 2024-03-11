@@ -14,18 +14,17 @@
         <table class="table table-bordered table-striped" id="tbl">
             <thead class="text-center">
                 <tr>
-                    <th class="text-center">Srno.</th>
-                    <th class="text-center">Center Name</th>
-                    <th class="text-center">Registration<br /> ID</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Phone No</th>
-                    <th class="text-center">Email ID</th>
-                    <th class="text-center">Aadhar <br />Card No.</th>
-                    <th class="text-center">Batch Name</th>
-                    <th class="text-center">Batch Start Date</th>
-                    <th class="text-center">Batch End Date</th>
-                    <th class="text-center">Assessment<br /> Score</th>
-                    <th class="text-center">Edit</th>
+                    <th class="tblth">Srno.</th>
+                    <th class="tblth">Month/<br />Year</th>
+                    <th class="tblth">Center Name</th>
+                    <th class="tblth">Registration<br /> ID <br /><strong class="text-success text-bold" style="font-size:medium !important;">(View)</strong></th>
+                    <th class="tblth">Name</th>
+                    <th class="tblth">Phone No</th>
+                    <th class="tblth">Email ID</th>
+                    <th class="tblth">Batch Name</th>
+                    <th class="tblth">Batch Start Date</th>
+                    <th class="tblth">Batch End Date</th>
+                    @*<th class="text-center">Edit</th>*@
                 </tr>
             </thead>
             <tbody>
@@ -37,26 +36,27 @@
                         {
                             <tr>
                                 <td class="text-center">@(srno++)</td>
+                                <td class="text-center bg-warning text-white"><strong>@(dr["Ques_Month"] + "/" +dr["Ques_Year"])</strong></td>
                                 <td class="text-left">@dr["TrainingCenter"]</td>
-                                <td class="text-center"><a href="~/Participant/AddPartCalling?PartId=@dr["ID"]"><strong>@dr["RegID"]</strong></a></td>
+                                <td class="text-center bg-gray text-white">
+                                    <a href="~/Participant/QuesResponse?PartQuestId=@dr["ParticipantQuestionId"]"><strong style="text-decoration:underline !important;">@dr["RegID"]</strong></a>
+                                </td>
                                 <td class="text-left">@dr["FullName"]</td>
                                 <td class="text-center">@dr["PhoneNo"]</td>
                                 <td class="text-left">@dr["EmailID"]</td>
-                                <td class="text-center">@dr["AadharCardNo"]</td>
                                 <td class="text-left">@dr["BatchName"]</td>
                                 <td class="text-center">@dr["BatchStartDate"]</td>
                                 <td class="text-center">@dr["BatchEndDate"]</td>
-                                <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
-                                <td class="text-center">
-                                    <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                </td>
+                                @*<td class="text-center">
+                                        <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                    </td>*@
                             </tr>
                         }
                     }
                     else
                     {
                         <tr>
-                            <td colspan="12" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                            <td colspan="10" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
                         </tr>
                     }
                 }
@@ -64,5 +64,5 @@
 
         </table>
     </div>
-    
+
 </div>

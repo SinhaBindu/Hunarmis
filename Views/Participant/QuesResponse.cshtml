@@ -1,0 +1,156 @@
+﻿@using System.Data
+@using Hunarmis.Manager
+@using Hunarmis.Models
+@{
+    ViewBag.Title = "Participant Questionnaire Response Details";
+    ViewBag.TitleIcon = "fa fa-user";
+    ViewBag.SemiTitle = "Participant Response Details";
+    ViewBag.SemiTitleLink = "/Participant/PartQuestionList";
+    string IsSadmin = string.Empty;
+    DataTable dt = new DataTable();
+    if (Model != null)
+    {
+        dt = Model;
+    }
+}
+@*<h2>Participant Questionnaire Response Details</h2>*@
+
+<style>
+</style>
+
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+
+                    <div class="panel-bodys">
+                        <div class="bg-light rounded h-100 p-4">
+                            @{
+                                if (dt.Rows.Count > 0)
+                                {
+                                    <div class="row mb-3">
+                                        <h4 class="bootbox">Basic Details</h4>
+                                        <hr />
+                                        <div class="col-md-4">@DplyPartCalName.RegID  <strong> :@dt.Rows[0]["RegID"].ToString()</strong></div>
+                                        <div class="col-md-4">@DplyPartCalName.FullName  <strong>: @dt.Rows[0]["FullName"].ToString()</strong></div>
+                                        <div class="col-md-4">@DplyPartCalName.BatchName <strong> : @dt.Rows[0]["BatchName"].ToString()</strong></div>
+                                        <div class="col-md-4">@DplyPartCalName.SBatchDt <strong>: @dt.Rows[0]["BatchStartDate"].ToString()</strong></div>
+                                        <div class="col-md-4">@DplyPartCalName.EBatchDt  <strong> : @dt.Rows[0]["BatchEndDate"].ToString()</strong></div>
+                                        <div class="col-md-12"> <hr /></div>
+                                        <h4 class="bootbox">Questionnaire Response</h4>
+                                        <div class="col-md-12"> @DplyPartCalName.QuesMonth  <strong> :@dt.Rows[0]["Ques_Month"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.QuesYear   <strong> :@dt.Rows[0]["Ques_Year"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.IsAssessmentCert  <strong> :@dt.Rows[0]["IsAssessmentCert"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.IsComfortable  <strong> :@dt.Rows[0]["IsComfortable"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.EmpCompany  <strong> :@dt.Rows[0]["EmpCompany"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.FirstJobTraining  <strong> :@dt.Rows[0]["FirstJobTraining"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.DOJ  <strong> :@dt.Rows[0]["DOJ"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.CurrentEmployer  <strong> :@dt.Rows[0]["CurrentEmployer"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.Designation  <strong> :@dt.Rows[0]["Designation"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.SalaryPackage  <strong> :@dt.Rows[0]["SalaryPackage"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.CurrentlyWorking  <strong> :@dt.Rows[0]["CurrentlyWorking"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.WorkingKM  <strong> :@dt.Rows[0]["WorkingKM"].ToString()</strong></div>
+                                        @*<div class="col-md-12"> @DplyPartCalName.WorkingKMOther  <strong> :@Model.WorkingKMOther</strong></div>*@
+                                        <div class="col-md-12"> @DplyPartCalName.Traininghelp  <strong> :@dt.Rows[0]["Traininghelp"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.SectionGeneral <hr /> </div>
+                                        <div class="col-md-12"> @DplyPartCalName.SalaryWages  <strong> :@dt.Rows[0]["SalaryWages"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.ExpectationJobRole  <strong> :@dt.Rows[0]["ExpectationJobRole"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.WorkPlaceSafe  <strong> :@dt.Rows[0]["WorkPlaceSafe"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.IsMSBenefit  <strong> :@dt.Rows[0]["IsMSBenefit"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.MSBenefitId  <strong> :@dt.Rows[0]["MSBenefitId"].ToString()</strong></div>
+                                        @*<div class="col-md-12"> @DplyPartCalName.MSOther  <strong> :@dt.Rows[0][""].ToString()</strong></div>*@
+                                        <div class="col-md-12"> @DplyPartCalName.AnyChallenges  <strong> :@dt.Rows[0]["AnyChallenges"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.AreaSupport  <strong> :@dt.Rows[0]["AreaSupport"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.EmployedId  <strong> :@dt.Rows[0]["EmployedId"].ToString()</strong></div>
+                                        @*<div class="col-md-12"> @DplyPartCalName.EmployedOther  <strong> :@Model.EmployedOther</strong></div>*@
+                                        <div class="col-md-12"> @DplyPartCalName.IsGettingjob  <strong> :@dt.Rows[0]["IsGettingjob"].ToString()</strong></div>
+                                        <div class="col-md-12"> @DplyPartCalName.SectionPlacement</div>
+                                        <div class="col-md-12"> @DplyPartCalName.PlacedStatus <strong> :@dt.Rows[0]["PlacedStatus"].ToString()</strong></div>
+                                    </div>
+                                }
+
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/Custom/Master.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            //BindYearList("YearId", 0, 0);
+            //BindMonthList("MonthId", 0, 0);
+            //BindBatchList("BatchId", 0, true);
+
+            //$("#formid").submit(function (e) {
+            //    e.preventDefault();
+            //    BindData();
+            //});
+
+            //BindData();
+        });
+        function BindData() {
+            $("#subdata").html('');
+            var filtermodel = new Object();
+            filtermodel.YearId = $('#YearId').val() == '' ? '' : $('#YearId').val();
+            filtermodel.MonthId = $('#MonthId').val() == '' ? '' : $('#MonthId').val();
+            filtermodel.BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
+            var formData = $('#formid').serialize();
+
+            $.ajax({
+                type: "Get",
+                url: document.baseURI + "/Participant/GetPartQuestionList",
+                data: filtermodel,//JSON.stringify({ 'Roles': '' }),
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+
+                        if ($.fn.dataTable.isDataTable('#tbl')) {
+                            $("#tbl").dataTable().fnDestroy();
+                        }
+                        table = $('#tbl').DataTable({
+                            //scrollY: "400px",
+                            //scrollX: true,
+                            //scrollCollapse: true,
+                            //paging: false,
+                            pageLength: 100,
+                            fixedColumns: {
+                                leftColumns: 1,
+                                rightColumns: 1
+                            },
+                            buttons: [{
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Beneficiary Lists',//$('#IDDistrict option:selected').text() +
+                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                filename: 'Beneficiary List',
+                                exportOptions: { modifier: { page: 'all' } }
+                            }],
+                        });
+                        $('.dataTables_filter input[type="search"]').css(
+                            { 'width': '500px', 'display': 'inline-block' }
+                        );
+                        $('#div-download').empty();
+                        table.buttons().container().appendTo($('#div-download'));
+                    }
+                    else {
+                        $("#subdata").html(res.Data);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+    </script>
+}
+
