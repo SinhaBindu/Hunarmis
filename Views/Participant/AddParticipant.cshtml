@@ -10,13 +10,7 @@
 }
 <link href="~/Content/plugins/multiple-email/email.multiple.css" rel="stylesheet" />
 
-<style>
-    @@media (max-width:991px) {
-        .mt-md-10 {
-            margin-top: 10px;
-        }
-    }
-
+<style>    
     .text-white {
         color: #fff;
     }
@@ -44,20 +38,35 @@
         .modal-footer .btn-group:last-child > button {
             border-right: 0;
         }
+
     .manage-input {
-        width: 100%;
         display: flex;
-        gap: 50px;
+        gap: 40px;
     }
+
     .card1, .card2 {
-        flex-basis: 50%;
-        float: left
+        flex: 1;
     }
+
     .form-horizontal .control-label {
         text-align: left !important
     }
+
     .check-box {
         margin-right: 12px;
+    }
+    @@media (max-width:991px) {
+        .mt-md-10 {
+            margin-top: 10px;
+        }
+        .manage-input {
+            padding: 0 20px;
+        }
+    }
+    @@media screen and (max-width: 900px){
+        .manage-input {
+            flex-direction: column;
+        }
     }
 </style>
 
@@ -75,7 +84,7 @@
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>@ViewBag.Title Information</p>
                             <div class="manage-input">
-                                <div card="card1">
+                                <div class="card1">
                                     @if (Model.ID != Guid.Empty)
                                     {
                                         <div class="form-group">
@@ -117,9 +126,9 @@
                                             <div class="checkbox">
                                                 @foreach (var item in CommonModel.GetGender())
                                                 {
-                                                <div class="check-box">
-                                                    @Html.RadioButtonFor(model => model.Gender, item.Value, new { id = "Gender" + item.Value, @required = "required" }) @item.Text
-                                                </div>
+                                                    <div class="check-box">
+                                                        @Html.RadioButtonFor(model => model.Gender, item.Value, new { id = "Gender" + item.Value, @required = "required" }) @item.Text
+                                                    </div>
                                                 }
                                                 @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                                             </div>
@@ -167,7 +176,7 @@
                                         <div class="mark-devide"></div>
                                     </div>
                                 </div>
-                                <div card="card2">
+                                <div class="card2">
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.AssessmentScore, htmlAttributes: new { @class = "control-label col-lg-12" })
                                         <div class="col-lg-12">
@@ -243,16 +252,11 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                           
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <span class="webshow ">
-                                        @*<button type="submit" class="previous btn btn-primary btn-lg">Submit</button>*@
                                         <input type="submit" name="btnsubmit" value="Submit" id="btnsubmit" class="btn-register" />
                                         <a href="~/Partictant/AddPartictant" class="btn-reset">Reset</a>
-                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -271,7 +275,7 @@
     <script src="~/Scripts/CustomValidator.js"></script>
     <script src="~/Scripts/Custom/Master.js"></script>
     @*<script src="~/Scripts/Custom/Employee.js"></script>*@
-<script>
+    <script>
        @* $('#DesignationId').val('@Model.DesignationId').select2();*@
         $(document).ready(function () {
             //GetYearList("Year", 0);  //GetMonthList("Month", 0);
@@ -362,5 +366,5 @@
             }
 
         });
-</script>
+    </script>
 }
