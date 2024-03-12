@@ -41,59 +41,59 @@
                             <div class="panel-bodys">
                                 <div class="bg-light rounded h-100 p-4">
                                     @*<div class="row mb-3">
-                        <div class="col-sm-4">
-                            <div class="position-relative form-group">
-                                @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="position-relative form-group">
-                                @Html.LabelFor(model => model.BlockId, htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                @Html.ValidationMessageFor(model => model.BlockId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="position-relative form-group">
-                                @Html.LabelFor(model => model.PanchayatId, htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                @Html.ValidationMessageFor(model => model.PanchayatId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-4">
-                            <div class="position-relative form-group">
-                                @Html.LabelFor(model => model.VOId, htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownListFor(m => m.VOId, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                @Html.ValidationMessageFor(model => model.VOId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="position-relative form-group">
-                                @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownListFor(m => m.Year, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="position-relative form-group">
-                                @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownListFor(m => m.Month, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <span class="check-spacer">
-                            <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Filter" />
-                        </span>&nbsp;&nbsp;&nbsp;
-                        <span class="check-spacer">
-                            <a href="~/Beneficiary/BFYList" class="btn btn-info"><i class="fa fa-refresh"></i>Refresh</a>
-                        </span>
-                    </div>*@
+                                            <div class="col-sm-4">
+                                                <div class="position-relative form-group">
+                                                    @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="position-relative form-group">
+                                                    @Html.LabelFor(model => model.BlockId, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                    @Html.ValidationMessageFor(model => model.BlockId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="position-relative form-group">
+                                                    @Html.LabelFor(model => model.PanchayatId, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                    @Html.ValidationMessageFor(model => model.PanchayatId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-4">
+                                                <div class="position-relative form-group">
+                                                    @Html.LabelFor(model => model.VOId, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.VOId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                    @Html.ValidationMessageFor(model => model.VOId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="position-relative form-group">
+                                                    @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.Year, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="position-relative form-group">
+                                                    @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.Month, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                    @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <span class="check-spacer">
+                                                <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Filter" />
+                                            </span>&nbsp;&nbsp;&nbsp;
+                                            <span class="check-spacer">
+                                                <a href="~/Beneficiary/BFYList" class="btn btn-info"><i class="fa fa-refresh"></i>Refresh</a>
+                                            </span>
+                                        </div>*@
                                 </div>
                             </div>
                         }
@@ -157,7 +157,7 @@
             $("#subdata").html('');
             var filtermodel = new Object();
             filtermodel.Type = 0//$('#Type').val() == '' ? '' : $('#Type').val();
-            filtermodel.Search ="", $('#Search').val() == '' ? '' : $('#Search').val();
+            filtermodel.Search = "", $('#Search').val() == '' ? '' : $('#Search').val();
             //filtermodel.BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
             var formData = $('#formid').serialize();
 
