@@ -25,6 +25,12 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SP_BatchList()
+        {
+            StoredProcedure sp = new StoredProcedure("SP_BatchList");
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
         public static DataTable SP_ParticipantList(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_ParticipantList");

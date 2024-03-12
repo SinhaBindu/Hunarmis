@@ -1,5 +1,16 @@
 ﻿var baseurl = document.baseURI;
 $(function () {
+    jQuery('.numbersOnly').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+
+    //$('.datepicker').datepicker({
+    //    dateFormat: 'dd-M-yy',
+    //    maxDate: '0',
+    //    //maxDate: "+1M +10D",
+    //    changeMonth: true,
+    //    changeYear: true,
+    //});
 
 });
 

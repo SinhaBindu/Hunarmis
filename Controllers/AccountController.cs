@@ -80,14 +80,14 @@ namespace Hunarmis.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    var asptblID = _db.AspNetUsers.Where(x => x.Email == model.Email.Trim())?.FirstOrDefault().Id;
+                    var asptblID = _db.AspNetUsers.Where(x => x.UserName == model.Email.Trim())?.FirstOrDefault().Id;
                     var tbl = new tbl_UserLogin();
                     tbl.UserId = asptblID;
                     tbl.InDate = DateTime.Now;
                     tbl.IsActive = true;
                     _db.tbl_UserLogin.Add(tbl);
                     _db.SaveChanges();
-                    return RedirectToAction("About", "Home");
+                    return RedirectToAction("AddParticipant", "Participant");
                 //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

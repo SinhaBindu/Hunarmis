@@ -116,7 +116,7 @@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="input-box">
                         @Html.LabelFor(m => m.Email)
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Enter email address" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Enter user name" })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
                     <div class="input-box">

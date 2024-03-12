@@ -14,18 +14,18 @@
         <table class="table table-bordered table-striped" id="tbl">
             <thead class="text-center">
                 <tr>
-                    <th class="text-center">Srno.</th>
-                    <th class="text-center">Center Name</th>
-                    <th class="text-center">Registration<br /> ID</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Phone No</th>
-                    <th class="text-center">Email ID</th>
-                    <th class="text-center">Aadhar <br />Card No.</th>
-                    <th class="text-center">Batch Name</th>
-                    <th class="text-center">Batch Start Date</th>
-                    <th class="text-center">Batch End Date</th>
-                    <th class="text-center">Assessment<br /> Score</th>
-                    <th class="text-center">Edit</th>
+                    <th class="text-center tblth">Srno.</th>
+                    <th class="text-center tblth">Center Name</th>
+                    <th class="text-center tblth">Registration<br /> ID</th>
+                    <th class="text-center tblth">Name</th>
+                    <th class="text-center tblth">Phone No</th>
+                    <th class="text-center tblth">Email ID</th>
+                    <th class="text-center tblth">Aadhar <br />Card No.</th>
+                    <th class="text-center tblth">Batch Name</th>
+                    <th class="text-center tblth">Batch Start Date</th>
+                    <th class="text-center tblth">Batch End Date</th>
+                    <th class="text-center tblth">Assessment<br /> Score</th>
+                    <th class="text-center tblth">Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@
                             <tr>
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-left">@dr["TrainingCenter"]</td>
-                                <td class="text-center"><a href="~/Participant/AddPartCalling?PartId=@dr["ID"]"><strong>@dr["RegID"]</strong></a></td>
+                                <td class="text-center"><a href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank" ><strong>@dr["RegID"]</strong></a></td>
                                 <td class="text-left">@dr["FullName"]</td>
                                 <td class="text-center">@dr["PhoneNo"]</td>
                                 <td class="text-left">@dr["EmailID"]</td>

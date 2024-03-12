@@ -13,6 +13,7 @@ using static Hunarmis.Manager.Enums;
 
 namespace Hunarmis.Controllers
 {
+    [Authorize]
     public class ParticipantController : Controller
     {
         Hunar_DBEntities db = new Hunar_DBEntities();
@@ -97,7 +98,7 @@ namespace Hunarmis.Controllers
                         {
                             if (User.Identity.IsAuthenticated)
                             {
-                                //tbl.CreatedBy = MvcApplication.CUser.Id;
+                                tbl.CreatedBy = MvcApplication.CUser.UserId;
                             }
                             tbl.ID = Guid.NewGuid();
                             tbl.CreatedOn = DateTime.Now;
@@ -107,7 +108,7 @@ namespace Hunarmis.Controllers
                         {
                             if (User.Identity.IsAuthenticated)
                             {
-                                // tbl.UpdatedBy = MvcApplication.CUser.Id;
+                                 tbl.UpdatedBy = MvcApplication.CUser.UserId;
                             }
                             tbl.UpdatedOn = DateTime.Now;
                         }
@@ -224,13 +225,13 @@ namespace Hunarmis.Controllers
                         {
                             tbl.ID = Guid.NewGuid();
                             tbl.ParticipantId_fk = model.ParticipantId_fk;
-                            tbl.CreatedBy = User.Identity.Name;
+                            tbl.CreatedBy = MvcApplication.CUser.UserId;
                             tbl.CreatedOn = DateTime.Now;
                             db.tbl_Participant_Calling.Add(tbl);
                         }
                         else if (model.ID != Guid.Empty)
                         {
-                            tbl.UpdatedBy = User.Identity.Name;
+                            tbl.UpdatedBy = MvcApplication.CUser.UserId;
                             tbl.UpdatedOn = DateTime.Now;
                         }
                         results = db.SaveChanges();

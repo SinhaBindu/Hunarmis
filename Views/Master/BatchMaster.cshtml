@@ -1,0 +1,194 @@
+﻿@model Hunarmis.Models.BatchModel
+@{
+    ViewBag.Title = "Add Batch";
+    ViewBag.TitleIcon = "fa fa-user";
+    ViewBag.SemiTitle = "Batch List";
+    ViewBag.SemiTitleLink = "/Master/BatchMaster";
+}
+
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    @using (Html.BeginForm("BatchMaster", "Master", FormMethod.Post, new { @class = "panel-body form-horizontal form-padding loader", @id = "formid" }))
+                    {
+                        <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                        <div class="panel-bodys bg-white">
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(m => m.Id)
+                            <div class="col-sm-12">
+                                <div class="row mb-3">
+                                    <div class="col-sm-5">
+                                        <div class="rounded h-100 p-4">
+                                            <div class="mb-3">
+                                                @Html.LabelFor(m => m.BatchName, new { @class = "Col-md-2 col-form-label" })<em>*</em>
+                                                @Html.EditorFor(m => m.BatchName, null, new { htmlAttributes = new { @placeholder = "Batch Name", @class = "form-control col-md-4 required", @required = "required" } })
+                                                @Html.ValidationMessageFor(m => m.BatchName, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="mb-3">
+                                                @Html.LabelFor(m => m.BatchStartDate, new { @class = "Col-md-2 col-form-label" })<em>*</em>
+                                                @Html.EditorFor(m => m.BatchStartDate, null, new { htmlAttributes = new { @placeholder = "Batch Start Date", @class = "form-control col-md-4 required", @required = "required" } })
+                                                @Html.ValidationMessageFor(m => m.BatchStartDate, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="mb-3">
+                                                @Html.LabelFor(m => m.BatchEndDate, new { @class = "Col-md-2 col-form-label" })<em>*</em>
+                                                @Html.EditorFor(m => m.BatchEndDate, null, new { htmlAttributes = new { @placeholder = "Batch End Date", @class = "form-control col-md-4 required", @required = "required" } })
+                                                @Html.ValidationMessageFor(m => m.BatchEndDate, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-2"></div>
+                                                <div class="col-md-10 pull-right" style="padding-top: 10px !important;">
+                                                    <span class="webshow">
+                                                        <input type="submit" class="btn-register" name="btnsubmit" id="btnsubmit" value="Submit" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7">
+                                        <div id="subdata" style="height:500px; overflow:scroll;"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script src="~/Scripts/Custom/Master.js"></script>*@
+
+<script>
+        $(document).ready(function () {
+
+            var dateFormat = "dd-M-yy",
+                from = $("#BatchStartDate")
+                    .datepicker({
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 3,
+                        dateFormat: "dd-M-yy",
+                    })
+                    .on("change", function () {
+                        to.datepicker("option", "minDate", getDate(this));
+                    }),
+                to = $("#BatchEndDate").datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 3,
+                    dateFormat: "dd-M-yy",
+                })
+                    .on("change", function () {
+                        from.datepicker("option", "maxDate", getDate(this));
+                    });
+
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+
+                return date;
+            }
+
+
+            if ('@Model.Id' != '0') {
+                $('#Id').val('@Model.Id');
+                $('#BatchName').val('@Model.BatchName');
+                $('#BatchStartDate').val(moment('@Model.BatchStartDate').format("DD-MMM-YYYY"));
+                $('#BatchEndDate').val(moment('@Model.BatchEndDate').format("DD-MMM-YYYY"));
+            }
+
+            $("#btnsubmit").click(function (e) {
+                e.preventDefault();
+                CUOPT();
+            });
+            BindData();
+
+        });
+
+        function BindData() {
+            $.ajax({
+                type: "GET",
+                url: document.baseURI + "/Master/GetBatchMasterllist",
+                data: '',//JSON.stringify({}),// 'BatchName': $('#BatchName').val()
+                cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+                    }
+                    $("#subdata").html(res.Data);
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+
+        function CUOPT() {
+            debugger;
+            var isvalid = $("#formid").valid();
+            var IsCheck = true;
+
+            var formData = new FormData();
+            formData.append('Id', $('#Id').val());
+            formData.append('BatchName', $('#BatchName').val());
+            formData.append('BatchStartDate', $('#BatchStartDate').val());
+            formData.append('BatchEndDate', $('#BatchEndDate').val());
+
+            //formData.append('v_model', JSON.stringify(MS_model));
+
+            if (isvalid && IsCheck) {
+                $.ajax({
+                    url: document.baseURI + "/Master/BatchMaster",
+                    type: "Post",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    //contentType: "application/json; charset=utf-8",
+                    // data: JSON.stringify(model),
+                    //global: false,
+                    // async: false,
+                    // dataType: "json",
+                    success: function (resp) {
+                        if (resp.StatusType == "success") {
+                            toastr.success("Success", resp.Message);
+                            BindData();
+                            $('#Id').val('0');
+                            $('#BatchName').val(''); $('#BatchStartDate').val(''); $('#BatchEndDate').val('');
+                            //jQuery.event.trigger("ajaxStop");
+                        }
+                        else {
+                            toastr.error("Error", resp.Message);
+                        }
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        toastr.error("Error", errormsg);
+                        //jQuery.event.trigger("ajaxStop");
+                        return false;
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+
+        }
+
+</script>
+}

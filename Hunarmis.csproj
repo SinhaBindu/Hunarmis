@@ -344,6 +344,7 @@
     <Compile Include="Manager\HtmlToText.cs" />
     <Compile Include="Manager\JsonResponseData.cs" />
     <Compile Include="Manager\OMSPManager.cs" />
+    <Compile Include="Models\BatchModel.cs" />
     <Compile Include="Models\Benefit_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -1537,6 +1538,8 @@
     <Content Include="Scripts\JSONToCSV.js" />
     <Content Include="Scripts\misc-fullcalendar.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-timezone.min.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\MvcFoolproofJQueryValidation.min.js" />
     <Content Include="Scripts\MvcFoolproofValidation.min.js" />
     <Content Include="Scripts\plugins\jquery.themepunch.plugins.min4361.js" />
@@ -1596,6 +1599,8 @@
     <Content Include="Views\Participant\PartQuestionList.cshtml" />
     <Content Include="Views\Participant\_PartQuesData.cshtml" />
     <Content Include="Views\Participant\QuesResponse.cshtml" />
+    <Content Include="Views\Master\BatchMaster.cshtml" />
+    <Content Include="Views\Master\_BatchData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
