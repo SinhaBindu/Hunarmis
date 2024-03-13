@@ -965,6 +965,13 @@ tbody td {
     .basic-info div {
         flex-basis: 30%;
     }
+.basic-search {
+    margin: 0 15px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background: #F5F5F5;
+    border-radius: 10px;
+}
     /* ===== IMPORTANT */
     .content-manage {
         padding: 0 20px

@@ -16,6 +16,9 @@
 @*<h2>Participant Questionnaire Response Details</h2>*@
 
 <style>
+    .content-manage {
+        padding: 10px 20px
+    }
 </style>
 
 <div id="page-content">
@@ -29,16 +32,16 @@
                             @{
                                 if (dt.Rows.Count > 0)
                                 {
-                                    <div class="row mb-3">
-                                        <h4 class="bootbox">Basic Details</h4>
-                                        <hr />
-                                        <div class="col-md-4">@DplyPartCalName.RegID  <strong> :@dt.Rows[0]["RegID"].ToString()</strong></div>
-                                        <div class="col-md-4">@DplyPartCalName.FullName  <strong>: @dt.Rows[0]["FullName"].ToString()</strong></div>
-                                        <div class="col-md-4">@DplyPartCalName.BatchName <strong> : @dt.Rows[0]["BatchName"].ToString()</strong></div>
-                                        <div class="col-md-4">@DplyPartCalName.SBatchDt <strong>: @dt.Rows[0]["BatchStartDate"].ToString()</strong></div>
-                                        <div class="col-md-4">@DplyPartCalName.EBatchDt  <strong> : @dt.Rows[0]["BatchEndDate"].ToString()</strong></div>
-                                        <div class="col-md-12"> <hr /></div>
-                                        <h4 class="bootbox">Questionnaire Response</h4>
+                                    <div class="content-manage">
+                                        <h4 class="semi-title">Basic Details</h4>
+                                        <div class="basic-info">
+                                            <div class=""><p>@DplyPartCalName.RegID  <span> :@dt.Rows[0]["RegID"].ToString()</span></p></div>
+                                            <div class=""><p>@DplyPartCalName.FullName  <span>: @dt.Rows[0]["FullName"].ToString()</span></p></div>
+                                            <div class=""><p>@DplyPartCalName.BatchName <span> : @dt.Rows[0]["BatchName"].ToString()</span></p></div>
+                                            <div class=""><p>@DplyPartCalName.SBatchDt <span>: @dt.Rows[0]["BatchStartDate"].ToString()</span></p></div>
+                                            <div class=""><p>@DplyPartCalName.EBatchDt  <span> : @dt.Rows[0]["BatchEndDate"].ToString()</span></p></div>
+                                        </div>
+                                        <h4 class="semi-title">Questionnaire Response</h4>
                                         <div class="col-md-12"> @DplyPartCalName.QuesMonth  <strong> :@dt.Rows[0]["Ques_Month"].ToString()</strong></div>
                                         <div class="col-md-12"> @DplyPartCalName.QuesYear   <strong> :@dt.Rows[0]["Ques_Year"].ToString()</strong></div>
                                         <div class="col-md-12"> @DplyPartCalName.IsAssessmentCert  <strong> :@dt.Rows[0]["IsAssessmentCert"].ToString()</strong></div>
@@ -73,7 +76,7 @@
                             }
                         </div>
                     </div>
-
+                    <div class="breaker"></div>
                 </div>
             </div>
         </div>

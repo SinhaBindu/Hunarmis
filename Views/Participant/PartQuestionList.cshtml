@@ -26,9 +26,18 @@
         background: #FFFFFF;
         border-color: #009CFF;
     }
+    .dt-input {
+        margin-right: 5px;
+    }
+    table.dataTable > thead > tr > th, table.dataTable > thead > tr > td {
+        padding: 9px 6px !important;
+    }
+    .panel {
+        min-height: 500px;
+    }
 </style>
 
-<div id="page-content">
+
     <div class="genral-form">
         <div class="row">
             <div class="col-lg-12">
@@ -40,7 +49,7 @@
                             <div class="col-md-12">@Html.Partial("_Alerts")</div>
                             <div class="panel-bodys">
                                 <div class="bg-light rounded h-100 p-4">
-                                    <div class="row mb-3">
+                                    <div class="basic-search">
                                         <div class="col-sm-3">
                                             @Html.LabelFor(model => model.YearId, htmlAttributes: new { @class = "control-label" })
                                             <div class="position-relative form-group">
@@ -72,6 +81,7 @@
                                                 </span>
                                             </div>
                                         </div>
+                                        <div class="breaker"></div>
                                     </div>
                                 </div>
                             </div>
