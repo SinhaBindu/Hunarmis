@@ -144,7 +144,7 @@ body {
     color: #fff;
     padding: 3px 0 10px;
     z-index: 2;
-    background: #FFB300;
+    background: #2F4865;
 }
 
 .fixed-divider {
@@ -934,7 +934,38 @@ tbody td {
         color: #fff;
         opacity: 0.8
     }
-/* ===== IMPORTANT */
-.content-manage {
-    padding: 0 20px
+.input-spacer {
+    margin-left: 10px
 }
+.semi-title {
+    color: #fff;
+    padding: 10px 20px;
+    background: #7700E0;
+}
+.basic-info {
+    display: flex;
+    gap: 10px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background: #F5F5F5;
+    border-radius: 10px;
+    flex-wrap: wrap;
+}
+    .basic-info p {
+        color: #000;
+        font-weight: bold;
+        margin: 5px 0;
+    }
+    .basic-info span {
+        color: #7700E0;
+        font-weight: bold;
+        float: right;
+        margin-right: 30px;
+    }
+    .basic-info div {
+        flex-basis: 30%;
+    }
+    /* ===== IMPORTANT */
+    .content-manage {
+        padding: 0 20px
+    }

@@ -1416,7 +1416,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
     #container.mainnav-sm #mainnav-menu > .active-link > a, #container.mainnav-sm #mainnav-menu > .active-link a:hover, #container.mainnav-sm #mainnav-menu > .active-sub > a, #container.mainnav-sm #mainnav-menu > .active-sub a:hover {
         border-radius: 3px;
-        background-color: #25476a;
+        /*background-color: #25476a;*/
         box-shadow: none;
     }
 
@@ -1581,7 +1581,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
         padding-left: 220px;
     }
     #footer {
-        background: #FFB300 !important
+        background: #2F4865 !important
     }
 }
 

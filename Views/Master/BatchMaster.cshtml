@@ -5,7 +5,11 @@
     ViewBag.SemiTitle = "Batch List";
     ViewBag.SemiTitleLink = "/Master/BatchMaster";
 }
-
+<style>
+    .btn-register {
+        margin-left: -20px !important
+    }
+</style>
 <div id="page-content">
     <div class="genral-form">
         <div class="row">
@@ -21,28 +25,25 @@
                                 <div class="row mb-3">
                                     <div class="col-sm-5">
                                         <div class="rounded h-100 p-4">
-                                            <div class="mb-3">
+                                            <div class="form-group">
                                                 @Html.LabelFor(m => m.BatchName, new { @class = "Col-md-2 col-form-label" })<em>*</em>
                                                 @Html.EditorFor(m => m.BatchName, null, new { htmlAttributes = new { @placeholder = "Batch Name", @class = "form-control col-md-4 required", @required = "required" } })
                                                 @Html.ValidationMessageFor(m => m.BatchName, "", new { @class = "text-danger" })
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="form-group">
                                                 @Html.LabelFor(m => m.BatchStartDate, new { @class = "Col-md-2 col-form-label" })<em>*</em>
                                                 @Html.EditorFor(m => m.BatchStartDate, null, new { htmlAttributes = new { @placeholder = "Batch Start Date", @class = "form-control col-md-4 required", @required = "required" } })
                                                 @Html.ValidationMessageFor(m => m.BatchStartDate, "", new { @class = "text-danger" })
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="form-group">
                                                 @Html.LabelFor(m => m.BatchEndDate, new { @class = "Col-md-2 col-form-label" })<em>*</em>
                                                 @Html.EditorFor(m => m.BatchEndDate, null, new { htmlAttributes = new { @placeholder = "Batch End Date", @class = "form-control col-md-4 required", @required = "required" } })
                                                 @Html.ValidationMessageFor(m => m.BatchEndDate, "", new { @class = "text-danger" })
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-2"></div>
-                                                <div class="col-md-10 pull-right" style="padding-top: 10px !important;">
-                                                    <span class="webshow">
-                                                        <input type="submit" class="btn-register" name="btnsubmit" id="btnsubmit" value="Submit" />
-                                                    </span>
-                                                </div>
+                                            <div class="col-md-12" style="padding-top: 10px !important;">
+                                                <span class="webshow">
+                                                    <input type="submit" class="btn-register" name="btnsubmit" id="btnsubmit" value="Submit" />
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
