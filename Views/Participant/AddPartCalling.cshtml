@@ -187,8 +187,13 @@
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Traininghelp, htmlAttributes: new { @class = "control-label col-lg-3" })
-                                <div class="col-lg-8">
-                                    @Html.EditorFor(model => model.Traininghelp, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
+                                <div class="checkbox">
+                                    @foreach (var item in CommonModel.GetYesNo())
+                                    {
+                                        <div class="input-spacer">
+                                            @Html.RadioButtonFor(model => model.Traininghelp, item.Value, new { id = "IsAssessmentCert" + item.Value, @required = "required" }) @item.Text
+                                        </div>
+                                    }
                                     @Html.ValidationMessageFor(model => model.Traininghelp, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="mark-devide"></div>

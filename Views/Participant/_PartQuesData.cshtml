@@ -17,7 +17,7 @@
                     <th class="text-center tblth">Srno.</th>
                     <th class="text-center tblth">Month/Year</th>
                     <th class="text-center tblth">Center Name</th>
-                    <th class="text-center tblth">Registration ID</th>
+                    <th class="text-center tblth">Registration ID <br /><strong class="vw">View</strong></th>
                     <th class="text-center tblth">Name</th>
                     <th class="text-center tblth">Phone No</th>
                     <th class="text-center tblth">Email ID</th>
@@ -38,7 +38,7 @@
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-center bg-warning text-white"><strong>@(dr["Ques_Month"] + "/" +dr["Ques_Year"])</strong></td>
                                 <td class="text-left">@dr["TrainingCenter"]</td>
-                                <td class="text-center bg-gray text-white">
+                                <td class="text-center  bg-success text-white">
                                     <a href="~/Participant/QuesResponse?PartQuestId=@dr["ParticipantQuestionId"]" target="_blank"><strong style="text-decoration:underline !important;">@dr["RegID"]</strong></a>
                                 </td>
                                 <td class="text-left">@dr["FullName"]</td>

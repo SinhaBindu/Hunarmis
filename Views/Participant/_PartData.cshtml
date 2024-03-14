@@ -16,7 +16,7 @@
                 <tr>
                     <th class="text-center tblth">Srno.</th>
                     <th class="text-center tblth">Center Name</th>
-                    <th class="text-center tblth">Registration<br /> ID</th>
+                    <th class="text-center tblth">Registration ID <br /><strong class="vw">View</strong></th>
                     <th class="text-center tblth">Name</th>
                     <th class="text-center tblth">Phone No</th>
                     <th class="text-center tblth">Email ID</th>
@@ -35,22 +35,22 @@
                         int srno = 1;
                         foreach (DataRow dr in dt.Rows)
                         {
-                            <tr>
-                                <td class="text-center">@(srno++)</td>
-                                <td class="text-left">@dr["TrainingCenter"]</td>
-                                <td class="text-center"><a href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank" ><strong>@dr["RegID"]</strong></a></td>
-                                <td class="text-left">@dr["FullName"]</td>
-                                <td class="text-center">@dr["PhoneNo"]</td>
-                                <td class="text-left">@dr["EmailID"]</td>
-                                <td class="text-center">@dr["AadharCardNo"]</td>
-                                <td class="text-left">@dr["BatchName"]</td>
-                                <td class="text-center">@dr["BatchStartDate"]</td>
-                                <td class="text-center">@dr["BatchEndDate"]</td>
-                                <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
-                                <td class="text-center">
-                                    <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon"><i class="fa fa-edit"></i></a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td class="text-center">@(srno++)</td>
+                                    <td class="text-left">@dr["TrainingCenter"]</td>
+                                    <td class="text-center bg-success text-white"><a href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank"><strong>@dr["RegID"]</strong></a></td>
+                                    <td class="text-left">@dr["FullName"]</td>
+                                    <td class="text-center">@dr["PhoneNo"]</td>
+                                    <td class="text-left">@dr["EmailID"]</td>
+                                    <td class="text-center">@dr["AadharCardNo"]</td>
+                                    <td class="text-left">@dr["BatchName"]</td>
+                                    <td class="text-center">@dr["BatchStartDate"]</td>
+                                    <td class="text-center">@dr["BatchEndDate"]</td>
+                                    <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
+                                    <td class="text-center">
+                                        <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon"><i class="fa fa-edit"></i></a>
+                                    </td>
+                                </tr>
                         }
                     }
                     else

@@ -14,7 +14,9 @@ namespace Hunarmis.Models
             ID = Guid.Empty;
         }
         public System.Guid ID { get; set; }
-        [Required]
+        /// <summary>
+        /// [Required]
+        /// </summary>
         [Display(Name = DplyPartName.RegID)]
         public string RegID { get; set; }
         [Required]

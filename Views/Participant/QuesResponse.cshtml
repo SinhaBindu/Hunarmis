@@ -51,7 +51,7 @@
                                                 <div class="col-md-12"> @DplyPartCalName.IsComfortable:  <span> @dt.Rows[0]["IsComfortable"].ToString()</span></div>
                                                 <div class="col-md-12"> @DplyPartCalName.EmpCompany:  <span> @dt.Rows[0]["EmpCompany"].ToString()</span></div>
                                                 <div class="col-md-12"> @DplyPartCalName.FirstJobTraining:  <span> @dt.Rows[0]["FirstJobTraining"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.DOJ:  <span> @dt.Rows[0]["DOJ"].ToString()</span></div>
+                                                <div class="col-md-12"> @DplyPartCalName.DOJ:  <span> @CommonModel.FormateDtDMY(dt.Rows[0]["DOJ"].ToString())</span></div>
                                                 <div class="col-md-12"> @DplyPartCalName.CurrentEmployer:  <span> @dt.Rows[0]["CurrentEmployer"].ToString()</span></div>
                                                 <div class="col-md-12"> @DplyPartCalName.Designation:  <span> @dt.Rows[0]["Designation"].ToString()</span></div>
                                                 <div class="col-md-12"> @DplyPartCalName.SalaryPackage:  <span> @dt.Rows[0]["SalaryPackage"].ToString()</span></div>

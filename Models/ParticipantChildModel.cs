@@ -103,7 +103,7 @@ namespace Hunarmis.Models
         public const string DOJ = "What is your date of joining?";
         public const string CurrentEmployer = "How long have you been working with the current employer? ";
         public const string Designation = "What is your designation?";
-        public const string SalaryPackage = "Salary Package";
+        public const string SalaryPackage = "Salary Package (CTC in lakhs per annum)";
         public const string CurrentlyWorking = "Which location are you currently working in? ";
         public const string WorkingKM = "How far is the place your are working in located with respect to your nativity?";
         public const string WorkingKMOther = "";

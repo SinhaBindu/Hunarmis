@@ -90,7 +90,7 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.RegID, htmlAttributes: new { @class = "control-label col-lg-12" })
                                             <div class="col-lg-12">
-                                                @Html.EditorFor(model => model.RegID, new { htmlAttributes = new { @class = "required form-control", @required = "required", @readonly = "readonly" } })
+                                                @Html.EditorFor(model => model.RegID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                                 @Html.ValidationMessageFor(model => model.RegID, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="mark-devide"></div>
@@ -107,7 +107,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-lg-12" })
                                         <div class="col-lg-12">
-                                            @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "required form-control", @required = "required" } })
+                                            @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = " form-control" } })
                                             @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="mark-devide"></div>
@@ -138,7 +138,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.PhoneNo, htmlAttributes: new { @class = "control-label col-lg-12" })
                                         <div class="col-lg-12">
-                                            @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @type = "number", @class = "required form-control", @required = "required", @min = "10", @maxlength = "10" } })
+                                            @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @type = "number", @class = "required form-control", @required = "required", minlength = "10", @maxlength = "10" } })
                                             @Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="mark-devide"></div>
@@ -146,7 +146,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.AlternatePhoneNo, htmlAttributes: new { @class = "control-label col-lg-12" })
                                         <div class="col-lg-12">
-                                            @Html.EditorFor(model => model.AlternatePhoneNo, new { htmlAttributes = new { @type = "number", @class = "required form-control", @min = "10", @maxlength = "10" } })
+                                            @Html.EditorFor(model => model.AlternatePhoneNo, new { htmlAttributes = new { @type = "number", @class = " form-control", @min = "10", @maxlength = "10" } })
                                             @Html.ValidationMessageFor(model => model.AlternatePhoneNo, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="mark-devide"></div>
@@ -217,28 +217,28 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.StateID, htmlAttributes: new { @class = "control-label col-md-12" })
                                         <div class="col-md-12">
-                                            @Html.DropDownListFor(model => model.StateID, CommonModel.GetState(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                            @Html.DropDownListFor(model => model.StateID, CommonModel.GetState().Where(x=>x.Value=="1"),null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                             @Html.ValidationMessageFor(model => model.StateID, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.DistrictID, htmlAttributes: new { @class = "control-label col-md-12" })
                                         <div class="col-md-12">
-                                            @Html.DropDownListFor(model => model.DistrictID, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control", @required = "required" })
+                                            @Html.DropDownListFor(model => model.DistrictID, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                             @Html.ValidationMessageFor(model => model.DistrictID, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.TrainingAgencyID, htmlAttributes: new { @class = "control-label col-md-12" })
                                         <div class="col-md-12">
-                                            @Html.DropDownListFor(model => model.TrainingAgencyID, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control", @required = "required" })
+                                            @Html.DropDownListFor(model => model.TrainingAgencyID, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                             @Html.ValidationMessageFor(model => model.TrainingAgencyID, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.TrainingCenterID, htmlAttributes: new { @class = "control-label col-md-12" })
                                         <div class="col-md-12">
-                                            @Html.DropDownListFor(model => model.TrainingCenterID, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control", @required = "required" })
+                                            @Html.DropDownListFor(model => model.TrainingCenterID, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                             @Html.ValidationMessageFor(model => model.TrainingCenterID, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -275,15 +275,41 @@
     <script src="~/Scripts/CustomValidator.js"></script>
     <script src="~/Scripts/Custom/Master.js"></script>
     @*<script src="~/Scripts/Custom/Employee.js"></script>*@
-    <script>
+<script>
        @* $('#DesignationId').val('@Model.DesignationId').select2();*@
         $(document).ready(function () {
             //GetYearList("Year", 0);  //GetMonthList("Month", 0);
-            BindTrainingAgency("TrainingAgencyID", 0, false);
-            $('#StateID').change(function () {
-                BindDistrict("DistrictID", 0,"1", $(this).val());
-            });
+
+              if ('@Model' != 'null') {
+                  if ('@Model.ID' != '@Guid.Empty') {
+                      /*    setTimeout(() => {*/
+                      BindDistrict("DistrictID", '@Model.DistrictID', "1", '@Model.StateID');
+                      // $("#DistrictID").trigger("change").select2();
+                      BindTrainingAgency("TrainingAgencyID", '@Model.TrainingAgencyID', false);
+                      BindTrainingCenter("TrainingCenterID", '@Model.TrainingCenterID', false, '@Model.DistrictID', '@Model.TrainingAgencyID');
+
+                      /* }, "3000");*/
+                  }
+                  else {
+                      $('#TrainingCenterID').val(''); $('#DistrictID').val('');
+                      BindTrainingAgency("TrainingAgencyID", 0, false);
+                      BindDistrict("DistrictID", 0, "1", "1");
+                      BindTrainingCenter("TrainingCenterID", 0, false, $('#DistrictID').val(), $('#TrainingAgencyID').val());
+                  }
+              }
+              else {
+                  $('#TrainingCenterID').val(); $('#DistrictID').val();
+                  BindTrainingAgency("TrainingAgencyID", 0, false);
+                  BindDistrict("DistrictID", 0, "1", "1");
+                  BindTrainingCenter("TrainingCenterID", 0, false, $('#DistrictID').val(), $('#TrainingAgencyID').val());
+              }
+
+            //$('#StateID').change(function () {
+            //    $('#TrainingCenterID').val(); $('#DistrictID').val();
+            //    BindDistrict("DistrictID", 0,"1", $(this).val());
+            //});
             $('#TrainingAgencyID').change(function () {
+                $('#TrainingCenterID').val();
                 if ($('#DistrictID').val() != '' && $('#TrainingAgencyID').val()!='') {
                     BindTrainingCenter("TrainingCenterID", 0, false, $('#DistrictID').val(), $('#TrainingAgencyID').val());
                 }
@@ -325,6 +351,14 @@
                             if (resp.StatusType == "success") {
                                 toastr.success("Success", resp.Message);
                                 //jQuery.event.trigger("ajaxStop");
+                                if ('@Model.ID'=='@Guid.Empty') {
+                                    $("#formid")[0].reset();
+                                    $('#EduQualOther').removeAttr('required', 'required');
+                                    BindDistrict("DistrictID", 0, "1", "1");
+                                    $('#TrainingCenterID').val(''); $('#DistrictID').val(''); $('#EduQualificationID').val(''); $('#CourseEnrolledID').val(''); $('#BatchId').val(''); 
+                                    BindTrainingAgency("TrainingAgencyID", 0, false);
+                                    BindTrainingCenter("TrainingCenterID", 0, false, $('#DistrictID').val(), $('#TrainingAgencyID').val());
+                                }
                             }
                             else {
                                 toastr.error("Error", resp.Message);
@@ -348,23 +382,8 @@
                 }
             });
 
-            if ('@Model' != 'null') {
-                if ('@Model.ID' != '@Guid.Empty') {
-                    setTimeout(() => {
-                        BindDistrict("DistrictID", 0, "1", '@Model.StateID');
-                        $('#DistrictID').val('@Model.DistrictID');
-                        //$('#DistrictID').val('@Model.DistrictID').select2();
-                        //$('#DistrictID').trigger('change');
-                        BindTrainingAgency("TrainingAgencyID", 0, false);
-                        $('#TrainingAgencyID').val('@Model.TrainingAgencyID');
-                        //$('#TrainingAgencyID').trigger('change');
-                        BindTrainingCenter("TrainingCenterID", 0, false, '@Model.DistrictID', '@Model.TrainingAgencyID');
-                        $('#TrainingCenterID').val('@Model.TrainingCenterID');
-                        //$('#TrainingCenterID').trigger('change');
-                    }, "3000");
-                }
-            }
+
 
         });
-    </script>
+</script>
 }

@@ -28,27 +28,30 @@ namespace Hunarmis.Controllers
             if (Id != Guid.Empty && Id != null)
             {
                 var tbl = db.tbl_Participant.Find(Id);
-                model.ID = tbl.ID;
-                model.RegID = tbl.RegID;
-                model.FirstName = tbl.FirstName;
-                model.MiddleName = tbl.MiddleName;
-                model.LastName = tbl.LastName;
-                model.Gender = tbl.Gender;
-                model.Age = tbl.Age;
-                model.AadharCardNo = tbl.AadharCardNo;
-                model.EmailID = tbl.EmailID;
-                model.PhoneNo = tbl.PhoneNo;
-                model.AlternatePhoneNo = tbl.AlternatePhoneNo;
-                model.AssessmentScore = tbl.AssessmentScore;
-                model.BatchId = tbl.BatchId;
-                model.EduQualificationID = tbl.EduQualificationID;
-                model.EduQualOther = tbl.EduQualOther;
-                model.CourseEnrolledID = tbl.CourseEnrolledID;
-                model.StateID = tbl.StateID;
-                model.DistrictID = tbl.DistrictID;
-                model.TrainingAgencyID = tbl.TrainingAgencyID;
-                model.TrainingCenterID = tbl.TrainingCenterID;
-                model.TrainerName = tbl.TrainerName;
+                if (tbl != null)
+                {
+                    model.ID = tbl.ID;
+                    model.RegID = tbl.RegID;
+                    model.FirstName = tbl.FirstName;
+                    model.MiddleName = tbl.MiddleName;
+                    model.LastName = tbl.LastName;
+                    model.Gender = tbl.Gender;
+                    model.Age = tbl.Age;
+                    model.AadharCardNo = tbl.AadharCardNo;
+                    model.EmailID = tbl.EmailID;
+                    model.PhoneNo = tbl.PhoneNo;
+                    model.AlternatePhoneNo = tbl.AlternatePhoneNo;
+                    model.AssessmentScore = tbl.AssessmentScore;
+                    model.BatchId = tbl.BatchId;
+                    model.EduQualificationID = tbl.EduQualificationID;
+                    model.EduQualOther = tbl.EduQualOther;
+                    model.CourseEnrolledID = tbl.CourseEnrolledID;
+                    model.StateID = tbl.StateID;
+                    model.DistrictID = tbl.DistrictID;
+                    model.TrainingAgencyID = tbl.TrainingAgencyID;
+                    model.TrainingCenterID = tbl.TrainingCenterID;
+                    model.TrainerName = tbl.TrainerName;
+                }
             }
             return View(model);
         }
@@ -63,7 +66,7 @@ namespace Hunarmis.Controllers
                 if (ModelState.IsValid)
                 {
                     var getdt = db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
-                    if (getdt.Any(x => x.PhoneNo == model.PhoneNo.Trim() && model.ID != Guid.Empty))
+                    if (getdt.Any(x => x.PhoneNo == model.PhoneNo.Trim() && x.BatchId == model.BatchId && model.ID == Guid.Empty))
                     {
                         response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Registration.<br /> <span> Reg ID : <strong> " + getdt?.FirstOrDefault().RegID + " </strong>  </span>", Data = null };
                         var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
@@ -108,7 +111,7 @@ namespace Hunarmis.Controllers
                         {
                             if (User.Identity.IsAuthenticated)
                             {
-                                 tbl.UpdatedBy = MvcApplication.CUser.UserId;
+                                tbl.UpdatedBy = MvcApplication.CUser.UserId;
                             }
                             tbl.UpdatedOn = DateTime.Now;
                         }
@@ -343,7 +346,7 @@ namespace Hunarmis.Controllers
         public ActionResult QuesResponse(string PartQuestId)
         {
             FilterModel model = new FilterModel();
-            model.ParticipantQuestionId = PartQuestId;  
+            model.ParticipantQuestionId = PartQuestId;
             DataTable dt = SPManager.SP_PartQuesList(model);
             return View(dt);
         }
