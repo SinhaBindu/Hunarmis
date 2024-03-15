@@ -200,7 +200,7 @@
     <Property Name="CurrentlyWorking" Type="nvarchar" MaxLength="200" />
     <Property Name="WorkingKM" Type="int" />
     <Property Name="WorkingKMOther" Type="nvarchar" MaxLength="50" />
-    <Property Name="Traininghelp" Type="nvarchar" MaxLength="200" />
+    <Property Name="Traininghelp" Type="nvarchar" MaxLength="50" />
     <Property Name="SalaryWages" Type="nvarchar" MaxLength="200" />
     <Property Name="ExpectationJobRole" Type="nvarchar" MaxLength="200" />
     <Property Name="WorkPlaceSafe" Type="nvarchar" MaxLength="500" />

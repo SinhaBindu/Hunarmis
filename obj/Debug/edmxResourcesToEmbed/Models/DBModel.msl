@@ -199,6 +199,46 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Month_Master">
+      <EntityTypeMapping TypeName="Hunar_DBModel.Month_Master">
+        <MappingFragment StoreEntitySet="Month_Master">
+          <ScalarProperty Name="MonthName" ColumnName="MonthName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Year_Master">
+      <EntityTypeMapping TypeName="Hunar_DBModel.Year_Master">
+        <MappingFragment StoreEntitySet="Year_Master">
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Benefit_Master">
+      <EntityTypeMapping TypeName="Hunar_DBModel.Benefit_Master">
+        <MappingFragment StoreEntitySet="Benefit_Master">
+          <ScalarProperty Name="Benefit" ColumnName="Benefit" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobEmployed_Master">
+      <EntityTypeMapping TypeName="Hunar_DBModel.JobEmployed_Master">
+        <MappingFragment StoreEntitySet="JobEmployed_Master">
+          <ScalarProperty Name="JobInterest" ColumnName="JobInterest" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LocatedKM_Master">
+      <EntityTypeMapping TypeName="Hunar_DBModel.LocatedKM_Master">
+        <MappingFragment StoreEntitySet="LocatedKM_Master">
+          <ScalarProperty Name="KM" ColumnName="KM" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="tbl_Participant_Calling">
       <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant_Calling">
         <MappingFragment StoreEntitySet="tbl_Participant_Calling">
@@ -237,46 +277,6 @@
           <ScalarProperty Name="IsCalling" ColumnName="IsCalling" />
           <ScalarProperty Name="QuesYear" ColumnName="QuesYear" />
           <ScalarProperty Name="QuesMonth" ColumnName="QuesMonth" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Month_Master">
-      <EntityTypeMapping TypeName="Hunar_DBModel.Month_Master">
-        <MappingFragment StoreEntitySet="Month_Master">
-          <ScalarProperty Name="MonthName" ColumnName="MonthName" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Year_Master">
-      <EntityTypeMapping TypeName="Hunar_DBModel.Year_Master">
-        <MappingFragment StoreEntitySet="Year_Master">
-          <ScalarProperty Name="Year" ColumnName="Year" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Benefit_Master">
-      <EntityTypeMapping TypeName="Hunar_DBModel.Benefit_Master">
-        <MappingFragment StoreEntitySet="Benefit_Master">
-          <ScalarProperty Name="Benefit" ColumnName="Benefit" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="JobEmployed_Master">
-      <EntityTypeMapping TypeName="Hunar_DBModel.JobEmployed_Master">
-        <MappingFragment StoreEntitySet="JobEmployed_Master">
-          <ScalarProperty Name="JobInterest" ColumnName="JobInterest" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="LocatedKM_Master">
-      <EntityTypeMapping TypeName="Hunar_DBModel.LocatedKM_Master">
-        <MappingFragment StoreEntitySet="LocatedKM_Master">
-          <ScalarProperty Name="KM" ColumnName="KM" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
