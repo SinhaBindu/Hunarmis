@@ -26,12 +26,12 @@
     <EntitySet Name="Batch_Master" EntityType="Hunar_DBModel.Batch_Master" />
     <EntitySet Name="TrainingCenter_Master" EntityType="Hunar_DBModel.TrainingCenter_Master" />
     <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
-    <EntitySet Name="tbl_Participant_Calling" EntityType="Hunar_DBModel.tbl_Participant_Calling" />
     <EntitySet Name="Month_Master" EntityType="Hunar_DBModel.Month_Master" />
     <EntitySet Name="Year_Master" EntityType="Hunar_DBModel.Year_Master" />
     <EntitySet Name="Benefit_Master" EntityType="Hunar_DBModel.Benefit_Master" />
     <EntitySet Name="JobEmployed_Master" EntityType="Hunar_DBModel.JobEmployed_Master" />
     <EntitySet Name="LocatedKM_Master" EntityType="Hunar_DBModel.LocatedKM_Master" />
+    <EntitySet Name="tbl_Participant_Calling" EntityType="Hunar_DBModel.tbl_Participant_Calling" />
   </EntityContainer>
   <EntityType Name="AspNetRole">
     <Key>
@@ -250,47 +250,6 @@
     <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityType Name="tbl_Participant_Calling">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Guid" Nullable="false" />
-    <Property Name="QuesMonth" Type="Int32" />
-    <Property Name="QuesYear" Type="Int32" />
-    <Property Name="IsCalling" Type="Int32" />
-    <Property Name="CallingDate" Type="DateTime" Precision="0" />
-    <Property Name="ParticipantId_fk" Type="Guid" />
-    <Property Name="IsAssessmentCert" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="IsPresent" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="IsComfortable" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="EmpCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="FirstJobTraining" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="DOJ" Type="DateTime" Precision="3" />
-    <Property Name="CurrentEmployer" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Designation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="SalaryPackage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="CurrentlyWorking" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="WorkingKM" Type="Int32" />
-    <Property Name="WorkingKMOther" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Traininghelp" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="SalaryWages" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="ExpectationJobRole" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="WorkPlaceSafe" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="IsMSBenefit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="MSBenefitId" Type="Int32" />
-    <Property Name="MSOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="AnyChallenges" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="AreaSupport" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="EmployedId" Type="Int32" />
-    <Property Name="EmployedOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsGettingjob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="PlacedStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-  </EntityType>
   <EntityType Name="Month_Master">
     <Key>
       <PropertyRef Name="ID" />
@@ -325,5 +284,46 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" />
     <Property Name="KM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tbl_Participant_Calling">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="QuesMonth" Type="Int32" />
+    <Property Name="QuesYear" Type="Int32" />
+    <Property Name="IsCalling" Type="Int32" />
+    <Property Name="CallingDate" Type="DateTime" Precision="0" />
+    <Property Name="ParticipantId_fk" Type="Guid" />
+    <Property Name="IsAssessmentCert" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IsPresent" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IsComfortable" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EmpCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="FirstJobTraining" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DOJ" Type="DateTime" Precision="3" />
+    <Property Name="CurrentEmployer" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Designation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="SalaryPackage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentlyWorking" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="WorkingKM" Type="Int32" />
+    <Property Name="WorkingKMOther" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Traininghelp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SalaryWages" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ExpectationJobRole" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="WorkPlaceSafe" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsMSBenefit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="MSBenefitId" Type="Int32" />
+    <Property Name="MSOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="AnyChallenges" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="AreaSupport" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="EmployedId" Type="Int32" />
+    <Property Name="EmployedOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsGettingjob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="PlacedStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>
