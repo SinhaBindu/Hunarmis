@@ -100,14 +100,14 @@ namespace Hunarmis.Models
         public const string IsComfortable = "Are you comfortable to share the details of your employment?";
         public const string EmpCompany = "Which company are you employed in?";
         public const string FirstJobTraining = "In which month did you join the first job after completion of training?";
-        public const string DOJ = "What is your date of joining?";
+        public const string DOJ = "What is your current date of joining?";
         public const string CurrentEmployer = "How long have you been working with the current employer? ";
         public const string Designation = "What is your designation?";
         public const string SalaryPackage = "Salary Package (CTC in lakhs per annum)";
         public const string CurrentlyWorking = "Which location are you currently working in? ";
         public const string WorkingKM = "How far is the place your are working in located with respect to your nativity?";
         public const string WorkingKMOther = "";
-        public const string Traininghelp = "12.9 Did the training help you get this job? ";
+        public const string Traininghelp = "Did the training help you get this job? ";//12.9
         //Section -  General Well-being
         public const string SectionGeneral = "General Well-being";
         public const string SalaryWages = "Do you get paid your salary/wages on time? ";

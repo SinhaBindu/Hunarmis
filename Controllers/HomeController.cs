@@ -1,30 +1,58 @@
-﻿using System;
+﻿using Hunarmis.Manager;
+using Hunarmis.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Hunarmis.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
             return View();
         }
-
-        public ActionResult About()
+        public ActionResult GetIndex(FilterModel model)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            bool IsCheck = false;
+            try
+            {
+                DataTable dt = SPManager.SP_Dashboard(model);
+                if (dt.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                    var datares1 = JsonConvert.SerializeObject(dt);
+                    var res1 = Json(new { IsSuccess = IsCheck, Data = datares1 }, JsonRequestBehavior.AllowGet);
+                    res1.MaxJsonLength = int.MaxValue;
+                    return res1;
+                }
+                var datares = JsonConvert.SerializeObject(dt);
+                var res = Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound) }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet); throw;
+            }
         }
-
-        public ActionResult Contact()
+        private string ConvertViewToString(string viewName, object model)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            ViewData.Model = model;
+            using (StringWriter writer = new StringWriter())
+            {
+                ViewEngineResult vResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext vContext = new ViewContext(this.ControllerContext, vResult.View, ViewData, new TempDataDictionary(), writer);
+                vResult.View.Render(vContext, writer);
+                return writer.ToString();
+            }
         }
     }
 }

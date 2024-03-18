@@ -49,5 +49,15 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SP_Dashboard(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_Dashboard");
+            //sp.Command.AddParameter("@YearId", model.YearId, DbType.Int32);
+            //sp.Command.AddParameter("@MonthId", model.MonthId, DbType.Int32);
+            //sp.Command.AddParameter("@BatchId", model.BatchId, DbType.Int32);
+            //sp.Command.AddParameter("@ParticipantQuestionId", model.ParticipantQuestionId, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
     }
 }

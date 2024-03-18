@@ -2,9 +2,9 @@
 @using Hunarmis.Models
 @*@model IEnumerable<KGBV_JH.Models.QesRes>*@
 @{
-    ViewBag.Title = "HR List";
-    ViewBag.TitleIcon = "fa fa-user";
-    ViewBag.SemiTitle = "HR List";
+    ViewBag.Title = "Dashboard";
+    ViewBag.TitleIcon = "fa fa-area-chart";
+    ViewBag.SemiTitle = "Dashboard";
     ViewBag.SemiTitleLink = "/";
 
 }
@@ -18,65 +18,27 @@
                             <i class="fa fa-list spacerright2"></i>@ViewBag.Title
                         </p>
                     </div>
-                    @using (Html.BeginForm("GetIndex", "Add", FormMethod.Post, new { @id = "tblList-frm", @class = "panel-body form-horizontal form-padding loader" }))
-                    {
-                        @*<div class="manage-bg">
-                            <div class="col-lg-2">
-                                <label class="tar-pull-manage2">Year</label>
-                                <div id="demo-dp-range">
-                                    @Html.DropDownListFor(m => m.YearId, new List<SelectListItem>(), null, htmlAttributes: new { @id = "YearId", @class = "form-control", @required = "required" })
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <label class="tar-pull-manage2">Quarterly</label>
-                                <div id="demo-dp-range">
-                                    @Html.DropDownListFor(m => m.FrequencyId, new List<SelectListItem>(), null, htmlAttributes: new { @id = "FrequencyId", @class = "form-control select2", @required = "required" })
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <label class="tar-pull-manage2">District</label>
-                                <div id="demo-dp-range">
-                                    @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), "Select One", htmlAttributes: new { @id = "DistrictId", @class = "form-control select2", @required = "required" })
-                                </div>
-                            </div>
 
-                        
-                            <div class="col-lg-2">
-                                <label class="tar-pull-manage2">School Type</label>
-                                <div id="demo-dp-range" style="padding-top: 33px !important;">
-                                    <input type="radio" name="SchoolType" value="@KGBV_JH.Models.Enums.ESchoolType.KGBV" checked="checked" /> @KGBV_JH.Models.Enums.ESchoolType.KGBV &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="radio" name="SchoolType" value="@KGBV_JH.Models.Enums.ESchoolType.JBAV" /> @KGBV_JH.Models.Enums.ESchoolType.JBAV
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <label class="tar-pull-manage2">School</label>
-                                <div id="demo-dp-range">
-                                    @Html.DropDownListFor(m => m.SchoolId, new List<SelectListItem>(), "All", htmlAttributes: new { @id = "SchoolId", @class = "form-control select2", @required = "required" })
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <label class="margin-tops"></label>
-                                <div class="clearfix"></div>
-                                <input type="submit" id="btnshow" name="btnClick" value="Search" class="btn  btn-primary text-right" title="" />
-                            </div>
-                            <div class="mark-devide2"></div>
-                            <div class="breaker"></div>
-                        </div>*@
-                    }
-                    <div class="col-md-12">@Html.Partial("_Alerts")</div>
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-12" id="sub-data">
+                        <div class="col-sm-12" id="errormsg">
 
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div id="chartbatch"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="chartcourse"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="chartqlf"></div>
                             </div>
                         </div>
                     </div>
                     <hr />
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-sm-12" id="sub-data-view">
-
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -89,134 +51,49 @@
 @section Scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/Custom/Master.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/cylinder.js"></script>
+    <script src="https://code.highcharts.com/modules/funnel3d.js"></script>
+    <script src="https://code.highcharts.com/modules/pyramid3d.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     <script>
         $(document).ready(function () {
-
-            Loadcall();
-            $("#tblList-frm").submit(function (event) {
-                event.preventDefault();
-                $('#sub-data').html("");
-                $('#sub-data-view').html("");
-                LoadReport();
-            });
-            $('#YearId').change(function (event) {
-                event.preventDefault();
-                BindQuarter("FrequencyId", $('#YearId').val());
-            });
-            $('input[name=SchoolType]').change(function (event) {
-                event.preventDefault();
-                IsCallSchool();
-            });
-
-            @*if ('@User.IsInRole(UserRoles.BRP)' == "True" || '@User.IsInRole(UserRoles.CRP)' == "True" || '@User.IsInRole(UserRoles.Warden)' == "True") {
-                setTimeout(function () {
-                    $('#SchoolId').val('@CommonModel.SessionLog.SchoolId_fk');
-                    $('#SchoolId').trigger('change');
-                }, 2000);
-                $('#SchoolId').css({ "pointer-events": "none", "touch-action": "none", "background": "#ede6e6" });
-                $('#SchoolId').trigger('change');
-            }
-            else {
-                setTimeout(function () {
-                    LoadReport();
-                }, 2000);
-
-            }*@
-
-           
+            LoadReport();
         });
-
-        function Loadcall() {
-            $('#sub-data').html("");
-            $('#sub-data-view').html("");
-            BindFinYear("YearId", 1, null);
-            BindQuarter("FrequencyId", 1, null); $('#YearId').val();
-            BindDistrict("DistrictId", "", true);
-            IsCallSchool();
-           // LoadReport();
-        }
-
-        function IsCallSchool() {
-            @*if ('@CommonModel.IsRole()' == 'False') {
-                if (SchoolType)
-                    BindSchool('SchoolId', SchoolType, '@CommonModel.SessionLog.SchoolId_fk', true);
-                else
-                    BindSchool('SchoolId', $('input[name=SchoolType]').val(), '@CommonModel.SessionLog.SchoolId_fk', true);
-            }
-            else {
-                if (SchoolType)
-                    BindSchool('SchoolId', SchoolType, 0, true);
-                else
-                    BindSchool('SchoolId', $('input[name=SchoolType]').val(), 0, true);
-            }*@
-             var selectedvalue = $('input[name=SchoolType]:checked', '#tblList-frm').val();
-            @*if ('@CommonModel.IsRole()' == 'False') {
-                BindSchool('SchoolId', selectedvalue, '@CommonModel.SessionLog.SchoolId_fk');
-            }
-            else {
-                BindSchool('SchoolId', selectedvalue, 0);
-            }*@
-        }
-
         function LoadReport() {
-            $('#sub-data').html("");
+            $('#errormsg').html("");
             $('#global-loader').css('background', 'transparent').css('display', 'block');
-            $('#sub-data').removeClass("text-danger");
-            var id = '#tblList-frm'
-            var url = $(id).attr("action");
-            var YearId = $("#YearId").val() == "" ? "0" : $("#YearId").val();
-            var SchoolId = $("#SchoolId").val() == "" ? "0" : $("#SchoolId").val();
-            var FrequencyId = $("#FrequencyId").val() == "" ? "0" : $("#FrequencyId").val();
-            var SchoolType = $('input[name=SchoolType]:checked', '#tblList-frm').val();
-           // var FrequencyId = $("#FrequencyId").val();
-            $.ajax({
-               // url: url,
-                url: document.baseURI + "/HR/GetIndex",
-                type: "POST",
-                data: { 'YearId': YearId, 'FrequencyId': FrequencyId, 'SchoolId': SchoolId, 'SchoolType': SchoolType },
-               // contentType: "application/json",
-                success: function (resp) {
-                    if (resp.IsSuccess) {
-                        $('#sub-data').html(resp.Data); $('#sub-data').addClass("text-black");
-                        $('#global-loader').css('background', 'transparent').css('display', 'none');
-                    }
-                    else {
-                        $('#sub-data').html(resp.Data); $('#sub-data').addClass("text-danger");
-                        //CreateToasterMessage("Error", response.Message, response.StatusType);
-                        $('#global-loader').css('background', 'transparent').css('display', 'none');
-                    }
-                },
-                error: function (req, error) {
-                    if (error === 'error') { error = req.statusText; }
-                    var errormsg = 'There was a communication error: ' + error;
-                    $('#sub-data').html(errormsg); $('#sub-data').addClass("text-danger");
-                    $('#global-loader').css('background', 'transparent').css('display', 'none');
-                }
-            });
-        }
-
-        function Display(Idpk) {
-            debugger;
-            $('#global-loader').css('background', 'transparent').css('display', 'block');
-            $('#sub-data-view').removeClass("text-danger");
-            var id = '#tblList-frm'
-            var url = $(id).attr("action");
-            // var FrequencyId = $("#FrequencyId").val();
+            $('#errormsg').removeClass("text-danger");
             $.ajax({
                 // url: url,
-                url: document.baseURI + "/HR/GetViewData",
+                url: document.baseURI + "/Home/GetIndex",
                 type: "POST",
-                data: { 'Id': Idpk },
+                data: '',
                 // contentType: "application/json",
                 success: function (resp) {
                     if (resp.IsSuccess) {
-                        $('#sub-data-view').html(resp.Data);
+                        var resdata = JSON.parse(resp.Data);
+                        $('#errormsg').addClass("text-black");
                         $('#global-loader').css('background', 'transparent').css('display', 'none');
+                        var BatchData = [], CourseData = [], DisData = [],
+                            QlfData = [], TrainCrData = [];
+                        if (resdata) {
+                            BatchData = resdata.filter(x => x.Type == "Batch");
+                            CourseData = resdata.filter(x => x.Type == "Course");
+                            DisData = resdata.filter(x => x.Type == "District");
+                            QlfData = resdata.filter(x => x.Type == "Qualification");
+                            TrainCrData = resdata.filter(x => x.Type == "TrainingCenter");
+                            ChartBatch(BatchData);
+                            ChartCourse(CourseData);
+                            ChartQlf(QlfData);
+                        }
                     }
                     else {
-                        $('#sub-data-view').html(resp.Data); $('#sub-data-view').addClass("text-danger");
+                        $('#errormsg').html(resp.Data); $('#errormsg').addClass("text-danger");
                         //CreateToasterMessage("Error", response.Message, response.StatusType);
                         $('#global-loader').css('background', 'transparent').css('display', 'none');
                     }
@@ -224,10 +101,192 @@
                 error: function (req, error) {
                     if (error === 'error') { error = req.statusText; }
                     var errormsg = 'There was a communication error: ' + error;
-                    $('#sub-data-view').html(errormsg); $('#sub-data-view').addClass("text-danger");
+                    $('#errormsg').html(errormsg); $('#errormsg').addClass("text-danger");
                     $('#global-loader').css('background', 'transparent').css('display', 'none');
                 }
             });
+        }
+
+        function ChartBatch(BatchData) {
+            if (BatchData) {
+                var objd = new Object();
+                var Dlist = []; var name = []; var vl = [];
+                for (var i = 0; i < BatchData.length; i++) {
+                    var obj = [BatchData[i].ColumnName, BatchData[i].NoofData];
+                    name.push(obj);
+                }
+                
+                // Set up the chart
+                Highcharts.chart('chartbatch', {
+                    chart: {
+                        type: 'pyramid3d',
+                        options3d: {
+                            enabled: true,
+                            alpha: 10,
+                            depth: 50,
+                            viewDistance: 50
+                        }
+                    },
+                    title: {
+                        text: 'Batch Wise'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b> ({point.y:,.0f})',
+                                allowOverlap: true,
+                                x: 10,
+                                y: -5
+                            },
+                            width: '60%',
+                            height: '80%',
+                            center: ['50%', '45%']
+                        }
+                    },
+                    series: [{
+                        name: 'Batch',
+                        data: name
+                    }]
+                });
+            }
+
+        }
+        function ChartCourse(Datalist) {
+            var Dlist = []; var name = []; var vl = [];
+            if (Datalist) {
+                for (var i = 0; i < Datalist.length; i++) {
+                    name.push([Datalist[i].ColumnName]);
+                    vl.push([Datalist[i].NoofData]);
+                }
+            }
+          
+            Highcharts.chart('chartcourse', {
+                chart: {
+                    type: 'cylinder',
+                    options3d: {
+                        enabled: true,
+                        alpha: 15,
+                        beta: 15,
+                        depth: 50,
+                        viewDistance: 25
+                    }
+                },
+                title: {
+                    text: 'Course Wise'
+                },
+                //subtitle: {
+                //    text: 'Source: ' +
+                //        '<a href="https://www.fhi.no/en/id/infectious-diseases/coronavirus/daily-reports/daily-reports-COVID19/"' +
+                //        'target="_blank">FHI</a>'
+                //},
+                xAxis: {
+                    categories: name,
+                    //    ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90+'],
+                    title: {
+                        text: 'Courses'
+                    },
+                    labels: {
+                        skew3d: true
+                    }
+                },
+                yAxis: {
+                    title: {
+                        margin: 20,
+                        text: 'No of Course'
+                    },
+                    labels: {
+                        skew3d: true
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    headerFormat: '<b>Course: {point.x}</b><br>'
+                },
+                plotOptions: {
+                    series: {
+                        depth: 25,
+                        colorByPoint: true
+                    }
+                },
+                series: [{
+                    data: vl,
+                    name: 'Course',
+                    showInLegend: false
+                }]
+            });
+        }
+        function ChartQlf(Datalist) {
+            if (Datalist) {
+                var objd = new Object();
+                var Dlist = []; var name = []; var vl = [];
+                for (var i = 0; i < Datalist.length; i++) {
+                    Dlist.push({ name: Datalist[i].ColumnName, y: Datalist[i].NoofData });
+                }
+            }
+
+            Highcharts.setOptions({
+                colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+                    return {
+                        radialGradient: {
+                            cx: 0.5,
+                            cy: 0.3,
+                            r: 0.7
+                        },
+                        stops: [
+                            [0, color],
+                            [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
+                        ]
+                    };
+                })
+            });
+
+            // Build the chart
+            Highcharts.chart('chartqlf', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Qualification Wise',
+                    align: 'center'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<span style="font-size: 1.2em"><b>{point.name}</b></span><br>' +
+                                '<span style="opacity: 0.6">{point.percentage:.1f} %</span>',
+                            connectorColor: 'rgba(128,128,128,0.5)'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Qualification',
+                    data: Dlist
+                }]
+            });
+
         }
     </script>
 }
