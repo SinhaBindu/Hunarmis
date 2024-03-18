@@ -87,7 +87,7 @@ namespace Hunarmis.Controllers
                     tbl.IsActive = true;
                     _db.tbl_UserLogin.Add(tbl);
                     _db.SaveChanges();
-                    return RedirectToAction("AddParticipant", "Participant");
+                    return RedirectToAction("Index", "Home");
                 //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
