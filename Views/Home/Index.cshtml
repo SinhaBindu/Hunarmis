@@ -5,9 +5,15 @@
     ViewBag.Title = "Dashboard";
     ViewBag.TitleIcon = "fa fa-area-chart";
     ViewBag.SemiTitle = "Dashboard";
-    ViewBag.SemiTitleLink = "/";
-
+    ViewBag.SemiTitleLink = "/Home/Index";
 }
+<style>
+    .container {
+        width: 340px;
+        height: 280px;
+        display: inline-block;
+    }
+</style>
 <div id="page-content">
     <div class="genral-form">
         <div class="row">
@@ -15,7 +21,8 @@
                 <div class="panel">
                     <div class="panel-spacer">
                         <p class="bord-btm pad-ver text-main text-bold">
-                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title
+                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title &nbsp;&nbsp;&nbsp;
+                            <strong id="partcolm" class="text-bold text-primary">  </strong> : <strong id="noofpart" class="text-success" style="font-size:medium;"></strong>
                         </p>
                     </div>
 
@@ -24,21 +31,27 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div id="chartbatch"></div>
+                            <div class="col-sm-4">
+                                <div id="chartbatch" class="container"></div>
                             </div>
-                            <div class="col-sm-6">
-                                <div id="chartcourse"></div>
+                            <div class="col-sm-4">
+                                <div id="chartcourse" class="container"></div>
                             </div>
-                            <div class="col-sm-6">
-                                <div id="chartqlf"></div>
+                            <div class="col-sm-4">
+                                <div id="chartqlf" class="container"></div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div id="charttraincen" class="container"></div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div id="chartgrouptree" class="container"></div>
                             </div>
                         </div>
                     </div>
                     <hr />
                     <div class="panel-body">
                         <div class="row">
-                           
+
                         </div>
                     </div>
                 </div>
@@ -52,13 +65,26 @@
 {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="https://code.highcharts.com/highcharts.js"></script>
+
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    <script src="https://code.highcharts.com/modules/treegraph.js"></script>
+
     <script src="https://code.highcharts.com/highcharts-3d.js"></script>
     <script src="https://code.highcharts.com/modules/cylinder.js"></script>
     <script src="https://code.highcharts.com/modules/funnel3d.js"></script>
     <script src="https://code.highcharts.com/modules/pyramid3d.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/dumbbell.js"></script>
+    <script src="https://code.highcharts.com/modules/lollipop.js"></script>
+
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+
+
 
     <script>
         $(document).ready(function () {
@@ -77,20 +103,28 @@
                 success: function (resp) {
                     if (resp.IsSuccess) {
                         var resdata = JSON.parse(resp.Data);
+                        var resdata1 = JSON.parse(resp.Data2);
                         $('#errormsg').addClass("text-black");
                         $('#global-loader').css('background', 'transparent').css('display', 'none');
                         var BatchData = [], CourseData = [], DisData = [],
                             QlfData = [], TrainCrData = [];
+                        var Noofpart = 0; var Colpart = ""; var totalpart = [];
                         if (resdata) {
                             BatchData = resdata.filter(x => x.Type == "Batch");
                             CourseData = resdata.filter(x => x.Type == "Course");
                             DisData = resdata.filter(x => x.Type == "District");
                             QlfData = resdata.filter(x => x.Type == "Qualification");
                             TrainCrData = resdata.filter(x => x.Type == "TrainingCenter");
+                            totalpart = resdata.filter(x => x.Type == "Participant");
+                            $('#partcolm').html(totalpart[0].ColumnName); $('#noofpart').html(totalpart[0].NoofData);
                             ChartBatch(BatchData);
                             ChartCourse(CourseData);
                             ChartQlf(QlfData);
+                            ChartTrainCen(TrainCrData);
                         }
+                        //if (resdata1) {
+                        //    ChartGroupTree(resdata1);
+                        //}
                     }
                     else {
                         $('#errormsg').html(resp.Data); $('#errormsg').addClass("text-danger");
@@ -115,11 +149,12 @@
                     var obj = [BatchData[i].ColumnName, BatchData[i].NoofData];
                     name.push(obj);
                 }
-                
+
                 // Set up the chart
                 Highcharts.chart('chartbatch', {
                     chart: {
                         type: 'pyramid3d',
+                        borderWidth: 1,
                         options3d: {
                             enabled: true,
                             alpha: 10,
@@ -128,7 +163,7 @@
                         }
                     },
                     title: {
-                        text: 'Batch Wise'
+                        text: 'Batch Distribution'
                     },
                     credits: {
                         enabled: false
@@ -163,10 +198,11 @@
                     vl.push([Datalist[i].NoofData]);
                 }
             }
-          
+
             Highcharts.chart('chartcourse', {
                 chart: {
                     type: 'cylinder',
+                    borderWidth: 1,
                     options3d: {
                         enabled: true,
                         alpha: 15,
@@ -176,7 +212,7 @@
                     }
                 },
                 title: {
-                    text: 'Course Wise'
+                    text: 'Course Distribution'
                 },
                 //subtitle: {
                 //    text: 'Source: ' +
@@ -186,9 +222,9 @@
                 xAxis: {
                     categories: name,
                     //    ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90+'],
-                    title: {
-                        text: 'Courses'
-                    },
+                    //title: {
+                    //    text: 'Courses'
+                    //},
                     labels: {
                         skew3d: true
                     }
@@ -230,21 +266,21 @@
                 }
             }
 
-            Highcharts.setOptions({
-                colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
-                    return {
-                        radialGradient: {
-                            cx: 0.5,
-                            cy: 0.3,
-                            r: 0.7
-                        },
-                        stops: [
-                            [0, color],
-                            [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
-                        ]
-                    };
-                })
-            });
+            //Highcharts.setOptions({
+            //    colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+            //        return {
+            //            radialGradient: {
+            //                cx: 0.5,
+            //                cy: 0.3,
+            //                r: 0.7
+            //            },
+            //            stops: [
+            //                [0, color],
+            //                [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
+            //            ]
+            //        };
+            //    })
+            //});
 
             // Build the chart
             Highcharts.chart('chartqlf', {
@@ -252,14 +288,20 @@
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
                     plotShadow: false,
-                    type: 'pie'
+                    type: 'pie',
+                    borderWidth: 1
                 },
                 title: {
-                    text: 'Qualification Wise',
+                    text: 'Qualification Distribution',
                     align: 'center'
                 },
                 tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                    style: {
+                        color: 'blue',
+                        fontWeight: 'bold',
+                        fontsize: '20px'
+                    }
                 },
                 accessibility: {
                     point: {
@@ -287,6 +329,319 @@
                 }]
             });
 
+        }
+        function ChartTrainCen(Datalist) {
+            if (Datalist) {
+                var objd = new Object();
+                var Dlist = []; var name = []; var vl = [];
+                for (var i = 0; i < Datalist.length; i++) {
+                    Dlist.push({ name: Datalist[i].ColumnName, y: Datalist[i].NoofData });
+                }
+            }
+
+            Highcharts.chart('charttraincen', {
+
+                chart: {
+                    type: 'lollipop',
+                    borderWidth: 1
+                },
+                accessibility: {
+                    point: {
+                        valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                credits: {
+                    enabled: false
+                },
+                //subtitle: {
+                //    text: '2021'
+                //},
+                title: {
+                    text: 'Training Center Distribution'
+                },
+                tooltip: {
+                    shared: true
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'No Of Training Center'
+                    }
+                },
+                series: [{
+                    name: 'Training Center',
+                    data: Dlist
+                }]
+
+            });
+
+        }
+        function ChartGroupTree(Datalist) {
+            if (Datalist) {
+                var objd = []; arrdist = [];
+                var Dlist = []; var name = []; var vl = [];
+                objd = [{ id: '0.0', parent: '', name: 'Maharashtra' }];
+
+                //var outputArrDist = [];
+                //$.each(Datalist, function (key, val) {
+                //    outputArr.push([key, val]);
+                //});
+
+                var grouped = _.groupBy(Datalist, function (x) { return x[0] })
+                var result = _.map(grouped, function (x) {
+                    return _.reduce(x, function (x, y) {
+                        return [y[0], x[1] + y[1]];
+                    }, [, 0])
+                })
+                var dis = grouped.filter(x => x.key == Datalist[i].ColumnName);
+                if (dis) {
+                    $.each(dis, function (row, i) {
+                        objd = [{ id: row.key + '.0', parent: '0.0', name: 'Maharashtra' }];
+                    });
+                }
+                //if (JSON.stringify(dis) == JSON.stringify(b)) {
+                //    arrdist.push({ key: dis });
+                //}
+            }
+            for (var i = 0; i < Datalist.length; i++) {
+
+                Dlist.push({ id: Datalist[i].ColumnName, parent: Datalist[i].NoofData, name: "" });
+            }
+
+            const data = [
+                {
+                    id: '0.0',
+                    parent: '',
+                    name: 'The World'
+                },
+                {
+                    id: '1.3',
+                    parent: '0.0',
+                    name: 'Asia'
+                },
+                {
+                    id: '1.1',
+                    parent: '0.0',
+                    name: 'Africa'
+                },
+                {
+                    id: '1.2',
+                    parent: '0.0',
+                    name: 'America'
+                },
+                {
+                    id: '1.4',
+                    parent: '0.0',
+                    name: 'Europe'
+                },
+                {
+                    id: '1.5',
+                    parent: '0.0',
+                    name: 'Oceanic'
+                },
+
+                /* Africa */
+                {
+                    id: '2.1',
+                    parent: '1.1',
+                    name: 'Eastern Africa'
+                },
+
+                {
+                    id: '2.5',
+                    parent: '1.1',
+                    name: 'Western Africa'
+                },
+
+                {
+                    id: '2.3',
+                    parent: '1.1',
+                    name: 'North Africa'
+                },
+
+                {
+                    id: '2.2',
+                    parent: '1.1',
+                    name: 'Central Africa'
+                },
+
+                {
+                    id: '2.4',
+                    parent: '1.1',
+                    name: 'South America'
+                },
+
+                /* America */
+                {
+                    id: '2.9',
+                    parent: '1.2',
+                    name: 'South America'
+                },
+
+                {
+                    id: '2.8',
+                    parent: '1.2',
+                    name: 'Northern America'
+                },
+
+                {
+                    id: '2.7',
+                    parent: '1.2',
+                    name: 'Central America'
+                },
+
+                {
+                    id: '2.6',
+                    parent: '1.2',
+                    name: 'Caribbean'
+                },
+
+                /* Asia */
+                {
+                    id: '2.10',
+                    parent: '1.3',
+                    name: 'Southern Asia'
+                },
+
+                {
+                    id: '2.11',
+                    parent: '1.3',
+                    name: 'Eastern Asia'
+                },
+
+                {
+                    id: '2.12',
+                    parent: '1.3',
+                    name: 'South-Eastern Asia'
+                },
+
+                {
+                    id: '2.14',
+                    parent: '1.3',
+                    name: 'Western Asia'
+                },
+
+                {
+                    id: '2.10',
+                    parent: '1.3',
+                    name: 'Central Asia'
+                },
+
+                /* Europe */
+                {
+                    id: '2.15',
+                    parent: '1.4',
+                    name: 'Eastern Europe'
+                },
+
+                {
+                    id: '2.16',
+                    parent: '1.4',
+                    name: 'Northern Europe'
+                },
+
+                {
+                    id: '2.17',
+                    parent: '1.4',
+                    name: 'Southern Europe'
+                },
+
+                {
+                    id: '2.18',
+                    parent: '1.4',
+                    name: 'Western Europe'
+                },
+                /* Oceania */
+                {
+                    id: '2.19',
+                    parent: '1.5',
+                    name: 'Australia and New Zealand'
+                },
+
+                {
+                    id: '2.20',
+                    parent: '1.5',
+                    name: 'Melanesia'
+                },
+
+                {
+                    id: '2.21',
+                    parent: '1.5',
+                    name: 'Micronesia'
+                },
+
+                {
+                    id: '2.22',
+                    parent: '1.5',
+                    name: 'Polynesia'
+                }
+            ];
+
+            Highcharts.chart('chartgrouptree', {
+                chart: {
+                    inverted: true,
+                    marginBottom: 170
+                },
+                title: {
+                    text: 'Inverted treegraph',
+                    align: 'left'
+                },
+                series: [
+                    {
+                        type: 'treegraph',
+                        data,
+                        tooltip: {
+                            pointFormat: '{point.name}'
+                        },
+                        dataLabels: {
+                            pointFormat: '{point.name}',
+                            style: {
+                                whiteSpace: 'nowrap',
+                                color: '#000000',
+                                textOutline: '3px contrast'
+                            },
+                            crop: false
+                        },
+                        marker: {
+                            radius: 6
+                        },
+                        levels: [
+                            {
+                                level: 1,
+                                dataLabels: {
+                                    align: 'left',
+                                    x: 20
+                                }
+                            },
+                            {
+                                level: 2,
+                                colorByPoint: true,
+                                dataLabels: {
+                                    verticalAlign: 'bottom',
+                                    y: -20
+                                }
+                            },
+                            {
+                                level: 3,
+                                colorVariation: {
+                                    key: 'brightness',
+                                    to: -0.5
+                                },
+                                dataLabels: {
+                                    verticalAlign: 'top',
+                                    rotation: 90,
+                                    y: 20
+                                }
+                            }
+                        ]
+                    }
+                ]
+            });
         }
     </script>
 }

@@ -23,17 +23,22 @@ namespace Hunarmis.Controllers
             bool IsCheck = false;
             try
             {
-                DataTable dt = SPManager.SP_Dashboard(model);
-                if (dt.Rows.Count > 0)
+                DataTable dt = new DataTable();
+                DataTable dt1 = new DataTable();
+                DataSet ds = SPManager.SP_Dashboard(model);
+                if (ds.Tables.Count > 0)
                 {
+                    dt = ds.Tables[0];
+                    dt1 = ds.Tables[1];
                     IsCheck = true;
                     var datares1 = JsonConvert.SerializeObject(dt);
-                    var res1 = Json(new { IsSuccess = IsCheck, Data = datares1 }, JsonRequestBehavior.AllowGet);
+                    var datares2 = JsonConvert.SerializeObject(dt1);
+                    var res1 = Json(new { IsSuccess = IsCheck, Data = datares1, Data2 = datares2 }, JsonRequestBehavior.AllowGet);
                     res1.MaxJsonLength = int.MaxValue;
                     return res1;
                 }
                 var datares = JsonConvert.SerializeObject(dt);
-                var res = Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound) }, JsonRequestBehavior.AllowGet);
+                var res = Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound), resData = "" }, JsonRequestBehavior.AllowGet);
                 res.MaxJsonLength = int.MaxValue;
                 return res;
             }
