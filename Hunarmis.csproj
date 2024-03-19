@@ -578,6 +578,7 @@
     <Content Include="Content\images\literacy.png" />
     <Content Include="Content\images\login-bg.jpg" />
     <Content Include="Content\images\login-icon.png" />
+    <Content Include="Content\images\login-photo.jpg" />
     <Content Include="Content\images\male-female.png" />
     <Content Include="Content\images\menu-icon.png" />
     <Content Include="Content\images\mission.png" />
