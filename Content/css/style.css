@@ -78,7 +78,7 @@ body {
 
     .pad-all h4 {
         margin: 5px 0 0px !important;
-        color: #7700E0 !important;
+        color: #F59678 !important;
     }
 
 .icon-round-bg {
@@ -144,7 +144,7 @@ body {
     color: #fff;
     padding: 3px 0 10px;
     z-index: 2;
-    background: #2F4865;
+    background: #F59678;
 }
 
 .fixed-divider {
@@ -900,27 +900,27 @@ tbody td {
 .btn-register, .btn-reset {
     padding: 9px 22px;
     border-radius: 6px;
-    background: #7700E0;
+    background: #5B2C54;
     border: none;
     color: #fff;
     margin-right: 12px;
 }
 
     .btn-register:hover {
-        background: #27004A;
-        color: #E1BEFF
+        background: #32182E;
+        color: #fff
     }
-    .btn-reset {
-        background: #E4701E !important;
-    }
+.btn-reset {
+    background: #F59678 !important;
+}
         .btn-reset:hover {
-            background: #6B3005 !important;
+            background: #F59678 !important;
             color: #fff
         }
 .edit-icon, .slack-icon, .check-icon {
     padding: 3px 5px;
     border-radius: 4px;
-    background: #F7C328;
+    background: #F59678;
     color: #fff !important;
     font-size: 12px;
 }
@@ -940,7 +940,7 @@ tbody td {
 .semi-title {
     color: #fff;
     padding: 10px 20px;
-    background: #7700E0;
+    background: #5B2C54;
 }
 .basic-info {
     display: flex;
@@ -957,7 +957,7 @@ tbody td {
         margin: 5px 0;
     }
     .basic-info span {
-        color: #7700E0;
+        color: #F59678;
         font-weight: bold;
         float: right;
         margin-right: 30px;
