@@ -392,18 +392,18 @@
                 //    outputArr.push([key, val]);
                 //});
 
-                var grouped = _.groupBy(Datalist, function (x) { return x[0] })
-                var result = _.map(grouped, function (x) {
-                    return _.reduce(x, function (x, y) {
-                        return [y[0], x[1] + y[1]];
-                    }, [, 0])
-                })
-                var dis = grouped.filter(x => x.key == Datalist[i].ColumnName);
-                if (dis) {
-                    $.each(dis, function (row, i) {
-                        objd = [{ id: row.key + '.0', parent: '0.0', name: 'Maharashtra' }];
-                    });
-                }
+                //var grouped = _.groupBy(Datalist, function (x) { return x[0] })
+                //var result = _.map(grouped, function (x) {
+                //    return _.reduce(x, function (x, y) {
+                //        return [y[0], x[1] + y[1]];
+                //    }, [, 0])
+                //})
+                //var dis = grouped.filter(x => x.key == Datalist[i].ColumnName);
+                //if (dis) {
+                //    $.each(dis, function (row, i) {
+                //        objd = [{ id: row.key + '.0', parent: '0.0', name: 'Maharashtra' }];
+                //    });
+                //}
                 //if (JSON.stringify(dis) == JSON.stringify(b)) {
                 //    arrdist.push({ key: dis });
                 //}
