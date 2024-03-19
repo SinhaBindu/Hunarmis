@@ -13,6 +13,15 @@
         height: 280px;
         display: inline-block;
     }
+    /* #chartgrouptree {
+        width: 950px;
+        height: 500px;
+        display: inline-block;
+        margin:0,0,0,;
+    }*/
+    input#em {
+        width: 100%;
+    }
 </style>
 <div id="page-content">
     <div class="genral-form">
@@ -30,8 +39,11 @@
                         <div class="col-sm-12" id="errormsg">
 
                         </div>
+                        <div class="col-sm-12">
+                            <input id="em" type="range" min="0.3" max="2" step="0.01" value="1" style="display:none;" />
+                        </div>
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" style="display:none;">
                                 <div id="chartbatch" class="container"></div>
                             </div>
                             <div class="col-sm-4">
@@ -41,10 +53,10 @@
                                 <div id="chartqlf" class="container"></div>
                             </div>
                             <div class="col-sm-4">
-                                <div id="charttraincen" class="container"></div>
+                                <div id="charttrainAge" class="container"></div>
                             </div>
-                            <div class="col-sm-4">
-                                <div id="chartgrouptree" class="container"></div>
+                            <div class="col-sm-12">
+                                <div id="chartgrouptree" class=""></div>
                             </div>
                         </div>
                     </div>
@@ -82,13 +94,17 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-
-
-
-
     <script>
+        var chart=[];
         $(document).ready(function () {
             LoadReport();
+
+        $('#em').on('input', function () {
+            chart.container.style.fontSize = this.value + 'em';
+            // Update layout based on new font and line sizes
+            chart.isDirtyLegend = true;
+            chart.redraw(false);
+          });
         });
         function LoadReport() {
             $('#errormsg').html("");
@@ -107,24 +123,26 @@
                         $('#errormsg').addClass("text-black");
                         $('#global-loader').css('background', 'transparent').css('display', 'none');
                         var BatchData = [], CourseData = [], DisData = [],
-                            QlfData = [], TrainCrData = [];
+                            QlfData = [], TrainCrData = [], TrainingAgency = [];
                         var Noofpart = 0; var Colpart = ""; var totalpart = [];
                         if (resdata) {
                             BatchData = resdata.filter(x => x.Type == "Batch");
                             CourseData = resdata.filter(x => x.Type == "Course");
                             DisData = resdata.filter(x => x.Type == "District");
                             QlfData = resdata.filter(x => x.Type == "Qualification");
-                            TrainCrData = resdata.filter(x => x.Type == "TrainingCenter");
+                            //TrainCrData = resdata.filter(x => x.Type == "TrainingCenter");
+                            TrainingAgency = resdata.filter(x => x.Type == "TrainingAgency");
                             totalpart = resdata.filter(x => x.Type == "Participant");
                             $('#partcolm').html(totalpart[0].ColumnName); $('#noofpart').html(totalpart[0].NoofData);
-                            ChartBatch(BatchData);
+                            //ChartBatch(BatchData);
                             ChartCourse(CourseData);
                             ChartQlf(QlfData);
-                            ChartTrainCen(TrainCrData);
+                            ChartTrainingAgency(TrainingAgency);
                         }
-                        //if (resdata1) {
-                        //    ChartGroupTree(resdata1);
-                        //}
+                        if (resdata1) {
+                            totalpart = resdata.filter(x => x.Type == "Participant");
+                            ChartGroupTree(resdata1, totalpart[0].NoofData);
+                        }
                     }
                     else {
                         $('#errormsg').html(resp.Data); $('#errormsg').addClass("text-danger");
@@ -151,7 +169,7 @@
                 }
 
                 // Set up the chart
-                Highcharts.chart('chartbatch', {
+               chart = Highcharts.chart('chartbatch', {
                     chart: {
                         type: 'pyramid3d',
                         borderWidth: 1,
@@ -188,7 +206,6 @@
                     }]
                 });
             }
-
         }
         function ChartCourse(Datalist) {
             var Dlist = []; var name = []; var vl = [];
@@ -197,9 +214,7 @@
                     name.push([Datalist[i].ColumnName]);
                     vl.push([Datalist[i].NoofData]);
                 }
-            }
-
-            Highcharts.chart('chartcourse', {
+         chart = Highcharts.chart('chartcourse', {
                 chart: {
                     type: 'cylinder',
                     borderWidth: 1,
@@ -253,9 +268,16 @@
                 series: [{
                     data: vl,
                     name: 'Course',
-                    showInLegend: false
+                    showInLegend: false,
+                     dataLabels: {
+                            enabled: true,
+                            style: {
+                            fontSize: "10px",
+                            }
+                        }
                 }]
             });
+            }
         }
         function ChartQlf(Datalist) {
             if (Datalist) {
@@ -264,7 +286,6 @@
                 for (var i = 0; i < Datalist.length; i++) {
                     Dlist.push({ name: Datalist[i].ColumnName, y: Datalist[i].NoofData });
                 }
-            }
 
             //Highcharts.setOptions({
             //    colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
@@ -283,7 +304,7 @@
             //});
 
             // Build the chart
-            Highcharts.chart('chartqlf', {
+           chart = Highcharts.chart('chartqlf', {
                 chart: {
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
@@ -311,6 +332,13 @@
                 credits: {
                     enabled: false
                 },
+                legend: {
+                    itemStyle: {
+                        color: 'white',
+                        fontWeight: 'bold',
+                        fontSize: '20px'
+                    }
+                 },
                 plotOptions: {
                     pie: {
                         allowPointSelect: true,
@@ -325,21 +353,26 @@
                 },
                 series: [{
                     name: 'Qualification',
-                    data: Dlist
+                    data: Dlist,
+                    dataLabels: {
+                           enabled: true,
+                           style: {
+                           fontSize: "10px",
+                           }
+                       }
                 }]
             });
-
+            }
         }
-        function ChartTrainCen(Datalist) {
+        function ChartTrainingAgency(Datalist) {
             if (Datalist) {
                 var objd = new Object();
                 var Dlist = []; var name = []; var vl = [];
                 for (var i = 0; i < Datalist.length; i++) {
                     Dlist.push({ name: Datalist[i].ColumnName, y: Datalist[i].NoofData });
                 }
-            }
 
-            Highcharts.chart('charttraincen', {
+             chart = Highcharts.chart('charttrainAge', {
 
                 chart: {
                     type: 'lollipop',
@@ -360,7 +393,7 @@
                 //    text: '2021'
                 //},
                 title: {
-                    text: 'Training Center Distribution'
+                    text: 'Training Agency Distribution'
                 },
                 tooltip: {
                     shared: true
@@ -370,278 +403,162 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'No Of Training Center'
+                        text: 'No Of Training Agency'
                     }
                 },
                 series: [{
-                    name: 'Training Center',
+                    name: 'Training Agency',
                     data: Dlist
                 }]
 
             });
-
+            }
         }
-        function ChartGroupTree(Datalist) {
+        /*Training Center Over state to Training Center wise */
+        function ChartGroupTree(Datalist, TotalPart) {
             if (Datalist) {
                 var objd = []; arrdist = [];
-                var Dlist = []; var name = []; var vl = [];
-                objd = [{ id: '0.0', parent: '', name: 'Maharashtra' }];
-
-                //var outputArrDist = [];
-                //$.each(Datalist, function (key, val) {
-                //    outputArr.push([key, val]);
-                //});
-
-                //var grouped = _.groupBy(Datalist, function (x) { return x[0] })
-                //var result = _.map(grouped, function (x) {
-                //    return _.reduce(x, function (x, y) {
-                //        return [y[0], x[1] + y[1]];
-                //    }, [, 0])
-                //})
-                //var dis = grouped.filter(x => x.key == Datalist[i].ColumnName);
-                //if (dis) {
-                //    $.each(dis, function (row, i) {
-                //        objd = [{ id: row.key + '.0', parent: '0.0', name: 'Maharashtra' }];
-                //    });
-                //}
-                //if (JSON.stringify(dis) == JSON.stringify(b)) {
-                //    arrdist.push({ key: dis });
-                //}
-            }
-            for (var i = 0; i < Datalist.length; i++) {
-
-                Dlist.push({ id: Datalist[i].ColumnName, parent: Datalist[i].NoofData, name: "" });
-            }
-
-            const data = [
-                {
-                    id: '0.0',
-                    parent: '',
-                    name: 'The World'
-                },
-                {
-                    id: '1.3',
-                    parent: '0.0',
-                    name: 'Asia'
-                },
-                {
-                    id: '1.1',
-                    parent: '0.0',
-                    name: 'Africa'
-                },
-                {
-                    id: '1.2',
-                    parent: '0.0',
-                    name: 'America'
-                },
-                {
-                    id: '1.4',
-                    parent: '0.0',
-                    name: 'Europe'
-                },
-                {
-                    id: '1.5',
-                    parent: '0.0',
-                    name: 'Oceanic'
-                },
-
-                /* Africa */
-                {
-                    id: '2.1',
-                    parent: '1.1',
-                    name: 'Eastern Africa'
-                },
-
-                {
-                    id: '2.5',
-                    parent: '1.1',
-                    name: 'Western Africa'
-                },
-
-                {
-                    id: '2.3',
-                    parent: '1.1',
-                    name: 'North Africa'
-                },
-
-                {
-                    id: '2.2',
-                    parent: '1.1',
-                    name: 'Central Africa'
-                },
-
-                {
-                    id: '2.4',
-                    parent: '1.1',
-                    name: 'South America'
-                },
-
-                /* America */
-                {
-                    id: '2.9',
-                    parent: '1.2',
-                    name: 'South America'
-                },
-
-                {
-                    id: '2.8',
-                    parent: '1.2',
-                    name: 'Northern America'
-                },
-
-                {
-                    id: '2.7',
-                    parent: '1.2',
-                    name: 'Central America'
-                },
-
-                {
-                    id: '2.6',
-                    parent: '1.2',
-                    name: 'Caribbean'
-                },
-
-                /* Asia */
-                {
-                    id: '2.10',
-                    parent: '1.3',
-                    name: 'Southern Asia'
-                },
-
-                {
-                    id: '2.11',
-                    parent: '1.3',
-                    name: 'Eastern Asia'
-                },
-
-                {
-                    id: '2.12',
-                    parent: '1.3',
-                    name: 'South-Eastern Asia'
-                },
-
-                {
-                    id: '2.14',
-                    parent: '1.3',
-                    name: 'Western Asia'
-                },
-
-                {
-                    id: '2.10',
-                    parent: '1.3',
-                    name: 'Central Asia'
-                },
-
-                /* Europe */
-                {
-                    id: '2.15',
-                    parent: '1.4',
-                    name: 'Eastern Europe'
-                },
-
-                {
-                    id: '2.16',
-                    parent: '1.4',
-                    name: 'Northern Europe'
-                },
-
-                {
-                    id: '2.17',
-                    parent: '1.4',
-                    name: 'Southern Europe'
-                },
-
-                {
-                    id: '2.18',
-                    parent: '1.4',
-                    name: 'Western Europe'
-                },
-                /* Oceania */
-                {
-                    id: '2.19',
-                    parent: '1.5',
-                    name: 'Australia and New Zealand'
-                },
-
-                {
-                    id: '2.20',
-                    parent: '1.5',
-                    name: 'Melanesia'
-                },
-
-                {
-                    id: '2.21',
-                    parent: '1.5',
-                    name: 'Micronesia'
-                },
-
-                {
-                    id: '2.22',
-                    parent: '1.5',
-                    name: 'Polynesia'
+                var Dlist = []; var filtervl = 0;
+                objd = [{ id: '0.0', parent: '', name: 'Maharashtra' + '-' + TotalPart }];//
+                debugger;
+                const groupByDis = groupBy(["DistrictId", "DistrictName"]);
+                for (let [groupName, values] of Object.entries(groupByDis(Datalist))) {
+                    //console.log(`${groupName}: ${values.length}`);
+                    var strsp = groupName.split('-');
+                    filtervl = Datalist.filter(x => x.DistrictId == strsp[0]);
+                    let sum = filtervl.reduce(function (accumulator, curValue) {
+                        return accumulator + curValue.NoofPart
+                    }, 0)
+                    objd.push({ id: strsp[0] + '.0', parent: '0.0', name: strsp[1] + '-' + sum });//
                 }
-            ];
-
-            Highcharts.chart('chartgrouptree', {
-                chart: {
-                    inverted: true,
-                    marginBottom: 170
-                },
-                title: {
-                    text: 'Inverted treegraph',
-                    align: 'left'
-                },
-                series: [
-                    {
-                        type: 'treegraph',
-                        data,
-                        tooltip: {
-                            pointFormat: '{point.name}'
-                        },
-                        dataLabels: {
-                            pointFormat: '{point.name}',
-                            style: {
-                                whiteSpace: 'nowrap',
-                                color: '#000000',
-                                textOutline: '3px contrast'
+                const groupByTrainAgency = groupBy(["DistrictId", "TrainingAgencyId", "TrainingAgencyName"]);
+                for (let [groupName, values] of Object.entries(groupByTrainAgency(Datalist))) {
+                    //console.log(`${groupName}: ${values.length}`);
+                    var strsp = groupName.split('-');
+                    filtervl = Datalist.filter(x => x.DistrictId == strsp[0] && x.TrainingAgencyId == strsp[1]);
+                    let sum = filtervl.reduce(function (accumulator, curValue) {
+                        return accumulator + curValue.NoofPart
+                    }, 0)
+                    objd.push({ id: strsp[0] + '.' + strsp[1], parent: strsp[0] + '.0', name: strsp[2] + '-' + sum }); ////+ strsp[3]
+                }
+                const groupByTrainCenter = groupBy(["DistrictId", "TrainingAgencyId", "TrainingCenterId", "TrainingCenter"]);
+                for (let [groupName, values] of Object.entries(groupByTrainCenter(Datalist))) {
+                    //console.log(`${groupName}: ${values.length}`);
+                    var strsp = groupName.split('-');
+                    filtervl = Datalist.filter(x => x.DistrictId == strsp[0]
+                        && x.TrainingAgencyId == strsp[1] && x.TrainingCenterId == strsp[2]);
+                    let sum = filtervl.reduce(function (accumulator, curValue) {
+                        return accumulator + curValue.NoofPart
+                    }, 0)
+                    objd.push({ id: strsp[0] + strsp[1] + '.' + strsp[2], parent: strsp[0] + '.' + strsp[1], name: strsp[3] + '-' + sum }); ////strsp[4]
+                }
+                //for (var i = 0; i < Datalist.length; i++) {
+                //    objd.push({ id: Datalist[i].TrainingAgencyId + '.' + Datalist[i].TrainingCenterId, parent: Datalist[i].DistrictId + '.' + Datalist[i].TrainingAgencyId, name: Datalist[i].TrainingCenter });
+                //}
+                const data = objd;
+              chart = Highcharts.chart('chartgrouptree', {
+                    chart: {
+                        inverted: true,
+                        marginBottom: 170
+                        //borderWidth: 1
+                    },
+                    title: {
+                        text: 'Training Center Distribution',
+                        align: 'center'
+                    },
+                    series: [
+                        {
+                            type: 'treegraph',
+                            data,
+                            tooltip: {
+                                pointFormat: '{point.name}'
                             },
-                            crop: false
-                        },
-                        marker: {
-                            radius: 6
-                        },
-                        levels: [
-                            {
-                                level: 1,
-                                dataLabels: {
-                                    align: 'left',
-                                    x: 20
-                                }
-                            },
-                            {
-                                level: 2,
-                                colorByPoint: true,
-                                dataLabels: {
-                                    verticalAlign: 'bottom',
-                                    y: -20
-                                }
-                            },
-                            {
-                                level: 3,
-                                colorVariation: {
-                                    key: 'brightness',
-                                    to: -0.5
+                            dataLabels: {
+                                pointFormat: '{point.name}',
+                                style: {
+                                    whiteSpace: 'nowrap',
+                                    color: '#000000',
+                                    textOutline: '3px contrast'
                                 },
-                                dataLabels: {
-                                    verticalAlign: 'top',
-                                    rotation: 90,
-                                    y: 20
+                                crop: false
+                            },
+                            marker: {
+                                radius: 6
+                            },
+                             credits: {
+                             enabled: false
+                         },
+                         legend: {
+                             itemStyle: {
+                                 color: 'white',
+                                 fontWeight: 'bold',
+                                 fontSize: '20px'
+                             }
+                          },
+                            levels: [
+                                {
+                                    level: 1,
+                                    dataLabels: {
+                                        align: 'left',
+                                        x: 20
+                                    }
+                                },
+                                {
+                                    level: 2,
+                                    colorByPoint: true,
+                                    dataLabels: {
+                                        verticalAlign: 'bottom',
+                                        y: -20
+                                    }
+                                },
+                                {
+                                    level: 3,
+                                    //colorVariation: {
+                                    //    key: 'brightness',
+                                    //    to: -0.5
+                                    //},
+                                    dataLabels: {
+                                        verticalAlign: 'top',
+                                        /*rotation: 90,*/
+                                        y: -20
+                                    }
+                                },
+                                //{
+                                //    level: 4,
+                                //    //colorVariation: {
+                                //    //    key: 'brightness',
+                                //    //   /* to: -0.5*/
+                                //    //},
+                                //    dataLabels: {
+                                //        verticalAlign: 'bottom',
+                                //        //verticalAlign: 'top',
+                                //        /*rotation: 90,*/
+                                //        y: -20
+                                //    }
+                                //}
+                                {
+                                    level: 4,
+                                    colorVariation: {
+                                        key: 'brightness',
+                                        to: -0.5
+                                    },
+                                    dataLabels: {
+                                        verticalAlign: 'top',
+                                        rotation: 90,
+                                        y: 20
+                                    }
                                 }
-                            }
-                        ]
-                    }
-                ]
-            });
+                            ]
+                        }
+                    ]
+                });
+            }
         }
+        const groupBy = (keys) => (array) =>
+            array.reduce((objectsByKeyValue, obj) => {
+                const value = keys.map((key) => obj[key]).join("-");
+                objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+                return objectsByKeyValue;
+            }, {});
     </script>
 }
