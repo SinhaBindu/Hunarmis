@@ -21,7 +21,7 @@
                 <tr>
                     <th class="text-center tblth">Srno.</th>
                     <th class="text-center tblth">Center Name</th>
-                    <th class="text-center tblth tbl-width">Phone No<br /> <strong class="vw">Call</strong></th>
+                    <th class="text-center tblth">Phone No<br /> <strong class="vw">Call</strong></th>
                     <th class="text-center tblth">Name</th>
                     <th class="text-center tblth">Registration ID <br /></th>
                     <th class="text-center tblth">Email ID</th>
@@ -43,10 +43,10 @@
                             <tr>
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-left">@dr["TrainingCenter"]</td>
-                                <td class="tbl-width">
-                                    <a href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank">
+                                <td>
+                                    <a href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank" style="float: left; width: 95px !important">
                                         <strong class="" style="color:#3131d3;">
-                                            <img style="float: left" src="~/Content/images/Phone_icon.png" alt="Alternate Text" width="14" height="14" />
+                                            <img style="float: left; margin-right: 6px; margin-top: 2px" src="~/Content/images/Phone_icon.png" alt="Alternate Text" width="14" height="14" />
                                             @dr["PhoneNo"]
                                         </strong>
                                     </a>
