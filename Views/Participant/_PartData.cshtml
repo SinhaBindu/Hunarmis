@@ -13,7 +13,6 @@
     table.dataTable td.dt-type-date {
         text-align: left !important;
     }
-
 </style>
 <div class="bg-light rounded h-100 p-4">
     <div class="table-responsive">
@@ -22,7 +21,7 @@
                 <tr>
                     <th class="text-center tblth">Srno.</th>
                     <th class="text-center tblth">Center Name</th>
-                    <th class="text-center tblth" width="20%">Phone No<br /> <strong class="vw">Call</strong></th>
+                    <th class="text-center tblth tbl-width">Phone No<br /> <strong class="vw">Call</strong></th>
                     <th class="text-center tblth">Name</th>
                     <th class="text-center tblth">Registration ID <br /></th>
                     <th class="text-center tblth">Email ID</th>
@@ -44,10 +43,10 @@
                             <tr>
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-left">@dr["TrainingCenter"]</td>
-                                <td class="" width="20%">
+                                <td class="tbl-width">
                                     <a href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank">
                                         <strong class="" style="color:#3131d3;">
-                                            <img src="~/Content/images/Phone_icon.png" alt="Alternate Text" width="20" height="30" />
+                                            <img style="float: left" src="~/Content/images/Phone_icon.png" alt="Alternate Text" width="14" height="14" />
                                             @dr["PhoneNo"]
                                         </strong>
                                     </a>
