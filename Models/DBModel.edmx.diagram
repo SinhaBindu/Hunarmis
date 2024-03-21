@@ -20,13 +20,13 @@
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_UserLogin" Width="1.5" PointX="10.375" PointY="0.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.Batch_Master" Width="1.5" PointX="0.75" PointY="10.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.TrainingCenter_Master" Width="1.5" PointX="9.375" PointY="4.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant" Width="1.5" PointX="11.375" PointY="3.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.Month_Master" Width="1.5" PointX="5.375" PointY="10.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.Year_Master" Width="1.5" PointX="11.375" PointY="10.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.Benefit_Master" Width="1.5" PointX="12.375" PointY="0.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.JobEmployed_Master" Width="1.5" PointX="7.375" PointY="12.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.LocatedKM_Master" Width="1.5" PointX="13.375" PointY="3.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant_Calling" Width="1.5" PointX="3.375" PointY="13.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant_Calling" Width="1.5" PointX="13.375" PointY="6.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant" Width="1.5" PointX="3.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

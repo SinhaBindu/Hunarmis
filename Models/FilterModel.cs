@@ -44,5 +44,6 @@ namespace Hunarmis.Models
         public string Type { get; set; }
         [Display(Name = "Search")]
         public string Search { get; set; }
+        public int TempStatus { get; set; }
     }
 }

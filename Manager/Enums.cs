@@ -17,7 +17,29 @@ namespace Hunarmis.Manager
             info = 2,
             warning = 3
         }
-
+        public enum ePlaced
+        {
+            Yes = 1,
+            No = 0,
+            //Other = 3,
+        }
+        public enum eTypeCall
+        {
+            Yes = 1,
+            No = 2,
+            //Other = 3,
+        }
+        public enum eTempCallStatus
+        {
+            [Description("Call")]
+            CallNot = 0,
+            [Description("Call Done")]
+            CallDone = 1,
+            [Description("No")]
+            CallNotPick = 2,
+            [Description("Call On Progress")]
+            CallOnProgress = 3,
+        }
         public enum eEnumExtension
         {
             [Description("image/*,application/pdf")]

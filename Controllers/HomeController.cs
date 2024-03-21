@@ -25,15 +25,18 @@ namespace Hunarmis.Controllers
             {
                 DataTable dt = new DataTable();
                 DataTable dt1 = new DataTable();
+                DataTable dt2 = new DataTable();
                 DataSet ds = SPManager.SP_Dashboard(model);
                 if (ds.Tables.Count > 0)
                 {
                     dt = ds.Tables[0];
                     dt1 = ds.Tables[1];
+                    dt2 = ds.Tables[2];
                     IsCheck = true;
                     var datares1 = JsonConvert.SerializeObject(dt);
                     var datares2 = JsonConvert.SerializeObject(dt1);
-                    var res1 = Json(new { IsSuccess = IsCheck, Data = datares1, Data2 = datares2 }, JsonRequestBehavior.AllowGet);
+                    var datares3 = JsonConvert.SerializeObject(dt2);
+                    var res1 = Json(new { IsSuccess = IsCheck, Data = datares1, Data2 = datares2, Data3 = datares3 }, JsonRequestBehavior.AllowGet);
                     res1.MaxJsonLength = int.MaxValue;
                     return res1;
                 }

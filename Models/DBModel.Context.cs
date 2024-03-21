@@ -37,12 +37,12 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_UserLogin> tbl_UserLogin { get; set; }
         public virtual DbSet<Batch_Master> Batch_Master { get; set; }
         public virtual DbSet<TrainingCenter_Master> TrainingCenter_Master { get; set; }
-        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<Month_Master> Month_Master { get; set; }
         public virtual DbSet<Year_Master> Year_Master { get; set; }
         public virtual DbSet<Benefit_Master> Benefit_Master { get; set; }
         public virtual DbSet<JobEmployed_Master> JobEmployed_Master { get; set; }
         public virtual DbSet<LocatedKM_Master> LocatedKM_Master { get; set; }
         public virtual DbSet<tbl_Participant_Calling> tbl_Participant_Calling { get; set; }
+        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
     }
 }

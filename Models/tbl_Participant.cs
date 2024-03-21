@@ -36,6 +36,11 @@ namespace Hunarmis.Models
         public Nullable<int> TrainingCenterID { get; set; }
         public string TrainerName { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public Nullable<bool> IsPlaced { get; set; }
+        public Nullable<int> CallTempStatus { get; set; }
+        public string CallRemark { get; set; }
+        public Nullable<int> CallMonth { get; set; }
+        public Nullable<int> CallYear { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }

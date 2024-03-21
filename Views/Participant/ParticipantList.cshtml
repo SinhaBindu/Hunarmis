@@ -1,5 +1,5 @@
 ﻿@model Hunarmis.Models.FilterModel
-
+@using Hunarmis.Manager
 @{
     ViewBag.Title = "Participant List";
     ViewBag.TitleIcon = "fa fa-user";
@@ -26,15 +26,19 @@
         background: #FFFFFF;
         border-color: #009CFF;
     }
+
     table.dataTable > thead > tr > th, table.dataTable > thead > tr > td {
         padding: 10px 6px !important
     }
+
     .box-gap {
         padding: 0 10px !important
     }
+
     .dt-input {
         margin-right: 10px
     }
+
     .panel {
         min-height: 500px;
     }
@@ -121,7 +125,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
 
                 </div>
             </div>
@@ -158,15 +162,16 @@
             //    /* Role Wise */
             //    BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
 
-            //    BindData();
 
+            BindData();
             $("#formid").submit(function (e) {
                 e.preventDefault();
                 BindData();
             });
-
-            BindData();
+           
         });
+
+      
         function BindData() {
             $("#subdata").html('');
             var filtermodel = new Object();
@@ -197,6 +202,7 @@
                                 leftColumns: 1,
                                 rightColumns: 1
                             },
+                            order: [[0, 'asc']],
                             buttons: [{
                                 extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Beneficiary Lists',//$('#IDDistrict option:selected').text() +
                                 className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',

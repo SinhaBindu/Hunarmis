@@ -218,6 +218,15 @@ namespace Hunarmis.Manager
             list.Add(new SelectListItem { Value = "No", Text = "No" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
+        public static List<SelectListItem> GetCalling()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            list.Add(new SelectListItem { Value = "Yes", Text = "Yes" });
+            list.Add(new SelectListItem { Value = "No", Text = "No" });
+            //list.Add(new SelectListItem { Value = "Other", Text = "Other" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
         public static List<SelectListItem> GetGender()
         {
             List<SelectListItem> list = new List<SelectListItem>();

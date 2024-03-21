@@ -1,0 +1,314 @@
+﻿@model Hunarmis.Models.FilterModel
+@using Hunarmis.Manager
+@{
+    ViewBag.Title = "Participant Call List";
+    ViewBag.TitleIcon = "fa fa-user";
+    ViewBag.SemiTitle = "Participant List";
+    ViewBag.SemiTitleLink = "/Participant/ParticipantList";
+    string IsSadmin = string.Empty;
+}
+<style>
+    .table th {
+        font-size: 14px;
+        background: #fff;
+    }
+
+    .table td {
+        font-size: 13px;
+    }
+
+    .dataTables_filter, .dataTables_length {
+        margin-bottom: 15px;
+    }
+
+    .actives2 {
+        color: #009CFF !important;
+        background: #FFFFFF;
+        border-color: #009CFF;
+    }
+
+    table.dataTable > thead > tr > th, table.dataTable > thead > tr > td {
+        padding: 10px 6px !important
+    }
+
+    .box-gap {
+        padding: 0 10px !important
+    }
+
+    .dt-input {
+        margin-right: 10px
+    }
+
+    .panel {
+        min-height: 500px;
+    }
+    .licall::before {
+        color: #808080;
+        content: '■';
+        position: absolute;
+        left: -0.8em; /* Adjust this value so that it appears where you want. */
+        font-size: 1.1em; /* Adjust this value so that it appears what size you want. */
+    }
+
+    .licallyes::before {
+        color: #8bc34a;
+        content: '■';
+        position: absolute;
+        left: -0.8em; /* Adjust this value so that it appears where you want. */
+        font-size: 1.1em; /* Adjust this value so that it appears what size you want. */
+    }
+
+    .licallprogress::before {
+        color: #f18888;
+        content: '■';
+        position: absolute;
+        left: -0.8em; /* Adjust this value so that it appears where you want. */
+        font-size: 1.1em; /* Adjust this value so that it appears what size you want. */
+    }
+
+    .ul > li > .licallno::before {
+        color: #ffb300 !important;
+        content: '■';
+        position: absolute;
+        left: -0.8em; /* f5ad05 Adjust this value so that it appears where you want. */
+        font-size: 1.1em; /* Adjust this value so that it appears what size you want. */
+    }
+</style>
+
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <fieldset class="border rounded-3 p-3">
+                        @*<legend class="float-none w-auto px-2">Search By</legend>*@
+                        @using (Html.BeginForm("GetPartList", "Participant", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+                        {
+                            <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                            <div class="panel-bodys">
+                                <div class="bg-light rounded h-100 p-4">
+                                    <div class="row mb-3">
+                                    <div class="col-md-6 ml-4">
+                                        <ul style="list-style-type: square; ">
+                                            <li class="licall">@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallNot))</li>
+                                            <li class="licallprogress">@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallOnProgress))</li>
+                                            <li class="licallyes">@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallDone))</li>
+                                            <li class="licallno">@(Enums.GetEnumDescription(Enums.eTypeCall.No))</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                @*<div class="row mb-3">
+                                        <div class="col-sm-4">
+                                            <div class="position-relative form-group">
+                                                @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label" })
+                                                @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="position-relative form-group">
+                                                @Html.LabelFor(model => model.BlockId, htmlAttributes: new { @class = "control-label" })
+                                                @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                @Html.ValidationMessageFor(model => model.BlockId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="position-relative form-group">
+                                                @Html.LabelFor(model => model.PanchayatId, htmlAttributes: new { @class = "control-label" })
+                                                @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                @Html.ValidationMessageFor(model => model.PanchayatId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4">
+                                            <div class="position-relative form-group">
+                                                @Html.LabelFor(model => model.VOId, htmlAttributes: new { @class = "control-label" })
+                                                @Html.DropDownListFor(m => m.VOId, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                @Html.ValidationMessageFor(model => model.VOId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="position-relative form-group">
+                                                @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })
+                                                @Html.DropDownListFor(m => m.Year, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="position-relative form-group">
+                                                @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label" })
+                                                @Html.DropDownListFor(m => m.Month, new List<SelectListItem>(), null, new { @class = "form-select " })
+                                                @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <span class="check-spacer">
+                                            <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Filter" />
+                                        </span>&nbsp;&nbsp;&nbsp;
+                                        <span class="check-spacer">
+                                            <a href="~/Beneficiary/BFYList" class="btn btn-info"><i class="fa fa-refresh"></i>Refresh</a>
+                                        </span>
+                                    </div>*@
+                            </div>
+                    </div>
+                }
+                        </fieldset>
+                        <div class="box-gap">
+                            <div class="row">
+                                <div class="col=md-12" id="div-download"></div>
+                                <div class="col=md-6"></div>
+                                <div class="col=md-6"></div>
+                                <div class="col=md-6"></div>
+                                <div class="col-md-12">
+                                    <div id="subdata"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            @*<script src="~/Scripts/JS/Master.js"></script>*@
+
+            @*<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
+                <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+                <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+                <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
+
+            <script>
+        $(document).ready(function () {
+
+            //    GetYearList("Year", 0);
+            //    GetMonthList("Month", 0);
+            //    GetDistrict("DistrictId", 0);
+            //    $('#DistrictId').change(function () {
+            //        GetBlock("BlockId", 0, $(this).val());
+            //    });
+            //    $('#BlockId').change(function () {
+            //        GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $(this).val());
+            //    });
+            //    $('#PanchayatId').change(function () {
+            //        GetVillage("VOId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
+            //    });
+            //    /* Role Wise */
+            //    BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
+
+            BindData();
+            $("#formid").submit(function (e) {
+                e.preventDefault();
+                BindData();
+            });
+            setInterval(startRefresh, 5000);
+
+        });
+
+        function startRefresh() {
+
+            var resData = [];
+            var rows = $('#tbl tbody');//.rows().data();
+            $.ajaxSetup({ global: false });
+            $.ajax({
+                url: document.baseURI + "Participant/GetTempStatus",
+                type: "get",
+                data: '',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (resp) {
+                    if (resp.IsSuccess) {
+                        resData = JSON.parse(resp.Data);
+                        $.each(resData, function (i, item) {
+
+                            if ('@((int)Enums.eTempCallStatus.CallOnProgress)' == item.CallTempStatus) {
+                                $('tr[data-partid=' + item.PartId + ']', rows).css('background', '#f18888');
+                                 $('tr[data-partid=' + item.PartId + '] td:first', rows).text('@Enums.GetEnumDescription(Enums.eTempCallStatus.CallOnProgress)');
+                                $('tr[data-partid=' + item.PartId + '] td a#hrfphoneno-' + item.PartId, rows).removeAttr('href');
+                            }
+                            else if ('@((int)Enums.eTempCallStatus.CallNotPick)' == item.CallTempStatus) {
+                                $('tr[data-tempcalls=' + item.CallTempStatus + ']', rows).css('background', '#ffb300');
+                                 $('tr[data-partid=' + item.PartId + '] td:first', rows).text('@Enums.GetEnumDescription(Enums.eTempCallStatus.CallNotPick)');
+                            }
+                            else if ('@((int)Enums.eTempCallStatus.CallDone)' == item.CallTempStatus) {
+                                $('tr[data-partid=' + item.CallTempStatus + ']', rows).css('background', '#39b54a');
+                                $('tr[data-partid=' + item.PartId + '] td:first', rows).text('@Enums.GetEnumDescription(Enums.eTempCallStatus.CallDone)');
+                                $('tr[data-partid=' + item.PartId + '] td a#hrfphoneno-' + item.PartId, rows).removeAttr('href');
+                            }
+                            $('tr[data-partid=' + item.PartId + ']', rows).css('color','#fff');
+
+                        })
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                }
+            });
+
+        }
+        function BindData() {
+            $("#subdata").html('');
+            var filtermodel = new Object();
+            filtermodel.Type = '@((int)Enums.ePlaced.Yes)';//$('#Type').val() == '' ? '' : $('#Type').val();
+            filtermodel.Search = "", $('#Search').val() == '' ? '' : $('#Search').val();
+            //filtermodel.BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
+            var formData = $('#formid').serialize();
+
+            $.ajax({
+                type: "Get",
+                url: document.baseURI + "/Participant/GetPartCallList",
+                data: filtermodel,//JSON.stringify({ 'Roles': '' }),
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+
+                        if ($.fn.dataTable.isDataTable('#tbl')) {
+                            $("#tbl").dataTable().fnDestroy();
+                        }
+                        table = $('#tbl').DataTable({
+                            //scrollY: "400px",
+                            //scrollX: true,
+                            //scrollCollapse: true,
+                            //paging: false,
+                            pageLength: 100,
+                            fixedColumns: {
+                                leftColumns: 1,
+                                rightColumns: 1
+                            },
+                            order: [[1, 'asc']],
+                            buttons: [{
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Beneficiary Lists',//$('#IDDistrict option:selected').text() +
+                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                filename: 'Beneficiary List',
+                                exportOptions: { modifier: { page: 'all' } }
+                            }],
+                        });
+                        $('.dataTables_filter input[type="search"]').css(
+                            { 'width': '500px', 'display': 'inline-block' }
+                        );
+                        $('#div-download').empty();
+                        table.buttons().container().appendTo($('#div-download'));
+                    }
+                    else {
+                        $("#subdata").html(res.Data);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+            </script>
+        }
+

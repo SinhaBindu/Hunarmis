@@ -59,5 +59,11 @@ namespace Hunarmis.Manager
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
+        public static DataTable SP_PartTempStatus()
+        {
+            StoredProcedure sp = new StoredProcedure("SP_PartTempStatus");
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
     }
 }

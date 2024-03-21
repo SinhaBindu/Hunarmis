@@ -1557,8 +1557,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -1595,13 +1593,15 @@
     <Content Include="Views\Home\_Index.cshtml" />
     <Content Include="Views\Participant\AddPartCalling.cshtml" />
     <Content Include="Views\Participant\AddParticipant.cshtml" />
-    <Content Include="Views\Participant\ParticipantList.cshtml" />
-    <Content Include="Views\Participant\_PartData.cshtml" />
+    <Content Include="Views\Participant\ParticipantCallList.cshtml" />
+    <Content Include="Views\Participant\_PartCallData.cshtml" />
     <Content Include="Views\Participant\PartQuestionList.cshtml" />
     <Content Include="Views\Participant\_PartQuesData.cshtml" />
     <Content Include="Views\Participant\QuesResponse.cshtml" />
     <Content Include="Views\Master\BatchMaster.cshtml" />
     <Content Include="Views\Master\_BatchData.cshtml" />
+    <Content Include="Views\Participant\ParticipantList.cshtml" />
+    <Content Include="Views\Participant\_PartData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

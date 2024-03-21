@@ -43,6 +43,11 @@ $(".numberonly").on("input", function (evt) {
 
 /* -------------------------------------------- Date Range -------------------------------*/
 
+function toDate(dateString) {
+    debugger;
+    var parts = dateString.split('-');
+    return new Date(parts[2] + "-" + parts[1] + "-" + parts[0]);
+}
 function getAge(dateString) {
 
     const dates = new Date(dateString); // {object Date}            

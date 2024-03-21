@@ -37,6 +37,7 @@ $(function () {
     });
 });
 $(document).ajaxStart(function () {
+    console.log('g-ajaxStart')
     $("#panel-load").show();
 });
 $(document).ajaxStop(function () {
@@ -157,8 +158,13 @@ $(document).ready(function () {
             timeFormat: 'hh:mm TT'
         });
     });
-  
-
+   
+    $(".datepicker").datepicker({
+        dateFormat: 'dd-M-yy',
+        changeMonth: true,
+        changeYear: true,
+        maxDate: new Date()
+    });
     $(".datepicker").datepicker({
         dateFormat: 'dd-M-yy',
         changeMonth: true,

@@ -39,7 +39,7 @@
                                 <td class="text-center bg-warning text-white"><strong>@(dr["Ques_Month"] + "/" +dr["Ques_Year"])</strong></td>
                                 <td class="text-left">@dr["TrainingCenter"]</td>
                                 <td class="text-center  bg-success text-white">
-                                    <a href="~/Participant/QuesResponse?PartQuestId=@dr["ParticipantQuestionId"]" target="_blank"><strong style="text-decoration:underline !important;">@dr["RegID"]</strong></a>
+                                    <a href="~/Participant/QuesResponse?PartQuestId=@dr["ParticipantQuestionId"]&M=@dr["QuesMonth"]&Y=@dr["QuesYear"]" target="_blank"><strong style="text-decoration:underline !important;">@dr["RegID"]</strong></a>
                                 </td>
                                 <td class="text-left">@dr["FullName"]</td>
                                 <td class="text-center">@dr["PhoneNo"]</td>

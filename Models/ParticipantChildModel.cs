@@ -19,7 +19,7 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = DplyPartCalName.QuesYear)]
         public Nullable<int> QuesYear { get; set; }
-        public Nullable<int> IsCalling { get; set; }
+        //public string IsCalling { get; set; }
         public Nullable<System.DateTime> CallingDate { get; set; }
         public Nullable<System.Guid> ParticipantId_fk { get; set; }
         public Nullable<System.Guid> PartId { get; set; }
@@ -35,6 +35,12 @@ namespace Hunarmis.Models
         public string SBatchDt { get; set; }
         [Display(Name = DplyPartCalName.EBatchDt)]
         public string EBatchDt { get; set; }
+
+        //Questions
+        [Display(Name = DplyPartCalName.CallType)]
+        public string CallType { get; set; }
+        [Display(Name = DplyPartCalName.Remark)]
+        public string Remark { get; set; }
         [Display(Name = DplyPartCalName.IsAssessmentCert)]
         public string IsAssessmentCert { get; set; }
         [Display(Name = DplyPartCalName.IsPresent)]
@@ -95,6 +101,8 @@ namespace Hunarmis.Models
         public const string EBatchDt = "Batch End Date";
         public const string QuesMonth = "Month";
         public const string QuesYear = "Year";
+        public const string CallType = "Participant Available";
+        public const string Remark = "Remark";
         public const string IsAssessmentCert = "Did you give the assessment and get certified?";
         public const string IsPresent = "Are you employed at present?";
         public const string IsComfortable = "Are you comfortable to share the details of your employment?";
