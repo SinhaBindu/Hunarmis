@@ -73,6 +73,34 @@
         left: -0.8em; /* f5ad05 Adjust this value so that it appears where you want. */
         font-size: 1.1em; /* Adjust this value so that it appears what size you want. */
     }
+    .call-option {
+        display: flex;
+        gap: 20px;
+        padding: 20px 0 15px 20px;
+    }
+    .call-option li {
+        list-style: none;
+    }
+    .d-call, .call-progress, .call-yes, .call-no {
+        float: left;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        margin-right: 6px;
+        margin-top: 4px;
+    }
+    .d-call {
+        background: grey
+    }
+    .call-progress {
+        background: #F18888
+    }
+    .call-yes {
+        background: #39B54A
+    }
+    .call-no {
+        background: #FFB300
+    }
 </style>
 
 <div id="page-content">
@@ -89,11 +117,11 @@
                                 <div class="bg-light rounded h-100 p-4">
                                     <div class="row mb-3">
                                     <div class="col-md-6 ml-4">
-                                        <ul style="list-style-type: square; ">
-                                            <li class="licall">@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallNot))</li>
-                                            <li class="licallprogress">@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallOnProgress))</li>
-                                            <li class="licallyes">@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallDone))</li>
-                                            <li class="licallno">@(Enums.GetEnumDescription(Enums.eTypeCall.No))</li>
+                                        <ul class="call-option">
+                                            <li><span class="d-call"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallNot))</li>
+                                            <li><span class="call-progress"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallOnProgress))</li>
+                                            <li><span class="call-yes"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallDone))</li>
+                                            <li><span class="call-no"></span>@(Enums.GetEnumDescription(Enums.eTypeCall.No))</li>
                                         </ul>
                                     </div>
                                 </div>
