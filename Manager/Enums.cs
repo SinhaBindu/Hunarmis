@@ -37,7 +37,7 @@ namespace Hunarmis.Manager
             CallDone = 1,
             [Description("No")]
             CallNotPick = 2,
-            [Description("Call On Progress")]
+            [Description("Call In Progress")]
             CallOnProgress = 3,
         }
         public enum eEnumExtension
@@ -81,6 +81,7 @@ namespace Hunarmis.Manager
 
         public enum eIsStatus
         {
+            [Description("All fields are mandatory !!.")]
             True = 1,
             False = 0
         }

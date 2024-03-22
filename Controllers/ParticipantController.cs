@@ -255,7 +255,7 @@ namespace Hunarmis.Controllers
                     var tbl = db_.tbl_Participant.Find(PartId);
                     if (tbl != null)
                     {
-                        tbl.CallTempStatus= (int)Enums.eTempCallStatus.CallOnProgress;
+                        tbl.CallTempStatus = (int)Enums.eTempCallStatus.CallOnProgress;
                         db_.SaveChanges();
                     }
                 }
@@ -286,7 +286,7 @@ namespace Hunarmis.Controllers
                 if (model != null)
                 {
                     var getdt = db_.tbl_Participant.Where(x => x.IsActive == true && x.ID == model.ParticipantId_fk)?.FirstOrDefault();
-                    if (model.CallType == Enums.GetEnumDescription(Enums.eTypeCall.No) 
+                    if (model.CallType == Enums.GetEnumDescription(Enums.eTypeCall.No)
                         && !string.IsNullOrWhiteSpace(model.Remark))
                     {
                         //var tbl = new tbl_Participant_Calling();
@@ -301,13 +301,13 @@ namespace Hunarmis.Controllers
                             //tbl.CreatedBy = MvcApplication.CUser.UserId;
                             //tbl.CreatedOn = DateTime.Now;
                             //db_.tbl_Participant_Calling.Add(tbl);
-                           
+
                             var tblpart = db_.tbl_Participant.Find(model.ParticipantId_fk);
                             tblpart.CallTempStatus = (int)Enums.eTempCallStatus.CallNotPick;
                             tblpart.CallYear = model.QuesYear;
                             tblpart.CallMonth = model.QuesMonth;
                             tblpart.CallRemark = model.Remark.Trim();
-                            
+
                             results = db_.SaveChanges();
                             response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Congratulations, you have been Submitted successfully Reg ID : <strong>" + getdt.RegID + " </strong>  </span>", Data = null };
                             var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
@@ -329,31 +329,32 @@ namespace Hunarmis.Controllers
                             var tbl = model.ID != Guid.Empty ? db.tbl_Participant_Calling.Find(model.ID) : new tbl_Participant_Calling();
                             if (tbl != null)
                             {
-                               
-                                tbl.CallingDate = model.CallingDate;
                                 tbl.IsAssessmentCert = model.IsAssessmentCert;
-                                tbl.IsPresent = model.IsPresent;
-                                tbl.IsComfortable = model.IsComfortable;
-                                tbl.EmpCompany = model.EmpCompany;
-                                tbl.FirstJobTraining = model.FirstJobTraining;
-                                tbl.DOJ = model.DOJ;
-                                tbl.CurrentEmployer = model.CurrentEmployer;
-                                tbl.Designation = model.Designation;
-                                tbl.SalaryPackage = model.SalaryPackage;
-                                tbl.CurrentlyWorking = model.CurrentlyWorking;
-                                tbl.WorkingKM = model.WorkingKM;
-                                tbl.WorkingKMOther = model.WorkingKMOther;
-                                tbl.Traininghelp = model.Traininghelp;
-                                tbl.SalaryWages = model.SalaryWages;
-                                tbl.ExpectationJobRole = model.ExpectationJobRole;
-                                tbl.WorkPlaceSafe = model.WorkPlaceSafe;
-                                tbl.IsMSBenefit = model.IsMSBenefit;
-                                tbl.MSBenefitId = model.MSBenefitId;
-                                tbl.MSOther = model.MSOther;
-                                tbl.AnyChallenges = model.AnyChallenges;
-                                tbl.AreaSupport = model.AreaSupport;
-                                tbl.EmployedId = model.EmployedId;
-                                tbl.EmployedOther = model.EmployedOther;
+                                tbl.IsPresent = model.IsPresent.ToString() == Enums.GetEnumDescription(Enums.eTypeCall.Yes) ? model.IsPresent : null;
+                                if (model.IsPresent == Enums.GetEnumDescription(Enums.eTypeCall.Yes))
+                                {
+                                    tbl.IsComfortable = model.IsComfortable;
+                                    tbl.EmpCompany = model.EmpCompany;
+                                    tbl.FirstJobTraining = model.FirstJobTraining;
+                                    tbl.DOJ = model.DOJ;
+                                    tbl.CurrentEmployer = model.CurrentEmployer;
+                                    tbl.Designation = model.Designation;
+                                    tbl.SalaryPackage = model.SalaryPackage;
+                                    tbl.CurrentlyWorking = model.CurrentlyWorking;
+                                    tbl.WorkingKM = model.WorkingKM;
+                                    tbl.WorkingKMOther = model.WorkingKMOther;
+                                    tbl.Traininghelp = model.Traininghelp;
+                                    tbl.SalaryWages = model.SalaryWages;
+                                    tbl.ExpectationJobRole = model.ExpectationJobRole;
+                                    tbl.WorkPlaceSafe = model.WorkPlaceSafe;
+                                    tbl.IsMSBenefit = model.IsMSBenefit;
+                                    tbl.MSBenefitId = model.MSBenefitId;
+                                    tbl.MSOther = model.MSOther;
+                                    tbl.AnyChallenges = model.AnyChallenges;
+                                    tbl.AreaSupport = model.AreaSupport;
+                                }
+                                tbl.EmployedId = model.IsPresent.ToString() == Enums.GetEnumDescription(Enums.eTypeCall.Yes) ? model.EmployedId : null;
+                                tbl.EmployedOther = model.EmployedId == 3 ? model.EmployedOther : null;
                                 tbl.IsGettingjob = model.IsGettingjob;
                                 tbl.PlacedStatus = model.PlacedStatus;
                                 tbl.IsActive = true;
@@ -362,6 +363,7 @@ namespace Hunarmis.Controllers
                                     tbl.ID = Guid.NewGuid();
                                     tbl.QuesMonth = model.QuesMonth;
                                     tbl.QuesYear = model.QuesYear;
+                                    tbl.CallingDate = DateTime.Now.Date;
                                     tbl.IsCalling = Enums.GetEnumDescription(Enums.eTypeCall.Yes);
                                     tbl.ParticipantId_fk = model.ParticipantId_fk;
                                     tbl.CreatedBy = MvcApplication.CUser.UserId;
@@ -418,7 +420,7 @@ namespace Hunarmis.Controllers
             return resResponse;
         }
         #endregion
-      
+
         public ActionResult PartQuestionList()
         {
             FilterModel model = new FilterModel();

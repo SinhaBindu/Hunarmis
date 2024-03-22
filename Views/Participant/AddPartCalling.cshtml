@@ -410,11 +410,13 @@
                 $('#EmployedId').val(''); $('.Iscomftable').hide(); InputClear();
                 if (this.value == 'Yes') {
                     $('#div-IsComfortable').show(); $("input[name=IsComfortable]").attr('required', 'required');
-                    $('#div-EmployedId').show(); $("input[name=EmployedId]").attr('required', 'required');
+                    $('#div-EmployedId').hide(); $("input[name=EmployedId]").removeAttr('required');
                 }
                 else if (this.value == 'No') {
-                    $('#div-EmployedId').hide(); $("input[name=IsComfortable]").removeAttr('required');
-                    $('#div-IsComfortable').hide(); $("input[name=EmployedId]").removeAttr('required');
+                    $('#div-EmployedId').show();
+                    $("input[name=EmployedId]").attr('required', 'required');
+                     $("input[name=IsComfortable]").removeAttr('required');
+                    $('#div-IsComfortable').hide();
                 }
             });
             $('input[type=radio][name=IsComfortable]').change(function () {
@@ -463,7 +465,7 @@
                     toastr.error("Error", 'Please Select Year & Month.');
                      return false;
                 }
-                else { 
+                else {
                 var formData = $(this).serialize();
                 var strCallType = $('input[type=radio][name=CallType]:checked').val();
                     if (strCallType == 'Yes') {

@@ -42,7 +42,19 @@ $(".numberonly").on("input", function (evt) {
 });
 
 /* -------------------------------------------- Date Range -------------------------------*/
-
+function GetCurrentMonth() {
+    var d = new Date(),
+        n = d.getMonth(),
+        n = n + 1;
+    console.log(n)
+    return n;
+}
+function GetCurrentYear() {
+    var d = new Date(),
+        y = d.getFullYear();
+    console.log(y)
+    return y;
+}
 function toDate(dateString) {
     debugger;
     var parts = dateString.split('-');
@@ -158,6 +170,7 @@ function BindYearList(ElementId, SelectedValue, SelectAll) {
                 $.each(data, function (i, exp) {
                     $('#' + ElementId).append($("<option>").val(exp.Value).text(exp.Text));
                 });
+                $('#' + ElementId + ' option[value="' + GetCurrentYear() + '"]').prop('selected', true);
                 $('#' + ElementId).val(SelectedValue);
             }
             else {
@@ -195,7 +208,8 @@ function BindMonthList(ElementId, SelectedValue, SelectAll) {
                 $.each(data, function (i, exp) {
                     $('#' + ElementId).append($("<option>").val(exp.Value).text(exp.Text));
                 });
-                $('#' + ElementId).val(SelectedValue);
+                $('#' + ElementId + ' option[value="' + GetCurrentMonth() + '"]').prop('selected', true);
+                //$('#' + ElementId).val(SelectedValue);
             }
             else {
                 //alert(resp.IsSuccess);
