@@ -101,6 +101,80 @@ namespace Hunarmis.Manager
         }
         #endregion
 
+        #region Sending Email
+        public static string SendMail(string To, string Subject, string Body, string ReceiverName, string SenderName, int noofsend)
+        {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            string bodydata = string.Empty;
+            string bodyTemplate = string.Empty;
+            try
+            {
+                bodyTemplate = "Hi " + SenderName + "," + " <br /> <br /> <br /> " + Body;
+                //using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/Views/Shared/MailTemplate.html")))
+                //{
+                //    bodyTemplate = reader.ReadToEnd();
+                //}
+                //bodyTemplate = "<table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n\t\t<tbody>\r\n <tr>\r\n\t\t\t<td align=\"center\"> " + bodydata + "\r\n\t\t\t\t\r\n  \t</tbody></tr>\r\n</table>";
+                MailMessage mail = new MailMessage();
+                //mail.To.Add("bindu@careindia.org");
+                mail.To.Add(To);
+                mail.From = new MailAddress("kgbvjh4care@gmail.com", "Hunar MIS");
+                //mail.From = new MailAddress("hunarmis2024@gmail.com");
+                mail.Subject = Subject + " ( " + SenderName + " )";
+                //mail.Body = Body;
+                //bodydata = bodyTemplate.Replace("{Dearusername}", ReceiverName).Replace("{bodytext}", Body).Replace("{newusername}", SenderName);
+                //bodydata = bodyTemplate.Replace("{bodytext}", Body);
+                //mail.Body = bodyTemplate;
+                mail.Body = bodyTemplate;
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.UseDefaultCredentials = false;
+                //smtp.Credentials = new System.Net.NetworkCredential("hunarmis2024@gmail.com", "Hunar@2024");//Pasw-Care@321 // Enter seders User name and password       
+                //smtp.Credentials = new System.Net.NetworkCredential("careindiabtsp@gmail.com", "gupczsbvzinhivzw");//Pasw-Care@321 // Enter seders User name and password       
+                smtp.Credentials = new System.Net.NetworkCredential("kgbvjh4care@gmail.com", "yklzeazktmknvcbu");// yklz eazk tmkn vcbu//Pasw-Care@321 // Enter seders User name and password       
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+                //  noofsend++;
+
+
+                tbl_SendMail tbl = new tbl_SendMail();
+                tbl.Id = Guid.NewGuid();
+                tbl.MTo = To;
+                tbl.MFrom = "kgbvjh4care@gmail.com";
+                //tbl.MFrom = "careindiabtsp@gmail.com";
+                tbl.Subject = Subject + " ( " + SenderName + " )";
+                tbl.Boby = bodyTemplate;
+                tbl.ReceiverName = ReceiverName;
+                tbl.SenderName = SenderName;
+                tbl.IsSented = true;
+                tbl.CreatedBy = "";
+                tbl.CreatedOn = DateTime.Now;
+                db_.tbl_SendMail.Add(tbl);
+                db_.SaveChanges();
+                return "Success" + noofsend;
+            }
+            catch (Exception ex)
+            {
+                tbl_SendMail tbl = new tbl_SendMail();
+                tbl.Id = Guid.NewGuid();
+                tbl.MTo = To;
+                //tbl.MFrom = "careindiabtsp@gmail.com";
+                tbl.MFrom = "kgbvjh4care@gmail.com";
+                tbl.Subject = Subject + " ( " + SenderName + " )";
+                tbl.Boby = bodyTemplate;
+                tbl.ReceiverName = ReceiverName;
+                tbl.SenderName = SenderName;
+                tbl.IsSented = false;
+                db_.tbl_SendMail.Add(tbl);
+                db_.SaveChanges();
+                return "Error :" + ex.Message;
+            }
+        }
+
+        #endregion
+
         #region Get User Role 
         public static string GetUserRole()
         {
@@ -882,7 +956,9 @@ namespace Hunarmis.Manager
             Hunar_DBEntities _db = new Hunar_DBEntities();
             try
             {
-                var items = new SelectList(_db.Month_Master, "ID", "MonthName").OrderBy(x => Convert.ToInt32(x.Value)).ToList();
+                var monthlist = _db.Month_Master.ToList();
+                var countm = DateTime.Now.Month;
+                var items = new SelectList(monthlist, "ID", "MonthName", countm).OrderBy(x => Convert.ToInt32(x.Value)).ToList();
                 if (IsAll == 0)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
@@ -903,7 +979,9 @@ namespace Hunarmis.Manager
             Hunar_DBEntities _db = new Hunar_DBEntities();
             try
             {
-                var items = new SelectList(_db.Year_Master, "ID", "Year").OrderByDescending(x => Convert.ToInt32(x.Value)).ToList();
+                var yearlist = _db.Year_Master.ToList();
+                var county = yearlist.Count;
+                var items = new SelectList(yearlist, "ID", "Year", county).OrderByDescending(x => Convert.ToInt32(x.Value)).ToList();
                 if (IsAll == 0)
                 {
                     items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
@@ -918,6 +996,23 @@ namespace Hunarmis.Manager
             {
                 throw;
             }
+        }
+        public static List<SelectListItem> GetEnumCallStatusList(bool IsAll = false)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem { Value = "0", Text = "Call" });
+            list.Add(new SelectListItem { Value = "1", Text = "Call Done" });
+            list.Add(new SelectListItem { Value = "2", Text = "Participant Not Available" });
+            list.Add(new SelectListItem { Value = "3", Text = "Call In Progress" });
+            if (IsAll)
+            {
+                list.Insert(0, new SelectListItem { Value = "-1", Text = "All" });
+            }
+            else if (IsAll)
+            {
+                list.Insert(0, new SelectListItem { Value = "-1", Text = "Select" });
+            }
+            return list.OrderBy(x=>Convert.ToInt16(x.Value)).ToList();
         }
         #endregion
 

@@ -171,7 +171,7 @@ function BindYearList(ElementId, SelectedValue, SelectAll) {
                     $('#' + ElementId).append($("<option>").val(exp.Value).text(exp.Text));
                 });
                 $('#' + ElementId + ' option[value="' + GetCurrentYear() + '"]').prop('selected', true);
-                $('#' + ElementId).val(SelectedValue);
+               // $('#' + ElementId).val(SelectedValue);
             }
             else {
                 //alert(resp.IsSuccess);

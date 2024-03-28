@@ -27,6 +27,8 @@
         <EntityTypeShape EntityType="Hunar_DBModel.LocatedKM_Master" Width="1.5" PointX="13.375" PointY="3.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant_Calling" Width="1.5" PointX="13.375" PointY="6.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant" Width="1.5" PointX="3.375" PointY="13.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_SendMail" Width="1.5" PointX="9.375" PointY="13.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_MailData" Width="1.5" PointX="14.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

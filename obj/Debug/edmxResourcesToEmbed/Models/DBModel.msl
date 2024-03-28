@@ -287,5 +287,35 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tbl_SendMail">
+      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_SendMail">
+        <MappingFragment StoreEntitySet="tbl_SendMail">
+          <ScalarProperty Name="ExtraCol2" ColumnName="ExtraCol2" />
+          <ScalarProperty Name="ExtraCol1" ColumnName="ExtraCol1" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsSented" ColumnName="IsSented" />
+          <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+          <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+          <ScalarProperty Name="Boby" ColumnName="Boby" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="MTo" ColumnName="MTo" />
+          <ScalarProperty Name="MFrom" ColumnName="MFrom" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_MailData">
+      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_MailData">
+        <MappingFragment StoreEntitySet="tbl_MailData">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="LinkData" ColumnName="LinkData" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

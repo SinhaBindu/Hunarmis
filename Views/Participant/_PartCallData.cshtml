@@ -1,4 +1,5 @@
 ﻿@using System.Data
+@using System.Text.RegularExpressions;
 @using Hunarmis.Manager
 @{
     DataTable dt = new DataTable();
@@ -42,27 +43,27 @@
                         foreach (DataRow dr in dt.Rows)
                         {
                             var calltempst = Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallOnProgress
-                                ? Enums.GetEnumDescription(Enums.eTempCallStatus.CallOnProgress): Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallDone?
+                                ? Enums.GetEnumDescription(Enums.eTempCallStatus.CallOnProgress) : Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallDone ?
                                 Enums.GetEnumDescription(Enums.eTempCallStatus.CallDone)
-                                : Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallNotPick ? Enums.GetEnumDescription(Enums.eTypeCall.No) : "";//dr["CallRemark"].ToString()
+                                : Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallNotPick ? Enums.GetEnumDescription(Enums.eTempCallStatus.CallNotPick) : "";//dr["CallRemark"].ToString()
 
                             var csstemp = Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallOnProgress
                                         ? "background:#f18888; color:#fff; pointer-events: none;" : Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallDone ?
                                         "background:#39b54a; color:#fff; pointer-events: none;" :
-                                        Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallNotPick ? "background:#ffb300; color:#fff;" : "" ;
+                                        Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallNotPick ? "background:#ffb300; color:#fff;" : "";
 
                             var callstatus = Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallOnProgress
                                 ? "pointer-events: none;" : Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallDone ?
                                 "pointer-events: none;" : Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallNotPick ? "" : "";
-                            <tr data-tempcalls="@dr["CallTempStatus"].ToString()" 
-                                data-partid="@dr["ID"].ToString()" style="@csstemp" >
+                            <tr data-tempcalls="@dr["CallTempStatus"].ToString()"
+                                data-partid="@dr["ID"].ToString()" style="@csstemp">
                                 <td class="text-center">@calltempst</td>
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-left">@dr["TrainingCenter"]</td>
                                 @*<a href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank" style="float: left; width: 95px !important">*@
-                                <td class="" width="20%" >
+                                <td class="" width="20%">
                                     <a id="hrfphoneno-@dr["ID"]" href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank">
-                                        <strong class="" style="color:#3131d3;" >
+                                        <strong class="" style="color:#3131d3;">
                                             <img style="float: left; margin-right: 6px; margin-top: 2px" src="~/Content/images/Phone_icon.png" alt="Alternate Text" width="14" height="14" />
                                             @dr["PhoneNo"]
                                         </strong>
@@ -71,7 +72,7 @@
                                 <td class="text-left">@dr["FullName"]</td>
                                 <td class="text-center bg-warning text-white"><strong>@dr["RegID"]</strong></td>
                                 <td class="text-left">@dr["EmailID"]</td>
-                                <td class="text-center">@dr["AadharCardNo"]</td>
+                                <td class="text-center">&times;&times;&times;&times;&times;&times;&times;&times;&times;@Regex.Match(dr["AadharCardNo"].ToString(), @"(.{3})\s*$")</td>
                                 <td class="text-left">@dr["BatchName"]</td>
                                 <td class="text-center">@dr["BatchStartDate"]</td>
                                 <td class="text-center">@dr["BatchEndDate"]</td>

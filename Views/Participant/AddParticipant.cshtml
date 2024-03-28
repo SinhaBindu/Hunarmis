@@ -172,7 +172,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.AadharCardNo, htmlAttributes: new { @class = "control-label col-lg-12" })
                                         <div class="col-lg-12">
-                                            @Html.EditorFor(model => model.AadharCardNo, new { htmlAttributes = new { @type = "number", @class = "required form-control", @required = "required", @min = "12", @maxlength = "12" } })
+                                            @Html.PasswordFor(model => model.AadharCardNo, new { @type = "password", @class = "required form-control", @required = "required", @min = "12", @maxlength = "12" })
                                             @Html.ValidationMessageFor(model => model.AadharCardNo, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="mark-devide"></div>

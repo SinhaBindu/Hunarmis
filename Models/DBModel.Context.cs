@@ -44,5 +44,7 @@ namespace Hunarmis.Models
         public virtual DbSet<LocatedKM_Master> LocatedKM_Master { get; set; }
         public virtual DbSet<tbl_Participant_Calling> tbl_Participant_Calling { get; set; }
         public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
+        public virtual DbSet<tbl_SendMail> tbl_SendMail { get; set; }
+        public virtual DbSet<tbl_MailData> tbl_MailData { get; set; }
     }
 }

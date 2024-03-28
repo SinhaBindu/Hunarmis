@@ -116,15 +116,22 @@
                             <div class="panel-bodys">
                                 <div class="bg-light rounded h-100 p-4">
                                     <div class="row mb-3">
-                                    <div class="col-md-6 ml-4">
-                                        <ul class="call-option">
-                                            <li><span class="d-call"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallNot))</li>
-                                            <li><span class="call-progress"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallOnProgress))</li>
-                                            <li><span class="call-yes"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallDone))</li>
-                                            <li><span class="call-no"></span>@(Enums.GetEnumDescription(Enums.eTypeCall.No))</li>
-                                        </ul>
+                                        <div class="col-md-5 ml-4">
+                                            <ul class="call-option">
+                                                <li><span class="d-call"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallNot))</li>
+                                                <li><span class="call-progress"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallOnProgress))</li>
+                                                <li><span class="call-yes"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallDone))</li>
+                                                <li><span class="call-no"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallNotPick))</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="position-relative form-group">
+                                                @Html.LabelFor(model => model.CallStatus, htmlAttributes: new { @class = "control-label" })
+                                                @Html.DropDownListFor(m => m.CallStatus,CommonModel.GetEnumCallStatusList(true), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                                @Html.ValidationMessageFor(model => model.CallStatus, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
                                 @*<div class="row mb-3">
                                         <div class="col-sm-4">
                                             <div class="position-relative form-group">
@@ -230,8 +237,10 @@
             //    });
             //    /* Role Wise */
             //    BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
-
             BindData();
+            $('#CallStatus').change(function () {
+                BindData();
+                 });
             $("#formid").submit(function (e) {
                 e.preventDefault();
                 BindData();
@@ -286,7 +295,8 @@
             $("#subdata").html('');
             var filtermodel = new Object();
             filtermodel.Type = '@((int)Enums.ePlaced.Yes)';//$('#Type').val() == '' ? '' : $('#Type').val();
-            filtermodel.Search = "", $('#Search').val() == '' ? '' : $('#Search').val();
+            filtermodel.Search = "";//$('#Search').val() == '' ? '' : $('#Search').val();
+            filtermodel.CallStatus =  $('#CallStatus').val() == '' ? '' : $('#CallStatus').val();
             //filtermodel.BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
             var formData = $('#formid').serialize();
 

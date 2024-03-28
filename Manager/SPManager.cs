@@ -33,9 +33,11 @@ namespace Hunarmis.Manager
         }
         public static DataTable SP_ParticipantList(FilterModel model)
         {
+            model.CallStatus = model.CallStatus == "-1" ? "" : model.CallStatus;
             StoredProcedure sp = new StoredProcedure("SP_ParticipantList");
             sp.Command.AddParameter("@Type", model.Type, DbType.Int32);
             sp.Command.AddParameter("@Search", model.Search, DbType.String);
+            sp.Command.AddParameter("@CallStatus", model.CallStatus, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

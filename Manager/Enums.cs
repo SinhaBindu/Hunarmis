@@ -35,7 +35,7 @@ namespace Hunarmis.Manager
             CallNot = 0,
             [Description("Call Done")]
             CallDone = 1,
-            [Description("No")]
+            [Description("Participant Not Available")]
             CallNotPick = 2,
             [Description("Call In Progress")]
             CallOnProgress = 3,
@@ -138,6 +138,10 @@ namespace Hunarmis.Manager
             SPMULeadFinalize = 5,
             [Description("Requested For Compiled Lead Revision")]
             CompiledLeadRevisionRequest = 6,
+            [Description("Summative AFD")]
+            SummativeAFD =7,
+            [Description("Summative AFD Link :")]
+            SAFDLink = 8
         }
         public enum OptionMailBody
         {

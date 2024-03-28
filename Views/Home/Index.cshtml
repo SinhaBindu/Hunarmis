@@ -61,6 +61,9 @@
                             <div class="col-sm-4">
                                 <div id="chartcutmthcallstu" class="container"></div>
                             </div>
+                            <div class="col-sm-4">
+                                <div id="chartplace" class="container"></div>
+                            </div>
                         </div>
                     </div>
                     <hr />
@@ -124,11 +127,12 @@
                         var resdata = JSON.parse(resp.Data);
                         var resdata1 = JSON.parse(resp.Data2);
                         var resdata2 = JSON.parse(resp.Data3);
+                        var resdata3 = JSON.parse(resp.Data4);
                         $('#errormsg').addClass("text-black");
                         $('#global-loader').css('background', 'transparent').css('display', 'none');
                         var BatchData = [], CourseData = [], DisData = [],
                             QlfData = [], TrainCrData = [], TrainingAgency = [], CutMnthCallSt = [];
-                        var Noofpart = 0; var Colpart = ""; var totalpart = [];
+                        var Noofpart = 0; var Colpart = ""; var totalpart = [],DataPlace=[];
                         if (resdata) {
                             BatchData = resdata.filter(x => x.Type == "Batch");
                             CourseData = resdata.filter(x => x.Type == "Course");
@@ -143,13 +147,17 @@
                             ChartQlf(QlfData);
                             ChartTrainingAgency(TrainingAgency);
                         }
-                        if (resdata1) {
+                        if (resdata1.length != 0 || resdata2.length != 0 || resdata3.length != 0) {
                             totalpart = resdata.filter(x => x.Type == "Participant");
-                            ChartGroupTree(resdata1, totalpart[0].NoofData);
-                        }
-                        if (resdata2) {
-                            totalpart = resdata.filter(x => x.Type == "Participant");
-                            ChartCutmnthcallstu(resdata2, totalpart[0].NoofData);
+                            if (resdata1) {
+                                ChartGroupTree(resdata1, totalpart[0].NoofData);
+                            }
+                            if (resdata2) {
+                                ChartCutmnthcallstu(resdata2, totalpart[0].NoofData);
+                            }
+                            if (resdata3) {
+                                ChartPlace(resdata3, totalpart[0].NoofData);
+                            }
                         }
                     }
                     else {
@@ -244,12 +252,11 @@
                     //},
                     xAxis: {
                         categories: name,
-                        //    ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90+'],
-                        //title: {
-                        //    text: 'Courses'
-                        //},
                         labels: {
-                            skew3d: true
+                            skew3d: true,
+                            style: {                                
+                                fontSize: '1em'
+                            }
                         }
                     },
                     yAxis: {
@@ -279,9 +286,9 @@
                         showInLegend: false,
                         dataLabels: {
                             enabled: true,
-                            style: {
-                                fontSize: "10px",
-                            }
+                            //style: {
+                            //    fontSize: "1em",
+                            //}
                         }
                     }]
                 });
@@ -407,7 +414,13 @@
                         shared: true
                     },
                     xAxis: {
-                        type: 'category'
+                        type: 'category',
+                        labels: {
+                            skew3d: true,
+                            style: {
+                                fontSize: '1em'
+                            }
+                        }
                     },
                     yAxis: {
                         title: {
@@ -477,6 +490,12 @@
                     credits: {
                         enabled: false
                     },
+                    labels: {
+                        skew3d: true,
+                        style: {
+                            fontSize: '1em'
+                        }
+                    },
                     series: [
                         {
                             type: 'treegraph',
@@ -489,7 +508,8 @@
                                 style: {
                                     whiteSpace: 'nowrap',
                                     color: '#000000',
-                                    textOutline: '3px contrast'
+                                    textOutline: '3px contrast',
+                                    fontSize:'1em',
                                 },
                                 crop: false
                             },
@@ -563,52 +583,122 @@
             }
         }
         function ChartCutmnthcallstu(Datalist, TotalPart) {
+            debugger;
+
             if (Datalist.length > 0) {
+                var Dlist1 = [];
                 var objd = new Object();
                 var Dlist = []; var name = []; var vl = [];
                 for (var i = 0; i < Datalist.length; i++) {
                     var obj = [Datalist[i].CallStatusText, Datalist[i].NoofCall];
+                    Dlist1.push({ name: Datalist[i].CallStatusText, y: Datalist[i].NoofCall });
                     Dlist.push(obj);
                 }
-                console.log(Dlist);
-                Highcharts.chart('chartcutmthcallstu', {
+               
+                //Highcharts.chart('chartcutmthcallstu', {
+                //    chart: {
+                //        plotBackgroundColor: null,
+                //        plotBorderWidth: 0,
+                //        plotShadow: false,
+                //        borderWidth: 1
+                //    },
+                //    title: {
+                //        text: 'Calling Status',
+                //        align: 'center',
+                //        //verticalAlign: 'middle',
+                //        //y: 60
+                //    },
+                //    credits: {
+                //        enabled: false
+                //    },
+                //    tooltip: {
+                //        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                //    },
+                //    accessibility: {
+                //        point: {
+                //            valueSuffix: '%'
+                //        }
+                //    },
+                //    plotOptions: {
+                //        pie: {
+                //            dataLabels: {
+                //                enabled: true,
+                //                distance: -50,
+                //                style: {
+                //                    fontWeight: 'bold',
+                //                    color: 'white'
+                //                }
+                //            },
+                //            startAngle: -90,
+                //            endAngle: 90,
+                //            center: ['50%', '75%'],
+                //            size: '110%'
+                //        },
+                //        series: {
+                //            cursor: 'pointer',
+                //            point: {
+                //                events: {
+                //                    click: function () {
+                //                        location.href = "/Participant/ParticipantCallList"
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    },
+                //    series: [{
+                //        type: 'pie',
+                //        name: 'Calling Status',
+                //        innerSize: '50%',
+                //        data: Dlist,
+                //    }]
+                //});
+
+                // Build the chart
+                chart = Highcharts.chart('chartcutmthcallstu', {
                     chart: {
                         plotBackgroundColor: null,
-                        plotBorderWidth: 0,
+                        plotBorderWidth: null,
                         plotShadow: false,
+                        type: 'pie',
                         borderWidth: 1
                     },
                     title: {
-                        text: 'Calling Status',
-                        align: 'center',
-                        //verticalAlign: 'middle',
-                        //y: 60
-                    },
-                    credits: {
-                        enabled: false
+                        text: 'Current Month Calling Status',
+                        align: 'center'
                     },
                     tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                        style: {
+                            color: 'blue',
+                            fontWeight: 'bold',
+                            fontsize: '20px'
+                        }
                     },
                     accessibility: {
                         point: {
                             valueSuffix: '%'
                         }
                     },
+                    credits: {
+                        enabled: false
+                    },
+                    legend: {
+                        itemStyle: {
+                            color: 'white',
+                            fontWeight: 'bold',
+                            fontSize: '20px'
+                        }
+                    },
                     plotOptions: {
                         pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
                             dataLabels: {
                                 enabled: true,
-                                distance: -50,
-                                style: {
-                                    fontWeight: 'bold',
-                                    color: 'white'
-                                }
-                            },
-                            startAngle: -90,
-                            endAngle: 90,
-                            center: ['50%', '75%'],
-                            size: '110%'
+                                format: '<span style="font-size: 1.2em"><b>{point.name}</b></span><br>' +
+                                    '<span style="opacity: 0.6">{point.percentage:.1f} %</span>',
+                                connectorColor: 'rgba(128,128,128,0.5)'
+                            }
                         },
                         series: {
                             cursor: 'pointer',
@@ -622,14 +712,76 @@
                         }
                     },
                     series: [{
-                        type: 'pie',
-                        name: 'Calling Status',
-                        innerSize: '50%',
-                        data: Dlist,
+                        name: 'Calling',
+                        data: Dlist1,
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "10px",
+                            }
+                        }
+                    }]
+
+                });
+            }
+        }
+        function ChartPlace(Datalist, TotalPart) {
+            if (Datalist.length > 0) {
+                debugger;
+                var objd = new Object();
+                var Dlist = [];
+                //for (var i = 0; i < Datalist.length; i++) {
+                //    var obj = [Datalist[i].ColumnName, Datalist[i].NoofData];
+                //    name.push(obj);
+                //}
+                var obj = ['Placed', Datalist[0].NoofPlace];
+                Dlist.push(obj);
+                obj = ['Not Placed', Datalist[0].NoofNotPlace];
+                Dlist.push(obj);
+
+                // Set up the chart
+                chart = Highcharts.chart('chartplace', {
+                    chart: {
+                        type: 'pyramid3d',
+                        borderWidth: 1,
+                        options3d: {
+                            enabled: true,
+                            alpha: 10,
+                            depth: 50,
+                            viewDistance: 50
+                        }
+                    },
+                    title: {
+                        text: 'Placement Status : ' + TotalPart
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b> ({point.y:,.0f})',
+                                allowOverlap: true,
+                                x: 10,
+                                y: -5,
+                                style: {
+                                    fontSize:'1em'
+                                },
+                            },
+                            width: '60%',
+                            height: '80%',
+                            center: ['50%', '45%']
+                        }
+                    },
+                    series: [{
+                        name: 'Place',
+                        data: Dlist
                     }]
                 });
             }
         }
+
 
         const groupBy = (keys) => (array) =>
             array.reduce((objectsByKeyValue, obj) => {

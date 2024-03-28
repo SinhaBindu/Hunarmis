@@ -1,4 +1,5 @@
 ﻿@using System.Data
+@using System.Text.RegularExpressions;
 @using Hunarmis.Manager
 @{
     DataTable dt = new DataTable();
@@ -41,25 +42,25 @@
                         int srno = 1;
                         foreach (DataRow dr in dt.Rows)
                         {
-                                <tr>
-                                    <td class="text-center">@(srno++)</td>
-                                    <td class="text-center">
-                                        <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon" target="_blank"><i class="fa fa-edit"></i></a>
-                                    </td>
-                                    <td class="text-left">@dr["TrainingCenter"]</td>
-                                    <td class="" width="20%">
-                                        @dr["PhoneNo"]
-                                    </td>
-                                    <td class="text-left">@dr["FullName"]</td>
-                                    <td class="text-center bg-warning text-white"><strong>@dr["RegID"]</strong></td>
-                                    <td class="text-left">@dr["EmailID"]</td>
-                                    <td class="text-center">@dr["AadharCardNo"]</td>
-                                    <td class="text-left">@dr["BatchName"]</td>
-                                    <td class="text-center">@dr["BatchStartDate"]</td>
-                                    <td class="text-center">@dr["BatchEndDate"]</td>
-                                    <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
+                            <tr>
+                                <td class="text-center">@(srno++)</td>
+                                <td class="text-center">
+                                    <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon" target="_blank"><i class="fa fa-edit"></i></a>
+                                </td>
+                                <td class="text-left">@dr["TrainingCenter"]</td>
+                                <td class="" width="20%">
+                                    @dr["PhoneNo"]
+                                </td>
+                                <td class="text-left">@dr["FullName"]</td>
+                                <td class="text-center bg-warning text-white"><strong>@dr["RegID"]</strong></td>
+                                <td class="text-left">@dr["EmailID"]</td>
+                                <td class="text-center">&times;&times;&times;&times;&times;&times;&times;&times;&times;@Regex.Match(dr["AadharCardNo"].ToString(), @"(.{3})\s*$")</td>
+                                <td class="text-left">@dr["BatchName"]</td>
+                                <td class="text-center">@dr["BatchStartDate"]</td>
+                                <td class="text-center">@dr["BatchEndDate"]</td>
+                                <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
 
-                                </tr>
+                            </tr>
                         }
                     }
                     else
