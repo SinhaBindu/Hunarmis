@@ -144,7 +144,7 @@ body {
     color: #fff;
     padding: 3px 0 10px;
     z-index: 2;
-    background: #F59678;
+    background: #2F17B5;
 }
 
 .fixed-divider {
@@ -900,14 +900,14 @@ tbody td {
 .btn-register, .btn-reset {
     padding: 9px 22px;
     border-radius: 6px;
-    background: #5B2C54;
+    background: #2F17B5;
     border: none;
     color: #fff;
     margin-right: 12px;
 }
 
     .btn-register:hover {
-        background: #32182E;
+        background: #5C41F4;
         color: #fff
     }
 .btn-reset {

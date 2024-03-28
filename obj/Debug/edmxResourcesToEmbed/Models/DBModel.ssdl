@@ -173,6 +173,11 @@
     <Property Name="TrainingCenterID" Type="int" />
     <Property Name="TrainerName" Type="nvarchar" MaxLength="500" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="IsPlaced" Type="bit" />
+    <Property Name="CallTempStatus" Type="int" />
+    <Property Name="CallRemark" Type="nvarchar(max)" />
+    <Property Name="CallMonth" Type="int" />
+    <Property Name="CallYear" Type="int" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
@@ -185,8 +190,9 @@
     <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
     <Property Name="QuesMonth" Type="int" />
     <Property Name="QuesYear" Type="int" />
-    <Property Name="IsCalling" Type="int" />
+    <Property Name="IsCalling" Type="nvarchar" MaxLength="50" />
     <Property Name="CallingDate" Type="date" />
+    <Property Name="Remark" Type="nvarchar(max)" />
     <Property Name="ParticipantId_fk" Type="uniqueidentifier" />
     <Property Name="IsAssessmentCert" Type="nvarchar" MaxLength="20" />
     <Property Name="IsPresent" Type="nvarchar" MaxLength="20" />

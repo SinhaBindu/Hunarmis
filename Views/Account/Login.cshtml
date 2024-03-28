@@ -47,7 +47,6 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            /*align-items: center;*/
             text-align: left;
         }
 
@@ -83,7 +82,7 @@
         .btn-login {
             padding: 12px 0;
             border-radius: 20px;
-            background: #5B2C54;
+            background: #8A77F4;
             color: #fff;
             width: 100%;
             cursor: pointer;
@@ -93,7 +92,7 @@
             font-size: 15px;
         }
             .btn-login:hover {
-                background: #7D3C73;
+                background: #5C41F4;
             }
         .check-label {
             font-size: 14px;
@@ -110,6 +109,14 @@
             color: #5B2C54;
             text-transform: uppercase;
             font-weight: bold;
+        }
+        @@media screen and (max-width: 768px) {
+            .login-photo {
+                display: none;
+            }
+            .login-box {
+                padding: 15px
+            }
         }
     </style>
 </head>
