@@ -45,5 +45,7 @@ namespace Hunarmis.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public Nullable<int> FixedCallLimitMonth { get; set; }
+        public Nullable<int> AtPresentCallStatus { get; set; }
     }
 }

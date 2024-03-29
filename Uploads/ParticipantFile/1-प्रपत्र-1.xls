@@ -1,0 +1,3324 @@
+
+<style>
+    .box-title {
+        background: #4CAF50;
+        color: #fff;
+        padding: 8px 10px;
+        border-radius: 10px 10px 0 0;
+        margin-top: 10px;
+        word-wrap: break-word;
+    }
+
+        .box-title div {
+            padding: 5px 0
+        }
+    /*
+        .box-title span {
+            float: right;
+        }*/
+
+    .table-box {
+        margin-bottom: 15px;
+        background: #DEFFDF;
+        padding: 12px 0 12px 12px;
+        /*border: 1px solid #000;*/
+        border-spacing: 10px;
+        border-collapse: separate;
+        word-wrap: break-word;
+    }
+
+    table {
+        border-collapse: separate;
+        border-spacing: 0px;
+        /* Apply cell spacing */
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid #666;
+        text-align: center;
+    }
+
+        table th,
+        table td {
+            padding: 5px;
+            /* Apply cell padding */
+        }
+</style>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Asha Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>6209647182</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Satyam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>0</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Amain</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>JEHANABAD</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>JEHANABAD</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>NA</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2023</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Vaishnavi</td>
+                            <td>Ani9835857871</td>
+                            <td>Anita Kumari</td>
+                            <td>25</td>
+                            <td>Sintu Chaudhari</td>
+                            <td>2/10/2014 12:00:00 AM</td>
+                            <td>9835857871</td>
+                            <td>Self</td>
+                            <td></td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>107</td>
+                            <td>Ronak Khatun</td>
+                            <td></td>
+                            <td>Permanent</td>
+                            <td></td>
+                            <td>/</td>
+                            <td></td>
+                            <td> Female Sterilization</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Asha Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>6209647182</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Satyam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>0</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Amain</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>JEHANABAD</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>JEHANABAD</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>NA</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2</td>
+                            <td>Jyoti</td>
+                            <td>Kan6201022465</td>
+                            <td>Shila Devi</td>
+                            <td>28</td>
+                            <td>Lalan Chaudhari</td>
+                            <td>3/27/2013 12:00:00 AM</td>
+                            <td>6201022465</td>
+                            <td>Self</td>
+                            <td></td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>2</td>
+                            <td>116</td>
+                            <td>Gyanti Kumari</td>
+                            <td></td>
+                            <td></td>
+                            <td>No Method</td>
+                            <td>/</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Asha Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>6209647182</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Satyam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>1</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Amain</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>JEHANABAD</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>JEHANABAD</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>NA</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>3</td>
+                            <td>NA</td>
+                            <td>Gud7766547999</td>
+                            <td>Gudiya Devi</td>
+                            <td>19</td>
+                            <td>Navlesh Kumar</td>
+                            <td>5/13/2019 12:00:00 AM</td>
+                            <td>7766547999</td>
+                            <td>Self</td>
+                            <td></td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>116</td>
+                            <td>Gyanti Kumari</td>
+                            <td></td>
+                            <td></td>
+                            <td>No Method</td>
+                            <td>/</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Asha Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>6209647182</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Satyam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>1</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Amain</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>JEHANABAD</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>JEHANABAD</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>NA</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>4</td>
+                            <td>Jyoti</td>
+                            <td>Rim7766547999</td>
+                            <td>Rima Devi</td>
+                            <td>23</td>
+                            <td>Nish Kumar</td>
+                            <td>5/6/2017 12:00:00 AM</td>
+                            <td>7766547999</td>
+                            <td>Self</td>
+                            <td></td>
+                            <td>0</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>116</td>
+                            <td>Gyanti Kumari</td>
+                            <td></td>
+                            <td></td>
+                            <td>No Method</td>
+                            <td>/</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Sabasahil</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>7634573744</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Kaveri</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>Patna</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>5</td>
+                            <td>Priya Kumari</td>
+                            <td>Mad1111111111</td>
+                            <td>Madhu Kumari</td>
+                            <td>45</td>
+                            <td>Amit Kumar</td>
+                            <td>1/1/2024 12:00:00 AM</td>
+                            <td>1111111111</td>
+                            <td>Self</td>
+                            <td>Mohan Kumar</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>2.4</td>
+                            <td>33444</td>
+                            <td>Puja Kumari</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Copper-T</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Aarti Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>8235271276</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Kaveri</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>Patna</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>6</td>
+                            <td>Priya Kumari</td>
+                            <td>Mad1111111111</td>
+                            <td>Madhu Kumari</td>
+                            <td>45</td>
+                            <td>Amit Kumar</td>
+                            <td>1/1/2024 12:00:00 AM</td>
+                            <td>1111111111</td>
+                            <td>Self</td>
+                            <td>Mohan Kumar</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>2.4</td>
+                            <td>33444</td>
+                            <td>Puja Kumari</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Copper-T</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Asha Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>8228022073</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Kaveri</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>Patna</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>7</td>
+                            <td>Priya Kumari</td>
+                            <td>Mad1111111111</td>
+                            <td>Madhu Kumari</td>
+                            <td>45</td>
+                            <td>Amit Kumar</td>
+                            <td>1/1/2024 12:00:00 AM</td>
+                            <td>1111111111</td>
+                            <td>Self</td>
+                            <td>Mohan Kumar</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>2.4</td>
+                            <td>33444</td>
+                            <td>Puja Kumari</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Copper-T</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Neelam devi</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>6202557032</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Kaveri</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>Patna</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>8</td>
+                            <td>Priya Kumari</td>
+                            <td>Mad1111111111</td>
+                            <td>Madhu Kumari</td>
+                            <td>45</td>
+                            <td>Amit Kumar</td>
+                            <td>1/1/2024 12:00:00 AM</td>
+                            <td>1111111111</td>
+                            <td>Self</td>
+                            <td>Mohan Kumar</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>2.4</td>
+                            <td>33444</td>
+                            <td>Puja Kumari</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Copper-T</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Nusrat Jaha</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>7070101187</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Kaveri</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>Patna</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>9</td>
+                            <td>Priya Kumari</td>
+                            <td>Mad1111111111</td>
+                            <td>Madhu Kumari</td>
+                            <td>45</td>
+                            <td>Amit Kumar</td>
+                            <td>1/1/2024 12:00:00 AM</td>
+                            <td>1111111111</td>
+                            <td>Self</td>
+                            <td>Mohan Kumar</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>2.4</td>
+                            <td>33444</td>
+                            <td>Puja Kumari</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Copper-T</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Puja Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>1111111111</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Kaveri</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>Patna</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10</td>
+                            <td>Priya Kumari</td>
+                            <td>Mad1111111111</td>
+                            <td>Madhu Kumari</td>
+                            <td>45</td>
+                            <td>Amit Kumar</td>
+                            <td>1/1/2024 12:00:00 AM</td>
+                            <td>1111111111</td>
+                            <td>Self</td>
+                            <td>Mohan Kumar</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>2.4</td>
+                            <td>33444</td>
+                            <td>Puja Kumari</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Copper-T</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Kavita Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>7479513397</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Kaveri</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>Patna</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>11</td>
+                            <td>Priya Kumari</td>
+                            <td>Mad1111111111</td>
+                            <td>Madhu Kumari</td>
+                            <td>45</td>
+                            <td>Amit Kumar</td>
+                            <td>1/1/2024 12:00:00 AM</td>
+                            <td>1111111111</td>
+                            <td>Self</td>
+                            <td>Mohan Kumar</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>2.4</td>
+                            <td>33444</td>
+                            <td>Puja Kumari</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Copper-T</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Anjali Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>8409134477</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Kaveri</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>Patna</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12</td>
+                            <td>Priya Kumari</td>
+                            <td>Mad1111111111</td>
+                            <td>Madhu Kumari</td>
+                            <td>45</td>
+                            <td>Amit Kumar</td>
+                            <td>1/1/2024 12:00:00 AM</td>
+                            <td>1111111111</td>
+                            <td>Self</td>
+                            <td>Mohan Kumar</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>2.4</td>
+                            <td>33444</td>
+                            <td>Puja Kumari</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Copper-T</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Rizwana Khatoon</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>9334600980</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Kaveri</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>Patna</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>13</td>
+                            <td>Priya Kumari</td>
+                            <td>Mad1111111111</td>
+                            <td>Madhu Kumari</td>
+                            <td>45</td>
+                            <td>Amit Kumar</td>
+                            <td>1/1/2024 12:00:00 AM</td>
+                            <td>1111111111</td>
+                            <td>Self</td>
+                            <td>Mohan Kumar</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>2.4</td>
+                            <td>33444</td>
+                            <td>Puja Kumari</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Copper-T</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Nemat Praveen</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>8709115357</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Kaveri</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>Patna</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>14</td>
+                            <td>Priya Kumari</td>
+                            <td>Mad1111111111</td>
+                            <td>Madhu Kumari</td>
+                            <td>45</td>
+                            <td>Amit Kumar</td>
+                            <td>1/1/2024 12:00:00 AM</td>
+                            <td>1111111111</td>
+                            <td>Self</td>
+                            <td>Mohan Kumar</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>2.4</td>
+                            <td>33444</td>
+                            <td>Puja Kumari</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Copper-T</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Anu Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>9999999999</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Kaveri</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>Patna</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>15</td>
+                            <td>Priya Kumari</td>
+                            <td>Mad1111111111</td>
+                            <td>Madhu Kumari</td>
+                            <td>45</td>
+                            <td>Amit Kumar</td>
+                            <td>1/1/2024 12:00:00 AM</td>
+                            <td>1111111111</td>
+                            <td>Self</td>
+                            <td>Mohan Kumar</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>2.4</td>
+                            <td>33444</td>
+                            <td>Puja Kumari</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Copper-T</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Alissa Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>9234023909</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Kaveri</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>Patna</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>Jan/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>16</td>
+                            <td>Priya Kumari</td>
+                            <td>Mad1111111111</td>
+                            <td>Madhu Kumari</td>
+                            <td>45</td>
+                            <td>Amit Kumar</td>
+                            <td>1/1/2024 12:00:00 AM</td>
+                            <td>1111111111</td>
+                            <td>Self</td>
+                            <td>Mohan Kumar</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>2.4</td>
+                            <td>33444</td>
+                            <td>Puja Kumari</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Copper-T</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Sabasahil</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>7634573744</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Uttam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>333</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>HHGMG</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>June/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>17</td>
+                            <td>JHH</td>
+                            <td>GG5555555555</td>
+                            <td>GG</td>
+                            <td>33.3</td>
+                            <td>NHVMH</td>
+                            <td>1/11/2024 12:00:00 AM</td>
+                            <td>5555555555</td>
+                            <td>Any Other family member</td>
+                            <td>Anu kumari</td>
+                            <td>44</td>
+                            <td>53</td>
+                            <td>0</td>
+                            <td>5.33</td>
+                            <td>GCNGF</td>
+                            <td>FDFG</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Mala-N</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Aarti Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>8235271276</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Uttam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>333</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>HHGMG</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>June/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>18</td>
+                            <td>JHH</td>
+                            <td>GG5555555555</td>
+                            <td>GG</td>
+                            <td>33.3</td>
+                            <td>NHVMH</td>
+                            <td>1/11/2024 12:00:00 AM</td>
+                            <td>5555555555</td>
+                            <td>Any Other family member</td>
+                            <td>Anu kumari</td>
+                            <td>44</td>
+                            <td>53</td>
+                            <td>0</td>
+                            <td>5.33</td>
+                            <td>GCNGF</td>
+                            <td>FDFG</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Mala-N</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Asha Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>8228022073</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Uttam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>333</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>HHGMG</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>June/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>19</td>
+                            <td>JHH</td>
+                            <td>GG5555555555</td>
+                            <td>GG</td>
+                            <td>33.3</td>
+                            <td>NHVMH</td>
+                            <td>1/11/2024 12:00:00 AM</td>
+                            <td>5555555555</td>
+                            <td>Any Other family member</td>
+                            <td>Anu kumari</td>
+                            <td>44</td>
+                            <td>53</td>
+                            <td>0</td>
+                            <td>5.33</td>
+                            <td>GCNGF</td>
+                            <td>FDFG</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Mala-N</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Neelam devi</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>6202557032</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Uttam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>333</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>HHGMG</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>June/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>20</td>
+                            <td>JHH</td>
+                            <td>GG5555555555</td>
+                            <td>GG</td>
+                            <td>33.3</td>
+                            <td>NHVMH</td>
+                            <td>1/11/2024 12:00:00 AM</td>
+                            <td>5555555555</td>
+                            <td>Any Other family member</td>
+                            <td>Anu kumari</td>
+                            <td>44</td>
+                            <td>53</td>
+                            <td>0</td>
+                            <td>5.33</td>
+                            <td>GCNGF</td>
+                            <td>FDFG</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Mala-N</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Nusrat Jaha</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>7070101187</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Uttam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>333</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>HHGMG</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>June/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>21</td>
+                            <td>JHH</td>
+                            <td>GG5555555555</td>
+                            <td>GG</td>
+                            <td>33.3</td>
+                            <td>NHVMH</td>
+                            <td>1/11/2024 12:00:00 AM</td>
+                            <td>5555555555</td>
+                            <td>Any Other family member</td>
+                            <td>Anu kumari</td>
+                            <td>44</td>
+                            <td>53</td>
+                            <td>0</td>
+                            <td>5.33</td>
+                            <td>GCNGF</td>
+                            <td>FDFG</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Mala-N</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Puja Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>1111111111</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Uttam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>333</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>HHGMG</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>June/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>22</td>
+                            <td>JHH</td>
+                            <td>GG5555555555</td>
+                            <td>GG</td>
+                            <td>33.3</td>
+                            <td>NHVMH</td>
+                            <td>1/11/2024 12:00:00 AM</td>
+                            <td>5555555555</td>
+                            <td>Any Other family member</td>
+                            <td>Anu kumari</td>
+                            <td>44</td>
+                            <td>53</td>
+                            <td>0</td>
+                            <td>5.33</td>
+                            <td>GCNGF</td>
+                            <td>FDFG</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Mala-N</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Kavita Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>7479513397</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Uttam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>333</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>HHGMG</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>June/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>23</td>
+                            <td>JHH</td>
+                            <td>GG5555555555</td>
+                            <td>GG</td>
+                            <td>33.3</td>
+                            <td>NHVMH</td>
+                            <td>1/11/2024 12:00:00 AM</td>
+                            <td>5555555555</td>
+                            <td>Any Other family member</td>
+                            <td>Anu kumari</td>
+                            <td>44</td>
+                            <td>53</td>
+                            <td>0</td>
+                            <td>5.33</td>
+                            <td>GCNGF</td>
+                            <td>FDFG</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Mala-N</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Anjali Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>8409134477</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Uttam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>333</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>HHGMG</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>June/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>24</td>
+                            <td>JHH</td>
+                            <td>GG5555555555</td>
+                            <td>GG</td>
+                            <td>33.3</td>
+                            <td>NHVMH</td>
+                            <td>1/11/2024 12:00:00 AM</td>
+                            <td>5555555555</td>
+                            <td>Any Other family member</td>
+                            <td>Anu kumari</td>
+                            <td>44</td>
+                            <td>53</td>
+                            <td>0</td>
+                            <td>5.33</td>
+                            <td>GCNGF</td>
+                            <td>FDFG</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Mala-N</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Rizwana Khatoon</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>9334600980</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Uttam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>333</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>HHGMG</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>June/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>25</td>
+                            <td>JHH</td>
+                            <td>GG5555555555</td>
+                            <td>GG</td>
+                            <td>33.3</td>
+                            <td>NHVMH</td>
+                            <td>1/11/2024 12:00:00 AM</td>
+                            <td>5555555555</td>
+                            <td>Any Other family member</td>
+                            <td>Anu kumari</td>
+                            <td>44</td>
+                            <td>53</td>
+                            <td>0</td>
+                            <td>5.33</td>
+                            <td>GCNGF</td>
+                            <td>FDFG</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Mala-N</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Nemat Praveen</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>8709115357</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Uttam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>333</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>HHGMG</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>June/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>26</td>
+                            <td>JHH</td>
+                            <td>GG5555555555</td>
+                            <td>GG</td>
+                            <td>33.3</td>
+                            <td>NHVMH</td>
+                            <td>1/11/2024 12:00:00 AM</td>
+                            <td>5555555555</td>
+                            <td>Any Other family member</td>
+                            <td>Anu kumari</td>
+                            <td>44</td>
+                            <td>53</td>
+                            <td>0</td>
+                            <td>5.33</td>
+                            <td>GCNGF</td>
+                            <td>FDFG</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Mala-N</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Anu Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>9999999999</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Uttam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>333</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>HHGMG</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>June/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>27</td>
+                            <td>JHH</td>
+                            <td>GG5555555555</td>
+                            <td>GG</td>
+                            <td>33.3</td>
+                            <td>NHVMH</td>
+                            <td>1/11/2024 12:00:00 AM</td>
+                            <td>5555555555</td>
+                            <td>Any Other family member</td>
+                            <td>Anu kumari</td>
+                            <td>44</td>
+                            <td>53</td>
+                            <td>0</td>
+                            <td>5.33</td>
+                            <td>GCNGF</td>
+                            <td>FDFG</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Mala-N</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"> <strong>परिवार नियोजन अभिसरण कार्यक्रम</strong></p>
+                <p class="text-center"><strong>सी. एम. के द्वारा भरा जाने वाला योग्य दम्पत्ति सूची (लाइन लिस्ट फॉर्मेट सह फॉलो अप) प्रपत्र</strong>  </p>
+                <p class="text-center"><strong>प्रपत्र-1</strong> </p>
+            </div>
+            <div class="box-title">
+                <div class="rounded h-100 p-4 row g-4">
+                    <div class="col-sm-12 col-xl-4">
+                        <div class="mb-3">
+                            सीएम का नाम :<span>Alissa Kumari</span>
+                        </div>
+                        <div class="mb-3">
+                            मोबाईल नंबर:<span>9234023909</span>
+                        </div>
+                        <div class="mb-3">
+                            ग्राम संगठन का नाम :<span>Uttam</span>
+                        </div>
+                        <div class="mb-3">
+                            कुल समूहों की संख्या :<span>333</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-3">
+                        <div class="mb-3">
+                            गाँव      :<span></span>
+                        </div>
+                        <div class="mb-3">
+                            पँचायत         :<span>Basahiya Shekh</span>
+                        </div>
+                        <div class="mb-3">
+                            प्रखंड        :<span>PIPRAHI</span>
+                        </div>
+                        <div class="mb-3">
+                            जिला         :<span>SHEOHAR</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-5">
+                        <div class="mb-3">
+                            सी.एन. आर.पी का नाम      :<span>State</span>
+                        </div>
+                        <div class="mb-3">
+                            सी. एन. आर. पी.का
+                            मोबाइल नंबर          :<span>9309557222</span>
+                        </div>
+                        <div class="mb-3">
+                            स्वास्थ्य उपकेन्द्र
+                            का नाम स्थान        :<span>HHGMG</span>
+                        </div>
+                        <div class="mb-3">
+                            माह &amp; वर्ष          :<span>June/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-box">
+                <table style="width:95%;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">क्र. सं.</th>
+                            <th rowspan="2">समूह का नाम</th>
+                            <th rowspan="2">लाभार्थी आईडी</th>
+                            <th rowspan="2">लाभार्थी का नाम</th>
+                            <th rowspan="2">लाभार्थी की उम्र (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी के पति का नाम </th>
+                            <th rowspan="2">लाभार्थी की शादी की तिथि (वर्ष मे)</th>
+                            <th rowspan="2">लाभार्थी का मोबाईल नंबर</th>
+                            <th rowspan="2">समूह से जुड़ाव (यदि समूह से स्वयं जुड़े हों तो कोड-1 यदि परिवार का कोई सदस्य जुड़े हों तो कोड-2 लिखें)</th>
+                            <th rowspan="2">लाभार्थी के परिवार का जो सदस्य समूह से जुड़ी हैं उस महिला का नाम लिखें</th>
+                            <th colspan="2">वर्तमान में बच्चों की संख्या</th>
+                            <th colspan="2">सबसे छोटे बच्चे से सम्बंधित जानकारी</th>
+                            <th rowspan="2">सम्बन्धित आंगनवाड़ी केन्द्र का कोड संख्या</th>
+                            <th rowspan="2">संबंधित आशा का नाम</th>
+                            <th colspan="4">वर्तमान मे कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                            <th colspan="2">कौन सा गर्भनिरोधक साधन का रुपयोग करना चाह रहे हैं (कोड लिखे)</th>
+                        </tr>
+                        <tr>
+                            <th>लड़का</th>
+                            <th>लड़का</th>
+                            <th>लिंग (लड़का/ लड़की)</th>
+                            <th>उम्र (माह / वर्ष में लिखें)</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                            <th>कोई अन्य साधन तो नाम लिखे</th>
+                            <th>कोई भी साधन नहीं</th>
+                            <th>अस्थायी साधन</th>
+                            <th>स्थायी साधन</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>28</td>
+                            <td>JHH</td>
+                            <td>GG5555555555</td>
+                            <td>GG</td>
+                            <td>33.3</td>
+                            <td>NHVMH</td>
+                            <td>1/11/2024 12:00:00 AM</td>
+                            <td>5555555555</td>
+                            <td>Any Other family member</td>
+                            <td>Anu kumari</td>
+                            <td>44</td>
+                            <td>53</td>
+                            <td>0</td>
+                            <td>5.33</td>
+                            <td>GCNGF</td>
+                            <td>FDFG</td>
+                            <td>Temporary</td>
+                            <td></td>
+                            <td></td>
+                            <td>/</td>
+                            <td>Mala-N</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>

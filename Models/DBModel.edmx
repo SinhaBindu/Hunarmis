@@ -152,6 +152,21 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="Updated" Type="datetime" />
         </EntityType>
+        <EntityType Name="tbl_FileUpload">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UploadDate" Type="date" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="500" />
+          <Property Name="FilePath" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="tbl_MailData">
           <Key>
             <PropertyRef Name="ID" />
@@ -198,6 +213,8 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="FixedCallLimitMonth" Type="int" />
+          <Property Name="AtPresentCallStatus" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Participant_Calling">
           <Key>
@@ -373,6 +390,7 @@
           <EntitySet Name="LocatedKM_Master" EntityType="Self.LocatedKM_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Month_Master" EntityType="Self.Month_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State_Master" EntityType="Self.State_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_FileUpload" EntityType="Self.tbl_FileUpload" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_MailData" EntityType="Self.tbl_MailData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Participant" EntityType="Self.tbl_Participant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Participant_Calling" EntityType="Self.tbl_Participant_Calling" Schema="dbo" store:Type="Tables" />
@@ -432,10 +450,11 @@
           <EntitySet Name="Benefit_Master" EntityType="Hunar_DBModel.Benefit_Master" />
           <EntitySet Name="JobEmployed_Master" EntityType="Hunar_DBModel.JobEmployed_Master" />
           <EntitySet Name="LocatedKM_Master" EntityType="Hunar_DBModel.LocatedKM_Master" />
-          <EntitySet Name="tbl_Participant_Calling" EntityType="Hunar_DBModel.tbl_Participant_Calling" />
-          <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
           <EntitySet Name="tbl_SendMail" EntityType="Hunar_DBModel.tbl_SendMail" />
           <EntitySet Name="tbl_MailData" EntityType="Hunar_DBModel.tbl_MailData" />
+          <EntitySet Name="tbl_FileUpload" EntityType="Hunar_DBModel.tbl_FileUpload" />
+          <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
+          <EntitySet Name="tbl_Participant_Calling" EntityType="Hunar_DBModel.tbl_Participant_Calling" />
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -658,42 +677,43 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="KM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="tbl_Participant_Calling">
+        <EntityType Name="tbl_SendMail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="MFrom" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MTo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Boby" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SenderName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsSented" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ExtraCol1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ExtraCol2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_MailData">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="QuesMonth" Type="Int32" />
-          <Property Name="QuesYear" Type="Int32" />
-          <Property Name="IsCalling" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CallingDate" Type="DateTime" Precision="0" />
-          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ParticipantId_fk" Type="Guid" />
-          <Property Name="IsAssessmentCert" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="IsPresent" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="IsComfortable" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="EmpCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="FirstJobTraining" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="DOJ" Type="DateTime" Precision="3" />
-          <Property Name="CurrentEmployer" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Designation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SalaryPackage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CurrentlyWorking" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="WorkingKM" Type="Int32" />
-          <Property Name="WorkingKMOther" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Traininghelp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SalaryWages" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="ExpectationJobRole" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="WorkPlaceSafe" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="IsMSBenefit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MSBenefitId" Type="Int32" />
-          <Property Name="MSOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="AnyChallenges" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="AreaSupport" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="EmployedId" Type="Int32" />
-          <Property Name="EmployedOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsGettingjob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="PlacedStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LinkData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tbl_FileUpload">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UploadDate" Type="DateTime" Precision="0" />
+          <Property Name="FileName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
@@ -735,34 +755,50 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="FixedCallLimitMonth" Type="Int32" />
+          <Property Name="AtPresentCallStatus" Type="Int32" />
         </EntityType>
-        <EntityType Name="tbl_SendMail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="MFrom" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="MTo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Boby" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ReceiverName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SenderName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="IsSented" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="ExtraCol1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ExtraCol2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="tbl_MailData">
+        <EntityType Name="tbl_Participant_Calling">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EmailId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="LinkData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="QuesMonth" Type="Int32" />
+          <Property Name="QuesYear" Type="Int32" />
+          <Property Name="IsCalling" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CallingDate" Type="DateTime" Precision="0" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParticipantId_fk" Type="Guid" />
+          <Property Name="IsAssessmentCert" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsPresent" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsComfortable" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EmpCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FirstJobTraining" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DOJ" Type="DateTime" Precision="3" />
+          <Property Name="CurrentEmployer" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SalaryPackage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentlyWorking" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WorkingKM" Type="Int32" />
+          <Property Name="WorkingKMOther" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Traininghelp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SalaryWages" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ExpectationJobRole" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WorkPlaceSafe" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsMSBenefit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MSBenefitId" Type="Int32" />
+          <Property Name="MSOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AnyChallenges" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AreaSupport" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EmployedId" Type="Int32" />
+          <Property Name="EmployedOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsGettingjob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PlacedStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -976,6 +1012,91 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SendMail">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_SendMail">
+              <MappingFragment StoreEntitySet="tbl_SendMail">
+                <ScalarProperty Name="ExtraCol2" ColumnName="ExtraCol2" />
+                <ScalarProperty Name="ExtraCol1" ColumnName="ExtraCol1" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsSented" ColumnName="IsSented" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+                <ScalarProperty Name="Boby" ColumnName="Boby" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="MTo" ColumnName="MTo" />
+                <ScalarProperty Name="MFrom" ColumnName="MFrom" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MailData">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_MailData">
+              <MappingFragment StoreEntitySet="tbl_MailData">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="LinkData" ColumnName="LinkData" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_FileUpload">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_FileUpload">
+              <MappingFragment StoreEntitySet="tbl_FileUpload">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Participant">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant">
+              <MappingFragment StoreEntitySet="tbl_Participant">
+                <ScalarProperty Name="AtPresentCallStatus" ColumnName="AtPresentCallStatus" />
+                <ScalarProperty Name="FixedCallLimitMonth" ColumnName="FixedCallLimitMonth" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CallYear" ColumnName="CallYear" />
+                <ScalarProperty Name="CallMonth" ColumnName="CallMonth" />
+                <ScalarProperty Name="CallRemark" ColumnName="CallRemark" />
+                <ScalarProperty Name="CallTempStatus" ColumnName="CallTempStatus" />
+                <ScalarProperty Name="IsPlaced" ColumnName="IsPlaced" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TrainerName" ColumnName="TrainerName" />
+                <ScalarProperty Name="TrainingCenterID" ColumnName="TrainingCenterID" />
+                <ScalarProperty Name="TrainingAgencyID" ColumnName="TrainingAgencyID" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="CourseEnrolledID" ColumnName="CourseEnrolledID" />
+                <ScalarProperty Name="EduQualOther" ColumnName="EduQualOther" />
+                <ScalarProperty Name="EduQualificationID" ColumnName="EduQualificationID" />
+                <ScalarProperty Name="AssessmentScore" ColumnName="AssessmentScore" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="AadharCardNo" ColumnName="AadharCardNo" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="AlternatePhoneNo" ColumnName="AlternatePhoneNo" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="RegID" ColumnName="RegID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Participant_Calling">
             <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant_Calling">
               <MappingFragment StoreEntitySet="tbl_Participant_Calling">
@@ -1015,73 +1136,6 @@
                 <ScalarProperty Name="IsCalling" ColumnName="IsCalling" />
                 <ScalarProperty Name="QuesYear" ColumnName="QuesYear" />
                 <ScalarProperty Name="QuesMonth" ColumnName="QuesMonth" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Participant">
-            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant">
-              <MappingFragment StoreEntitySet="tbl_Participant">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CallYear" ColumnName="CallYear" />
-                <ScalarProperty Name="CallMonth" ColumnName="CallMonth" />
-                <ScalarProperty Name="CallRemark" ColumnName="CallRemark" />
-                <ScalarProperty Name="CallTempStatus" ColumnName="CallTempStatus" />
-                <ScalarProperty Name="IsPlaced" ColumnName="IsPlaced" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="TrainerName" ColumnName="TrainerName" />
-                <ScalarProperty Name="TrainingCenterID" ColumnName="TrainingCenterID" />
-                <ScalarProperty Name="TrainingAgencyID" ColumnName="TrainingAgencyID" />
-                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-                <ScalarProperty Name="StateID" ColumnName="StateID" />
-                <ScalarProperty Name="CourseEnrolledID" ColumnName="CourseEnrolledID" />
-                <ScalarProperty Name="EduQualOther" ColumnName="EduQualOther" />
-                <ScalarProperty Name="EduQualificationID" ColumnName="EduQualificationID" />
-                <ScalarProperty Name="AssessmentScore" ColumnName="AssessmentScore" />
-                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
-                <ScalarProperty Name="AadharCardNo" ColumnName="AadharCardNo" />
-                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
-                <ScalarProperty Name="AlternatePhoneNo" ColumnName="AlternatePhoneNo" />
-                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="RegID" ColumnName="RegID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_SendMail">
-            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_SendMail">
-              <MappingFragment StoreEntitySet="tbl_SendMail">
-                <ScalarProperty Name="ExtraCol2" ColumnName="ExtraCol2" />
-                <ScalarProperty Name="ExtraCol1" ColumnName="ExtraCol1" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsSented" ColumnName="IsSented" />
-                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
-                <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
-                <ScalarProperty Name="Boby" ColumnName="Boby" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="MTo" ColumnName="MTo" />
-                <ScalarProperty Name="MFrom" ColumnName="MFrom" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_MailData">
-            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_MailData">
-              <MappingFragment StoreEntitySet="tbl_MailData">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="LinkData" ColumnName="LinkData" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

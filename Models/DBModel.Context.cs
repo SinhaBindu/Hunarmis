@@ -42,9 +42,10 @@ namespace Hunarmis.Models
         public virtual DbSet<Benefit_Master> Benefit_Master { get; set; }
         public virtual DbSet<JobEmployed_Master> JobEmployed_Master { get; set; }
         public virtual DbSet<LocatedKM_Master> LocatedKM_Master { get; set; }
-        public virtual DbSet<tbl_Participant_Calling> tbl_Participant_Calling { get; set; }
-        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<tbl_SendMail> tbl_SendMail { get; set; }
         public virtual DbSet<tbl_MailData> tbl_MailData { get; set; }
+        public virtual DbSet<tbl_FileUpload> tbl_FileUpload { get; set; }
+        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
+        public virtual DbSet<tbl_Participant_Calling> tbl_Participant_Calling { get; set; }
     }
 }

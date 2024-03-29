@@ -1,0 +1,223 @@
+﻿@model Hunarmis.Models.FileExcelModel
+@{
+    ViewBag.Title = "ExcelFileUpload";
+}
+
+<style>
+    .text-white {
+        color: #fff;
+    }
+
+    .center {
+        margin-top: 50px;
+    }
+
+    .modal-header {
+        padding-bottom: 10px;
+    }
+
+    .modal-footer {
+        padding: 0;
+    }
+
+        .modal-footer .btn-group button {
+            height: 40px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border: none;
+            border-right: 1px solid #ddd;
+        }
+
+        .modal-footer .btn-group:last-child > button {
+            border-right: 0;
+        }
+
+    .manage-input {
+        display: flex;
+        gap: 30px;
+    }
+
+    .card1, .card2, .card3 {
+        flex: 1;
+    }
+
+    .form-horizontal .control-label {
+        text-align: left !important
+    }
+
+    .check-box {
+        margin-right: 12px;
+    }
+
+    @@media (max-width:991px) {
+        .mt-md-10 {
+            margin-top: 10px;
+        }
+
+        .manage-input {
+            padding: 0 20px;
+        }
+    }
+
+    @@media screen and (max-width: 900px) {
+        .manage-input {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel">
+                        @using (Html.BeginForm("ExcelFileUpload", "Participant", FormMethod.Post, new { @class = "panel-body form-horizontal form-padding loader", enctype = "multipart/form-data", @id = "formid" }))
+                        {
+                            <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                            <div class="panel-bodys">
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(model => model.Id)
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>@ViewBag.Title Information</p>
+                                <div class="manage-input">
+                                    <div class="card1">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.UploadDate, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                            <div class="col-lg-12">
+                                                @Html.EditorFor(model => model.UploadDate, new { htmlAttributes = new { @class = "required form-control", @required = "required", @maxlength = "15" } })
+                                                @Html.ValidationMessageFor(model => model.UploadDate, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="mark-devide"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.FileName, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                            <div class="col-lg-12">
+                                                @Html.EditorFor(model => model.FileName, new { htmlAttributes = new { @class = "required form-control", @required = "required", @maxlength="200" } })
+                                                @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="mark-devide"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.FileUpload, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                            <div class="col-lg-12">
+                                                <input type="file" name="" id="FileUpload" value="" class="form-control" accept="application/vnd.ms-excel" required />
+                                            </div>
+                                            <div class="mark-devide"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="submit" name="btnsubmit" value="Submit" id="btnsubmit" class="btn-register" />
+                                        <a href="~/Participant/ExcelFileUpload" class="btn-reset"><i class="fa fa-refresh"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $("#UploadDate").datepicker({
+                dateFormat: 'dd-M-yy',
+                // changeMonth: true,
+                //changeYear: true,
+                maxDate: '0',
+            });
+
+            $("#formid").on("submit", function (event) {
+                event.preventDefault();
+                if ($('#UploadDate').val() == '') {
+                    toastr.error("Error", 'Enter the date.');
+                    return false;
+                }
+                if ($('#FileName').val() == '') {
+                    toastr.error("Error", 'Enter the File Name.');
+                    return false;
+                }
+                if ($('#FileUpload').val() == '') {
+                    toastr.error("Error", 'Please file upload.');
+                    return false;
+                }
+                else {
+                   // var formData = $(this).serialize();
+                    var formData = new FormData();
+                    if (confirm("Are you sure you want to submit data this?")) {
+                        debugger;
+                        if ($('#UploadDate').val() != '') {
+                            formData.append('UploadDate', $('#UploadDate').val());
+                        }
+                        if ($('#FileName').val() != '') {
+                            formData.append('FileName', $('#FileName').val());
+                        }
+                        //jQuery.event.trigger("ajaxStart");
+                        if ($('#FileUpload').get(0).files.length != 0) {
+                            formData.append('FileUpload', $('#FileUpload')[0].files[0]);
+                        }
+                        var isvalid = $("#formid").valid(); //$('#formid').validate();
+                        if (isvalid) {
+                            $.ajax({
+                                type: "POST",
+                                url: document.baseURI + "/Participant/ExcelFileUpload/",
+                                data: formData,
+                                contentType: false,
+                                cache: false,
+                                processData: false, 
+                               // dataType: 'json',
+                                //contentType: "application/json; charset=utf-8",
+                                success: function (resp) {
+                                    if (resp.IsSuccess) {
+                                        toastr.success("Success", resp.Message);
+                                        //jQuery.event.trigger("ajaxStop");
+                                    }
+                                    else {
+                                        toastr.error("Error", resp.Message);
+                                        return false;
+                                    }
+                                },
+                                error: function (req, error) {
+                                    if (error === 'error') { error = req.statusText; }
+                                    var errormsg = 'There was a communication error: ' + error;
+                                    toastr.error("Error", errormsg);
+                                    //jQuery.event.trigger("ajaxStop");
+                                    return false;
+                                }
+                            });
+                        }
+                        else {
+                            toastr.error("Error", "All Record Validate !!");
+                            // jQuery.event.trigger("ajaxStop");
+                            return false;
+                        }
+                    }
+                    else {
+                        return true;
+                    }
+                }
+
+            });//end final submit
+
+        });//End Load Method
+
+
+        function InputClear() {
+            $("input[name=Id]").val('0');
+            $("input[name=UploadDate]").val('');
+            $("input[name=FileName]").val('');
+            $("input[name=FileUpload]").val('');
+        }
+
+    </script>
+}

@@ -292,6 +292,14 @@ namespace Hunarmis.Manager
             list.Add(new SelectListItem { Value = "No", Text = "No" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
+        public static List<SelectListItem> GetBoolYesNo()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            list.Add(new SelectListItem { Value = "1", Text = "Yes" });
+            list.Add(new SelectListItem { Value = "0", Text = "No" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
         public static List<SelectListItem> GetCalling()
         {
             List<SelectListItem> list = new List<SelectListItem>();
@@ -785,6 +793,40 @@ namespace Hunarmis.Manager
                 string filenamewithoutext = Path.GetFileNameWithoutExtension(files.FileName);
                 Stream strmStream = files.InputStream;
                 if (IsValidImage(strmStream) == true || file_extension == ".pdf" || file_extension == ".docx" || file_extension == ".doc" || file_extension == ".dotx" || file_extension == ".dot" || file_extension == ".pptx" || file_extension == ".ppt" || file_extension == ".rar" || file_extension == ".zip" || file_extension == ".xls" || file_extension == ".xlsx")
+                {
+                    //URL = Path.Combine(HttpContext.Current.Server.MapPath("~/Uploads/" + Module + "/" + RegNo + "/"));
+                    URL = "~/Uploads/" + RegNo + "/";
+                    string extension = Path.GetExtension(files.FileName);
+
+                    if (!Directory.Exists(HttpContext.Current.Server.MapPath(URL)))
+                    {
+                        Directory.CreateDirectory(HttpContext.Current.Server.MapPath(URL));
+                    }
+                    int index = 1;
+                    string fname = files.FileName;
+                    while (System.IO.File.Exists(HttpContext.Current.Server.MapPath(Path.Combine(URL, fname))))
+                    {
+                        index++;
+                        fname = filenamewithoutext + "(" + index.ToString() + ")" + extension;
+                    }
+                    files.SaveAs(HttpContext.Current.Server.MapPath(URL + (Module + "-" + fname)));
+                    filepath = URL + (Module + "-" + fname);
+                }
+            }
+
+            return filepath;
+        }
+        public static string SaveSingleExcelFile(HttpPostedFileBase files, string Module, string RegNo)
+        {
+            string URL = "";
+            string filepath = string.Empty;
+
+            if (files != null && files.ContentLength > 0)
+            {
+                string file_extension = Path.GetExtension(files.FileName).ToLower();
+                string filenamewithoutext = Path.GetFileNameWithoutExtension(files.FileName);
+                Stream strmStream = files.InputStream;
+                if (IsValidImage(strmStream) == true || file_extension == ".xls" || file_extension == ".xlsx")
                 {
                     //URL = Path.Combine(HttpContext.Current.Server.MapPath("~/Uploads/" + Module + "/" + RegNo + "/"));
                     URL = "~/Uploads/" + RegNo + "/";

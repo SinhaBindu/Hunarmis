@@ -147,6 +147,21 @@
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
   </EntityType>
+  <EntityType Name="tbl_FileUpload">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UploadDate" Type="date" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="500" />
+    <Property Name="FilePath" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
   <EntityType Name="tbl_MailData">
     <Key>
       <PropertyRef Name="ID" />
@@ -193,6 +208,8 @@
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="FixedCallLimitMonth" Type="int" />
+    <Property Name="AtPresentCallStatus" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Participant_Calling">
     <Key>
@@ -368,6 +385,7 @@
     <EntitySet Name="LocatedKM_Master" EntityType="Self.LocatedKM_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Month_Master" EntityType="Self.Month_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="State_Master" EntityType="Self.State_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_FileUpload" EntityType="Self.tbl_FileUpload" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_MailData" EntityType="Self.tbl_MailData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Participant" EntityType="Self.tbl_Participant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Participant_Calling" EntityType="Self.tbl_Participant_Calling" Schema="dbo" store:Type="Tables" />

@@ -1,10 +1,14 @@
-﻿using Hunarmis.Manager;
+﻿using DocumentFormat.OpenXml.EMMA;
+using DocumentFormat.OpenXml.Presentation;
+using Hunarmis.Manager;
 using Hunarmis.Models;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 //using Microsoft.AspNetCore.Cors;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -19,8 +23,12 @@ namespace Hunarmis.Controllers
     {
         Hunar_DBEntities db = new Hunar_DBEntities();
         int results = 0; int results2nd = 0;
+
         public ActionResult Index()
         {
+            var physicalFilePath = Server.MapPath("~/upload/template.xlsx");
+            ExcelUtility excelut = new ExcelUtility();
+            DataTable dt = excelut.GetData(physicalFilePath);
             return View();
         }
         public ActionResult ParticipantList()
@@ -141,6 +149,9 @@ namespace Hunarmis.Controllers
                             tbl.ID = Guid.NewGuid();
                             tbl.CreatedOn = DateTime.Now;
                             tbl.CallTempStatus = (int)Enums.eTempCallStatus.CallNot;
+                            tbl.IsPlaced = model.IsPlaced;
+                            tbl.FixedCallLimitMonth = model.IsPlaced == true ? (int)Enums.eCallLimitDuration.FixedCallLimit : 0;
+                            tbl.AtPresentCallStatus = model.IsPlaced == true ? 0 : 0;
                             db.tbl_Participant.Add(tbl);
                         }
                         else
@@ -465,6 +476,140 @@ namespace Hunarmis.Controllers
             DataTable dt = SPManager.SP_PartQuesList(model);
             return View(dt);
         }
+        public ActionResult ExcelFileUpload()
+        {
+            FileExcelModel model = new FileExcelModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ExcelFileUpload(FileExcelModel model)
+        {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            if (model != null)
+            {
+                try
+                {
+                    if (ModelState.IsValid && model.FileUpload != null)
+                    {
+                        if (db_.tbl_FileUpload.Any(x => x.FileName == model.FileName.Trim()))
+                        {
+                            var res = Json(new { IsSuccess = false, Message = Enums.GetEnumDescription(Enums.eReturnReg.Already) }, JsonRequestBehavior.AllowGet);
+                            res.MaxJsonLength = int.MaxValue;
+                            return res;
+                        }
+                        var maxid = db_.tbl_FileUpload.Count() != 0 ? db_.tbl_FileUpload?.Max(x => x.Id) : 0;
+                        var lastaddmaxid = maxid == 0 ? 1 : maxid + 1;
+                        var filePath = CommonModel.SaveSingleExcelFile(model.FileUpload, lastaddmaxid.ToString(), "ParticipantFile");
+                        var physicalFilePath = Server.MapPath(filePath);
+                        ExcelUtility excelut = new ExcelUtility();
+                        DataTable dt = excelut.GetData(physicalFilePath);
+                        if (dt.Rows.Count > 0)
+                        {
+                            tbl_FileUpload tbl = new tbl_FileUpload();
+                            tbl.UploadDate = model.UploadDate;
+                            tbl.FileName = model.FileName.Trim();
+                            tbl.FilePath = filePath;
+                            tbl.CreatedBy = MvcApplication.CUser.UserId;
+                            tbl.CreatedOn = DateTime.Now;
+                            tbl.IsActive = true;
+                            db.tbl_FileUpload.Add(tbl);
+                       
+                            /* Inserted Data */
+                            foreach (DataRow dr in dt.Rows)
+                            {
+                                var tblpart = new tbl_Participant();
+                                if (tblpart != null)
+                                {
+                                    var fulllist = dr["Name"].ToString().Split(' ');
+                                    if (fulllist != null || fulllist.Length != 0)
+                                    {
+                                        if (fulllist.Length==2)
+                                        {
+                                            tblpart.FirstName = !(string.IsNullOrWhiteSpace(fulllist[0])) ? fulllist[0].Trim() : null;
+                                            tblpart.LastName = !(string.IsNullOrWhiteSpace(fulllist[1])) ? fulllist[1].Trim() : null;
+                                        }
+                                       else if (fulllist.Length == 3)
+                                        {
+                                            tblpart.FirstName = !(string.IsNullOrWhiteSpace(fulllist[0])) ? fulllist[0].Trim() : null;
+                                            tblpart.MiddleName = !(string.IsNullOrWhiteSpace(fulllist[1])) ? fulllist[1].Trim() : null;
+                                            tblpart.LastName = !(string.IsNullOrWhiteSpace(fulllist[2])) ? fulllist[2].Trim() : null;
+                                        }
+                                    }
+                                    var sn = Convert.ToString(dr["StateName"]);
+                                    var StateId = db.State_Master.Where(x => x.StateName == sn).FirstOrDefault()?.Id;
+                                    tblpart.StateID = StateId;
+                                    var dname = Convert.ToString(dr["DistrictName"]);
+                                    var DistrictID = db.District_Master.Where(x => x.DistrictName == dname && x.StateId == StateId)?.FirstOrDefault().Id;
+                                    tblpart.DistrictID = DistrictID;
+
+                                    tblpart.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
+                                    tblpart.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
+                                    tblpart.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
+                                    // tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
+                                    tblpart.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
+                                    tblpart.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
+                                    tblpart.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
+
+                                    var bName = Convert.ToString(dr["BatchName"]);
+                                    var BatchId = db.Batch_Master.Where(x => x.BatchName == bName).FirstOrDefault()?.Id;
+                                    tblpart.BatchId = BatchId;
+                                    var qName = Convert.ToString(dr["QualificationName"]);
+                                    var EducationId = db.Educational_Master.Where(x => x.QualificationName == qName).FirstOrDefault()?.Id;
+                                    tblpart.EduQualificationID = EducationId;
+                                    tblpart.EduQualOther = EducationId == 4 && !(string.IsNullOrWhiteSpace(dr["EduQualOther"].ToString())) ? dr["EduQualOther"].ToString().Trim() : "NA";
+                                    var cName = Convert.ToString(dr["CourseName"]);
+                                    var CourseEnrolledId = db.Courses_Master.Where(x => x.CourseName == cName).FirstOrDefault()?.Id;
+                                    tblpart.CourseEnrolledID = CourseEnrolledId;
+
+                                    var trainingAgencyName = Convert.ToString(dr["TrainingAgencyName"]);
+                                    var TrainingAgencyId = db.TrainingAgency_Master.Where(x => x.TrainingAgencyName == trainingAgencyName).FirstOrDefault()?.Id;
+                                    tblpart.TrainingAgencyID = TrainingAgencyId;
+                                    var trainingCenter = Convert.ToString(dr["TrainingCenter"]);
+                                    var TrainingCenterId = db.TrainingCenter_Master.Where(x => x.TrainingCenter == trainingCenter).FirstOrDefault()?.Id;
+                                    tblpart.TrainingCenterID = TrainingCenterId;
+                                    tblpart.TrainerName = !(string.IsNullOrWhiteSpace(dr["TrainerName"].ToString())) ? dr["TrainerName"].ToString().Trim() : null;
+                                    tblpart.IsActive = true;
+                                    if (tblpart.ID == Guid.Empty)
+                                    {
+                                        if (User.Identity.IsAuthenticated)
+                                        {
+                                            tbl.CreatedBy = MvcApplication.CUser.UserId;
+                                        }
+                                        tblpart.ID = Guid.NewGuid();
+                                        tblpart.CreatedOn = DateTime.Now;
+                                        tblpart.CallTempStatus = (int)Enums.eTempCallStatus.CallNot;
+                                        tblpart.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
+                                        tblpart.FixedCallLimitMonth = tblpart.IsPlaced == true ? (int)Enums.eCallLimitDuration.FixedCallLimit : 0;
+                                        tblpart.AtPresentCallStatus = tblpart.IsPlaced == true ? 0 : 0;
+                                        db.tbl_Participant.Add(tblpart);
+                                    }
+                                    results += db.SaveChanges();
+                                }
+                            }
+                            if (results > 0)
+                            {
+                                var res = Json(new { IsSuccess = true, Message = Enums.GetEnumDescription(Enums.eReturnReg.Insert) }, JsonRequestBehavior.AllowGet);
+                                res.MaxJsonLength = int.MaxValue;
+                                return res;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var res = Json(new { IsSuccess = false, Message = Enums.GetEnumDescription(Enums.eReturnReg.AllFieldsRequired) }, JsonRequestBehavior.AllowGet);
+                        res.MaxJsonLength = int.MaxValue;
+                        return res;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string er = ex.Message;
+                    return Json(new { IsSuccess = false, Message = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(new { IsSuccess = false, Message = Enums.GetEnumDescription(Enums.eReturnReg.Error) }, JsonRequestBehavior.AllowGet);
+        }
+
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using static Hunarmis.Manager.Enums;
 
 namespace Hunarmis.Models
 {
@@ -80,8 +81,10 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = DplyPartName.TrainerName)]
         public string TrainerName { get; set; }
+        [Required]
+        [Display(Name = DplyPartName.IsPlaced)]
+        public bool IsPlaced { get; set; }
     }
-    
     public static class DplyPartName
     {
         public const string RegID = "Registration ID";
@@ -104,5 +107,6 @@ namespace Hunarmis.Models
         public const string TrainingAgencyID = "Training Agency";
         public const string TrainingCenterID = "Training Center";
         public const string TrainerName = "Trainer Name";
+        public const string IsPlaced = "Placed";
     }
 }

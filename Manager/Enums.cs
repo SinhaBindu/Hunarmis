@@ -23,6 +23,10 @@ namespace Hunarmis.Manager
             No = 0,
             //Other = 3,
         }
+        public enum eCallLimitDuration
+        {
+            FixedCallLimit = 6,
+        }
         public enum eTypeCall
         {
             Yes = 1,
