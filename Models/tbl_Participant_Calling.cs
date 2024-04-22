@@ -46,6 +46,7 @@ namespace Hunarmis.Models
         public string EmployedOther { get; set; }
         public string IsGettingjob { get; set; }
         public string PlacedStatus { get; set; }
+        public Nullable<bool> Is_Offered { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

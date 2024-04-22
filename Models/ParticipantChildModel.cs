@@ -91,6 +91,9 @@ namespace Hunarmis.Models
         public string IsGettingjob { get; set; }
         [Display(Name = DplyPartCalName.PlacedStatus)]
         public string PlacedStatus { get; set; }
+        //[Required]
+        [Display(Name = DplyPartCalName.IsOffered)]
+        public Nullable<bool> IsOffered { get; set; }
     }
     public static class DplyPartCalName
     {
@@ -131,6 +134,7 @@ namespace Hunarmis.Models
         public const string IsGettingjob = "Do you need help getting a job at this juncture";
         //Section - Placement Decision
         public const string SectionPlacement = "Placement Decision";
+        public const string IsOffered = "Is the candidate Offer or not?";
         public const string PlacedStatus = "Is the candidate placed or not?";
     }
 }

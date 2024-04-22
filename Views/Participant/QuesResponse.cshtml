@@ -30,62 +30,80 @@
                     <div class="panel-bodys">
                         <div class="bg-light rounded h-100 p-4">
                             @{
+                                int indx = dt.Rows.Count;
                                 if (dt.Rows.Count > 0)
                                 {
-                                    <div class="content-manage">
-                                        <h4 class="semi-title">Basic Details</h4>
-                                        <div class="basic-info">
-                                            <div class=""><p>@DplyPartCalName.RegID  <span> :@dt.Rows[0]["RegID"].ToString()</span></p></div>
-                                            <div class=""><p>@DplyPartCalName.FullName  <span>: @dt.Rows[0]["FullName"].ToString()</span></p></div>
-                                            <div class=""><p>@DplyPartCalName.BatchName <span> : @dt.Rows[0]["BatchName"].ToString()</span></p></div>
-                                            <div class=""><p>@DplyPartCalName.SBatchDt <span>: @dt.Rows[0]["BatchStartDate"].ToString()</span></p></div>
-                                            <div class=""><p>@DplyPartCalName.EBatchDt  <span> : @dt.Rows[0]["BatchEndDate"].ToString()</span></p></div>
-                                        </div>
-
-                                        <div class="manage-box">
-                                            <div class="conent-arrange">
-                                                <h4 class="semi-title">Questionnaire Response</h4>
-                                                <div class="col-md-12"> @DplyPartCalName.QuesMonth:  <span> @dt.Rows[0]["Ques_Month"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.QuesYear:   <span> @dt.Rows[0]["Ques_Year"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.IsAssessmentCert:  <span> @dt.Rows[0]["IsAssessmentCert"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.IsComfortable:  <span> @dt.Rows[0]["IsComfortable"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.EmpCompany:  <span> @dt.Rows[0]["EmpCompany"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.FirstJobTraining:  <span> @dt.Rows[0]["FirstJobTraining"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.DOJ:  <span> @CommonModel.FormateDtDMY(dt.Rows[0]["DOJ"].ToString())</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.CurrentEmployer:  <span> @dt.Rows[0]["CurrentEmployer"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.Designation:  <span> @dt.Rows[0]["Designation"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.SalaryPackage:  <span> @dt.Rows[0]["SalaryPackage"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.CurrentlyWorking:  <span> @dt.Rows[0]["CurrentlyWorking"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.WorkingKM:  <span> @dt.Rows[0]["WorkingKM"].ToString()</span></div>
-                                                @*<div class="col-md-12"> @DplyPartCalName.WorkingKMOther  <strong> :@Model.WorkingKMOther</strong></div>*@
-                                                <div class="col-md-12"> @DplyPartCalName.Traininghelp:  <span> @dt.Rows[0]["Traininghelp"].ToString()</span></div>
+                                    <section class="accordion">
+                                        <div class="content-manage">
+                                            <h4 class="semi-title">Basic Details</h4>
+                                            <div class="basic-info">
+                                                <div class=""><p>@DplyPartCalName.RegID  <span> :@dt.Rows[0]["RegID"].ToString()</span></p></div>
+                                                <div class=""><p>@DplyPartCalName.FullName  <span>: @dt.Rows[0]["FullName"].ToString()</span></p></div>
+                                                <div class=""><p>@DplyPartCalName.BatchName <span> : @dt.Rows[0]["BatchName"].ToString()</span></p></div>
+                                                <div class=""><p>@DplyPartCalName.SBatchDt <span>: @dt.Rows[0]["BatchStartDate"].ToString()</span></p></div>
+                                                <div class=""><p>@DplyPartCalName.EBatchDt  <span> : @dt.Rows[0]["BatchEndDate"].ToString()</span></p></div>
                                             </div>
 
-                                            <div class="conent-arrange">
-                                                <h4 class="semi-title"> @DplyPartCalName.SectionGeneral </h4>
-                                                <div class="col-md-12"> @DplyPartCalName.SalaryWages:  <span> @dt.Rows[0]["SalaryWages"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.ExpectationJobRole:  <span> @dt.Rows[0]["ExpectationJobRole"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.WorkPlaceSafe:  <span> @dt.Rows[0]["WorkPlaceSafe"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.IsMSBenefit:  <stronspang> @dt.Rows[0]["IsMSBenefit"].ToString()</stronspang></div>
-                                                <div class="col-md-12"> @DplyPartCalName.MSBenefitId:  <span> @dt.Rows[0]["MSBenefitId"].ToString()</span></div>
-                                                @*<div class="col-md-12"> @DplyPartCalName.MSOther  <strong> :@dt.Rows[0][""].ToString()</strong></div>*@
-                                                <div class="col-md-12"> @DplyPartCalName.AnyChallenges:  <span> @dt.Rows[0]["AnyChallenges"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.AreaSupport:  <span> @dt.Rows[0]["AreaSupport"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.EmployedId:  <span> @dt.Rows[0]["EmployedId"].ToString()</span></div>
-                                                @*<div class="col-md-12"> @DplyPartCalName.EmployedOther  <strong> :@Model.EmployedOther</strong></div>*@
-                                                <div class="col-md-12"> @DplyPartCalName.IsGettingjob:  <span> @dt.Rows[0]["IsGettingjob"].ToString()</span></div>
-                                                <div class="col-md-12"> @DplyPartCalName.SectionPlacement</div>
-                                                <div class="col-md-12"> @DplyPartCalName.PlacedStatus: <span> @dt.Rows[0]["PlacedStatus"].ToString()</span></div>
-                                            </div>
-                                        </div>
+                                            @foreach (DataRow dr in dt.Rows)
+                                            {
+                                                //style = "overflow:scroll;padding-left:3%;"
+                                                <div class="row">
+                                                    <div class="tab">
+                                                        <input type="checkbox" name="accordion-1" id="cb_@indx" checked>
+                                                        <label for="cb_@indx" class="tab__label">  #@indx @dr["Ques_Month"].ToString() / @dr["Ques_Year"].ToString() </label>
 
-                                    </div>
+                                                        <div class="tab__content">
+                                                            <div class="manage-box">
+                                                                <div class="conent-arrange">
+                                                                    <h4 class="semi-title">Questionnaire Response</h4>
+                                                                    <div class="col-md-12"> @DplyPartCalName.QuesMonth:  <span> @dr["Ques_Month"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.QuesYear:   <span> @dr["Ques_Year"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.IsAssessmentCert:  <span> @dr["IsAssessmentCert"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.IsComfortable:  <span> @dr["IsComfortable"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.EmpCompany:  <span> @dr["EmpCompany"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.FirstJobTraining:  <span> @dr["FirstJobTraining"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.DOJ:  <span> @CommonModel.FormateDtDMY(dr["DOJ"].ToString())</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.CurrentEmployer:  <span> @dr["CurrentEmployer"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.Designation:  <span> @dr["Designation"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.SalaryPackage:  <span> @dr["SalaryPackage"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.CurrentlyWorking:  <span> @dr["CurrentlyWorking"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.WorkingKM:  <span> @dr["WorkingKM"].ToString()</span></div>
+                                                                    @*<div class="col-md-12"> @DplyPartCalName.WorkingKMOther  <strong> :@Model.WorkingKMOther</strong></div>*@
+                                                                    <div class="col-md-12"> @DplyPartCalName.Traininghelp:  <span> @dr["Traininghelp"].ToString()</span></div>
+                                                                </div>
+
+                                                                <div class="conent-arrange">
+                                                                    <h4 class="semi-title"> @DplyPartCalName.SectionGeneral </h4>
+                                                                    <div class="col-md-12"> @DplyPartCalName.SalaryWages:  <span> @dr["SalaryWages"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.ExpectationJobRole:  <span> @dr["ExpectationJobRole"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.WorkPlaceSafe:  <span> @dr["WorkPlaceSafe"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.IsMSBenefit:  <stronspang> @dr["IsMSBenefit"].ToString()</stronspang></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.MSBenefitId:  <span> @dr["MSBenefitId"].ToString()</span></div>
+                                                                    @*<div class="col-md-12"> @DplyPartCalName.MSOther  <strong> :@dt.Rows[0][""].ToString()</strong></div>*@
+                                                                    <div class="col-md-12"> @DplyPartCalName.AnyChallenges:  <span> @dr["AnyChallenges"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.AreaSupport:  <span> @dr["AreaSupport"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.EmployedId:  <span> @dr["EmployedId"].ToString()</span></div>
+                                                                    @*<div class="col-md-12"> @DplyPartCalName.EmployedOther  <strong> :@Model.EmployedOther</strong></div>*@
+                                                                    <div class="col-md-12"> @DplyPartCalName.IsGettingjob:  <span> @dr["IsGettingjob"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.SectionPlacement</div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.PlacedStatus: <span> @dr["PlacedStatus"].ToString()</span></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                indx--;
+                                            }
+                                        </div>
+                                    </section>
                                 }
 
                             }
                         </div>
+                        <div class="breaker"></div>
                     </div>
-                    <div class="breaker"></div>
                 </div>
             </div>
         </div>
@@ -95,6 +113,8 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/Custom/Master.js"></script>
+    <link href="~/Content/css/Accordioncss.css" rel="stylesheet" />
+
     <script>
         $(document).ready(function () {
 

@@ -488,7 +488,7 @@
                                         }
                                         else {
                                             toastr.error("Error", resp.Message);
-                                            return false;
+                                          //  return false;
                                         }
                                     },
                                     error: function (req, error) {
@@ -497,7 +497,7 @@
                                         // CreateToasterMessage("Error", errormsg, "error");
                                         toastr.error("Error", errormsg);
                                         //jQuery.event.trigger("ajaxStop");
-                                        return false;
+                                       // return false;
                                     }
                                 });
                             }
@@ -505,7 +505,7 @@
                                 //CreateToasterMessage("Error", "All Record Validate !!", "error");
                                 toastr.error("Error", "All Record Validate !!");
                                 // jQuery.event.trigger("ajaxStop");
-                                return false;
+                               // return false;
                             }
                         }
                         else {

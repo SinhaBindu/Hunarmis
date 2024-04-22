@@ -244,8 +244,17 @@ namespace Hunarmis.Controllers
                     tbl.IsActive = true;
                     if (model.Id == 0)
                     {
-                        var max = _db.Batch_Master?.Max(x => x.Id);
-                        tbl.Id = max == 0 ? 1 : Convert.ToInt32(max.Value)+1;
+                        if (!_db.Batch_Master.Any())
+                        {
+                            tbl.Id = 1;
+                        }
+                        else
+                        {
+                            var max = _db.Batch_Master?.Max(x => x.Id);
+                            tbl.Id = max == 0 ? 1 : Convert.ToInt32(max.Value) + 1;
+
+                        }
+                        
                         tbl.CreatedBy = MvcApplication.CUser.UserId;
                         tbl.CreatedOn = DateTime.Now;
                         db.Batch_Master.Add(tbl);

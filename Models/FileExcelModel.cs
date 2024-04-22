@@ -12,6 +12,7 @@ namespace Hunarmis.Models
         public int Id { get; set; }
         [DisplayName("Date")]
         public DateTime? UploadDate { get; set; }
+        [DisplayName("File Name")]
         public string FileName { get; set; }
         [DisplayName("File Upload")]
         public HttpPostedFileBase FileUpload { get; set; }

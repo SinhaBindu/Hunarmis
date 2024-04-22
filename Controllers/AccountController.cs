@@ -179,14 +179,20 @@ namespace Hunarmis.Controllers
             {
                 if (!string.IsNullOrWhiteSpace(model.Id))
                 {
+
                     model.Password = !string.IsNullOrWhiteSpace(model.Password) ? model.Password : model.PhoneNo.Trim();
                     var tbLu = db_.AspNetUsers.Find(model.Id);
+
+                    var passwordHasher = new Microsoft.AspNet.Identity.PasswordHasher();
+                    tbLu.PasswordHash = passwordHasher.HashPassword(model.Password);
+
                     tbLu.UserName = model.PhoneNo;
                     tbLu.EmpName = model.Name;
                     tbLu.Email = model.EmailId;
                     tbLu.PhoneNumber = model.PhoneNo;
-                    tbLu.PasswordHash = model.Password;
+                    //tbLu.PasswordHash = model.Password;
                     int res = db_.SaveChanges();
+
                     var userRoles = UserManager.GetRoles(tbLu.Id);
                     var rolename = db_.AspNetRoles.Find(model.RoleID).Name;
                     foreach (var item in userRoles)

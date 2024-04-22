@@ -7,6 +7,7 @@
     ViewBag.SemiTitle = "Dashboard";
     ViewBag.SemiTitleLink = "/Home/Index";
 }
+
 <style>
     .container {
         width: 340px;
@@ -23,6 +24,7 @@
         width: 100%;
     }
 </style>
+
 <div id="page-content">
     <div class="genral-form">
         <div class="row">
@@ -105,12 +107,12 @@
         $(document).ready(function () {
             LoadReport();
 
-            $('#em').on('input', function () {
-                chart.container.style.fontSize = this.value + 'em';
-                // Update layout based on new font and line sizes
-                chart.isDirtyLegend = true;
-                chart.redraw(false);
-            });
+            //$('#em').on('input', function () {
+            //    chart.container.style.fontSize = this.value + 'em';
+            //    // Update layout based on new font and line sizes
+            //    chart.isDirtyLegend = true;
+            //    chart.redraw(false);
+            //});
         });
         function LoadReport() {
             $('#errormsg').html("");
@@ -132,7 +134,9 @@
                         $('#global-loader').css('background', 'transparent').css('display', 'none');
                         var BatchData = [], CourseData = [], DisData = [],
                             QlfData = [], TrainCrData = [], TrainingAgency = [], CutMnthCallSt = [];
-                        var Noofpart = 0; var Colpart = ""; var totalpart = [],DataPlace=[];
+                        var Noofpart = 0; var Colpart = ""; var totalpart = [], DataPlace = [],
+                            AC = [], EP = [], CE = [], TH = [];
+
                         if (resdata) {
                             BatchData = resdata.filter(x => x.Type == "Batch");
                             CourseData = resdata.filter(x => x.Type == "Course");
@@ -140,6 +144,10 @@
                             QlfData = resdata.filter(x => x.Type == "Qualification");
                             //TrainCrData = resdata.filter(x => x.Type == "TrainingCenter");
                             TrainingAgency = resdata.filter(x => x.Type == "TrainingAgency");
+                            AC = resdata.filter(x => x.Type == "AssessmentCertified");
+                            EP = resdata.filter(x => x.Type == "EmployedPresent");
+                            CE = resdata.filter(x => x.Type == "ComfortableEmployment");
+                            TH = resdata.filter(x => x.Type == "TrainingHelp");
                             totalpart = resdata.filter(x => x.Type == "Participant");
                             $('#partcolm').html(totalpart[0].ColumnName); $('#noofpart').html(totalpart[0].NoofData);
                             //ChartBatch(BatchData);
@@ -591,7 +599,7 @@
                 var Dlist = []; var name = []; var vl = [];
                 for (var i = 0; i < Datalist.length; i++) {
                     var obj = [Datalist[i].CallStatusText, Datalist[i].NoofCall];
-                    Dlist1.push({ name: Datalist[i].CallStatusText, y: Datalist[i].NoofCall });
+                    Dlist1.push({ name: Datalist[i].CallStatusText, y: Datalist[i].NoofCall, color: Datalist[i].ColorCode });
                     Dlist.push(obj);
                 }
                

@@ -112,6 +112,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/Custom/Master.js"></script>
+
     <script>
         $(document).ready(function () {
 
@@ -124,7 +125,8 @@
                 BindData();
             });
 
-            BindData();
+            setTimeout(function () { BindData(); }, 1500);
+
         });
         function BindData() {
             $("#subdata").html('');
@@ -180,6 +182,12 @@
                 }
             });
         }
+
+        //function QuesResDisplay(PartQuestionId,PartId, Y, M) {
+        //    $.post("/Participant/QuesResponse", { data:  }, function (result) {
+        //    });
+        //}
+
     </script>
 }
 

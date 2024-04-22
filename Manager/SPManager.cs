@@ -47,6 +47,7 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@YearId", model.YearId, DbType.Int32);
             sp.Command.AddParameter("@MonthId", model.MonthId, DbType.Int32);
             sp.Command.AddParameter("@BatchId", model.BatchId, DbType.Int32);
+            sp.Command.AddParameter("@ParticipantId", model.ParticipantId, DbType.String);
             sp.Command.AddParameter("@ParticipantQuestionId", model.ParticipantQuestionId, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
@@ -64,6 +65,12 @@ namespace Hunarmis.Manager
         public static DataTable SP_PartTempStatus()
         {
             StoredProcedure sp = new StoredProcedure("SP_PartTempStatus");
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_GetFileUpload()
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetFileUpload");
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

@@ -507,6 +507,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\css\Accordioncss.css" />
     <Content Include="Content\css\AdminGlobal.css" />
     <Content Include="Content\css\assets\large_left.png" />
     <Content Include="Content\css\assets\large_right.png" />
@@ -529,6 +530,7 @@
     <Content Include="Content\css\initcarousel-1.css" />
     <Content Include="Content\css\jquery-ui-timepicker-addon.css" />
     <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\mgaccordion.css" />
     <Content Include="Content\css\nifty.min.css" />
     <Content Include="Content\css\printdesign.css" />
     <Content Include="Content\css\responsive.css" />
@@ -1552,6 +1554,7 @@
     <Content Include="Models\DBModel.edmx.diagram">
       <DependentUpon>DBModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\css\Accordionsc.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CustomValidator.js" />
     <Content Include="Scripts\Custom\Employee.js" />
@@ -1649,7 +1652,6 @@
     <Content Include="Views\Master\_BatchData.cshtml" />
     <Content Include="Views\Participant\ParticipantList.cshtml" />
     <Content Include="Views\Participant\_PartData.cshtml" />
-    <Content Include="Views\Participant\View.cshtml" />
     <Content Include="Views\Participant\ExcelFileUpload.cshtml" />
     <Content Include="Uploads\2\ParticipantFile-template.xlsx" />
     <Content Include="Uploads\3\ParticipantFile-template.xlsx" />
@@ -1657,6 +1659,8 @@
     <Content Include="Uploads\ParticipantFile\5-template.xlsx" />
     <Content Include="Uploads\ParticipantFile\6-template.xlsx" />
     <Content Include="Uploads\ParticipantFile\7-template %281%29.xlsx" />
+    <Content Include="Views\Participant\_ExcelData.cshtml" />
+    <Content Include="Uploads\TemplateFormate.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

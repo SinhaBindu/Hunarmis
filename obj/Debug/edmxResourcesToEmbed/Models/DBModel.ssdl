@@ -184,6 +184,7 @@
     <Property Name="LastName" Type="nvarchar" MaxLength="200" />
     <Property Name="Gender" Type="nvarchar" MaxLength="50" />
     <Property Name="Age" Type="nvarchar" MaxLength="20" />
+    <Property Name="DOB" Type="date" />
     <Property Name="PhoneNo" Type="nvarchar" MaxLength="20" />
     <Property Name="AlternatePhoneNo" Type="nvarchar" MaxLength="20" />
     <Property Name="EmailID" Type="nvarchar" MaxLength="200" />
@@ -200,6 +201,7 @@
     <Property Name="TrainerName" Type="nvarchar" MaxLength="500" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="IsPlaced" Type="bit" />
+    <Property Name="IsOffered" Type="bit" />
     <Property Name="CallTempStatus" Type="int" />
     <Property Name="CallRemark" Type="nvarchar(max)" />
     <Property Name="CallMonth" Type="int" />
@@ -247,6 +249,7 @@
     <Property Name="EmployedOther" Type="nvarchar" MaxLength="200" />
     <Property Name="IsGettingjob" Type="nvarchar" MaxLength="20" />
     <Property Name="PlacedStatus" Type="nvarchar" MaxLength="20" />
+    <Property Name="Is_Offered" Type="bit" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="CreatedOn" Type="datetime" />
@@ -284,7 +287,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TrainingAgencyName" Type="nvarchar(max)" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
@@ -296,7 +299,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DistrictID_fk" Type="int" />
     <Property Name="TrainingAgencyID_fk" Type="int" />
     <Property Name="TrainingCenter" Type="nvarchar(max)" />

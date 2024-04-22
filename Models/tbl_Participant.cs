@@ -21,6 +21,7 @@ namespace Hunarmis.Models
         public string LastName { get; set; }
         public string Gender { get; set; }
         public string Age { get; set; }
+        public Nullable<System.DateTime> DOB { get; set; }
         public string PhoneNo { get; set; }
         public string AlternatePhoneNo { get; set; }
         public string EmailID { get; set; }
@@ -37,6 +38,7 @@ namespace Hunarmis.Models
         public string TrainerName { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<bool> IsPlaced { get; set; }
+        public Nullable<bool> IsOffered { get; set; }
         public Nullable<int> CallTempStatus { get; set; }
         public string CallRemark { get; set; }
         public Nullable<int> CallMonth { get; set; }

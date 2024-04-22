@@ -32,6 +32,7 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = DplyPartName.Gender)]
         public string Gender { get; set; }
+        public Nullable<System.DateTime> DOB { get; set; }
         [Required]
         [Display(Name = DplyPartName.Age)]
         public string Age { get; set; }
@@ -84,6 +85,9 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = DplyPartName.IsPlaced)]
         public bool IsPlaced { get; set; }
+        [Required]
+        [Display(Name = DplyPartName.IsOffered)]
+        public Nullable<bool> IsOffered { get; set; }
     }
     public static class DplyPartName
     {
@@ -107,6 +111,7 @@ namespace Hunarmis.Models
         public const string TrainingAgencyID = "Training Agency";
         public const string TrainingCenterID = "Training Center";
         public const string TrainerName = "Trainer Name";
+        public const string IsOffered = "Offered";
         public const string IsPlaced = "Placed";
     }
 }

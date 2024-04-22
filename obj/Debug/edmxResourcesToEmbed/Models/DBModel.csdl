@@ -311,6 +311,7 @@
     <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Age" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DOB" Type="DateTime" Precision="0" />
     <Property Name="PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="AlternatePhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="EmailID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -327,6 +328,7 @@
     <Property Name="TrainerName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="IsActive" Type="Boolean" />
     <Property Name="IsPlaced" Type="Boolean" />
+    <Property Name="IsOffered" Type="Boolean" />
     <Property Name="CallTempStatus" Type="Int32" />
     <Property Name="CallRemark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CallMonth" Type="Int32" />
@@ -374,6 +376,7 @@
     <Property Name="EmployedOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="IsGettingjob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="PlacedStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Is_Offered" Type="Boolean" />
     <Property Name="IsActive" Type="Boolean" />
     <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />

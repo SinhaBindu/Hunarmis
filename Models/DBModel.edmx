@@ -189,6 +189,7 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="200" />
           <Property Name="Gender" Type="nvarchar" MaxLength="50" />
           <Property Name="Age" Type="nvarchar" MaxLength="20" />
+          <Property Name="DOB" Type="date" />
           <Property Name="PhoneNo" Type="nvarchar" MaxLength="20" />
           <Property Name="AlternatePhoneNo" Type="nvarchar" MaxLength="20" />
           <Property Name="EmailID" Type="nvarchar" MaxLength="200" />
@@ -205,6 +206,7 @@
           <Property Name="TrainerName" Type="nvarchar" MaxLength="500" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="IsPlaced" Type="bit" />
+          <Property Name="IsOffered" Type="bit" />
           <Property Name="CallTempStatus" Type="int" />
           <Property Name="CallRemark" Type="nvarchar(max)" />
           <Property Name="CallMonth" Type="int" />
@@ -252,6 +254,7 @@
           <Property Name="EmployedOther" Type="nvarchar" MaxLength="200" />
           <Property Name="IsGettingjob" Type="nvarchar" MaxLength="20" />
           <Property Name="PlacedStatus" Type="nvarchar" MaxLength="20" />
+          <Property Name="Is_Offered" Type="bit" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="CreatedOn" Type="datetime" />
@@ -289,7 +292,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TrainingAgencyName" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
@@ -301,7 +304,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DistrictID_fk" Type="int" />
           <Property Name="TrainingAgencyID_fk" Type="int" />
           <Property Name="TrainingCenter" Type="nvarchar(max)" />
@@ -731,6 +734,7 @@
           <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Age" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
           <Property Name="PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="AlternatePhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="EmailID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -747,6 +751,7 @@
           <Property Name="TrainerName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="IsPlaced" Type="Boolean" />
+          <Property Name="IsOffered" Type="Boolean" />
           <Property Name="CallTempStatus" Type="Int32" />
           <Property Name="CallRemark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CallMonth" Type="Int32" />
@@ -794,6 +799,7 @@
           <Property Name="EmployedOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsGettingjob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="PlacedStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Is_Offered" Type="Boolean" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
@@ -1071,6 +1077,7 @@
                 <ScalarProperty Name="CallMonth" ColumnName="CallMonth" />
                 <ScalarProperty Name="CallRemark" ColumnName="CallRemark" />
                 <ScalarProperty Name="CallTempStatus" ColumnName="CallTempStatus" />
+                <ScalarProperty Name="IsOffered" ColumnName="IsOffered" />
                 <ScalarProperty Name="IsPlaced" ColumnName="IsPlaced" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="TrainerName" ColumnName="TrainerName" />
@@ -1087,6 +1094,7 @@
                 <ScalarProperty Name="EmailID" ColumnName="EmailID" />
                 <ScalarProperty Name="AlternatePhoneNo" ColumnName="AlternatePhoneNo" />
                 <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="Age" ColumnName="Age" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -1105,6 +1113,7 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Is_Offered" ColumnName="Is_Offered" />
                 <ScalarProperty Name="PlacedStatus" ColumnName="PlacedStatus" />
                 <ScalarProperty Name="IsGettingjob" ColumnName="IsGettingjob" />
                 <ScalarProperty Name="EmployedOther" ColumnName="EmployedOther" />

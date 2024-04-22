@@ -266,6 +266,7 @@
           <ScalarProperty Name="CallMonth" ColumnName="CallMonth" />
           <ScalarProperty Name="CallRemark" ColumnName="CallRemark" />
           <ScalarProperty Name="CallTempStatus" ColumnName="CallTempStatus" />
+          <ScalarProperty Name="IsOffered" ColumnName="IsOffered" />
           <ScalarProperty Name="IsPlaced" ColumnName="IsPlaced" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="TrainerName" ColumnName="TrainerName" />
@@ -282,6 +283,7 @@
           <ScalarProperty Name="EmailID" ColumnName="EmailID" />
           <ScalarProperty Name="AlternatePhoneNo" ColumnName="AlternatePhoneNo" />
           <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
           <ScalarProperty Name="Age" ColumnName="Age" />
           <ScalarProperty Name="Gender" ColumnName="Gender" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -300,6 +302,7 @@
           <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Is_Offered" ColumnName="Is_Offered" />
           <ScalarProperty Name="PlacedStatus" ColumnName="PlacedStatus" />
           <ScalarProperty Name="IsGettingjob" ColumnName="IsGettingjob" />
           <ScalarProperty Name="EmployedOther" ColumnName="EmployedOther" />
