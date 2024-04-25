@@ -394,11 +394,13 @@
     <Compile Include="Models\Benefit_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CoursesModel.cs" />
     <Compile Include="Models\DBModel1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EducationalModel.cs" />
     <Compile Include="Models\FileExcelModel.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\JobEmployed_Master.cs">
@@ -1661,6 +1663,10 @@
     <Content Include="Uploads\ParticipantFile\7-template %281%29.xlsx" />
     <Content Include="Views\Participant\_ExcelData.cshtml" />
     <Content Include="Uploads\TemplateFormate.xlsx" />
+    <Content Include="Views\Master\CoursesMaster.cshtml" />
+    <Content Include="Views\Master\_CoursesData.cshtml" />
+    <Content Include="Views\Master\EducationalMaster.cshtml" />
+    <Content Include="Views\Master\_EducationalData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

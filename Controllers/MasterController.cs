@@ -286,7 +286,197 @@ namespace Hunarmis.Controllers
             resResponse4.MaxJsonLength = int.MaxValue;
             return resResponse4;
         }
+
+        public ActionResult GetCoursesMasterlist()
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SPManager.SP_CoursesList();
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_CoursesData", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
+        public ActionResult CoursesMaster(int id = 0)
+        {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            CoursesModel model = new CoursesModel();
+            if (id > 0)
+            {
+                var tbl = db_.Courses_Master.Find(id);
+                if (tbl != null)
+                {
+                    model.Id = tbl.Id;
+                    model.CourseName = tbl.CourseName;
+                }
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public JsonResult CoursesMaster(CoursesModel model)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            JsonResponseData response = new JsonResponseData();
+            try
+            {
+                var tbl = model.Id != 0 ? db.Courses_Master.Find(model.Id) : new Courses_Master();
+                if (tbl != null && model != null)
+                {
+                    tbl.CourseName = model.CourseName;
+                    tbl.IsActive = true;
+                    if (model.Id == 0)
+                    {
+                        if (!_db.Courses_Master.Any())
+                        {
+                            tbl.Id = 1;
+                        }
+                        else
+                        {
+                            var max = _db.Courses_Master?.Max(x => x.Id);
+                            tbl.Id = max == 0 ? 1 : Convert.ToInt32(max.Value) + 1;
+
+                        }
+
+                        tbl.CreatedBy = MvcApplication.CUser.UserId;
+                        tbl.CreatedOn = DateTime.Now;
+                        db.Courses_Master.Add(tbl);
+                    }
+                    else
+                    {
+                        tbl.UpdatedBy = MvcApplication.CUser.UserId;
+                        tbl.Updated = DateTime.Now;
+                    }
+                    int res = db.SaveChanges();
+                    if (res > 0)
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Record Submitted Successfully!!!", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error.", Data = null };
+                var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                resResponse3.MaxJsonLength = int.MaxValue;
+                return resResponse3;
+            }
+            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error..", Data = null };
+            var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
+            resResponse4.MaxJsonLength = int.MaxValue;
+            return resResponse4;
+        }
+
+        public ActionResult GetEducationalMasterlist()
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SPManager.SP_EducationalMList();
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_EducationalData", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
+        public ActionResult EducationalMaster(int id = 0)
+        {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            EducationalModel model = new EducationalModel();
+            if (id > 0)
+            {
+                var tbl = db_.Educational_Master.Find(id);
+                if (tbl != null)
+                {
+                    model.Id = tbl.Id;
+                    model.QualificationName = tbl.QualificationName;
+                }
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public JsonResult EducationalMaster(EducationalModel model)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            JsonResponseData response = new JsonResponseData();
+            try
+            {
+                var tbl = model.Id != 0 ? db.Educational_Master.Find(model.Id) : new Educational_Master();
+                if (tbl != null && model != null)
+                {
+                    tbl.QualificationName = model.QualificationName;
+                    tbl.IsActive = true;
+                    if (model.Id == 0)
+                    {
+                        if (!_db.Educational_Master.Any())
+                        {
+                            tbl.Id = 1;
+                        }
+                        else
+                        {
+                            var max = _db.Educational_Master?.Max(x => x.Id);
+                            tbl.Id = max == 0 ? 1 : Convert.ToInt32(max.Value) + 1;
+
+                        }
+
+                        tbl.CreatedBy = MvcApplication.CUser.UserId;
+                        tbl.CreatedOn = DateTime.Now;
+                        db.Educational_Master.Add(tbl);
+                    }
+                    else
+                    {
+                        tbl.UpdatedBy = MvcApplication.CUser.UserId;
+                        tbl.Updated = DateTime.Now;
+                    }
+                    int res = db.SaveChanges();
+                    if (res > 0)
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Record Submitted Successfully!!!", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error.", Data = null };
+                var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                resResponse3.MaxJsonLength = int.MaxValue;
+                return resResponse3;
+            }
+            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error..", Data = null };
+            var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
+            resResponse4.MaxJsonLength = int.MaxValue;
+            return resResponse4;
+        }
+
         #endregion
+
+
+
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;

@@ -54,7 +54,7 @@ namespace Hunarmis
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 10,
-                RequireNonLetterOrDigit = true,
+                RequireNonLetterOrDigit = false,
                 RequireDigit = true,
                 //RequireLowercase = true,
                 //RequireUppercase = true,

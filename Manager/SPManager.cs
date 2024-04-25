@@ -31,6 +31,18 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SP_CoursesList()
+        {
+            StoredProcedure sp = new StoredProcedure("SP_CoursesList");
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_EducationalMList()
+        {
+            StoredProcedure sp = new StoredProcedure("SP_EducationalMList");
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
         public static DataTable SP_ParticipantList(FilterModel model)
         {
             model.CallStatus = model.CallStatus == "-1" ? "" : model.CallStatus;
