@@ -35,6 +35,8 @@ namespace Hunarmis.Models
         public string SBatchDt { get; set; }
         [Display(Name = DplyPartCalName.EBatchDt)]
         public string EBatchDt { get; set; }
+        [Display(Name = DplyPartCalName.PhoneNo)]
+        public string PhoneNo { get; set; }
 
         //Questions
         [Display(Name = DplyPartCalName.CallType)]
@@ -136,5 +138,6 @@ namespace Hunarmis.Models
         public const string SectionPlacement = "Placement Decision";
         public const string IsOffered = "Is the candidate Offer or not?";
         public const string PlacedStatus = "Is the candidate placed or not?";
+        public const string PhoneNo = "Phone No";
     }
 }

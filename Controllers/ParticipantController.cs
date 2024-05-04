@@ -283,6 +283,7 @@ namespace Hunarmis.Controllers
                 {
                     model.RegID = getdt.RegID;
                     model.FullName = getdt.FirstName + " " + getdt.MiddleName + " " + getdt.LastName;
+                    model.PhoneNo = getdt.PhoneNo;
                     var batch = db_.Batch_Master.Where(x => x.Id == getdt.BatchId)?.FirstOrDefault();
                     model.BatchName = batch != null ? batch.BatchName : null;
                     model.SBatchDt = batch != null ? CommonModel.FormateDtDMY(batch.BatchStartDate.ToString()) : null;
