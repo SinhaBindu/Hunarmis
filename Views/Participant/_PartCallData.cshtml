@@ -61,14 +61,22 @@
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-left">@dr["TrainingCenter"]</td>
                                 @*<a href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank" style="float: left; width: 95px !important">*@
-                                <td class="" width="20%">
-                                    <a id="hrfphoneno-@dr["ID"]" href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank">
-                                        <strong class="" style="color:#3131d3;">
-                                            <img style="float: left; margin-right: 6px; margin-top: 2px" src="~/Content/images/Phone_icon.png" alt="Alternate Text" width="14" height="14" />
-                                            @dr["PhoneNo"]
-                                        </strong>
-                                    </a>
-                                </td>
+                            <td class="" width="20%">
+
+                                <a id="hrfphoneno-@dr["ID"]" href="javascript:void(0);" onclick="QuestionBind('@dr["ID"]',' @dr["PhoneNo"]')">
+                                    <strong class="" style="color:#3131d3;">
+                                        <img style="float: left; margin-right: 6px; margin-top: 2px" src="~/Content/images/Phone_icon.png" alt="Alternate Text" width="14" height="14" />
+                                        @dr["PhoneNo"]
+                                    </strong>
+                                </a>
+
+                                @*<a id="hrfphoneno-@dr["ID"]" href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank">
+            <strong class="" style="color:#3131d3;">
+                <img style="float: left; margin-right: 6px; margin-top: 2px" src="~/Content/images/Phone_icon.png" alt="Alternate Text" width="14" height="14" />
+                @dr["PhoneNo"]
+            </strong>
+        </a>*@
+                            </td>
                                 <td class="text-left">@dr["FullName"]</td>
                                 <td class="text-center" style="background: #604ccf !important; color: #fff !important; "><strong>@dr["RegID"]</strong></td>
                                 <td class="text-left">@dr["EmailID"]</td>
