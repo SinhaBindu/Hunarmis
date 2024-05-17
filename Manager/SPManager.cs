@@ -74,6 +74,12 @@ namespace Hunarmis.Manager
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
+        public static DataSet Sp_DashboardPartCalling(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("Sp_PartCalling");
+            DataSet ds = sp.ExecuteDataSet();
+            return ds;
+        }
         public static DataTable SP_PartTempStatus()
         {
             StoredProcedure sp = new StoredProcedure("SP_PartTempStatus");

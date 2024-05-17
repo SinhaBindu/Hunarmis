@@ -1,0 +1,622 @@
+﻿@model  Hunarmis.Models.AspNetUser
+@using Hunarmis.Models
+@*@model IEnumerable<KGBV_JH.Models.QesRes>*@
+@{
+    ViewBag.Title = "Calling";
+    ViewBag.TitleIcon = "fa fa-area-chart";
+    ViewBag.SemiTitle = "Calling";
+    ViewBag.SemiTitleLink = "/Home/CallingDashboard";
+}
+
+<style>
+    .container {
+        width: 340px;
+        height: 280px;
+        display: inline-block;
+    }
+    /* #chartgrouptree {
+        width: 950px;
+        height: 500px;
+        display: inline-block;
+        margin:0,0,0,;
+    }*/
+    input#em {
+        width: 100%;
+    }
+
+    /*------------------------//Piechart--------------------*/
+
+    .highcharts-figure,
+    .highcharts-data-table table {
+        min-width: 320px;
+        max-width: 800px;
+        margin: 1em auto;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #ebebeb;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td,
+    .highcharts-data-table th,
+    .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr,
+    .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
+    }
+
+    input[type="number"] {
+        min-width: 50px;
+    }
+    /*------------------//Hiechart------------------------*/
+    .highcharts-figure,
+    .highcharts-data-table table {
+        min-width: 320px;
+        max-width: 500px;
+        margin: 1em auto;
+    }
+
+    #container {
+        height: 400px;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #ebebeb;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td,
+    .highcharts-data-table th,
+    .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr,
+    .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
+    }
+</style>
+
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel-spacer">
+                        <p class="bord-btm pad-ver text-main text-bold">
+                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title &nbsp;&nbsp;&nbsp;
+                            <strong id="partcolm" class="text-bold text-primary">  </strong> : <strong id="noofpart" class="text-success" style="font-size:medium;"></strong>
+                        </p>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="col-sm-12" id="errormsg">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <input id="em" type="range" min="0.3" max="2" step="0.01" value="1" style="display:none;" />
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div id="chartac" class="container"></div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div id="ChartIP" class="container"></div>
+                                </div>
+                                @*-------------------piechart------------------*@
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div id="ChartIC" class="container"></div>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div id="ChartTh" class="container"></div>
+                                </div>
+                                @*-------------------Hiechart------------------*@
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div id="ChartSW" class="container"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    <script src="https://code.highcharts.com/modules/treegraph.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/cylinder.js"></script>
+    <script src="https://code.highcharts.com/modules/funnel3d.js"></script>
+    <script src="https://code.highcharts.com/modules/pyramid3d.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/dumbbell.js"></script>
+    <script src="https://code.highcharts.com/modules/lollipop.js"></script>
+
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    @*---------------------------piechart------------------------------*@
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    @*----------------------Hiechart----------------*@
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script>
+        var chart = [];
+        $(document).ready(function () {
+            LoadReport();
+
+            //$('#em').on('input', function () {
+            //    chart.container.style.fontSize = this.value + 'em';
+            //    // Update layout based on new font and line sizes
+            //    chart.isDirtyLegend = true;
+            //    chart.redraw(false);
+            //});
+        });
+        function LoadReport() {
+            $('#errormsg').html("");
+            $('#global-loader').css('background', 'transparent').css('display', 'block');
+            $('#errormsg').removeClass("text-danger");
+            $.ajax({
+                // url: url,
+                url: document.baseURI + "/Home/GetCallingDashboard",
+                type: "POST",
+                data: '',
+                // contentType: "application/json",
+                success: function (resp) {
+                    if (resp.IsSuccess) {
+                        var resdata = JSON.parse(resp.Data);
+                        //var resdata1 = JSON.parse(resp.Data2);
+                        //var resdata2 = JSON.parse(resp.Data3);
+                        //var resdata3 = JSON.parse(resp.Data4);
+                        $('#errormsg').addClass("text-black");
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
+                        var ACData = [], CourseData = [], DisData = [],
+                            QlfData = [], TrainCrData = [], TrainingAgency = [], CutMnthCallSt = [];
+                        var Noofpart = 0; var Colpart = ""; var totalpart = [], DataPlace = [],
+                            AC = [], EP = [], CE = [], TH = [];
+
+                        var IPData = [], CourseData = [], DisData = [],
+                            QlfData = [], TrainCrData = [], TrainingAgency = [], CutMnthCallSt = [];
+                        var Noofpart = 0; var Colpart = ""; var totalpart = [], DataPlace = [],
+                            AC = [], EP = [], CE = [], TH = [];
+
+                        //-------------------piechart-----------------------
+                        var ICData = [], CourseData = [], DisData = [],
+                            QlfData = [], TrainCrData = [], TrainingAgency = [], CutMnthCallSt = [];
+                        var Noofpart = 0; var Colpart = ""; var totalpart = [], DataPlace = [],
+                            AC = [], EP = [], CE = [], TH = [];
+
+                        var ThData = [], CourseData = [], DisData = [],
+                            QlfData = [], TrainCrData = [], TrainingAgency = [], CutMnthCallSt = [];
+                        var Noofpart = 0; var Colpart = ""; var totalpart = [], DataPlace = [],
+                            AC = [], EP = [], CE = [], TH = [];
+
+                        //-------------------Hiechart-----------------------
+                        var SWData = [], CourseData = [], DisData = [],
+                            QlfData = [], TrainCrData = [], TrainingAgency = [], CutMnthCallSt = [];
+                        var Noofpart = 0; var Colpart = ""; var totalpart = [], DataPlace = [],
+                            AC = [], EP = [], CE = [], TH = [];
+
+                        if (resdata) {
+                            ACData = resdata.filter(x => x.Type == "IsAssessmentCert");
+                            IPData = resdata.filter(x => x.Type == "IsPresent");
+                            //----------------------piechart----------------------
+                            ICData = resdata.filter(x => x.Type == "IsComfortable");
+                            ThData = resdata.filter(x => x.Type == "Traininghelp");
+                            //----------------------Hiechart----------------------
+                            SWData = resdata.filter(x => x.Type == "SalaryWages");
+
+
+                            //CourseData = resdata.filter(x => x.Type == "Course");
+                            //DisData = resdata.filter(x => x.Type == "District");
+                            //QlfData = resdata.filter(x => x.Type == "Qualification");
+                            ////TrainCrData = resdata.filter(x => x.Type == "TrainingCenter");
+                            //TrainingAgency = resdata.filter(x => x.Type == "TrainingAgency");
+                            //AC = resdata.filter(x => x.Type == "AssessmentCertified");
+                            //EP = resdata.filter(x => x.Type == "EmployedPresent");
+                            //CE = resdata.filter(x => x.Type == "ComfortableEmployment");
+                            //TH = resdata.filter(x => x.Type == "TrainingHelp");
+                            //totalpart = resdata.filter(x => x.Type == "Participant");
+                            //$('#partcolm').html(totalpart[0].ColumnName); $('#noofpart').html(totalpart[0].NoofData);
+                            ChartAC(ACData);
+                            ChartIP(IPData);
+                            ChartIC(ICData);
+                            ChartTh(ThData);
+                            ChartSW(SWData);
+                            //ChartCourse(CourseData);
+                            //ChartQlf(QlfData);
+                            //ChartTrainingAgency(TrainingAgency);
+                        }
+                    }
+                    else {
+                        $('#errormsg').html(resp.Data); $('#errormsg').addClass("text-danger");
+                        //CreateToasterMessage("Error", response.Message, response.StatusType);
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    $('#errormsg').html(errormsg); $('#errormsg').addClass("text-danger");
+                    $('#global-loader').css('background', 'transparent').css('display', 'none');
+                }
+            });
+        }
+
+
+        function ChartAC(Data1) {
+            if (Data1.length > 0) {
+                var objd = new Object();
+                var Dlist = []; var name = []; var vl = [];
+                for (var i = 0; i < Data1.length; i++) {
+                    var obj = [Data1[i].ColumnName, Data1[i].NoofData];
+                    name.push(obj);
+                }
+                Highcharts.setOptions({
+                    colors: [
+                        '#058DC7', '#50B432'
+                        //, '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
+                        //'#FF9655', '#FFF263', '#6AF9C4'
+                    ]
+                });
+
+
+                // Set up the chart
+                chart = Highcharts.chart('chartac', {
+                    chart: {
+                        type: 'pyramid3d',
+                        borderWidth: 1,
+                        options3d: {
+                            enabled: true,
+                            alpha: 10,
+                            depth: 50,
+                            viewDistance: 50
+                        }
+                    },
+                    title: {
+                        text: 'Assessment Certifcate'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b> ({point.y:,.0f})',
+                                allowOverlap: true,
+                                x: 10,
+                                y: -5
+                            },
+                            width: '60%',
+                            height: '80%',
+                            center: ['50%', '45%']
+                        }
+                    },
+                    series: [{
+                        name: 'Assessment',
+                        data: name
+                    }]
+                });
+            }
+        }
+
+        let groupBy = (keys) => (array) =>
+            array.reduce((objectsByKeyValue, obj) => {
+                let value = keys.map((key) => obj[key]).join("-");
+                objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+                return objectsByKeyValue;
+            }, {});
+
+        function ChartIP(Data1) {
+            if (Data1.length > 0) {
+                var objd = new Object();
+                var Dlist = []; var name = []; var vl = [];
+                for (var i = 0; i < Data1.length; i++) {
+                    var obj = [Data1[i].ColumnName, Data1[i].NoofData];
+                    name.push(obj);
+                }
+                Highcharts.setOptions({
+                    colors: [
+                        '#058DC7', '#50B432'
+                        //, '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
+                        //'#FF9655', '#FFF263', '#6AF9C4'
+                    ]
+                });
+
+
+                // Set up the chart
+                chart = Highcharts.chart('ChartIP', {
+                    chart: {
+                        type: 'pyramid3d',
+                        borderWidth: 1,
+                        options3d: {
+                            enabled: true,
+                            alpha: 10,
+                            depth: 50,
+                            viewDistance: 50
+                        }
+                    },
+                    title: {
+                        text: 'Present'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b> ({point.y:,.0f})',
+                                allowOverlap: true,
+                                x: 10,
+                                y: -5
+                            },
+                            width: '60%',
+                            height: '80%',
+                            center: ['50%', '45%']
+                        }
+                    },
+                    series: [{
+                        name: 'Present',
+                        data: name
+                    }]
+                });
+            }
+        }
+
+        //_________________________Piechart_________________________
+        function ChartIC(Data1) {
+            if (Data1.length > 0) {
+                var objd = new Object();
+                var Dlist = []; var name = []; var vl = [];
+                for (var i = 0; i < Data1.length; i++) {
+                    var obj = [Data1[i].ColumnName, Data1[i].NoofData];
+                    name.push(obj);
+                }
+                Highcharts.setOptions({
+                    colors: [
+                        '#058DC7', '#50B432'
+                        //, '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
+                        //'#FF9655', '#FFF263', '#6AF9C4'
+                    ]
+                });
+
+
+                // Set up the chart
+                Highcharts.chart('ChartIC', {
+                    chart: {
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Comfortable'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        valueSuffix: '%'
+                    },
+                    //subtitle: {
+                    ////    text:
+                    //        'Source:<a href="https://www.mdpi.com/2072-6643/11/3/684/htm" target="_default"></a>'
+                    //},
+                    plotOptions: {
+                        series: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: [{
+                                enabled: true,
+                                distance: 20
+                            }, {
+                                enabled: true,
+                                distance: -40,
+                                format: '{point.percentage:.1f}%',
+                                style: {
+                                    fontSize: '1.2em',
+                                    textOutline: 'none',
+                                    opacity: 0.7
+                                },
+                                filter: {
+                                    operator: '>',
+
+                                    value: 10
+                                }
+                            }]
+                        }
+                    },
+                    series: [{
+                        name: 'Comfortable',
+                        data: name
+                    }]
+                });
+            }
+        }
+
+        function ChartTh(Data1) {
+            if (Data1.length > 0) {
+                var objd = new Object();
+                var Dlist = []; var name = []; var vl = [];
+                for (var i = 0; i < Data1.length; i++) {
+                    var obj = [Data1[i].ColumnName, Data1[i].NoofData];
+                    name.push(obj);
+                }
+                Highcharts.setOptions({
+                    colors: [
+                        '#058DC7', '#50B432'
+                        //, '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
+                        //'#FF9655', '#FFF263', '#6AF9C4'
+                    ]
+                });
+
+
+                // Set up the chart
+                Highcharts.chart('ChartTh', {
+                    chart: {
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Training Help'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    tooltip: {
+
+                    },
+                    //subtitle: {
+                    //    text:
+                    //        'Source:<a href="https://www.mdpi.com/2072-6643/11/3/684/htm" target="_default"></a>'
+                    //},
+                    plotOptions: {
+                        series: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: [{
+                                enabled: true,
+                                distance: 20
+                            }, {
+                                enabled: true,
+                                distance: -40,
+
+                                style: {
+                                    fontSize: '1.2em',
+                                    textOutline: 'none',
+                                    opacity: 0.7
+                                },
+                                filter: {
+                                    operator: '>',
+
+                                    value: 10
+                                }
+                            }]
+                        }
+                    },
+                    series: [{
+                        name: 'Training Help',
+                        data: name
+                    }]
+                });
+            }
+        }
+
+        //_________________________Hiechart_________________________
+        function ChartSW(Data1) {
+            if (Data1.length > 0) {
+                var objd = new Object();
+                var Dlist = []; var name = []; var vl = [];
+                for (var i = 0; i < Data1.length; i++) {
+                    var obj = [Data1[i].ColumnName, Data1[i].NoofData];
+                    name.push(obj);
+                }
+                Highcharts.chart('ChartSW', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: 0,
+                        plotShadow: false
+                    },
+                    title: {
+                        text: 'Salary wage',
+                        align: 'center',
+                        verticalAlign: 'middle',
+                        y: 60,
+                        style: {
+                            fontSize: '1.1em'
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    accessibility: {
+                        point: {
+                            valueSuffix: '%'
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            dataLabels: {
+                                enabled: true,
+                                distance: -50,
+                                style: {
+                                    fontWeight: 'bold',
+                                    color: 'white'
+                                }
+                            },
+                            startAngle: -90,
+                            endAngle: 90,
+                            center: ['50%', '75%'],
+                            size: '110%'
+                        }
+                    },
+                    series: [{
+                        name: 'Training Help',
+                        data: name
+                    }]
+                });
+            }
+        }
+
+
+
+    </script>
+}
+
