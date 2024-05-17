@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace Hunarmis.Controllers
 {
+
     [Authorize]
     public class HomeController : Controller
     {
