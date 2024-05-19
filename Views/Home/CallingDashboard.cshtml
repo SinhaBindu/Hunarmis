@@ -119,6 +119,11 @@
     .highcharts-data-table tr:hover {
         background: #f1f7ff;
     }
+
+    #page-content {
+        height: 500px !important;
+        overflow: scroll !important;
+    }
 </style>
 
 <div id="page-content">
@@ -127,46 +132,45 @@
             <div class="col-lg-12">
                 <div class="panel">
                     <div class="panel-spacer">
-                        <p class="bord-btm pad-ver text-main text-bold">
-                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title &nbsp;&nbsp;&nbsp;
-                            <strong id="partcolm" class="text-bold text-primary">  </strong> : <strong id="noofpart" class="text-success" style="font-size:medium;"></strong>
-                        </p>
+                        @*<p class="bord-btm pad-ver text-main text-bold">
+                                <i class="fa fa-list spacerright2"></i>@ViewBag.Title &nbsp;&nbsp;&nbsp;
+                                <strong id="partcolm" class="text-bold text-primary">  </strong> : <strong id="noofpart" class="text-success" style="font-size:medium;"></strong>
+                            </p>*@
                     </div>
 
                     <div class="panel-body">
                         <div class="col-sm-12" id="errormsg">
-
                         </div>
-                        <div class="col-sm-12">
-                            <input id="em" type="range" min="0.3" max="2" step="0.01" value="1" style="display:none;" />
 
-                            <div class="row">
-                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div id="chartac" class="container"></div>
-                                </div>
+                        <input id="em" type="range" min="0.3" max="2" step="0.01" value="1" style="display:none;" />
 
-                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div id="ChartIP" class="container"></div>
-                                </div>
-                                @*-------------------piechart------------------*@
-                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div id="ChartIC" class="container"></div>
-                                </div>
-                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div id="ChartTh" class="container"></div>
-                                </div>
-                                @*-------------------Hiechart------------------*@
-                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                    <div id="ChartSW" class="container"></div>
-                                </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div id="chartac" class="container"></div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div id="ChartIP" class="container"></div>
+                            </div>
+                            @*-------------------piechart------------------*@
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div id="ChartIC" class="container"></div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div id="ChartTh" class="container"></div>
+                            </div>
+                            @*-------------------Hiechart------------------*@
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div id="ChartSW" class="container"></div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 @section Scripts
 {
@@ -190,14 +194,14 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     @*---------------------------piechart------------------------------*@
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    @*<script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>*@
 
     @*----------------------Hiechart----------------*@
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    @*<script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>*@
 
     <script>
         var chart = [];
@@ -211,6 +215,14 @@
             //    chart.redraw(false);
             //});
         });
+
+        let groupBy = (keys) => (array) =>
+            array.reduce((objectsByKeyValue, obj) => {
+                let value = keys.map((key) => obj[key]).join("-");
+                objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+                return objectsByKeyValue;
+            }, {});
+
         function LoadReport() {
             $('#errormsg').html("");
             $('#global-loader').css('background', 'transparent').css('display', 'block');
@@ -302,7 +314,6 @@
             });
         }
 
-
         function ChartAC(Data1) {
             if (Data1.length > 0) {
                 var objd = new Object();
@@ -313,7 +324,7 @@
                 }
                 Highcharts.setOptions({
                     colors: [
-                        '#058DC7', '#50B432'
+                        '#e05f06', '#74e22a'
                         //, '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
                         //'#FF9655', '#FFF263', '#6AF9C4'
                     ]
@@ -360,13 +371,6 @@
             }
         }
 
-        let groupBy = (keys) => (array) =>
-            array.reduce((objectsByKeyValue, obj) => {
-                let value = keys.map((key) => obj[key]).join("-");
-                objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
-                return objectsByKeyValue;
-            }, {});
-
         function ChartIP(Data1) {
             if (Data1.length > 0) {
                 var objd = new Object();
@@ -375,13 +379,13 @@
                     var obj = [Data1[i].ColumnName, Data1[i].NoofData];
                     name.push(obj);
                 }
-                Highcharts.setOptions({
-                    colors: [
-                        '#058DC7', '#50B432'
-                        //, '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
-                        //'#FF9655', '#FFF263', '#6AF9C4'
-                    ]
-                });
+                //Highcharts.setOptions({
+                //    colors: [
+                //        '#e05f06', '#74e22a'
+                //        //, '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
+                //        //'#FF9655', '#FFF263', '#6AF9C4'
+                //    ]
+                //});
 
 
                 // Set up the chart
@@ -435,7 +439,7 @@
                 }
                 Highcharts.setOptions({
                     colors: [
-                        '#058DC7', '#50B432'
+                        '#e05f06', '#74e22a'
                         //, '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
                         //'#FF9655', '#FFF263', '#6AF9C4'
                     ]
@@ -445,7 +449,8 @@
                 // Set up the chart
                 Highcharts.chart('ChartIC', {
                     chart: {
-                        type: 'pie'
+                        type: 'pie',
+                        borderWidth: 1,
                     },
                     title: {
                         text: 'Comfortable'
@@ -502,7 +507,7 @@
                 }
                 Highcharts.setOptions({
                     colors: [
-                        '#058DC7', '#50B432'
+                        '#e05f06', '#74e22a'
                         //, '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
                         //'#FF9655', '#FFF263', '#6AF9C4'
                     ]
@@ -512,7 +517,17 @@
                 // Set up the chart
                 Highcharts.chart('ChartTh', {
                     chart: {
-                        type: 'pie'
+                        type: 'pie',
+                        borderWidth: 1,
+                        //colors: [
+                        //    '#ED561B',
+                        //    '#DDDF00',
+                        //    '#24CBE5',
+                        //    '#64E572',
+                        //    '#FF9655',
+                        //    '#FFF263',
+                        //    '#6AF9C4'
+                        //],
                     },
                     title: {
                         text: 'Training Help'
