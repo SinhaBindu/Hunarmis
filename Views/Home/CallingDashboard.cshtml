@@ -8,6 +8,7 @@
     ViewBag.SemiTitleLink = "/Home/CallingDashboard";
 }
 
+
 <style>
     .container {
         width: 340px;
@@ -75,13 +76,9 @@
     /*------------------//Hiechart------------------------*/
     .highcharts-figure,
     .highcharts-data-table table {
-        min-width: 320px;
-        max-width: 500px;
+        min-width: 310px;
+        max-width: 800px;
         margin: 1em auto;
-    }
-
-    #container {
-        height: 400px;
     }
 
     .highcharts-data-table table {
@@ -120,9 +117,153 @@
         background: #f1f7ff;
     }
 
-    #page-content {
-        height: 500px !important;
-        overflow: scroll !important;
+    #button-bar {
+        min-width: 310px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    /*------------------//ExpectationJobRole------------------------*/
+    .highcharts-figure,
+    .highcharts-data-table table {
+        min-width: 310px;
+        max-width: 800px;
+        margin: 1em auto;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #ebebeb;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td,
+    .highcharts-data-table th,
+    .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr,
+    .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
+    }
+
+    #button-bar {
+        min-width: 310px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    /*-----------------------------------------------------//WorkPlaceSafe//-------------------------------------------------------------*/
+    #container {
+        height: 420px;
+    }
+
+    .highcharts-figure,
+    .highcharts-data-table table {
+        min-width: 360px;
+        max-width: 600px;
+        margin: 1em auto;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #ebebeb;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td,
+    .highcharts-data-table th,
+    .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr,
+    .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
+    }
+    /*-----------------------------------------------------//IsMSBenefit//-------------------------------------------------------------*/
+    #container {
+        height: 420px;
+    }
+
+    .highcharts-figure,
+    .highcharts-data-table table {
+        min-width: 360px;
+        max-width: 600px;
+        margin: 1em auto;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #ebebeb;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td,
+    .highcharts-data-table th,
+    .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr,
+    .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
     }
 </style>
 
@@ -160,7 +301,16 @@
                             </div>
                             @*-------------------Hiechart------------------*@
                             <div class="col-sm-4 col-md-4 col-lg-4">
-                                <div id="ChartSW" class="container"></div>
+                                <div id="chartsw" class="container"></div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div id="chartejr" class="container"></div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div id="chartwps" class="container"></div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div id="chartimb" class="container"></div>
                             </div>
                         </div>
                     </div>
@@ -193,15 +343,6 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-    @*---------------------------piechart------------------------------*@
-    @*<script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <script src="https://code.highcharts.com/modules/accessibility.js"></script>*@
-
-    @*----------------------Hiechart----------------*@
-    @*<script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <script src="https://code.highcharts.com/modules/accessibility.js"></script>*@
 
     <script>
         var chart = [];
@@ -241,33 +382,12 @@
                         //var resdata3 = JSON.parse(resp.Data4);
                         $('#errormsg').addClass("text-black");
                         $('#global-loader').css('background', 'transparent').css('display', 'none');
-                        var ACData = [], CourseData = [], DisData = [],
-                            QlfData = [], TrainCrData = [], TrainingAgency = [], CutMnthCallSt = [];
+                        var ACData = [], CourseData = [], DisData = [], IPData = []
+                        QlfData = [], TrainCrData = [], TrainingAgency = [],
+                            CutMnthCallSt = [], ICData = [], ThData = [], SWData = [], EJRData = [], WPSData = [], IMBData = [];
                         var Noofpart = 0; var Colpart = ""; var totalpart = [], DataPlace = [],
                             AC = [], EP = [], CE = [], TH = [];
-
-                        var IPData = [], CourseData = [], DisData = [],
-                            QlfData = [], TrainCrData = [], TrainingAgency = [], CutMnthCallSt = [];
-                        var Noofpart = 0; var Colpart = ""; var totalpart = [], DataPlace = [],
-                            AC = [], EP = [], CE = [], TH = [];
-
-                        //-------------------piechart-----------------------
-                        var ICData = [], CourseData = [], DisData = [],
-                            QlfData = [], TrainCrData = [], TrainingAgency = [], CutMnthCallSt = [];
-                        var Noofpart = 0; var Colpart = ""; var totalpart = [], DataPlace = [],
-                            AC = [], EP = [], CE = [], TH = [];
-
-                        var ThData = [], CourseData = [], DisData = [],
-                            QlfData = [], TrainCrData = [], TrainingAgency = [], CutMnthCallSt = [];
-                        var Noofpart = 0; var Colpart = ""; var totalpart = [], DataPlace = [],
-                            AC = [], EP = [], CE = [], TH = [];
-
-                        //-------------------Hiechart-----------------------
-                        var SWData = [], CourseData = [], DisData = [],
-                            QlfData = [], TrainCrData = [], TrainingAgency = [], CutMnthCallSt = [];
-                        var Noofpart = 0; var Colpart = ""; var totalpart = [], DataPlace = [],
-                            AC = [], EP = [], CE = [], TH = [];
-
+                        
                         if (resdata) {
                             ACData = resdata.filter(x => x.Type == "IsAssessmentCert");
                             IPData = resdata.filter(x => x.Type == "IsPresent");
@@ -276,6 +396,9 @@
                             ThData = resdata.filter(x => x.Type == "Traininghelp");
                             //----------------------Hiechart----------------------
                             SWData = resdata.filter(x => x.Type == "SalaryWages");
+                            EJRData = resdata.filter(x => x.Type == "ExpectationJobRole");
+                            WPSData = resdata.filter(x => x.Type == "WorkPlaceSafe");
+                            IMBData = resdata.filter(x => x.Type == "IsMSBenefit");
 
 
                             //CourseData = resdata.filter(x => x.Type == "Course");
@@ -293,7 +416,10 @@
                             ChartIP(IPData);
                             ChartIC(ICData);
                             ChartTh(ThData);
-                            ChartSW(SWData);
+                            //ChartSW(SWData);
+                            ChartEJR(EJRData);
+                            ChartWPS(WPSData);
+                            ChartIMB(IMBData);
                             //ChartCourse(CourseData);
                             //ChartQlf(QlfData);
                             //ChartTrainingAgency(TrainingAgency);
@@ -498,6 +624,7 @@
         }
 
         function ChartTh(Data1) {
+            
             if (Data1.length > 0) {
                 var objd = new Object();
                 var Dlist = []; var name = []; var vl = [];
@@ -575,7 +702,196 @@
         }
 
         //_________________________Hiechart_________________________
-        function ChartSW(Data1) {
+        function ChartSW(data1) {
+            
+            if (data1.length > 0) {
+                //var objd = new object();
+                var dlist = [];
+                var name = [];
+                var vl = [];
+                for (var i = 0; i < data1.length; i++) {
+                    var obj = [data1[i].columnname, data1[i].noofdata];
+                    name.push(obj);
+                }
+                //highcharts.setoptions({
+                //    colors: [
+                //        '#e05f06', '#74e22a'
+                //        //, '#ed561b', '#dddf00', '#24cbe5', '#64e572',
+                //        //'#ff9655', '#fff263', '#6af9c4'
+                //    ]
+                //});
+                // data retrieved from https://www.ssb.no/statbank/table/10467/
+                const chart = highcharts.chart('ChartSW', {
+
+                    chart: {
+                        type: 'column',
+                        borderwidth: 1,
+                    },
+
+                    title: {
+                        text: 'salarywages'
+                    },
+
+                    legend: {
+                        align: 'right',
+                        verticalalign: 'middle',
+                        layout: 'vertical'
+                    },
+
+
+                    yaxis: {
+                        allowdecimals: false,
+                        title: {
+                            text: 'amount'
+                        }
+                    },
+
+                    series: [{
+                        name: 'salarywages',
+                        data: name
+                    }],
+
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxwidth: 500
+                            },
+                            chartoptions: {
+                                legend: {
+                                    align: 'center',
+                                    verticalalign: 'bottom',
+                                    layout: 'horizontal'
+                                },
+                                yaxis: {
+                                    labels: {
+                                        align: 'left',
+                                        x: 0,
+                                        y: -5
+                                    },
+                                    title: {
+                                        text: null
+                                    }
+                                },
+                                subtitle: {
+                                    text: null
+                                },
+                                credits: {
+                                    enabled: false
+                                }
+                            }
+                        }]
+                    }
+                });
+
+                document.getelementbyid('small').addeventlistener('click', function () {
+                    chart.setsize(400);
+                });
+
+                document.getelementbyid('large').addeventlistener('click', function () {
+                    chart.setsize(600);
+                });
+
+                document.getelementbyid('auto').addeventlistener('click', function () {
+                    chart.setsize(null);
+                });
+            }
+        }
+        ////_________________________ExpectationJobRole_________________________
+        function ChartEJR(data1) {
+            if (data1.length > 0) {
+                var objd = new object();
+                var dlist = [];
+                var name = [];
+                var vl = [];
+                for (var i = 0; i < data1.length; i++) {
+                    var obj = [data1[i].columnname, data1[i].noofdata];
+                    name.push(obj);
+                }
+                highcharts.setoptions({
+                    colors: [
+                        '#e05f06', '#74e22a'
+                        //, '#ed561b', '#dddf00', '#24cbe5', '#64e572',
+                        //'#ff9655', '#fff263', '#6af9c4'
+                    ]
+                });
+                // data retrieved from https://www.ssb.no/statbank/table/10467/
+                const chart = highcharts.chart('ChartEJR', {
+
+                    chart: {
+                        type: 'column',
+                        borderwidth: 1,
+                    },
+
+                    title: {
+                        text: 'ExpectationJobRole'
+                    },
+
+                    legend: {
+                        align: 'right',
+                        verticalalign: 'middle',
+                        layout: 'vertical'
+                    },
+
+
+                    yaxis: {
+                        allowdecimals: false,
+                        title: {
+                            text: 'amount'
+                        }
+                    },
+
+                    series: [{
+                        name: 'ExpectationJobRole',
+                        data: name
+                    }],
+
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxwidth: 500
+                            },
+                            chartoptions: {
+                                legend: {
+                                    align: 'center',
+                                    verticalalign: 'bottom',
+                                    layout: 'horizontal'
+                                },
+                                yaxis: {
+                                    labels: {
+                                        align: 'left',
+                                        x: 0,
+                                        y: -5
+                                    },
+                                    title: {
+                                        text: null
+                                    }
+                                },
+                                subtitle: {
+                                    text: null
+                                },
+                                credits: {
+                                    enabled: false
+                                }
+                            }
+                        }]
+                    }
+                });
+
+                document.getelementbyid('small').addeventlistener('click', function () {
+                    chart.setsize(400);
+                });
+
+                document.getelementbyid('large').addeventlistener('click', function () {
+                    chart.setsize(600);
+                });
+
+                document.getelementbyid('auto').addeventlistener('click', function () {
+                    chart.setsize(null);
+                });
+            }
+        }
+        ////_________________________WorkPlaceSafe_________________________
+        function ChartWPS(Data1) {
             if (Data1.length > 0) {
                 var objd = new Object();
                 var Dlist = []; var name = []; var vl = [];
@@ -583,55 +899,107 @@
                     var obj = [Data1[i].ColumnName, Data1[i].NoofData];
                     name.push(obj);
                 }
-                Highcharts.chart('ChartSW', {
+                // Set up the chart
+                Highcharts.chart('ChartWPS', {
                     chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: 0,
-                        plotShadow: false
-                    },
-                    title: {
-                        text: 'Salary wage',
-                        align: 'center',
-                        verticalAlign: 'middle',
-                        y: 60,
-                        style: {
-                            fontSize: '1.1em'
+                        type: 'funnel3d',
+                        borderWidth: 1,
+                        options3d: {
+                            enabled: true,
+                            alpha: 10,
+                            depth: 50,
+                            viewDistance: 50
                         }
                     },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    title: {
+                        text: 'WorkPlaceSafe'
+                    },
+                    credits: {
+                        enabled: false
                     },
                     accessibility: {
-                        point: {
-                            valueSuffix: '%'
+                        screenReaderSection: {
+                            beforeChartFormat: '<{headingTagName}>' +
+                                '{chartTitle}</{headingTagName}><div>{typeDescription}</div>' +
+                                '<div>{chartSubtitle}</div><div>{chartLongdesc}</div>'
                         }
                     },
                     plotOptions: {
-                        pie: {
+                        series: {
                             dataLabels: {
                                 enabled: true,
-                                distance: -50,
-                                style: {
-                                    fontWeight: 'bold',
-                                    color: 'white'
-                                }
+                                format: '<b>{point.name}</b> ({point.y:,.0f})',
+                                allowOverlap: true,
+                                y: 10
                             },
-                            startAngle: -90,
-                            endAngle: 90,
-                            center: ['50%', '75%'],
-                            size: '110%'
+                            neckWidth: '30%',
+                            neckHeight: '25%',
+                            width: '80%',
+                            height: '80%'
                         }
                     },
                     series: [{
-                        name: 'Training Help',
+                        name: 'WorkPlaceSafe',
                         data: name
                     }]
                 });
             }
         }
-
-
-
+        ////_________________________IsMSBenefit_________________________
+        function ChartIMB(Data1) {
+            if (Data1.length > 0) {
+                var objd = new Object();
+                var Dlist = []; var name = []; var vl = [];
+                for (var i = 0; i < Data1.length; i++) {
+                    var obj = [Data1[i].ColumnName, Data1[i].NoofData];
+                    name.push(obj);
+                }
+                // Set up the chart
+                Highcharts.chart('ChartIMB', {
+                    chart: {
+                        type: 'funnel3d',
+                        borderWidth: 1,
+                        options3d: {
+                            enabled: true,
+                            alpha: 10,
+                            depth: 50,
+                            viewDistance: 50
+                        }
+                    },
+                    title: {
+                        text: 'IsMSBenefit'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    accessibility: {
+                        screenReaderSection: {
+                            beforeChartFormat: '<{headingTagName}>' +
+                                '{chartTitle}</{headingTagName}><div>{typeDescription}</div>' +
+                                '<div>{chartSubtitle}</div><div>{chartLongdesc}</div>'
+                        }
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b> ({point.y:,.0f})',
+                                allowOverlap: true,
+                                y: 10
+                            },
+                            neckWidth: '30%',
+                            neckHeight: '25%',
+                            width: '80%',
+                            height: '80%'
+                        }
+                    },
+                    series: [{
+                        name: 'IsMSBenefit',
+                        data: name
+                    }]
+                });
+            }
+        }
     </script>
 }
 
