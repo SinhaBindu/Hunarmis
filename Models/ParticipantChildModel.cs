@@ -37,8 +37,16 @@ namespace Hunarmis.Models
         public string EBatchDt { get; set; }
         [Display(Name = DplyPartCalName.PhoneNo)]
         public string PhoneNo { get; set; }
+        [Display(Name = DplyPartCalName.TrainingAgencyName)]
+        public string TrainingAgencyName { get; set; }
+        [Display(Name = DplyPartCalName.TrainingCenter)]
+        public string TrainingCenter { get; set; }
+        [Display(Name = DplyPartCalName.ReportedBy)]
+        public string ReportedBy { get; set; }
+        [Display(Name = DplyPartCalName.ReportedOn)]
+        public string ReportedOn { get; set; }
 
-        //Questions
+        //Questions Binding
         [Display(Name = DplyPartCalName.CallType)]
         public string CallType { get; set; }
         [Display(Name = DplyPartCalName.Remark)]
@@ -139,5 +147,9 @@ namespace Hunarmis.Models
         public const string IsOffered = "Is the candidate Offer or not?";
         public const string PlacedStatus = "Is the candidate placed or not?";
         public const string PhoneNo = "Phone No";
+        public const string TrainingAgencyName = "Training Agency Name";
+        public const string TrainingCenter = "Training Center";
+        public const string ReportedBy = "Reported By";
+        public const string ReportedOn = "Reported On";
     }
 }
