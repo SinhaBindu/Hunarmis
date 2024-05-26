@@ -472,6 +472,198 @@ namespace Hunarmis.Controllers
             resResponse4.MaxJsonLength = int.MaxValue;
             return resResponse4;
         }
+        //---------------------//Training_Agency//----------------------
+        public ActionResult GetTrainAgencylist()
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SPManager.SP_Training_AgencyList();
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_TrainingAGYData", tbllist);// _TrainingAGYData 
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
+        public ActionResult AgencyMaster(int id = 0)
+        {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            TrainingAgencyModel model = new TrainingAgencyModel();
+            if (id > 0)
+            {
+                var tbl = db_.TrainingAgency_Master.Find(id);
+                if (tbl != null)
+                {
+                    model.Id = tbl.Id;
+                    model.TrainingAgencyName = tbl.TrainingAgencyName;
+                }
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public JsonResult AgencyMaster(TrainingAgencyModel model)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            JsonResponseData response = new JsonResponseData();
+            try
+            {
+                var tbl = model.Id != 0 ? db.TrainingAgency_Master.Find(model.Id) : new TrainingAgency_Master();
+                if (tbl != null && model != null)
+                {
+                    tbl.TrainingAgencyName = model.TrainingAgencyName;
+                    tbl.IsActive = true;
+                    if (model.Id == 0)
+                    {
+                        if (!_db.TrainingAgency_Master.Any())
+                        {
+                            tbl.Id = 1;
+                        }
+                        else
+                        {
+                            var max = _db.TrainingAgency_Master?.Max(x => x.Id);
+                            tbl.Id = max == 0 ? 1 : Convert.ToInt32(max.Value) + 1;
+
+                        }
+
+                        tbl.CreatedBy = MvcApplication.CUser.UserId;
+                        tbl.CreatedOn = DateTime.Now;
+                        db.TrainingAgency_Master.Add(tbl);
+                    }
+                    else
+                    {
+                        tbl.UpdatedBy = MvcApplication.CUser.UserId;
+                        tbl.Updated = DateTime.Now;
+                    }
+                    int res = db.SaveChanges();
+                    if (res > 0)
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Record Submitted Successfully!!!", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error.", Data = null };
+                var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                resResponse3.MaxJsonLength = int.MaxValue;
+                return resResponse3;
+            }
+            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error..", Data = null };
+            var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
+            resResponse4.MaxJsonLength = int.MaxValue;
+            return resResponse4;
+        }
+        //---------------------//Training_Centre//----------------------
+        public ActionResult GetTrainingCentreMasterList()
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SPManager.SP_TrainingCentreList();
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_TrainingCentreData", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
+        public ActionResult TrainingCenter(int id = 0)
+        {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            TrainingCentreModel model = new TrainingCentreModel();
+            if (id > 0)
+            {
+                var tbl = db_.TrainingCenter_Master.Find(id);
+                if (tbl != null)
+                {
+                    model.Id = tbl.Id;
+                    model.DistrictID = tbl.DistrictID_fk;
+                    model.TrainingAgencyID = tbl.TrainingAgencyID_fk;
+                    model.TrainingCenter = tbl.TrainingCenter;
+                    model.Location = tbl.Location;
+                }
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public JsonResult TrainingCenter(TrainingCentreModel model)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            JsonResponseData response = new JsonResponseData();
+            try
+            {
+                var tbl = model.Id != 0 ? db.TrainingCenter_Master.Find(model.Id) : new TrainingCenter_Master();
+                if (tbl != null && model != null)
+                {
+                    tbl.DistrictID_fk = model.DistrictID;
+                    tbl.TrainingAgencyID_fk = model.TrainingAgencyID;
+                    tbl.TrainingCenter = model.TrainingCenter;
+                    tbl.Location = model.Location;
+                    tbl.IsActive = true;
+                    if (model.Id == 0)
+                    {
+                        if (!_db.TrainingCenter_Master.Any())
+                        {
+                            tbl.Id = 1;
+                        }
+                        else
+                        {
+                            var max = _db.TrainingCenter_Master?.Max(x => x.Id);
+                            tbl.Id = max == 0 ? 1 : Convert.ToInt32(max.Value) + 1;
+
+                        }
+
+                        tbl.CreatedBy = MvcApplication.CUser.UserId;
+                        tbl.CreatedOn = DateTime.Now;
+                        db.TrainingCenter_Master.Add(tbl);
+                    }
+                    else
+                    {
+                        tbl.UpdatedBy = MvcApplication.CUser.UserId;
+                        tbl.Updated = DateTime.Now;
+                    }
+                    int res = db.SaveChanges();
+                    if (res > 0)
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Record Submitted Successfully!!!", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error.", Data = null };
+                var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                resResponse3.MaxJsonLength = int.MaxValue;
+                return resResponse3;
+            }
+            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error..", Data = null };
+            var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
+            resResponse4.MaxJsonLength = int.MaxValue;
+            return resResponse4;
+        }
 
         #endregion
 

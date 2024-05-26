@@ -1,0 +1,50 @@
+﻿@using System.Data
+@using Hunarmis.Manager
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
+}
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="tbl">
+        <thead class="text-center">
+            <tr>
+                <th class="text-center tblth">Sno</th>
+                <th class="text-center tblth">District Name</th>
+                <th class="text-center tblth">Training Agency Name</th>
+                <th class="text-center tblth">Training Center</th>
+                <th class="text-center tblth">Location</th>
+                <th style="width: 80px" class="text-center tblth">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (dt.Rows.Count > 0)
+                {
+                    int srno = 1;
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        <tr class="text-center">
+                            <td>@(srno++)</td>
+                            <td>@dr["DistrictName"]</td>
+                            <td>@dr["TrainingAgencyName"]</td>
+                            <td>@dr["TrainingCenter"]</td>
+                            <td>@dr["Location"]</td>
+                            
+                            <td>
+                                <a href="~/Master/TrainingCenter?Id=@dr["Id"]" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

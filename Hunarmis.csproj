@@ -478,12 +478,14 @@
     <Compile Include="Models\tbl_UserLogin.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TrainingAgencyModel.cs" />
     <Compile Include="Models\TrainingAgency_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TrainingCenter_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TrainingCentreModel.cs" />
     <Compile Include="Models\Year_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -1670,6 +1672,10 @@
     <Content Include="Views\Master\EducationalMaster.cshtml" />
     <Content Include="Views\Master\_EducationalData.cshtml" />
     <Content Include="Views\Home\CallingDashboard.cshtml" />
+    <Content Include="Views\Master\AgencyMaster.cshtml" />
+    <Content Include="Views\Master\_TrainingAGYData.cshtml" />
+    <Content Include="Views\Master\_TrainingCentreData.cshtml" />
+    <Content Include="Views\Master\TrainingCenter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
