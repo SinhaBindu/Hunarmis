@@ -1,0 +1,129 @@
+﻿@model  Hunarmis.Models.FilterModel
+@using Hunarmis.Manager
+@{
+    ViewBag.Title = "Assessment Score Summary";
+    ViewBag.TitleIcon = "fa fa-user";
+    ViewBag.SemiTitle = "Summary Scorer's";
+    ViewBag.SemiTitleLink = "/Assessment/ScorerSummary";
+}
+<style>
+    .panel-body {
+        padding: 0px 20px 5px;
+    }
+
+    #ListDataTable #tbl-body tr td {
+        padding: 11px 8px 0 8px !important;
+    }
+
+    .edit-icon .fa {
+        font-size: 17px;
+        color: #3FAEE2;
+    }
+</style>
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel-spacer">
+                        <p class="bord-btm pad-ver text-main text-bold">
+                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title <strong id="sg-title" class="text-info"></strong>
+                        </p>
+                    </div>
+                    @using (Html.BeginForm("GetScorerSummary", "Assessment", FormMethod.Post, new { @id = "tblList-frm", @class = "panel-body form-horizontal form-padding loader" }))
+                    {
+                        <div class="panel-bodys">
+                            <div class="bg-light rounded h-100 p-4">
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-group">
+                                            @Html.LabelFor(m => m.FormId, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.FormId, CommonModel.GetForm(1), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                            @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                    <div class="panel-body">
+                        <div class="row" id="div-main">
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+           
+            var txt = $('option:selected', $('#FormId')).text();
+            $('#sg-title').html(txt);
+            LoadReport();
+            $('#FormId').change(function () {
+                var txt = $('option:selected', $(this)).text();
+                $('#sg-title').html(txt);
+                LoadReport();
+            })
+
+        });
+        function LoadReport() {
+            $('#div-main').html(""); $("#ListDataTable tbody").html("");
+            $('#div-main').removeClass("text-danger");
+            $('#global-loader').css('background', 'transparent').css('display', 'block');
+            var id = '#tblList-frm'
+            var url = $(id).attr("action");
+            var User = 'all';
+            var FormId = $("#FormId").val();
+            $.ajax({
+                // url: url,
+                url: document.baseURI + "/Assessment/GetScorerSummary",
+                type: "POST",
+                data: { 'User': User, 'FormId': FormId },
+                // contentType: "application/json",
+                success: function (resp) {
+                    if (resp.IsSuccess) {
+                        //$('#div-Chart').html(resp.Data); $('#div-Chart').addClass("text-black");
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
+                        debugger;
+                        var Datalist = (resp.reshtml);
+                        if (Datalist != null && Datalist != undefined) {
+                            if (Datalist.length > 0) {
+                                $('#div-main').html(Datalist);
+                                $("#ListDataTable").DataTable();
+                            }
+                            else {
+                                
+                                $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
+                            }
+                        }
+                        else {
+                            $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
+                        }
+                    }
+                    else {
+                        $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
+                        //  CreateToasterMessage("Error", response.Message, response.StatusType);
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    $('#div-Chart').html(errormsg); $('#div-Chart').addClass("text-danger");
+                    $('#global-loader').css('background', 'transparent').css('display', 'none');
+                }
+            });
+        }
+    </script>
+}

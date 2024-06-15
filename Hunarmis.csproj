@@ -366,6 +366,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AssessmentController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -403,6 +404,10 @@
     <Compile Include="Models\EducationalModel.cs" />
     <Compile Include="Models\FileExcelModel.cs" />
     <Compile Include="Models\FilterModel.cs" />
+    <Compile Include="Models\FormMaster.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FormModel.cs" />
     <Compile Include="Models\JobEmployed_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -457,6 +462,12 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\QuestionBook.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuestionOption.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\State_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -469,10 +480,19 @@
     <Compile Include="Models\tbl_Participant.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_ParticipantRemarks_History.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_Participant_Calling.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_SendMail.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Survey.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_SurveyAnswer.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_UserLogin.cs">
@@ -1501,6 +1521,8 @@
     </Content>
     <Content Include="Scripts\amazingcarousel.js" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\App\CallingChart.js" />
+    <Content Include="Scripts\App\ChartSummary1.js" />
     <Content Include="Scripts\App\DashBoard-Chart.js" />
     <Content Include="Scripts\App\Dummy.js" />
     <Content Include="Scripts\App\Jharkhand.js" />
@@ -1676,6 +1698,14 @@
     <Content Include="Views\Master\_TrainingAGYData.cshtml" />
     <Content Include="Views\Master\_TrainingCentreData.cshtml" />
     <Content Include="Views\Master\TrainingCenter.cshtml" />
+    <Content Include="Views\Home\CallingChart.cshtml" />
+    <Content Include="Views\Assessment\Add.cshtml" />
+    <Content Include="Views\Assessment\Index.cshtml" />
+    <Content Include="Views\Assessment\ScorerSummary.cshtml" />
+    <Content Include="Views\Assessment\Summary.cshtml" />
+    <Content Include="Views\Assessment\_Index.cshtml" />
+    <Content Include="Views\Assessment\_ScorerSummaryData.cshtml" />
+    <Content Include="Views\Home\TrainingCenterWise.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

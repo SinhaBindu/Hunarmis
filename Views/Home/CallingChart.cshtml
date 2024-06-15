@@ -1,0 +1,142 @@
+﻿@model Hunarmis.Models.FilterModel
+@using Hunarmis.Models
+@using Hunarmis.Manager
+@*@model IEnumerable<KGBV_JH.Models.QesRes>*@
+@{
+    ViewBag.Title = "Calling";
+    ViewBag.TitleIcon = "fa fa-area-chart";
+    ViewBag.SemiTitle = "Calling";
+    ViewBag.SemiTitleLink = "/Home/CallingDashboard";
+}
+
+<style>
+    .container {
+        width: 500px;
+        height: 280px;
+        display: inline-block;
+    }
+    /* #chartgrouptree {
+        width: 950px;
+        height: 500px;
+        display: inline-block;
+        margin:0,0,0,;
+    }*/
+    input#em {
+        width: 100%;
+    }
+</style>
+
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel-spacer">
+                        @*<p class="bord-btm pad-ver text-main text-bold">
+                                <i class="fa fa-list spacerright2"></i>@ViewBag.Title &nbsp;&nbsp;&nbsp;
+                                <strong id="partcolm" class="text-bold text-primary">  </strong> : <strong id="noofpart" class="text-success" style="font-size:medium;"></strong>
+                            </p>*@
+                    </div>
+                    @using (Html.BeginForm("GetCallingChartMonth", "Home", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+                    {
+                        <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                        <div class="panel-bodys">
+                            <div class="bg-light rounded h-100 p-4">
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-group">
+                                            @Html.LabelFor(model => model.YearId, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.YearId, CommonModel.GetYear(0), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                            @Html.ValidationMessageFor(model => model.YearId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-group">
+                                            @Html.LabelFor(model => model.MonthId, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.MonthId, CommonModel.GetMonth(0), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                            @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+                    <div class="panel-body">
+                        <div class="col-sm-12" id="errormsg">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div id="chartCallmonth" class="container"></div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div id="chartsalarypackage" class="container"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div id="chartworklocation" class="container"></div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div id="chartpalce" class="container"></div>
+                            </div>
+                            <!--
+                            @*-------------------piechart------------------*@
+
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div id="ChartTh" class="container"></div>
+                            </div>-->
+                            @*-------------------Hiechart------------------*@
+                            <!--<div class="col-sm-4 col-md-4 col-lg-4">
+                                <div id="chartsw" class="container"></div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div id="chartejr" class="container"></div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div id="chartwps" class="container"></div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div id="chartimb" class="container"></div>
+                            </div>-->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    <script src="https://code.highcharts.com/modules/treegraph.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/cylinder.js"></script>
+    <script src="https://code.highcharts.com/modules/funnel3d.js"></script>
+    <script src="https://code.highcharts.com/modules/pyramid3d.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/dumbbell.js"></script>
+    <script src="https://code.highcharts.com/modules/lollipop.js"></script>
+
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="~/Scripts/App/CallingChart.js"></script>
+
+    @*<script>
+            $(document).ready(function () {
+                LoadReport();
+            });
+        </script>*@
+}
+

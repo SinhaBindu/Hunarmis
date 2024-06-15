@@ -19,6 +19,12 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SP_GetUserList()
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetUserList");
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
         public static DataTable SP_Batch()
         {
             StoredProcedure sp = new StoredProcedure("SP_Batch");
@@ -69,11 +75,14 @@ namespace Hunarmis.Manager
         public static DataTable SP_PartQuesList(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_PartQuesList");
+            //model.ParticipantId = !string.IsNullOrWhiteSpace(model.ParticipantId) ? model.ParticipantId : "";
+            //model.ParticipantQuestionId = !string.IsNullOrWhiteSpace(model.ParticipantQuestionId) ? model.ParticipantQuestionId : "";
             sp.Command.AddParameter("@YearId", model.YearId, DbType.Int32);
             sp.Command.AddParameter("@MonthId", model.MonthId, DbType.Int32);
             sp.Command.AddParameter("@BatchId", model.BatchId, DbType.Int32);
             sp.Command.AddParameter("@ParticipantId", model.ParticipantId, DbType.String);
             sp.Command.AddParameter("@ParticipantQuestionId", model.ParticipantQuestionId, DbType.String);
+            sp.Command.AddParameter("@UserId", model.UserId, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -93,6 +102,15 @@ namespace Hunarmis.Manager
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
+        public static DataSet SP_CallChartWiseMonth(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_CallChartWiseMonth");
+            sp.Command.AddParameter("@YearId", model.YearId, DbType.Int32);
+            sp.Command.AddParameter("@MonthId", model.MonthId, DbType.Int32);
+            sp.Command.AddParameter("@UserBy", model.CutUser, DbType.String);
+            DataSet ds = sp.ExecuteDataSet();
+            return ds;
+        }
         public static DataTable SP_PartTempStatus()
         {
             StoredProcedure sp = new StoredProcedure("SP_PartTempStatus");
@@ -105,5 +123,31 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        #region Start 7 june 2024  Assessment Controller 
+        public static DataSet GetSPScoreMarkAnswer(string User, int FormId)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_ScoreMarkAnswer");
+            sp.Command.AddParameter("@FormId", FormId, DbType.Int16);
+            sp.Command.AddParameter("@User", User, DbType.String);
+            DataSet ds = sp.ExecuteDataSet();
+            return ds;
+        }
+        public static DataSet GetQuestionSummaryMarks(string User, int FormId)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_QuestionSummaryMarks");
+            sp.Command.AddParameter("@FormId", FormId, DbType.Int16);
+            sp.Command.AddParameter("@User", User, DbType.String);
+            DataSet ds = sp.ExecuteDataSet();
+            return ds;
+        }
+        public static DataSet GetSP_ScorersSummaryMarks(string User, int FormId)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_ScorersSummary");
+            sp.Command.AddParameter("@FormId", FormId, DbType.Int16);
+            sp.Command.AddParameter("@User", User, DbType.String);
+            DataSet ds = sp.ExecuteDataSet();
+            return ds;
+        }
+        #endregion
     }
 }

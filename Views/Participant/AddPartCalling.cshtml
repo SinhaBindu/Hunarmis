@@ -10,7 +10,6 @@
 }
 <link href="~/Content/plugins/multiple-email/email.multiple.css" rel="stylesheet" />
 
-
 <style>
     @@media (max-width:991px) {
         .mt-md-10 {
@@ -73,6 +72,8 @@
                                 <div class=""><p>Training Center  <span> : @Model.TrainingCenter</span></p></div>
                                 <div class=""><p>Reported By  <span> : @Model.ReportedBy</span></p></div>
                                 <div class=""><p>Reported On  <span> : @Model.ReportedOn</span></p></div>
+                                <div class=""><p>Remark Status  <span> : @Model.PrvRemarkStatus</span></p></div>
+                                <div class=""><p>Remarks  <span> : @Model.PrvRemark</span></p></div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(model => model.QuesYear, htmlAttributes: new { @class = "control-label col-lg-2" })
@@ -101,11 +102,19 @@
                                 </div>
                                 <div class="mark-devide"></div>
                             </div>
-                            <div class="form-group" style="display:none;" id="div-remark">
+                            <div class="form-group div-remark" style="display:none;">
                                 @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-lg-4" })
                                 <div class="col-lg-8">
                                     @Html.TextAreaFor(model => model.Remark, new { @type = "text", @class = "required form-control" })
                                     @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mark-devide"></div>
+                            </div>
+                            <div class="form-group div-remark" style="display:none;">
+                                @Html.LabelFor(model => model.RemarkStatus, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                <div class="col-lg-8">
+                                    @Html.DropDownListFor(model => model.RemarkStatus, CommonModel.GetRemarkStatusList(false), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                    @Html.ValidationMessageFor(model => model.RemarkStatus, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="mark-devide"></div>
                             </div>
@@ -155,14 +164,14 @@
                                     </div>
                                     <div class="mark-devide"></div>
                                 </div>
-                                <div class="form-group Iscomftable">
-                                    @Html.LabelFor(model => model.FirstJobTraining, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                    <div class="col-lg-8">
-                                        @Html.EditorFor(model => model.FirstJobTraining, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.FirstJobTraining, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="mark-devide"></div>
-                                </div>
+                                @*<div class="form-group Iscomftable" style="display:none;">
+                @Html.LabelFor(model => model.FirstJobTraining, htmlAttributes: new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.EditorFor(model => model.FirstJobTraining, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.FirstJobTraining, "", new { @class = "text-danger" })
+                </div>
+                <div class="mark-devide"></div>
+            </div>*@
                                 <div class="form-group Iscomftable">
                                     @Html.LabelFor(model => model.DOJ, htmlAttributes: new { @class = "control-label col-lg-4" })
                                     <div class="col-lg-8">
@@ -190,7 +199,7 @@
                                 <div class="form-group Iscomftable">
                                     @Html.LabelFor(model => model.SalaryPackage, htmlAttributes: new { @class = "control-label col-lg-4" })
                                     <div class="col-lg-8">
-                                        @Html.EditorFor(model => model.SalaryPackage, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
+                                        @Html.EditorFor(model => model.SalaryPackage, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal", min = "0"} })
                                         @Html.ValidationMessageFor(model => model.SalaryPackage, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
@@ -314,7 +323,7 @@
                                     </div>
                                     <div class="mark-devide"></div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group IsGettingjob" style="display:none;">
                                     @Html.LabelFor(model => model.IsGettingjob, htmlAttributes: new { @class = "control-label col-lg-4" })
                                     <div class="checkbox">
                                         @foreach (var item in CommonModel.GetYesNo())
@@ -326,14 +335,14 @@
                                         @Html.ValidationMessageFor(model => model.IsGettingjob, "", new { @class = "text-danger" })
                                     </div>
                                     @*<div class="col-lg-8">
-                                            @Html.EditorFor(model => model.IsGettingjob, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
-                                            @Html.ValidationMessageFor(model => model.IsGettingjob, "", new { @class = "text-danger" })
-                                        </div>*@
+                    @Html.EditorFor(model => model.IsGettingjob, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.IsGettingjob, "", new { @class = "text-danger" })
+                </div>*@
                                     <div class="mark-devide"></div>
                                 </div>
 
                                 @*id="div-PlacedStatus" style="display:none;"*@
-                                <div id="div-PlacedStatus">
+                                <div id="div-PlacedStatus" style="display:none;">
                                     <h4 class="semi-title">@Hunarmis.Models.DplyPartCalName.SectionPlacement</h4>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.PlacedStatus, htmlAttributes: new { @class = "control-label col-lg-4" })
@@ -353,7 +362,7 @@
                             <div class="form-group">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-7">
-                                    <span class="webshow ">
+                                    <span class="">
                                         @*<button type="submit" class="previous btn btn-primary btn-lg">Submit</button>*@
                                         <input type="submit" name="btnsubmit" value="Submit" id="btnsubmit" class="previous btn-lg btn-register" />
                                         <a href="~/Participant/AddPartCalling?PartId=@Model.ParticipantId_fk" class="btn-reset"><i class="fa fa-refresh"></i></a>
@@ -400,14 +409,16 @@
           //$('input[name="IsPeerPresent"]:checked').length != 0
 
             $('input[type=radio][name=CallType]').change(function () {
-                $('#div-ques').hide(); $('#div-remark').hide();
+                $('#div-ques').hide(); $('.div-remark').hide();
                 $('#Remark').removeAttr('required'); $('#Remark').val('');
+                $('#RemarkStatus').removeAttr('required'); $('#RemarkStatus').val('0');
                 if (this.value == 'Yes') {
                     $('#div-ques').show();
                 }
                 else if (this.value == 'No') {
-                    $('#div-remark').show();
+                    $('.div-remark').show();
                     $('#Remark').attr('required','required');
+                    $('#RemarkStatus').attr('required','required');
                 }
             });
 
@@ -417,11 +428,13 @@
                 if (this.value == 'Yes') {
                     $('#div-IsComfortable').show(); $("input[name=IsComfortable]").attr('required', 'required');
                     $('#div-EmployedId').hide(); $("input[name=EmployedId]").removeAttr('required');
+                    $('.IsGettingjob').hide();
                 }
                 else if (this.value == 'No') {
                     $('#div-EmployedId').show();
                     $("input[name=EmployedId]").attr('required', 'required');
-                     $("input[name=IsComfortable]").removeAttr('required');
+                    $("input[name=IsComfortable]").removeAttr('required');
+                    $('.IsGettingjob').show();
                     $('#div-IsComfortable').hide();
                 }
             });
@@ -551,6 +564,10 @@
             });//end final submit
 
         });//End Load Method
+        function setTwoNumberDecimal(event) {
+            this.value = parseFloat(this.value).toFixed(2);
+        }
+
         function formatDate(dateStr) {
             debugger;
             const d = new Date(dateStr);
@@ -560,7 +577,7 @@
 
         function InputClear() {
             $("input[name=EmpCompany]").val('');
-            $("input[name=FirstJobTraining]").val('');
+            //$("input[name=FirstJobTraining]").val('');
             $("input[name=DOJ]").val('');
             $("input[name=CurrentEmployer]").val('');
             $("input[name=Designation]").val('');

@@ -45,7 +45,13 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_SendMail> tbl_SendMail { get; set; }
         public virtual DbSet<tbl_MailData> tbl_MailData { get; set; }
         public virtual DbSet<tbl_FileUpload> tbl_FileUpload { get; set; }
-        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<tbl_Participant_Calling> tbl_Participant_Calling { get; set; }
+        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
+        public virtual DbSet<QuestionBook> QuestionBooks { get; set; }
+        public virtual DbSet<QuestionOption> QuestionOptions { get; set; }
+        public virtual DbSet<tbl_Survey> tbl_Survey { get; set; }
+        public virtual DbSet<tbl_SurveyAnswer> tbl_SurveyAnswer { get; set; }
+        public virtual DbSet<FormMaster> FormMasters { get; set; }
+        public virtual DbSet<tbl_ParticipantRemarks_History> tbl_ParticipantRemarks_History { get; set; }
     }
 }

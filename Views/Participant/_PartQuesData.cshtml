@@ -24,6 +24,7 @@
                     <th class="text-center tblth">Batch Name</th>
                     <th class="text-center tblth">Batch Start Date</th>
                     <th class="text-center tblth">Batch End Date</th>
+                    <th class="text-center tblth">Reported By</th>
                     @*<th class="text-center">Edit</th>*@
                 </tr>
             </thead>
@@ -48,6 +49,7 @@
                                 <td class="text-left">@dr["BatchName"]</td>
                                 <td class="text-center">@dr["BatchStartDate"]</td>
                                 <td class="text-center">@dr["BatchEndDate"]</td>
+                                <td class="text-center">@dr["ReportedBy"]</td>
                                 @*<td class="text-center">
                                         <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                                     </td>*@

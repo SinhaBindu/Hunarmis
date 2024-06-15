@@ -31,6 +31,8 @@ namespace Hunarmis.Models
         public string RoleId { get; set; }
         [Display(Name = "Role")]
         public string Roles { get; set; }
+        [Display(Name = "Name")]
+        public string UserId { get; set; }
         public string CutUser { get; set; }
         [Display(Name = "Month")]
         public int MonthId { get; set; }
@@ -47,5 +49,7 @@ namespace Hunarmis.Models
         public int TempStatus { get; set; }
         [Display(Name = "Calling Status")]
         public string CallStatus { get; set; }
+        [Display(Name = "Type of Assessment")]
+        public string FormId { get; set; }
     }
 }

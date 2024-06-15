@@ -29,6 +29,8 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = DplyPartName.LastName)]
         public string LastName { get; set; }
+        [Display(Name = DplyPartName.FullName)]
+        public string FullName { get; set; }
         [Required]
         [Display(Name = DplyPartName.Gender)]
         public string Gender { get; set; }
@@ -92,6 +94,7 @@ namespace Hunarmis.Models
     public static class DplyPartName
     {
         public const string RegID = "Registration ID";
+        public const string FullName = "Name";
         public const string FirstName = "First Name";
         public const string MiddleName = "Middle Name";
         public const string LastName = "Last Name";

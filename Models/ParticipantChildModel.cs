@@ -46,6 +46,11 @@ namespace Hunarmis.Models
         [Display(Name = DplyPartCalName.ReportedOn)]
         public string ReportedOn { get; set; }
 
+        [Display(Name = DplyPartCalName.Remark)]
+        public string PrvRemark { get; set; }
+        [Display(Name = DplyPartCalName.RemarkStatus)]
+        public string PrvRemarkStatus { get; set; }
+
         //Questions Binding
         [Display(Name = DplyPartCalName.CallType)]
         public string CallType { get; set; }
@@ -104,6 +109,8 @@ namespace Hunarmis.Models
         //[Required]
         [Display(Name = DplyPartCalName.IsOffered)]
         public Nullable<bool> IsOffered { get; set; }
+        [Display(Name = DplyPartCalName.RemarkStatus)]
+        public string RemarkStatus { get; set; }
     }
     public static class DplyPartCalName
     {
@@ -116,11 +123,12 @@ namespace Hunarmis.Models
         public const string QuesYear = "Year";
         public const string CallType = "Participant Available";
         public const string Remark = "Remark";
+        public const string RemarkStatus = "Remark Status";
         public const string IsAssessmentCert = "Did you give the assessment and get certified?";
         public const string IsPresent = "Are you employed at present?";
         public const string IsComfortable = "Are you comfortable to share the details of your employment?";
         public const string EmpCompany = "Which company are you employed in?";
-        public const string FirstJobTraining = "In which month did you join the first job after completion of training?";
+        public const string FirstJobTraining = "In which month did you join the first job after completion of training?";//Remove hide
         public const string DOJ = "What is your current date of joining?";
         public const string CurrentEmployer = "How long have you been working with the current employer? ";
         public const string Designation = "What is your designation?";

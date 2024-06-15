@@ -28,7 +28,7 @@
                     <th class="text-center tblth">Name</th>
                     <th class="text-center tblth">Registration ID</th>
                     <th class="text-center tblth">Email ID</th>
-                    <th class="text-center tblth">Aadhar <br />Card No.</th>
+                    @*<th class="text-center tblth">Aadhar <br />Card No.</th>*@
                     <th class="text-center tblth">Batch Name</th>
                     <th class="text-center tblth">Batch Start Date</th>
                     <th class="text-center tblth">Batch End Date</th>
@@ -45,7 +45,9 @@
                             <tr>
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-center">
-                                    <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon" target="_blank"><i class="fa fa-edit"></i></a>
+                                    <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon" target="_blank">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
                                 </td>
                                 <td class="text-left">@dr["TrainingCenter"]</td>
                                 <td class="" width="20%">
@@ -54,7 +56,7 @@
                                 <td class="text-left">@dr["FullName"]</td>
                                 <td class="text-center text-white" style="background: #604ccf !important; color: #fff !important;"><strong>@dr["RegID"]</strong></td>
                                 <td class="text-left">@dr["EmailID"]</td>
-                                <td class="text-center">&times;&times;&times;&times;&times;&times;&times;&times;&times;@Regex.Match(dr["AadharCardNo"].ToString(), @"(.{3})\s*$")</td>
+                                @*<td class="text-center">&times;&times;&times;&times;&times;&times;&times;&times;&times;@Regex.Match(dr["AadharCardNo"].ToString(), @"(.{3})\s*$")</td>*@
                                 <td class="text-left">@dr["BatchName"]</td>
                                 <td class="text-center">@dr["BatchStartDate"]</td>
                                 <td class="text-center">@dr["BatchEndDate"]</td>

@@ -24,7 +24,6 @@ namespace Hunarmis.Controllers
     {
         Hunar_DBEntities db = new Hunar_DBEntities();
         int results = 0; int results2nd = 0;
-
         public ActionResult Index()
         {
             //var physicalFilePath = Server.MapPath("~/upload/template.xlsx");
@@ -79,6 +78,7 @@ namespace Hunarmis.Controllers
                     model.FirstName = tbl.FirstName;
                     model.MiddleName = tbl.MiddleName;
                     model.LastName = tbl.LastName;
+                    model.FullName = tbl.FullName;
                     model.Gender = tbl.Gender;
                     model.Age = tbl.Age;
                     model.AadharCardNo = tbl.AadharCardNo;
@@ -123,8 +123,9 @@ namespace Hunarmis.Controllers
                     if (tbl != null)
                     {
                         tbl.FirstName = !(string.IsNullOrWhiteSpace(model.FirstName)) ? model.FirstName.Trim() : model.FirstName;
-                        tbl.MiddleName = !(string.IsNullOrWhiteSpace(model.MiddleName)) ? model.MiddleName.Trim() : model.MiddleName;
-                        tbl.LastName = !(string.IsNullOrWhiteSpace(model.LastName)) ? model.LastName.Trim() : model.LastName;
+                        tbl.MiddleName = !(string.IsNullOrWhiteSpace(model.MiddleName)) ? +' ' + (model.MiddleName.Trim()) : model.MiddleName;
+                        tbl.LastName = !(string.IsNullOrWhiteSpace(model.LastName)) ? +' ' + model.LastName.Trim() : model.LastName;
+                        tbl.FullName = tbl.FirstName + tbl.MiddleName + tbl.LastName;
                         //  tbl.StateId = db.State_Mast.Where(x => x.ID == sid).FirstOrDefault().ID.ToString();
                         tbl.Gender = !(string.IsNullOrWhiteSpace(model.Gender)) ? model.Gender.Trim() : model.Gender;
                         tbl.Age = !(string.IsNullOrWhiteSpace(model.Age)) ? model.Age.Trim() : model.Age;
@@ -274,6 +275,7 @@ namespace Hunarmis.Controllers
                     if (tbl != null)
                     {
                         tbl.CallTempStatus = (int)Enums.eTempCallStatus.CallOnProgress;
+                        tbl.CallTempStatusDate = DateTime.Now;
                         db_.SaveChanges();
                     }
                 }
@@ -281,13 +283,32 @@ namespace Hunarmis.Controllers
                 var getdt = db_.tbl_Participant.Where(x => x.IsActive == true && x.ID == PartId)?.FirstOrDefault();
                 if (getdt != null)
                 {
+                    var tblremakHist = db_.tbl_ParticipantRemarks_History.Where(x => x.ID == PartId).OrderByDescending(x=>x.RemarkDate).Take(1)?.FirstOrDefault();
                     model.RegID = getdt.RegID;
-                    model.FullName = getdt.FirstName + " " + getdt.MiddleName + " " + getdt.LastName;
+                    model.FullName = !string.IsNullOrEmpty(getdt.FullName) ? getdt.FullName : getdt.FirstName + " " + getdt.MiddleName + " " + getdt.LastName;
                     model.PhoneNo = getdt.PhoneNo;
                     var batch = db_.Batch_Master.Where(x => x.Id == getdt.BatchId)?.FirstOrDefault();
                     model.BatchName = batch != null ? batch.BatchName : null;
                     model.SBatchDt = batch != null ? CommonModel.FormateDtDMY(batch.BatchStartDate.ToString()) : null;
                     model.EBatchDt = batch != null ? CommonModel.FormateDtDMY(batch.BatchEndDate.ToString()) : null;
+                    var TrainAcy = db_.TrainingAgency_Master.Where(x => x.Id == getdt.TrainingAgencyID)?.FirstOrDefault();
+                    var TrainCen = db_.TrainingCenter_Master.Where(x => x.Id == getdt.TrainingCenterID
+                    && x.TrainingAgencyID_fk == getdt.TrainingAgencyID && x.DistrictID_fk == getdt.DistrictID)?.FirstOrDefault();
+                    model.TrainingAgencyName = TrainAcy != null ? TrainAcy.TrainingAgencyName : null;
+                    model.TrainingCenter = TrainCen != null ? TrainCen.TrainingCenter : null;
+                    if (tblremakHist != null)
+                    {
+                        model.PrvRemark = tblremakHist.CallTempStatus != null ? tblremakHist.CallRemark : null;//CallTempStatus == 2
+                        model.PrvRemarkStatus = tblremakHist.CallTempStatus != null ? tblremakHist.RemarkStatus : null;//CallTempStatus == 2
+                    }
+                    else {
+                        model.PrvRemark = getdt.CallTempStatus != null ? getdt.CallRemark : null;//CallTempStatus == 2
+                        model.PrvRemarkStatus = getdt.CallTempStatus != null ? getdt.RemarkStatus : null;//CallTempStatus == 2
+                    }
+                    var AspUser = db_.AspNetUsers.Where(x => x.Id == getdt.CreatedBy)?.FirstOrDefault();
+                    model.ReportedBy = AspUser != null ? AspUser.EmpName : null;
+                    model.ReportedOn = AspUser != null ? CommonModel.FormateDtDMY(getdt.RemarkDate.ToString()) : null;
+
                 }
             }
             if (Id != Guid.Empty && Id != null)
@@ -330,9 +351,12 @@ namespace Hunarmis.Controllers
 
                             var tblpart = db_.tbl_Participant.Find(model.ParticipantId_fk);
                             tblpart.CallTempStatus = (int)Enums.eTempCallStatus.CallNotPick;
+                            tblpart.CallTempStatusDate = DateTime.Now;
                             tblpart.CallYear = model.QuesYear;
                             tblpart.CallMonth = model.QuesMonth;
                             tblpart.CallRemark = model.Remark.Trim();
+                            tblpart.RemarkStatus = model.RemarkStatus;
+                            tblpart.RemarkDate = DateTime.Now;
 
                             results = db_.SaveChanges();
                             response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Congratulations, you have been Submitted successfully Reg ID : <strong>" + getdt.RegID + " </strong>  </span>", Data = null };
@@ -357,6 +381,7 @@ namespace Hunarmis.Controllers
                             {
                                 tbl.IsAssessmentCert = model.IsAssessmentCert;
                                 tbl.IsPresent = model.IsPresent;
+                                model.PlacedStatus = model.IsPresent;
                                 //tbl.IsPresent = model.IsPresent.ToString() == Enums.GetEnumDescription(Enums.eTypeCall.Yes) ? model.IsPresent : model.IsPresent;
                                 if (model.IsPresent == Enums.GetEnumDescription(Enums.eTypeCall.Yes))
                                 {
@@ -453,7 +478,6 @@ namespace Hunarmis.Controllers
             return resResponse;
         }
         #endregion
-
         public ActionResult PartQuestionList()
         {
             FilterModel model = new FilterModel();
@@ -546,7 +570,7 @@ namespace Hunarmis.Controllers
                                     var moblie = dr["PhoneNo"].ToString();
                                     if (db_.tbl_Participant.Any(x => x.PhoneNo == moblie))
                                     {
-                                        strmobile += "," + dr["PhoneNo"].ToString() + Enums.GetEnumDescription(Enums.eReturnReg.Already);
+                                        strmobile += ", " + dr["PhoneNo"].ToString();
                                     }
                                     else
                                     {
@@ -556,19 +580,24 @@ namespace Hunarmis.Controllers
                                             var fulllist = dr["Name"].ToString().Split(' ');
                                             if (fulllist != null || fulllist.Length != 0)
                                             {
-                                                if (fulllist.Length == 2)
+                                                if (fulllist.Length >= 1)
+                                                {
+                                                    tblpart.FirstName = !(string.IsNullOrWhiteSpace(fulllist[0])) ? fulllist[0].Trim().ToUpper() : null;
+                                                }
+                                                if (fulllist.Length >= 2)
                                                 {
                                                     tblpart.FirstName = !(string.IsNullOrWhiteSpace(fulllist[0])) ? fulllist[0].Trim().ToUpper() : null;
                                                     tblpart.LastName = !(string.IsNullOrWhiteSpace(fulllist[1])) ? fulllist[1].Trim().ToUpper() : null;
                                                 }
-                                                else if (fulllist.Length == 3)
+                                                else if (fulllist.Length >= 3)
                                                 {
                                                     tblpart.FirstName = !(string.IsNullOrWhiteSpace(fulllist[0])) ? fulllist[0].Trim().ToUpper() : null;
                                                     tblpart.MiddleName = !(string.IsNullOrWhiteSpace(fulllist[1])) ? fulllist[1].Trim().ToUpper() : null;
                                                     tblpart.LastName = !(string.IsNullOrWhiteSpace(fulllist[2])) ? fulllist[2].Trim().ToUpper() : null;
                                                 }
+                                                tblpart.FullName = !(string.IsNullOrWhiteSpace(dr["Name"].ToString())) ? dr["Name"].ToString().Trim() : null;
                                             }
-                                            
+
                                             var sn = Convert.ToString(dr["StateName"]);
                                             var StateId = db.State_Master.Where(x => x.StateName == sn).FirstOrDefault()?.Id;
                                             tblpart.StateID = StateId;
@@ -590,7 +619,8 @@ namespace Hunarmis.Controllers
                                             var qName = Convert.ToString(dr["QualificationName"]);
                                             var EducationId = !(string.IsNullOrWhiteSpace(qName)) ? db.Educational_Master.Where(x => x.QualificationName == qName).FirstOrDefault()?.Id : null;
                                             tblpart.EduQualificationID = EducationId;
-                                            tblpart.EduQualOther = EducationId == 4 && !(string.IsNullOrWhiteSpace(dr["EduQualOther"].ToString())) ? dr["EduQualOther"].ToString().Trim() : "NA";
+                                            //tblpart.EduQualOther = EducationId == 4 && !(string.IsNullOrWhiteSpace(dr["EduQualOther"].ToString())) ? dr["EduQualOther"].ToString().Trim() : "NA";
+                                            tblpart.EduQualOther = dr["EduQualOther"].ToString();
                                             var cName = Convert.ToString(dr["CourseName"]);
                                             var CourseEnrolledId = !(string.IsNullOrWhiteSpace(cName)) ? db.Courses_Master.Where(x => x.CourseName == cName).FirstOrDefault()?.Id : null;
                                             tblpart.CourseEnrolledID = CourseEnrolledId;
@@ -602,9 +632,9 @@ namespace Hunarmis.Controllers
                                             var TrainingCenterId = !(string.IsNullOrWhiteSpace(trainingCenter)) ? db.TrainingCenter_Master.Where(x => x.TrainingCenter == trainingCenter).FirstOrDefault()?.Id : null;
                                             tblpart.TrainingCenterID = TrainingCenterId;
                                             tblpart.TrainerName = !(string.IsNullOrWhiteSpace(dr["TrainerName"].ToString())) ? dr["TrainerName"].ToString().Trim() : null;
-                                            //if (dr["DOB"].ToString()!="")
+                                            //if (!string.IsNullOrEmpty(dr["DateofBirth"].ToString()))
                                             //{
-                                            //    tblpart.DOB =Convert.ToDateTime(dr["DOB"].ToString());
+                                            //    tblpart.DOB = Convert.ToDateTime(dr["DateofBirth"].ToString());
                                             //}
                                             tblpart.IsActive = true;
                                             if (tblpart.ID == Guid.Empty)
@@ -618,10 +648,10 @@ namespace Hunarmis.Controllers
                                                 tblpart.CallTempStatus = (int)Enums.eTempCallStatus.CallNot;
                                                 tblpart.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
                                                 //tblpart.FixedCallLimitMonth = tblpart.IsPlaced == true ? (int)Enums.eCallLimitDuration.FixedCallLimit : 0;
-                                               // tblpart.FixedCallLimitMonth = tblpart.IsPlaced == true ? (int)Enums.eCallLimitDuration.FixedCallLimit : 0;
+                                                // tblpart.FixedCallLimitMonth = tblpart.IsPlaced == true ? (int)Enums.eCallLimitDuration.FixedCallLimit : 0;
                                                 tblpart.FixedCallLimitMonth = (int)Enums.eCallLimitDuration.FixedCallLimit;
                                                 tblpart.AtPresentCallStatus = 0;
-                                                tblpart.IsOffered = !(string.IsNullOrWhiteSpace(dr["IsOffered"].ToString())) && dr["IsOffered"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
+                                                //tblpart.IsOffered = !(string.IsNullOrWhiteSpace(dr["IsOffered"].ToString())) && dr["IsOffered"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
                                                 db.tbl_Participant.Add(tblpart);
                                             }
                                             results += db.SaveChanges();
@@ -630,6 +660,10 @@ namespace Hunarmis.Controllers
                                 }
 
 
+                            }
+                            if (!string.IsNullOrEmpty(strmobile))
+                            {
+                                strmobile += " " + Enums.GetEnumDescription(Enums.eReturnReg.Already);
                             }
                             if (results > 0)
                             {

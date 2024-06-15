@@ -65,7 +65,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BatchName" Type="nvarchar" MaxLength="200" />
           <Property Name="BatchStartDate" Type="datetime" />
           <Property Name="BatchEndDate" Type="datetime" />
@@ -86,7 +86,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CourseName" Type="nvarchar" MaxLength="200" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
@@ -111,13 +111,20 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="QualificationName" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="Updated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FormMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="JobEmployed_Master">
           <Key>
@@ -139,6 +146,62 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="MonthName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="QuestionBook">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormId_fk" Type="int" />
+          <Property Name="TypeLanguage" Type="nvarchar" MaxLength="50" />
+          <Property Name="QuestionCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="HindiQuestion" Type="nvarchar(max)" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="QuestionType" Type="nvarchar" MaxLength="500" />
+          <Property Name="SectionType" Type="nvarchar" MaxLength="200" />
+          <Property Name="ControlType" Type="nvarchar" MaxLength="500" />
+          <Property Name="ControlInputType" Type="nvarchar" MaxLength="100" />
+          <Property Name="QuestTypeValidation" Type="nvarchar" MaxLength="100" />
+          <Property Name="ParentQuestionCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="DependedAnswer" Type="nvarchar" MaxLength="50" />
+          <Property Name="Frequency" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReportingBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AnswerCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="Limit" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsRepeat" Type="bit" />
+          <Property Name="OrderBy" Type="int" />
+          <Property Name="DisplayIndicator" Type="nvarchar(max)" />
+          <Property Name="ExtraOne" Type="nvarchar(max)" />
+          <Property Name="IsQuestionDisplay" Type="bit" />
+        </EntityType>
+        <EntityType Name="QuestionOption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeLanguage" Type="nvarchar" MaxLength="50" />
+          <Property Name="FormId_fk" Type="int" />
+          <Property Name="QuestionId_fk" Type="int" />
+          <Property Name="QuestionCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="OptionTypeValidation" Type="nvarchar" MaxLength="100" />
+          <Property Name="HindiOptionText" Type="nvarchar" MaxLength="500" />
+          <Property Name="LabelName1" Type="nvarchar" MaxLength="200" />
+          <Property Name="LabelName2" Type="nvarchar" MaxLength="200" />
+          <Property Name="OptionText" Type="nvarchar" MaxLength="500" />
+          <Property Name="OptionCode" Type="nvarchar" MaxLength="500" />
+          <Property Name="ControlInputType" Type="nvarchar" MaxLength="500" />
+          <Property Name="ControlInputType1" Type="nvarchar" MaxLength="500" />
+          <Property Name="InputType" Type="nvarchar" MaxLength="50" />
+          <Property Name="InputType1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Limit" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
         <EntityType Name="State_Master">
           <Key>
@@ -187,6 +250,7 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="200" />
           <Property Name="MiddleName" Type="nvarchar" MaxLength="200" />
           <Property Name="LastName" Type="nvarchar" MaxLength="200" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="500" />
           <Property Name="Gender" Type="nvarchar" MaxLength="50" />
           <Property Name="Age" Type="nvarchar" MaxLength="20" />
           <Property Name="DOB" Type="date" />
@@ -208,6 +272,7 @@
           <Property Name="IsPlaced" Type="bit" />
           <Property Name="IsOffered" Type="bit" />
           <Property Name="CallTempStatus" Type="int" />
+          <Property Name="CallTempStatusDate" Type="datetime" />
           <Property Name="CallRemark" Type="nvarchar(max)" />
           <Property Name="CallMonth" Type="int" />
           <Property Name="CallYear" Type="int" />
@@ -217,6 +282,8 @@
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="FixedCallLimitMonth" Type="int" />
           <Property Name="AtPresentCallStatus" Type="int" />
+          <Property Name="RemarkStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="RemarkDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_Participant_Calling">
           <Key>
@@ -261,6 +328,56 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tbl_ParticipantRemarks_History">
+          <Key>
+            <PropertyRef Name="OrderNo" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="RemarkHistoryID" Type="uniqueidentifier" />
+          <Property Name="OrderNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RegID" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="200" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="200" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="Age" Type="nvarchar" MaxLength="20" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="AlternatePhoneNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="EmailID" Type="nvarchar" MaxLength="200" />
+          <Property Name="AadharCardNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="BatchId" Type="int" />
+          <Property Name="AssessmentScore" Type="nvarchar" MaxLength="50" />
+          <Property Name="EduQualificationID" Type="int" />
+          <Property Name="EduQualOther" Type="nvarchar" MaxLength="1200" />
+          <Property Name="CourseEnrolledID" Type="int" />
+          <Property Name="StateID" Type="int" />
+          <Property Name="DistrictID" Type="int" />
+          <Property Name="TrainingAgencyID" Type="int" />
+          <Property Name="TrainingCenterID" Type="int" />
+          <Property Name="TrainerName" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsPlaced" Type="bit" />
+          <Property Name="IsOffered" Type="bit" />
+          <Property Name="CallTempStatus" Type="int" />
+          <Property Name="CallTempStatusDate" Type="datetime" />
+          <Property Name="CallRemark" Type="nvarchar(max)" />
+          <Property Name="CallMonth" Type="int" />
+          <Property Name="CallYear" Type="int" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="FixedCallLimitMonth" Type="int" />
+          <Property Name="AtPresentCallStatus" Type="int" />
+          <Property Name="RemarkStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="RemarkDate" Type="datetime" />
+          <Property Name="RemarksHistoryDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="tbl_SendMail">
           <Key>
             <PropertyRef Name="Id" />
@@ -277,6 +394,40 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="ExtraCol1" Type="nvarchar" MaxLength="500" />
           <Property Name="ExtraCol2" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tbl_Survey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormId" Type="int" />
+          <Property Name="SchoolId" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="YearId" Type="int" />
+          <Property Name="FrequencyId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_SurveyAnswer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SId_fk" Type="int" />
+          <Property Name="QuestionId_fk" Type="int" />
+          <Property Name="QuestionCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="QuestionOption_fk" Type="int" />
+          <Property Name="ResponseCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="InputValue" Type="nvarchar(max)" />
+          <Property Name="InputValue1" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_UserLogin">
           <Key>
@@ -378,6 +529,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_SurveyAnswer_tbl_Survey">
+          <End Role="tbl_Survey" Type="Self.tbl_Survey" Multiplicity="0..1" />
+          <End Role="tbl_SurveyAnswer" Type="Self.tbl_SurveyAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Survey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_SurveyAnswer">
+              <PropertyRef Name="SId_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Hunar_DBModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -389,19 +552,70 @@
           <EntitySet Name="Courses_Master" EntityType="Self.Courses_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District_Master" EntityType="Self.District_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Educational_Master" EntityType="Self.Educational_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FormMaster" EntityType="Self.FormMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobEmployed_Master" EntityType="Self.JobEmployed_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocatedKM_Master" EntityType="Self.LocatedKM_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Month_Master" EntityType="Self.Month_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionBook" EntityType="Self.QuestionBook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionOption" EntityType="Self.QuestionOption" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State_Master" EntityType="Self.State_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_FileUpload" EntityType="Self.tbl_FileUpload" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_MailData" EntityType="Self.tbl_MailData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Participant" EntityType="Self.tbl_Participant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Participant_Calling" EntityType="Self.tbl_Participant_Calling" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_SendMail" EntityType="Self.tbl_SendMail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Survey" EntityType="Self.tbl_Survey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SurveyAnswer" EntityType="Self.tbl_SurveyAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_UserLogin" EntityType="Self.tbl_UserLogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainingAgency_Master" EntityType="Self.TrainingAgency_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainingCenter_Master" EntityType="Self.TrainingCenter_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Year_Master" EntityType="Self.Year_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Self.tbl_ParticipantRemarks_History" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbl_ParticipantRemarks_History].[RemarkHistoryID] AS [RemarkHistoryID], 
+    [tbl_ParticipantRemarks_History].[OrderNo] AS [OrderNo], 
+    [tbl_ParticipantRemarks_History].[ID] AS [ID], 
+    [tbl_ParticipantRemarks_History].[RegID] AS [RegID], 
+    [tbl_ParticipantRemarks_History].[FirstName] AS [FirstName], 
+    [tbl_ParticipantRemarks_History].[MiddleName] AS [MiddleName], 
+    [tbl_ParticipantRemarks_History].[LastName] AS [LastName], 
+    [tbl_ParticipantRemarks_History].[FullName] AS [FullName], 
+    [tbl_ParticipantRemarks_History].[Gender] AS [Gender], 
+    [tbl_ParticipantRemarks_History].[Age] AS [Age], 
+    [tbl_ParticipantRemarks_History].[DOB] AS [DOB], 
+    [tbl_ParticipantRemarks_History].[PhoneNo] AS [PhoneNo], 
+    [tbl_ParticipantRemarks_History].[AlternatePhoneNo] AS [AlternatePhoneNo], 
+    [tbl_ParticipantRemarks_History].[EmailID] AS [EmailID], 
+    [tbl_ParticipantRemarks_History].[AadharCardNo] AS [AadharCardNo], 
+    [tbl_ParticipantRemarks_History].[BatchId] AS [BatchId], 
+    [tbl_ParticipantRemarks_History].[AssessmentScore] AS [AssessmentScore], 
+    [tbl_ParticipantRemarks_History].[EduQualificationID] AS [EduQualificationID], 
+    [tbl_ParticipantRemarks_History].[EduQualOther] AS [EduQualOther], 
+    [tbl_ParticipantRemarks_History].[CourseEnrolledID] AS [CourseEnrolledID], 
+    [tbl_ParticipantRemarks_History].[StateID] AS [StateID], 
+    [tbl_ParticipantRemarks_History].[DistrictID] AS [DistrictID], 
+    [tbl_ParticipantRemarks_History].[TrainingAgencyID] AS [TrainingAgencyID], 
+    [tbl_ParticipantRemarks_History].[TrainingCenterID] AS [TrainingCenterID], 
+    [tbl_ParticipantRemarks_History].[TrainerName] AS [TrainerName], 
+    [tbl_ParticipantRemarks_History].[IsActive] AS [IsActive], 
+    [tbl_ParticipantRemarks_History].[IsPlaced] AS [IsPlaced], 
+    [tbl_ParticipantRemarks_History].[IsOffered] AS [IsOffered], 
+    [tbl_ParticipantRemarks_History].[CallTempStatus] AS [CallTempStatus], 
+    [tbl_ParticipantRemarks_History].[CallTempStatusDate] AS [CallTempStatusDate], 
+    [tbl_ParticipantRemarks_History].[CallRemark] AS [CallRemark], 
+    [tbl_ParticipantRemarks_History].[CallMonth] AS [CallMonth], 
+    [tbl_ParticipantRemarks_History].[CallYear] AS [CallYear], 
+    [tbl_ParticipantRemarks_History].[CreatedBy] AS [CreatedBy], 
+    [tbl_ParticipantRemarks_History].[CreatedOn] AS [CreatedOn], 
+    [tbl_ParticipantRemarks_History].[UpdatedBy] AS [UpdatedBy], 
+    [tbl_ParticipantRemarks_History].[UpdatedOn] AS [UpdatedOn], 
+    [tbl_ParticipantRemarks_History].[FixedCallLimitMonth] AS [FixedCallLimitMonth], 
+    [tbl_ParticipantRemarks_History].[AtPresentCallStatus] AS [AtPresentCallStatus], 
+    [tbl_ParticipantRemarks_History].[RemarkStatus] AS [RemarkStatus], 
+    [tbl_ParticipantRemarks_History].[RemarkDate] AS [RemarkDate], 
+    [tbl_ParticipantRemarks_History].[RemarksHistoryDate] AS [RemarksHistoryDate]
+    FROM [dbo].[tbl_ParticipantRemarks_History] AS [tbl_ParticipantRemarks_History]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -417,6 +631,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_SurveyAnswer_tbl_Survey" Association="Self.FK_tbl_SurveyAnswer_tbl_Survey">
+            <End Role="tbl_Survey" EntitySet="tbl_Survey" />
+            <End Role="tbl_SurveyAnswer" EntitySet="tbl_SurveyAnswer" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -456,8 +674,18 @@
           <EntitySet Name="tbl_SendMail" EntityType="Hunar_DBModel.tbl_SendMail" />
           <EntitySet Name="tbl_MailData" EntityType="Hunar_DBModel.tbl_MailData" />
           <EntitySet Name="tbl_FileUpload" EntityType="Hunar_DBModel.tbl_FileUpload" />
-          <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
           <EntitySet Name="tbl_Participant_Calling" EntityType="Hunar_DBModel.tbl_Participant_Calling" />
+          <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
+          <EntitySet Name="QuestionBooks" EntityType="Hunar_DBModel.QuestionBook" />
+          <EntitySet Name="QuestionOptions" EntityType="Hunar_DBModel.QuestionOption" />
+          <EntitySet Name="tbl_Survey" EntityType="Hunar_DBModel.tbl_Survey" />
+          <EntitySet Name="tbl_SurveyAnswer" EntityType="Hunar_DBModel.tbl_SurveyAnswer" />
+          <AssociationSet Name="FK_tbl_SurveyAnswer_tbl_Survey" Association="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey">
+            <End Role="tbl_Survey" EntitySet="tbl_Survey" />
+            <End Role="tbl_SurveyAnswer" EntitySet="tbl_SurveyAnswer" />
+          </AssociationSet>
+          <EntitySet Name="FormMasters" EntityType="Hunar_DBModel.FormMaster" />
+          <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Hunar_DBModel.tbl_ParticipantRemarks_History" />
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -723,46 +951,6 @@
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tbl_Participant">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="RegID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="MiddleName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Age" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DOB" Type="DateTime" Precision="0" />
-          <Property Name="PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="AlternatePhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="EmailID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="AadharCardNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="BatchId" Type="Int32" />
-          <Property Name="AssessmentScore" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EduQualificationID" Type="Int32" />
-          <Property Name="EduQualOther" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
-          <Property Name="CourseEnrolledID" Type="Int32" />
-          <Property Name="StateID" Type="Int32" />
-          <Property Name="DistrictID" Type="Int32" />
-          <Property Name="TrainingAgencyID" Type="Int32" />
-          <Property Name="TrainingCenterID" Type="Int32" />
-          <Property Name="TrainerName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="IsPlaced" Type="Boolean" />
-          <Property Name="IsOffered" Type="Boolean" />
-          <Property Name="CallTempStatus" Type="Int32" />
-          <Property Name="CallRemark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CallMonth" Type="Int32" />
-          <Property Name="CallYear" Type="Int32" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="FixedCallLimitMonth" Type="Int32" />
-          <Property Name="AtPresentCallStatus" Type="Int32" />
-        </EntityType>
         <EntityType Name="tbl_Participant_Calling">
           <Key>
             <PropertyRef Name="ID" />
@@ -805,6 +993,209 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_Participant">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="RegID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AlternatePhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EmailID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AadharCardNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BatchId" Type="Int32" />
+          <Property Name="AssessmentScore" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EduQualificationID" Type="Int32" />
+          <Property Name="EduQualOther" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
+          <Property Name="CourseEnrolledID" Type="Int32" />
+          <Property Name="StateID" Type="Int32" />
+          <Property Name="DistrictID" Type="Int32" />
+          <Property Name="TrainingAgencyID" Type="Int32" />
+          <Property Name="TrainingCenterID" Type="Int32" />
+          <Property Name="TrainerName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsPlaced" Type="Boolean" />
+          <Property Name="IsOffered" Type="Boolean" />
+          <Property Name="CallTempStatus" Type="Int32" />
+          <Property Name="CallTempStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="CallRemark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CallMonth" Type="Int32" />
+          <Property Name="CallYear" Type="Int32" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="FixedCallLimitMonth" Type="Int32" />
+          <Property Name="AtPresentCallStatus" Type="Int32" />
+          <Property Name="RemarkStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RemarkDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="QuestionBook">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormId_fk" Type="Int32" />
+          <Property Name="TypeLanguage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HindiQuestion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionType" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SectionType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ControlType" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ControlInputType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="QuestTypeValidation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ParentQuestionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DependedAnswer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Frequency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReportingBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Limit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsRepeat" Type="Boolean" />
+          <Property Name="OrderBy" Type="Int32" />
+          <Property Name="DisplayIndicator" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExtraOne" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsQuestionDisplay" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="QuestionOption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeLanguage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FormId_fk" Type="Int32" />
+          <Property Name="QuestionId_fk" Type="Int32" />
+          <Property Name="QuestionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OptionTypeValidation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HindiOptionText" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LabelName1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LabelName2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OptionText" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OptionCode" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ControlInputType" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ControlInputType1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="InputType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InputType1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Limit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_Survey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormId" Type="Int32" />
+          <Property Name="SchoolId" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="YearId" Type="Int32" />
+          <Property Name="FrequencyId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_SurveyAnswer" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_Survey" ToRole="tbl_SurveyAnswer" />
+        </EntityType>
+        <EntityType Name="tbl_SurveyAnswer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SId_fk" Type="Int32" />
+          <Property Name="QuestionId_fk" Type="Int32" />
+          <Property Name="QuestionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionOption_fk" Type="Int32" />
+          <Property Name="ResponseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InputValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InputValue1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_Survey" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_SurveyAnswer" ToRole="tbl_Survey" />
+        </EntityType>
+        <Association Name="FK_tbl_SurveyAnswer_tbl_Survey">
+          <End Type="Hunar_DBModel.tbl_Survey" Role="tbl_Survey" Multiplicity="0..1" />
+          <End Type="Hunar_DBModel.tbl_SurveyAnswer" Role="tbl_SurveyAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Survey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_SurveyAnswer">
+              <PropertyRef Name="SId_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FormMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_ParticipantRemarks_History">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="OrderNo" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="RegID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AlternatePhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EmailID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AadharCardNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BatchId" Type="Int32" />
+          <Property Name="AssessmentScore" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EduQualificationID" Type="Int32" />
+          <Property Name="EduQualOther" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
+          <Property Name="CourseEnrolledID" Type="Int32" />
+          <Property Name="StateID" Type="Int32" />
+          <Property Name="DistrictID" Type="Int32" />
+          <Property Name="TrainingAgencyID" Type="Int32" />
+          <Property Name="TrainingCenterID" Type="Int32" />
+          <Property Name="TrainerName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsPlaced" Type="Boolean" />
+          <Property Name="IsOffered" Type="Boolean" />
+          <Property Name="CallTempStatus" Type="Int32" />
+          <Property Name="CallTempStatusDate" Type="DateTime" Precision="3" />
+          <Property Name="CallRemark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CallMonth" Type="Int32" />
+          <Property Name="CallYear" Type="Int32" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="FixedCallLimitMonth" Type="Int32" />
+          <Property Name="AtPresentCallStatus" Type="Int32" />
+          <Property Name="RemarkStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RemarkDate" Type="DateTime" Precision="3" />
+          <Property Name="RemarksHistoryDate" Type="DateTime" Precision="3" />
+          <Property Name="RemarkHistoryID" Type="Guid" />
+          <Property Name="OrderNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1064,47 +1455,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Participant">
-            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant">
-              <MappingFragment StoreEntitySet="tbl_Participant">
-                <ScalarProperty Name="AtPresentCallStatus" ColumnName="AtPresentCallStatus" />
-                <ScalarProperty Name="FixedCallLimitMonth" ColumnName="FixedCallLimitMonth" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CallYear" ColumnName="CallYear" />
-                <ScalarProperty Name="CallMonth" ColumnName="CallMonth" />
-                <ScalarProperty Name="CallRemark" ColumnName="CallRemark" />
-                <ScalarProperty Name="CallTempStatus" ColumnName="CallTempStatus" />
-                <ScalarProperty Name="IsOffered" ColumnName="IsOffered" />
-                <ScalarProperty Name="IsPlaced" ColumnName="IsPlaced" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="TrainerName" ColumnName="TrainerName" />
-                <ScalarProperty Name="TrainingCenterID" ColumnName="TrainingCenterID" />
-                <ScalarProperty Name="TrainingAgencyID" ColumnName="TrainingAgencyID" />
-                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-                <ScalarProperty Name="StateID" ColumnName="StateID" />
-                <ScalarProperty Name="CourseEnrolledID" ColumnName="CourseEnrolledID" />
-                <ScalarProperty Name="EduQualOther" ColumnName="EduQualOther" />
-                <ScalarProperty Name="EduQualificationID" ColumnName="EduQualificationID" />
-                <ScalarProperty Name="AssessmentScore" ColumnName="AssessmentScore" />
-                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
-                <ScalarProperty Name="AadharCardNo" ColumnName="AadharCardNo" />
-                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
-                <ScalarProperty Name="AlternatePhoneNo" ColumnName="AlternatePhoneNo" />
-                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="RegID" ColumnName="RegID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Participant_Calling">
             <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant_Calling">
               <MappingFragment StoreEntitySet="tbl_Participant_Calling">
@@ -1145,6 +1495,201 @@
                 <ScalarProperty Name="IsCalling" ColumnName="IsCalling" />
                 <ScalarProperty Name="QuesYear" ColumnName="QuesYear" />
                 <ScalarProperty Name="QuesMonth" ColumnName="QuesMonth" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Participant">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant">
+              <MappingFragment StoreEntitySet="tbl_Participant">
+                <ScalarProperty Name="RemarkDate" ColumnName="RemarkDate" />
+                <ScalarProperty Name="RemarkStatus" ColumnName="RemarkStatus" />
+                <ScalarProperty Name="AtPresentCallStatus" ColumnName="AtPresentCallStatus" />
+                <ScalarProperty Name="FixedCallLimitMonth" ColumnName="FixedCallLimitMonth" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CallYear" ColumnName="CallYear" />
+                <ScalarProperty Name="CallMonth" ColumnName="CallMonth" />
+                <ScalarProperty Name="CallRemark" ColumnName="CallRemark" />
+                <ScalarProperty Name="CallTempStatusDate" ColumnName="CallTempStatusDate" />
+                <ScalarProperty Name="CallTempStatus" ColumnName="CallTempStatus" />
+                <ScalarProperty Name="IsOffered" ColumnName="IsOffered" />
+                <ScalarProperty Name="IsPlaced" ColumnName="IsPlaced" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TrainerName" ColumnName="TrainerName" />
+                <ScalarProperty Name="TrainingCenterID" ColumnName="TrainingCenterID" />
+                <ScalarProperty Name="TrainingAgencyID" ColumnName="TrainingAgencyID" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="CourseEnrolledID" ColumnName="CourseEnrolledID" />
+                <ScalarProperty Name="EduQualOther" ColumnName="EduQualOther" />
+                <ScalarProperty Name="EduQualificationID" ColumnName="EduQualificationID" />
+                <ScalarProperty Name="AssessmentScore" ColumnName="AssessmentScore" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="AadharCardNo" ColumnName="AadharCardNo" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="AlternatePhoneNo" ColumnName="AlternatePhoneNo" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="RegID" ColumnName="RegID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionBooks">
+            <EntityTypeMapping TypeName="Hunar_DBModel.QuestionBook">
+              <MappingFragment StoreEntitySet="QuestionBook">
+                <ScalarProperty Name="IsQuestionDisplay" ColumnName="IsQuestionDisplay" />
+                <ScalarProperty Name="ExtraOne" ColumnName="ExtraOne" />
+                <ScalarProperty Name="DisplayIndicator" ColumnName="DisplayIndicator" />
+                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="IsRepeat" ColumnName="IsRepeat" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Limit" ColumnName="Limit" />
+                <ScalarProperty Name="AnswerCode" ColumnName="AnswerCode" />
+                <ScalarProperty Name="ReportingBy" ColumnName="ReportingBy" />
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="DependedAnswer" ColumnName="DependedAnswer" />
+                <ScalarProperty Name="ParentQuestionCode" ColumnName="ParentQuestionCode" />
+                <ScalarProperty Name="QuestTypeValidation" ColumnName="QuestTypeValidation" />
+                <ScalarProperty Name="ControlInputType" ColumnName="ControlInputType" />
+                <ScalarProperty Name="ControlType" ColumnName="ControlType" />
+                <ScalarProperty Name="SectionType" ColumnName="SectionType" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="HindiQuestion" ColumnName="HindiQuestion" />
+                <ScalarProperty Name="QuestionCode" ColumnName="QuestionCode" />
+                <ScalarProperty Name="TypeLanguage" ColumnName="TypeLanguage" />
+                <ScalarProperty Name="FormId_fk" ColumnName="FormId_fk" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionOptions">
+            <EntityTypeMapping TypeName="Hunar_DBModel.QuestionOption">
+              <MappingFragment StoreEntitySet="QuestionOption">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Limit" ColumnName="Limit" />
+                <ScalarProperty Name="InputType1" ColumnName="InputType1" />
+                <ScalarProperty Name="InputType" ColumnName="InputType" />
+                <ScalarProperty Name="ControlInputType1" ColumnName="ControlInputType1" />
+                <ScalarProperty Name="ControlInputType" ColumnName="ControlInputType" />
+                <ScalarProperty Name="OptionCode" ColumnName="OptionCode" />
+                <ScalarProperty Name="OptionText" ColumnName="OptionText" />
+                <ScalarProperty Name="LabelName2" ColumnName="LabelName2" />
+                <ScalarProperty Name="LabelName1" ColumnName="LabelName1" />
+                <ScalarProperty Name="HindiOptionText" ColumnName="HindiOptionText" />
+                <ScalarProperty Name="OptionTypeValidation" ColumnName="OptionTypeValidation" />
+                <ScalarProperty Name="QuestionCode" ColumnName="QuestionCode" />
+                <ScalarProperty Name="QuestionId_fk" ColumnName="QuestionId_fk" />
+                <ScalarProperty Name="FormId_fk" ColumnName="FormId_fk" />
+                <ScalarProperty Name="TypeLanguage" ColumnName="TypeLanguage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Survey">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Survey">
+              <MappingFragment StoreEntitySet="tbl_Survey">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="FrequencyId" ColumnName="FrequencyId" />
+                <ScalarProperty Name="YearId" ColumnName="YearId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+                <ScalarProperty Name="FormId" ColumnName="FormId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SurveyAnswer">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_SurveyAnswer">
+              <MappingFragment StoreEntitySet="tbl_SurveyAnswer">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="InputValue1" ColumnName="InputValue1" />
+                <ScalarProperty Name="InputValue" ColumnName="InputValue" />
+                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
+                <ScalarProperty Name="QuestionOption_fk" ColumnName="QuestionOption_fk" />
+                <ScalarProperty Name="QuestionCode" ColumnName="QuestionCode" />
+                <ScalarProperty Name="QuestionId_fk" ColumnName="QuestionId_fk" />
+                <ScalarProperty Name="SId_fk" ColumnName="SId_fk" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormMasters">
+            <EntityTypeMapping TypeName="Hunar_DBModel.FormMaster">
+              <MappingFragment StoreEntitySet="FormMaster">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ParticipantRemarks_History">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_ParticipantRemarks_History">
+              <MappingFragment StoreEntitySet="tbl_ParticipantRemarks_History">
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+                <ScalarProperty Name="RemarkHistoryID" ColumnName="RemarkHistoryID" />
+                <ScalarProperty Name="RemarksHistoryDate" ColumnName="RemarksHistoryDate" />
+                <ScalarProperty Name="RemarkDate" ColumnName="RemarkDate" />
+                <ScalarProperty Name="RemarkStatus" ColumnName="RemarkStatus" />
+                <ScalarProperty Name="AtPresentCallStatus" ColumnName="AtPresentCallStatus" />
+                <ScalarProperty Name="FixedCallLimitMonth" ColumnName="FixedCallLimitMonth" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CallYear" ColumnName="CallYear" />
+                <ScalarProperty Name="CallMonth" ColumnName="CallMonth" />
+                <ScalarProperty Name="CallRemark" ColumnName="CallRemark" />
+                <ScalarProperty Name="CallTempStatusDate" ColumnName="CallTempStatusDate" />
+                <ScalarProperty Name="CallTempStatus" ColumnName="CallTempStatus" />
+                <ScalarProperty Name="IsOffered" ColumnName="IsOffered" />
+                <ScalarProperty Name="IsPlaced" ColumnName="IsPlaced" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TrainerName" ColumnName="TrainerName" />
+                <ScalarProperty Name="TrainingCenterID" ColumnName="TrainingCenterID" />
+                <ScalarProperty Name="TrainingAgencyID" ColumnName="TrainingAgencyID" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="CourseEnrolledID" ColumnName="CourseEnrolledID" />
+                <ScalarProperty Name="EduQualOther" ColumnName="EduQualOther" />
+                <ScalarProperty Name="EduQualificationID" ColumnName="EduQualificationID" />
+                <ScalarProperty Name="AssessmentScore" ColumnName="AssessmentScore" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="AadharCardNo" ColumnName="AadharCardNo" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="AlternatePhoneNo" ColumnName="AlternatePhoneNo" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="RegID" ColumnName="RegID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

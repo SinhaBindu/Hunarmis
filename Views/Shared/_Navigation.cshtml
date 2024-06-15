@@ -80,7 +80,23 @@
                                         <i class="arrow"></i>
                                     </a>
                                     <ul class="collapse treeview-menu">
-                                        <li>@Html.ActionLinkMenu("<i class='fa fa-pie-chart'></i> <span>Calling Responses</span>", "CallingDashboard", "Home")</li>
+                                        <li>@Html.ActionLinkMenu("<i class='fa fa-pie-chart'></i> <span>Calling Responses</span>", "CallingChart", "Home")</li>
+                                        <li>@Html.ActionLinkMenu("<i class='fa fa-bar-chart'></i> <span>Training Center</span>", "TrainingCenterWise", "Home")</li>
+                                    </ul>
+                                </li>
+                                <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-user main-icon"></i>
+                                        <span class="menu-title">Assessment</span>
+                                        <i class="arrow"></i>
+                                    </a>
+                                    <ul class="collapse treeview-menu">
+                                        <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Solar PV</span>", "Add", "Assessment", new { FId = 1 })</li>
+                                        <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Warehouse</span>", "Add", "Assessment", new { FId = 2 })</li>
+                                        <li>@Html.ActionLinkMenu("<i class='fa fa-bar-chart'></i> <span>Report</span>", "Summary", "Assessment", new { FId = 2 })</li>
+                                        <li>@Html.ActionLinkMenu("<i class='fa fa-bar-chart'></i> <span>Result</span>", "Index", "Assessment", new { FId = 2 })</li>
+                                        <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>Score Summary</span>", "ScorerSummary", "Assessment", new { FId = 2 })</li>
                                     </ul>
                                 </li>
                                 <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
@@ -96,6 +112,8 @@
                                             <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Add Batch</span>", "BatchMaster", "Master")</li>
                                             <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Add Courses</span>", "CoursesMaster", "Master")</li>
                                             <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Add Educational</span>", "EducationalMaster", "Master")</li>
+                                            <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Training Agency</span>", "AgencyMaster", "Master")</li>
+                                            <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Training Center</span>", "TrainingCenter", "Master")</li>
                                         </ul>
                                     </li>
                                     <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
@@ -115,7 +133,6 @@
                                 }
                             }
                         }
-
 
                         <li>
                             <a href="javascript:document.getElementById('logoutForm').submit()">

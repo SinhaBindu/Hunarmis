@@ -1,4 +1,5 @@
-﻿using Hunarmis.Models;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Hunarmis.Models;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using SubSonic.Schema;
@@ -176,6 +177,19 @@ namespace Hunarmis.Manager
         #endregion
 
         #region Get User Role 
+        public static string IsRoleLogin()
+        {
+            string str = string.Empty;
+            if (HttpContext.Current.User.IsInRole(RoleNameCont.Admin) || HttpContext.Current.User.IsInRole(RoleNameCont.State))
+            {
+                str = "all";
+            }
+            else
+            {
+                str = HttpContext.Current.User.Identity.Name;
+            }
+            return str;
+        }
         public static string GetUserRole()
         {
             if (HttpContext.Current.User.Identity.IsAuthenticated)
@@ -276,6 +290,50 @@ namespace Hunarmis.Manager
         #endregion
 
         #region Master 
+        public static List<SelectListItem> GetUserList(int IsAll = 0)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            try
+            {
+                DataTable dt = SPManager.SP_GetUserList();
+                if (IsAll == 0)
+                {
+                    list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    list.Add(new SelectListItem { Text = dt.Rows[i]["Name"].ToString(), Value = dt.Rows[i]["UserId"].ToString() });
+                }
+                return list;
+            }
+            catch (Exception)
+            {
+                //DO To
+                throw;
+            }
+        }
+        public static List<SelectListItem> GetForm(int IsAll = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            try
+            {
+                var items = new SelectList(_db.FormMasters, "Id", "Name").OrderBy(x => x.Text).ToList();
+                //if (IsAll == 0)
+                //{
+                //    items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                //}
+                //if (IsAll == 1)
+                //{
+                //    items.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                //}
+                return items;
+            }
+            catch (Exception)
+            {
+                //DO To
+                throw;
+            }
+        }
         public static string GetEnumDisplayName(Enum enumValue)
         {
             return enumValue.GetType()
@@ -1050,11 +1108,28 @@ namespace Hunarmis.Manager
             {
                 list.Insert(0, new SelectListItem { Value = "-1", Text = "All" });
             }
-            else if (IsAll)
+            else if (!IsAll)
             {
                 list.Insert(0, new SelectListItem { Value = "-1", Text = "Select" });
             }
-            return list.OrderBy(x=>Convert.ToInt16(x.Value)).ToList();
+            return list.OrderBy(x => Convert.ToInt16(x.Value)).ToList();
+        }
+        public static List<SelectListItem> GetRemarkStatusList(bool IsAll = false)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem { Value = "Wrong No", Text = "Wrong No" });
+            list.Add(new SelectListItem { Value = "Invalid No", Text = "Invalid No" });
+            list.Add(new SelectListItem { Value = "Switch off", Text = "Switch off" });
+            list.Add(new SelectListItem { Value = "Not responding", Text = "Not responding" });
+            if (IsAll)
+            {
+                list.Insert(0, new SelectListItem { Value = "-1", Text = "All" });
+            }
+            else if (!IsAll)
+            {
+                list.Insert(0, new SelectListItem { Value = "-1", Text = "Select" });
+            }
+            return list.OrderBy(x => x.Value).ToList();
         }
         #endregion
 

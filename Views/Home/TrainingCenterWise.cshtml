@@ -1,0 +1,387 @@
+﻿@model  Hunarmis.Models.AspNetUser
+@using Hunarmis.Models
+@*@model IEnumerable<KGBV_JH.Models.QesRes>*@
+@{
+    ViewBag.Title = "Training Center Wise Submissions";
+    ViewBag.TitleIcon = "fa fa-area-chart";
+    ViewBag.SemiTitle = "Training Center Wise Submissions";
+    ViewBag.SemiTitleLink = "/Home/TrainingCenterWise";
+}
+
+<style>
+    .container {
+        width: 340px;
+        height: 280px;
+        display: inline-block;
+    }
+    /* #chartgrouptree {
+        width: 950px;
+        height: 500px;
+        display: inline-block;
+        margin:0,0,0,;
+    }*/
+    input#em {
+        width: 100%;
+    }
+</style>
+
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel-spacer">
+                        <p class="bord-btm pad-ver text-main text-bold">
+                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title &nbsp;&nbsp;&nbsp;
+                            <strong id="partcolm" class="text-bold text-primary">  </strong> : <strong id="noofpart" class="text-success" style="font-size:medium;"></strong>
+                        </p>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="col-sm-12" id="errormsg">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <input id="em" type="range" min="0.3" max="2" step="0.01" value="1" style="display:none;" />
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div id="chartgrouptree" class=""></div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="panel-body">
+                        <div class="row">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    <script src="https://code.highcharts.com/modules/treegraph.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/cylinder.js"></script>
+    <script src="https://code.highcharts.com/modules/funnel3d.js"></script>
+    <script src="https://code.highcharts.com/modules/pyramid3d.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/dumbbell.js"></script>
+    <script src="https://code.highcharts.com/modules/lollipop.js"></script>
+
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script>
+        var chart = [];
+        $(document).ready(function () {
+            LoadReport();
+
+            //$('#em').on('input', function () {
+            //    chart.container.style.fontSize = this.value + 'em';
+            //    // Update layout based on new font and line sizes
+            //    chart.isDirtyLegend = true;
+            //    chart.redraw(false);
+            //});
+        });
+        function LoadReport() {
+            $('#errormsg').html("");
+            $('#global-loader').css('background', 'transparent').css('display', 'block');
+            $('#errormsg').removeClass("text-danger");
+            $.ajax({
+                // url: url,
+                url: document.baseURI + "/Home/GetIndex",
+                type: "POST",
+                data: '',
+                // contentType: "application/json",
+                success: function (resp) {
+                    if (resp.IsSuccess) {
+                        var resdata = JSON.parse(resp.Data);
+                        var resdata1 = JSON.parse(resp.Data2);
+                        //var resdata2 = JSON.parse(resp.Data3);
+                        //var resdata3 = JSON.parse(resp.Data4);
+                        $('#errormsg').addClass("text-black");
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
+                        var totalpart = [];
+
+                        if (resdata1.length != 0) {
+                            totalpart = resdata.filter(x => x.Type == "Participant");
+                            if (resdata1) {
+                                ChartGroupTree(resdata1, totalpart[0].NoofData);
+                            }
+                        }
+                    }
+                    else {
+                        $('#errormsg').html(resp.Data); $('#errormsg').addClass("text-danger");
+                        //CreateToasterMessage("Error", response.Message, response.StatusType);
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    $('#errormsg').html(errormsg); $('#errormsg').addClass("text-danger");
+                    $('#global-loader').css('background', 'transparent').css('display', 'none');
+                }
+            });
+        }
+        /*Training Center Over state to Training Center wise */
+        function ChartGroupTree(Datalist, TotalPart) {
+            if (Datalist.length > 0) {
+                var objd = []; arrdist = [];
+                var Dlist = []; var filtervl = 0;
+                objd = [{ id: '0.0', parent: '', name: 'Maharashtra' + ' / ' + TotalPart }];//
+                debugger;
+                const groupByDis = groupBy(["DistrictId", "DistrictName"]);
+                for (let [groupName, values] of Object.entries(groupByDis(Datalist))) {
+                    //console.log(`${groupName}: ${values.length}`);
+                    var strsp = groupName.split('--');
+                    filtervl = Datalist.filter(x => x.DistrictId == strsp[0]);
+                    let sum = filtervl.reduce(function (accumulator, curValue) {
+                        return accumulator + curValue.NoofPart
+                    }, 0)
+                    objd.push({ id: strsp[0] + '.0', parent: '0.0', name: strsp[1] + ' / ' + sum });//
+                }
+                const groupByTrainAgency = groupBy(["DistrictId", "TrainingAgencyId", "TrainingAgencyName"]);
+                for (let [groupName, values] of Object.entries(groupByTrainAgency(Datalist))) {
+                    //console.log(`${groupName}: ${values.length}`);
+                    var strsp = groupName.split('--');
+                    filtervl = Datalist.filter(x => x.DistrictId == strsp[0] && x.TrainingAgencyId == strsp[1]);
+                    let sum = filtervl.reduce(function (accumulator, curValue) {
+                        return accumulator + curValue.NoofPart
+                    }, 0)
+                    objd.push({ id: strsp[0] + '.' + strsp[1], parent: strsp[0] + '.0', name: strsp[2] + ' / ' + sum }); ////+ strsp[3]
+                }
+                const groupByTrainCenter = groupBy(["DistrictId", "TrainingAgencyId", "TrainingCenterId", "TrainingCenter"]);
+                debugger;
+                for (let [groupName, values] of Object.entries(groupByTrainCenter(Datalist))) {
+                    //console.log(`${groupName}: ${values.length}`);
+                    var strsp = groupName.split('--');
+                    filtervl = Datalist.filter(x => x.DistrictId == strsp[0]
+                        && x.TrainingAgencyId == strsp[1] && x.TrainingCenterId == strsp[2]);
+                    let sum = filtervl.reduce(function (accumulator, curValue) {
+                        return accumulator + curValue.NoofPart
+                    }, 0)
+                    objd.push({ id: strsp[0] + strsp[1] + '.' + strsp[2], parent: strsp[0] + '.' + strsp[1], name: strsp[3] + ' / ' + sum }); ////strsp[4]
+                }
+                //for (var i = 0; i < Datalist.length; i++) {
+                //    objd.push({ id: Datalist[i].TrainingAgencyId + '.' + Datalist[i].TrainingCenterId, parent: Datalist[i].DistrictId + '.' + Datalist[i].TrainingAgencyId, name: Datalist[i].TrainingCenter });
+                //}
+                const data = objd;
+                chart = Highcharts.chart('chartgrouptree', {
+                    chart: {
+                        // inverted: true,
+                        // marginBottom: 170
+                        //borderWidth: 1
+                        spacingBottom: 150,
+                        marginRight: 200,
+                        height: 1200
+                    },
+                    title: {
+                        text: '<h4 style="text-decoration: underline;color:#5b2c54">Training Center Distribution</h4>',
+                        align: 'center',
+                        style: {
+                            fontSize: '2em'
+                        }
+                    },
+                    subtitle: {
+                        text: '<h5 style="text-decoration: underline;color:#5b2c54">Distribution - (' + TotalPart + ')</h5>',
+                        align: 'center',
+                        style: {
+                            fontSize: '1.2em'
+                        }
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    labels: {
+                        skew3d: true,
+                        style: {
+                            fontSize: '1em'
+                        }
+                    },
+                    series: [
+                        {
+                            type: 'treegraph',
+                            data,
+                            tooltip: {
+                                pointFormat: '{point.name}'
+                            },
+                            dataLabels: {
+                                pointFormat: '{point.name}',
+                                style: {
+                                    whiteSpace: 'nowrap',
+                                    color: '#000000',
+                                    textOutline: '3px contrast',
+                                    fontSize: '1em',
+                                },
+                                crop: false
+                            },
+                            marker: {
+                                symbol: 'circle',
+                                radius: 6,
+                                fillColor: '#ffffff',
+                                lineWidth: 3
+                            },
+                            dataLabels: {
+                                align: 'left',
+                                //pointFormat: '{point.id}',
+                                style: {
+                                    color: '#000000',
+                                    textOutline: '3px #ffffff',
+                                    whiteSpace: 'nowrap'
+                                },
+                                x: 24,
+                                crop: false,
+                                overflow: 'none'
+                            },
+                            levels: [
+                                {
+                                    level: 1,
+                                    //levelIsConstant: false
+                                    dataLabels: {
+                                        style: {
+                                            fontSize: '1.2em'
+                                        }
+                                    },
+                                },
+                                {
+                                    level: 2,
+                                    colorByPoint: true,
+                                    dataLabels: {
+                                        style: {
+                                            fontSize: '1.2em'
+                                        }
+                                    },
+                                },
+                                {
+                                    level: 3,
+                                    colorVariation: {
+                                        key: 'brightness',
+                                        to: -0.5
+                                    },
+                                    dataLabels: {
+                                        style: {
+                                            fontSize: '1.2em'
+                                        }
+                                    },
+                                },
+                                {
+                                    level: 4,
+                                    colorVariation: {
+                                        key: 'brightness',
+                                        to: 0.5
+                                    },
+                                    dataLabels: {
+                                        style: {
+                                            fontSize: '1.2em'
+                                        }
+                                    },
+                                },
+                                {
+                                    level: 6,
+                                    dataLabels: {
+                                        x: 10,
+                                        style: {
+                                            fontSize: '1.2em'
+                                        }
+                                    },
+                                    marker: {
+                                        radius: 4
+                                    }
+                                }
+                            ]
+
+                            //marker: {
+                            //    radius: 6
+                            //},
+                            //legend: {
+                            //    itemStyle: {
+                            //        color: 'white',
+                            //        fontWeight: 'bold',
+                            //        fontSize: '20px'
+                            //    }
+                            //},
+                            //levels: [
+                            //    {
+                            //        level: 1,
+                            //        dataLabels: {
+                            //            align: 'left',
+                            //            x: 20
+                            //        }
+                            //    },
+                            //    {
+                            //        level: 2,
+                            //        colorByPoint: true,
+                            //        dataLabels: {
+                            //            verticalAlign: 'bottom',
+                            //            y: -20
+                            //        }
+                            //    },
+                            //    {
+                            //        level: 3,
+                            //        //colorVariation: {
+                            //        //    key: 'brightness',
+                            //        //    to: -0.5
+                            //        //},
+                            //        dataLabels: {
+                            //            verticalAlign: 'top',
+                            //            /*rotation: 90,*/
+                            //            y: -20
+                            //        }
+                            //    },
+                            //    //{
+                            //    //    level: 4,
+                            //    //    //colorVariation: {
+                            //    //    //    key: 'brightness',
+                            //    //    //   /* to: -0.5*/
+                            //    //    //},
+                            //    //    dataLabels: {
+                            //    //        verticalAlign: 'bottom',
+                            //    //        //verticalAlign: 'top',
+                            //    //        /*rotation: 90,*/
+                            //    //        y: -20
+                            //    //    }
+                            //    //}
+                            //    {
+                            //        level: 4,
+                            //        colorVariation: {
+                            //            key: 'brightness',
+                            //            to: -0.5
+                            //        },
+                            //        dataLabels: {
+                            //            verticalAlign: 'top',
+                            //            rotation: 90,
+                            //            y: 20,
+                            //            overflow: 'none'
+
+                            //        }
+                            //    }
+                            //]
+
+                        }
+                    ]
+                });
+            }
+        }
+
+        const groupBy = (keys) => (array) =>
+            array.reduce((objectsByKeyValue, obj) => {
+                const value = keys.map((key) => obj[key]).join("--");
+                objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+                return objectsByKeyValue;
+            }, {});
+    </script>
+}

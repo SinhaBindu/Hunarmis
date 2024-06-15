@@ -14,6 +14,11 @@
         height: 280px;
         display: inline-block;
     }
+    .container2 {
+        width: 550px;
+        height: 280px;
+        display: inline-block;
+    }
     /* #chartgrouptree {
         width: 950px;
         height: 500px;
@@ -60,11 +65,11 @@
                             <div class="col-sm-12">
                                 <div id="chartgrouptree" class=""></div>
                             </div>
-                            <div class="col-sm-4">
-                                <div id="chartcutmthcallstu" class="container"></div>
+                            <div class="col-sm-6">
+                                <div id="chartcutmthcallstu" class="container2"></div>
                             </div>
-                            <div class="col-sm-4">
-                                <div id="chartplace" class="container"></div>
+                            <div class="col-sm-6">
+                                <div id="chartplace" class="container2"></div>
                             </div>
                         </div>
                     </div>
@@ -157,9 +162,9 @@
                         }
                         if (resdata1.length != 0 || resdata2.length != 0 || resdata3.length != 0) {
                             totalpart = resdata.filter(x => x.Type == "Participant");
-                            if (resdata1) {
-                                ChartGroupTree(resdata1, totalpart[0].NoofData);
-                            }
+                            //if (resdata1) {
+                            //    ChartGroupTree(resdata1, totalpart[0].NoofData);
+                            //}
                             if (resdata2) {
                                 ChartCutmnthcallstu(resdata2, totalpart[0].NoofData);
                             }
@@ -448,38 +453,39 @@
             if (Datalist.length > 0) {
                 var objd = []; arrdist = [];
                 var Dlist = []; var filtervl = 0;
-                objd = [{ id: '0.0', parent: '', name: 'Maharashtra' + '-' + TotalPart }];//
+                objd = [{ id: '0.0', parent: '', name: 'Maharashtra' + ' / ' + TotalPart }];//
                 debugger;
                 const groupByDis = groupBy(["DistrictId", "DistrictName"]);
                 for (let [groupName, values] of Object.entries(groupByDis(Datalist))) {
                     //console.log(`${groupName}: ${values.length}`);
-                    var strsp = groupName.split('-');
+                    var strsp = groupName.split('--');
                     filtervl = Datalist.filter(x => x.DistrictId == strsp[0]);
                     let sum = filtervl.reduce(function (accumulator, curValue) {
                         return accumulator + curValue.NoofPart
                     }, 0)
-                    objd.push({ id: strsp[0] + '.0', parent: '0.0', name: strsp[1] + '-' + sum });//
+                    objd.push({ id: strsp[0] + '.0', parent: '0.0', name: strsp[1] + ' / ' + sum });//
                 }
                 const groupByTrainAgency = groupBy(["DistrictId", "TrainingAgencyId", "TrainingAgencyName"]);
                 for (let [groupName, values] of Object.entries(groupByTrainAgency(Datalist))) {
                     //console.log(`${groupName}: ${values.length}`);
-                    var strsp = groupName.split('-');
+                    var strsp = groupName.split('--');
                     filtervl = Datalist.filter(x => x.DistrictId == strsp[0] && x.TrainingAgencyId == strsp[1]);
                     let sum = filtervl.reduce(function (accumulator, curValue) {
                         return accumulator + curValue.NoofPart
                     }, 0)
-                    objd.push({ id: strsp[0] + '.' + strsp[1], parent: strsp[0] + '.0', name: strsp[2] + '-' + sum }); ////+ strsp[3]
+                    objd.push({ id: strsp[0] + '.' + strsp[1], parent: strsp[0] + '.0', name: strsp[2] + ' / ' + sum }); ////+ strsp[3]
                 }
                 const groupByTrainCenter = groupBy(["DistrictId", "TrainingAgencyId", "TrainingCenterId", "TrainingCenter"]);
+                debugger;
                 for (let [groupName, values] of Object.entries(groupByTrainCenter(Datalist))) {
                     //console.log(`${groupName}: ${values.length}`);
-                    var strsp = groupName.split('-');
+                    var strsp = groupName.split('--');
                     filtervl = Datalist.filter(x => x.DistrictId == strsp[0]
                         && x.TrainingAgencyId == strsp[1] && x.TrainingCenterId == strsp[2]);
                     let sum = filtervl.reduce(function (accumulator, curValue) {
                         return accumulator + curValue.NoofPart
                     }, 0)
-                    objd.push({ id: strsp[0] + strsp[1] + '.' + strsp[2], parent: strsp[0] + '.' + strsp[1], name: strsp[3] + '-' + sum }); ////strsp[4]
+                    objd.push({ id: strsp[0] + strsp[1] + '.' + strsp[2], parent: strsp[0] + '.' + strsp[1], name: strsp[3] + ' / ' + sum }); ////strsp[4]
                 }
                 //for (var i = 0; i < Datalist.length; i++) {
                 //    objd.push({ id: Datalist[i].TrainingAgencyId + '.' + Datalist[i].TrainingCenterId, parent: Datalist[i].DistrictId + '.' + Datalist[i].TrainingAgencyId, name: Datalist[i].TrainingCenter });
@@ -663,13 +669,22 @@
 
                 // Build the chart
                 chart = Highcharts.chart('chartcutmthcallstu', {
+                    //chart: {
+                    //    plotBackgroundColor: null,
+                    //    plotBorderWidth: null,
+                    //    plotShadow: false,
+                    //    type: 'pie',
+                    //    borderWidth: 1
+                    //},
                     chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
                         type: 'pie',
-                        borderWidth: 1
+                        borderWidth: 1,
+                        options3d: {
+                            enabled: true,
+                            alpha: 45
+                        }
                     },
+                   // colors: ['#F3B04A', '#82C368', '#4D49CC','#E8CB56'],
                     title: {
                         text: 'Current Month Calling Status',
                         align: 'center'
@@ -737,11 +752,11 @@
             if (Datalist.length > 0) {
                 debugger;
                 var objd = new Object();
-                var Dlist = [];
-                //for (var i = 0; i < Datalist.length; i++) {
-                //    var obj = [Datalist[i].ColumnName, Datalist[i].NoofData];
-                //    name.push(obj);
-                //}
+                var Dlist = [], name=[];
+                for (var i = 0; i < Datalist.length; i++) {
+                    //var obj = [Datalist[i].ColumnName, Datalist[i].NoofData];
+                    name.push(obj);
+                }
                 var obj = ['Placed', Datalist[0].NoofPlace];
                 Dlist.push(obj);
                 obj = ['Not Placed', Datalist[0].NoofNotPlace];
@@ -750,17 +765,27 @@
                 // Set up the chart
                 chart = Highcharts.chart('chartplace', {
                     chart: {
-                        type: 'pyramid3d',
+                        type: 'columnpyramid',
                         borderWidth: 1,
-                        options3d: {
-                            enabled: true,
-                            alpha: 10,
-                            depth: 50,
-                            viewDistance: 50
-                        }
+                        //options3d: {
+                        //    enabled: true,
+                        //    alpha: 10,
+                        //    depth: 50,
+                        //    viewDistance: 50
+                        //}
                     },
+                    colors: ['#F3B04A', '#82C368'],
                     title: {
                         text: 'Placement Status : ' + TotalPart
+                    },
+                    xAxis: {
+                        crosshair: true,
+                        labels: {
+                            style: {
+                                fontSize: '14px'
+                            }
+                        },
+                        type: 'category'
                     },
                     credits: {
                         enabled: false
@@ -777,13 +802,13 @@
                                     fontSize:'1em'
                                 },
                             },
-                            width: '60%',
-                            height: '80%',
-                            center: ['50%', '45%']
+                            //width: '60%',
+                            //height: '80%',
+                            //center: ['50%', '45%']
                         }
                     },
                     series: [{
-                        name: 'Place',
+                        name: 'Placement',
                         data: Dlist
                     }]
                 });
@@ -793,7 +818,7 @@
 
         const groupBy = (keys) => (array) =>
             array.reduce((objectsByKeyValue, obj) => {
-                const value = keys.map((key) => obj[key]).join("-");
+                const value = keys.map((key) => obj[key]).join("--");
                 objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
                 return objectsByKeyValue;
             }, {});

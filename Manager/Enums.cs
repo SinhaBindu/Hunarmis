@@ -23,6 +23,11 @@ namespace Hunarmis.Manager
             No = 0,
             //Other = 3,
         }
+        public enum EnumRatingGB
+        {
+            Poor = 1,
+            Excellent = 5,
+        }
         public enum eCallLimitDuration
         {
             FixedCallLimit = 6,
