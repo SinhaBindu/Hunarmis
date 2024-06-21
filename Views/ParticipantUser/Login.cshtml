@@ -19,152 +19,111 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <style>
         body {
+            margin: 0px;
+            padding: 0px;
             font-family: "Outfit", sans-serif;
-            background: #DCF4FE;
+        }
+        .cool-login {
+            display: flex;
+            height: 100%;
+        }
+        .login-sider, .post-login {
+            flex: 1;
+        }
+        .login-sider {
+            display: block;
+            height: 100%;
+            top: 0px;
+            margin-top: 0px;
+            overflow: inherit;
+            background: url('../../Content/css/assets/hunar-participants.jpg')top right;
+            background-size: cover;
+        }
+        .post-login {
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-
-        img {
+        .group-form {
             width: 100%;
-            height: auto;
+            margin-bottom: 20px
         }
-
-        .login-box {
-            display: flex;
-            gap: 20px;
-            background: #fff;
-            border-radius: 10px;
-            max-width: 880px;
-            box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
+        label {
+            display: block;
         }
-
-        .login-field, .login-photo {
-            flex: 1;
-        }
-
-        .login-field, .input-box {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: left;
-        }
-
-        .input-box {
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-        .login-content {
-            width: 300px;
-            margin: auto;
-        }
-
-        .input-box label {
-            text-align: left;
-            padding-bottom: 6px;
-            font-size: 14px;
-        }
-
         .form-control {
             margin-bottom: 4px;
             width: 100%;
+            background: none;
             padding: 9px 15px;
-            border-radius: 20px;
-            border: 1px solid #a09f9f;
+            border: none;
+            border-bottom: 1px solid #a09f9f;
             outline: none;
         }
-
-            .form-control:hover, .form-control:focus {
-                border: 1px solid #7663F1;
-            }
-
-        .text-danger {
-            color: #FE4F46;
-            font-size: 13px;
-        }
-
-        .btn-login {
+        .login-btn {
             padding: 12px 0;
-            border-radius: 20px;
-            background: #8A77F4;
+            background: #48C8FF;
             color: #fff;
             width: 100%;
             cursor: pointer;
             border: none;
-            margin-top: 20px;
             transition: background-color 0.5s ease;
             font-size: 15px;
         }
-
-            .btn-login:hover {
-                background: #5C41F4;
+        .login-btn:hover {
+            background: #e17b19
+        }
+        @@media all and (max-width: 768px) {
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-family: "Outfit", sans-serif;
+                background: url('../../Content/css/assets/hunar-participants.jpg')top right;
             }
-
-        .check-label {
-            font-size: 14px;
-            color: #444444;
-        }
-
-        .login-icon {
-            width: 70px;
-        }
-
-        .title {
-            text-align: center;
-            position: relative;
-            font-size: 35px;
-            margin: 0 0 20px;
-            color: #5B2C54;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        @@media screen and (max-width: 768px) {
-            .login-photo {
-                display: none;
+            .login-sider {
+                display: none
             }
-
-            .login-box {
-                padding: 15px
+            .post-login {
+                background: rgba(255,255,255,0.8)
             }
         }
     </style>
 </head>
 <body>
-    <div>
-        <h3 class="title">Hunar Participant Login</h3>
-        <div class="login-box">
-            <div id="loginForm" class="login-field">
-                <div class="login-content">
-                    <img src="~/Content/login/login-icon.png" alt="Login Icon" class="login-icon" />
-                    <h2>@ViewBag.Title.</h2>
-                    @using (Html.BeginForm("Login", "ParticipantUser", new { RandomValue = TempData["RV"] }, FormMethod.Post, new { role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.HiddenFor(m => m.RandomValue)
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="input-box">
-                            @Html.LabelFor(m => m.EmailID)
-                            @Html.TextBoxFor(m => m.EmailID, new { @class = "form-control", @placeholder = "Enter user name" })
-                            @Html.ValidationMessageFor(m => m.EmailID, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="input-box">
-                            @Html.LabelFor(m => m.Password)
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Enter password" })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
-                        <input type="submit" value="Log in" class="btn-login" />
-                    }
+    <div class="cool-login">
+        <div class="login-sider">
+
+        </div>
+        <div class="post-login">
+            <div id="post-login">
+                <h1>HUNAR PARTICIPANTS</h1>
+                <h3>Login</h3>
+                <p>Enter your username and password to login</p>
+                @using (Html.BeginForm("Login", "ParticipantUser", new { RandomValue = TempData["RV"] }, FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.RandomValue)
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                }
+                <div class="group-form">
+                    @*@Html.LabelFor(m => m.EmailID)*@
+                    @Html.TextBoxFor(m => m.EmailID, new { @class = "form-control", @placeholder = "Enter user name" })
+                    @Html.ValidationMessageFor(m => m.EmailID, "", new { @class = "text-danger" })
                 </div>
-            </div>
-            <div class="login-photo">
-                <img src="~/Content/login/login-photo.jpg" alt="Login Photo" />
-            </div>
+                <div class="group-form">
+                    @*@Html.LabelFor(m => m.Password)*@
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Enter password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+                <input type="submit" value="Submit" class="login-btn">
+                <p>
+                    <a href="#">Forgot Password ?</a>
+                </p>
+            </div>            
         </div>
     </div>
-
+    
 </body>
 </html>
 

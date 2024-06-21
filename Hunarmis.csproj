@@ -563,6 +563,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\css\Accordioncss.css" />
     <Content Include="Content\css\AdminGlobal.css" />
+    <Content Include="Content\css\assets\hunar-participants.jpg" />
     <Content Include="Content\css\assets\large_left.png" />
     <Content Include="Content\css\assets\large_right.png" />
     <Content Include="Content\css\assets\loader.gif" />
