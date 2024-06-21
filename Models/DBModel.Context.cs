@@ -49,9 +49,17 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<QuestionBook> QuestionBooks { get; set; }
         public virtual DbSet<QuestionOption> QuestionOptions { get; set; }
-        public virtual DbSet<tbl_Survey> tbl_Survey { get; set; }
-        public virtual DbSet<tbl_SurveyAnswer> tbl_SurveyAnswer { get; set; }
         public virtual DbSet<FormMaster> FormMasters { get; set; }
         public virtual DbSet<tbl_ParticipantRemarks_History> tbl_ParticipantRemarks_History { get; set; }
+        public virtual DbSet<tbl_Mapped> tbl_Mapped { get; set; }
+        public virtual DbSet<tbl_MappedTrainCenter> tbl_MappedTrainCenter { get; set; }
+        public virtual DbSet<tbl_AttendanceParticipant> tbl_AttendanceParticipant { get; set; }
+        public virtual DbSet<tbl_AttendParticipant> tbl_AttendParticipant { get; set; }
+        public virtual DbSet<tbl_AttendPartTopic> tbl_AttendPartTopic { get; set; }
+        public virtual DbSet<SessionPlanTopic_Master> SessionPlanTopic_Master { get; set; }
+        public virtual DbSet<tbl_Survey> tbl_Survey { get; set; }
+        public virtual DbSet<tbl_SurveyAnswer> tbl_SurveyAnswer { get; set; }
+        public virtual DbSet<tbl_AssessmentSchedule> tbl_AssessmentSchedule { get; set; }
+        public virtual DbSet<tbl_AssessmentSendLinkEmail> tbl_AssessmentSendLinkEmail { get; set; }
     }
 }

@@ -1,0 +1,581 @@
+﻿@model Hunarmis.Models.AttendanceModel
+@using Hunarmis.Manager
+@{
+    ViewBag.Title = "Attendance";
+    ViewBag.TitleIcon = "fa fa-user";
+    ViewBag.SemiTitle = "Attendance Lists";
+    ViewBag.SemiTitleLink = "/Attendance/AttendanceList";
+}
+<style>
+    .dataTables_wrapper {
+        padding: 5px;
+    }
+
+    .card-table thead tr th {
+        font-size: 12px !important;
+        padding: 10px 10px !important;
+        background: #5B2C54;
+        color: #fff !important;
+    }
+
+    .card-table tbody tr td {
+        font-size: 12px !important;
+        padding: 10px 10px !important;
+    }
+
+    .panel {
+        min-height: 500px
+    }
+</style>
+
+
+
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel-spacer">
+                        <p class="bord-btm pad-ver text-main text-bold">
+                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title
+                        </p>
+                    </div>
+                    <div class="content-manage">
+                        <div id="div-download"></div>
+                        @using (Html.BeginForm("CreatedAttend", "Attendance", FormMethod.Post, new { id = "submission-form" }))
+                        {
+                            <input type="hidden" name="Latitude" id="Latitude" value="" />
+                            <input type="hidden" name="Longitude" id="Longitude" value="" />
+                            <input type="hidden" name="Address" id="Address" value="" />
+                            <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                            <div class="panel-bodys">
+                                <div class="manage-input">
+                                    <div class="card1">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                            <div class="col-lg-8">
+                                                @Html.DropDownListFor(model => model.BatchId, CommonModel.GetBatch(), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="mark-devide"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.TopicIds, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                            <div class="col-lg-8">
+                                                @Html.DropDownListFor(model => model.TopicIds, CommonModel.GetSessionPlanTopic(), "Select One", htmlAttributes: new { @class = "form-control multiple", multiple = "multiple" })
+                                                @Html.ValidationMessageFor(model => model.TopicIds, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="mark-devide"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-lg-2" })
+                                            <div class="col-lg-2">
+                                                @Html.EditorFor(m => m.StartDate, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "form-control col-md-4 required", @required = "required" } })
+                                                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="mark-devide"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.StrStartTime, htmlAttributes: new { @class = "control-label col-lg-2" })
+                                            <div class="col-lg-2">
+                                                @Html.EditorFor(m => m.StrStartTime, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Start Time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
+                                                @Html.ValidationMessageFor(model => model.StrStartTime, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="mark-devide"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.StrEndTime, htmlAttributes: new { @class = "control-label col-lg-2" })
+                                            <div class="col-lg-2">
+                                                @Html.EditorFor(m => m.StrEndTime, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance End Time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
+                                                @Html.ValidationMessageFor(model => model.StrEndTime, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="mark-devide"></div>
+                                        </div>
+                                        @*<div class="form-group">
+                                                @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                <div class="col-lg-8">
+                                                    @Html.DropDownListFor(model => model.DistrictId, CommonModel.GetDistrict("1"), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.TrainAgencyId, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                <div class="col-lg-8">
+                                                    @Html.DropDownListFor(model => model.TrainAgencyId, CommonModel.GetTrainingAgency(), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(model => model.TrainAgencyId, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.TrainCenterIdMappedMult, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                <div class="col-lg-8">
+                                                    @Html.DropDownListFor(model => model.TrainCenterIdMappedMult, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control multiple" })
+                                                    @Html.ValidationMessageFor(model => model.TrainCenterIdMappedMult, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>*@
+
+                                        <div class="form-group">
+                                            <br />
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-7">
+                                                <span class="">
+                                                    @*<button type="submit" class="previous btn btn-primary btn-lg">Submit</button>*@
+                                                    <input type="submit" name="btnsubmit" value="Attendance Submit" id="btnsubmit" class="btn-lg btn-primary" />
+                                                    <a href="~/Attendance/CreatedAttend" class="btn-reset"><i class="fa fa-refresh"></i></a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="break"></div>
+                            <div id="subdata">
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script src="~/Scripts/CustomValidator.js"></script>*@
+    <script src="~/Scripts/Custom/Master.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAw2rgDsJqTKA8ern_oI6heqv-xgSLuu1U"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            // $('#TACs').multiselect();
+            //$('#DistrictId').change(function () {
+            //    $('#TrainCenterIdMappedMult').val('');
+            //    if ($('#DistrictID').val() != '' && $('#TrainAgencyId').val() != '') {
+            //        BindTrainingCenter("TrainCenterIdMappedMult", 0, false, $('#DistrictId').val(), $('#TrainAgencyId').val());
+            //        $('#TrainCenterIdMappedMult').multiSelect();
+            //    }
+            //});
+            //$('#TrainAgencyId').change(function () {
+            //    $('#TrainCenterIdMappedMult').val('');
+            //    if ($('#DistrictID').val() != '' && $('#TrainAgencyId').val() != '') {
+            //        BindTrainingCenter("TrainCenterIdMappedMult", 0, false, $('#DistrictId').val(), $('#TrainAgencyId').val());
+            //        $('#TrainCenterIdMappedMult').multiSelect();
+            //    }
+            //});
+            // setTimeout(BindData, 2000);
+            //$('.multiple').multiselect({
+            //    includeSelectAllOption: true
+            //});
+            //$('#DataList tbody tr td.multiple').multiSelect('refresh');
+            $('.timepicker').timepicker({
+                timeFormat: 'h:mm p',
+                interval: 60,
+                minTime: '10',
+                maxTime: '6:00pm',
+                defaultTime: '11',
+                startTime: '10:00',
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true
+            });
+            $("#StartDate").datepicker({
+                dateFormat: 'dd-M-yy',
+                // changeMonth: true,
+                //changeYear: true,
+                minDate: '0',
+                maxDate: '0',
+            });
+
+            //$('#AttendanceStartTime').datetimepicker({
+            //    format: 'LT'
+            //});
+            //$('#AttendanceEndTime').datetimepicker({
+            //    format: 'LT'
+            //});
+
+            //::Time Condition
+            //$('#AttendanceStartTime').on("change.datetimepicker", function (e) {
+            //    if (e.date) {
+            //        $('#AttendanceEndTime').datetimepicker(e.date.add(15, 'm'));
+            //    }
+            //    $('#AttendanceEndTime').datetimepicker('minDate', e.date)
+            //});
+            getLocation();
+            $('#TopicIds').multiselect({
+                buttonWidth: '100%'
+            });
+            $('#BatchId').change(function () {
+                BindPartData();
+            });
+
+            $('#submission-form').submit(function (e) {
+                e.preventDefault();
+                if (lat != '' && lng != '' && lat != undefined && lng != undefined) {
+                    if ($("#submission-form").valid()) {
+                        CUData();
+                        //return false;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                else {
+                    toastr.error("Error", "Please Select Latitude & Longitude ");
+                    return false;
+                }
+            });
+
+            //const myTable = $('#DataList').dataTable({
+            //    stateSave: true
+            //});
+            //const allPagesCheckboxes = myTable.fnGetNodes();
+            //console.log(allPagesCheckboxes);
+            //$('#selectAll').click(function () {
+            //    const thisText = $(this).text();
+            //    if (thisText === "Unselect All") {
+            //        $('input[type="checkbox"]', allPagesCheckboxes)
+            //            .attr('checked', false);
+            //        $(this).text('Select All');
+            //    }
+            //    else {
+            //        $('input[type="checkbox"]', allPagesCheckboxes)
+            //            .attr('checked', true);
+            //        $(this).text('Unselect All');
+            //    }
+
+            //});
+
+        });
+        var lat, lng;
+        function getLocation() {
+            //if (navigator.geolocation) {
+            //    navigator.geolocation.getCurrentPosition(showPosition, null,  { enableHighAccuracy: true } );
+            //}
+            //else {
+            //    alert('Geolocation is not supported by this browser.');
+            //}
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        //25.613243309063463, 85.07441437025854
+                        const pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        };
+                        // $('#Latitude').val(lat);
+                        $//('#Longitude').val(lang);
+                        lat = pos.lat;
+                        lng = pos.lng;
+                    },
+                    () => {
+                        handleLocationError(true);
+                    }, {
+                    enableHighAccuracy: true
+                }
+
+                );
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false);
+            }
+        }
+        function handleLocationError(browserHasGeolocation) {
+            var error = browserHasGeolocation ? "Error: The Geolocation service failed." : "Error: Your browser doesn't support geolocation."
+            console.log(error);
+        }
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var lang = position.coords.longitude;
+            $('#Latitude').val(lat);
+            $('#Longitude').val(lang);
+            //var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lang + "&sensor=true";
+            //$.getJSON(url, function (data) {
+            //    var address = data.results[0].formatted_address;
+            //    $('#Address').val(address);
+            //});
+
+        }
+
+        function CheckUnchecked(cur) {
+            if ($(cur).attr('id') == 'selectAll') {
+                $('#tbl tbody tr .check').each(function (i, item) {
+                    $(item).prop('checked', $(cur).prop('checked'));
+                });
+            } else {
+                var isallChecked = true;
+                $('#tbl tbody tr .check').each(function (i, item) {
+                    if (!$(item).prop('checked')) {
+                        isallChecked = false;
+                        return;
+                    }
+                });
+                $('#selectAll').prop('checked', isallChecked);
+            }
+        }
+
+        //function BindData() {
+        //    $('#submission-data').removeClass("text-danger");
+        //    var url = $('#submission-form').attr("action");
+        //    var formData = $('#submission-form').serialize();
+        //    var RoleId = $('#RoleId').val();
+        //    $.ajax({
+        //        url: url,
+        //        type: "Post",
+        //        data: { 'RoleId': RoleId, 'CheckBox': 1 },
+        //        success: function (resp) {
+        //            if (resp.IsSuccess) {
+        //                $('#submission-data').html(resp.Data);
+        //                //$('select').multiSelect();
+
+        //                if ($.fn.dataTable.isDataTable('#DataList')) {
+        //                    $("#DataList").dataTable().fnDestroy();
+        //                }
+        //                table = $('#DataList').DataTable({
+        //                    //scrollY: "400px",
+        //                    //scrollX: true,
+        //                    //scrollCollapse: true,
+        //                    //paging: false,
+        //                    //"ordering": false,
+        //                    pageLength: 50,
+
+        //                    fixedColumns: {
+        //                        leftColumns: 1,
+        //                        rightColumns: 1
+        //                    },
+        //                    buttons: [{
+        //                        extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'User Lists',//$('#IDDistrict option:selected').text() +
+        //                        className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+        //                        filename: 'User List',
+        //                        exportOptions: { modifier: { page: 'all' } }
+        //                    }],
+        //                });
+        //                $('.dataTables_filter input[type="search"]').css(
+        //                    { 'width': '500px', 'display': 'inline-block' }
+        //                );
+        //                $('#div-download').empty();
+        //                table.buttons().container().appendTo($('#div-download'));
+        //                //$('#DataList tbody tr td.multiple').multiselect({
+        //                //    includeSelectAllOption: true
+        //                //});
+        //                //$('#DataList tbody tr td.multiple').multiSelect('refresh');
+
+        //                var array = [];
+
+        //                $('#DataList tbody tr').each(function (i, row) {
+        //                    //debugger;
+        //                    var values = [];
+        //                    //var mselval = row.attr('data-mselval');
+        //                    var hdval = $(row).find('#hd' + i).val().split(",");
+        //                    //var ddl = $(row).find("select[TAC='" + i + "']");
+        //                    if (hdval != '' && hdval != undefined) {
+        //                        for (var i in hdval) {
+        //                            var optionVal = hdval[i];
+        //                            $(row).find("select").find("option[value=" + optionVal + "]").prop("selected", "selected");
+        //                        }
+        //                    }
+
+        //                    // var mselval = $(this).find("select[TAC='" + i + "']").text();
+        //                    //$("select[TAC='" + i + "']").val(['1', '2']);
+        //                    //var td=$(this).find('td')
+        //                    //    .each(function (y, tditem) {
+        //                    //        debugger;
+        //                    //     values.push();
+        //                    // });
+
+        //                    array.push(values);
+        //                });
+        //                $('.multiple').multiselect({
+        //                    includeSelectAllOption: true
+        //                });
+
+        //            }
+        //            else {
+        //                $('#submission-data').html("Record Not Found !!");//TO DO
+        //                $('#submission-data').addClass("text-danger");//TO DO
+        //            }
+        //        },
+        //        error: function (req, error) {
+        //            if (error === 'error') { error = req.statusText; }
+        //            var errormsg = 'There was a communication error: ' + error;
+        //            $('#submission-data').html(errormsg);
+        //        }
+        //    });
+        //}
+        //Submit Data
+        function CUData() {
+            debugger;
+            var IsCheck = false;
+            var isvalid = $("#submission-form").valid();
+            var tblpushdata = []; var modellist = [];
+            var formData = new FormData();
+            var Latitude = lat;
+            var Longitude = lng;
+            var Address = $('#Address').val();
+            if (lat == '' || lng =='') {
+                toastr.error("Error", "Allow to Location !!");
+                IsCheck = false
+                    return false;
+            }
+            if ($('#BatchId').val() == '' || $('#BatchId').val() == undefined) {
+                toastr.error("Error", "Please Select Batch !!");
+                IsCheck = false
+                return false;
+            }
+            if ($('#TopicIds').val() == '' || $('#TopicIds').val() == undefined) {
+                toastr.error("Error", "Please Select Session Plan.");
+                IsCheck = false
+                return false;
+            }
+            if ($('#StartDate').val() == '' || $('#StartDate').val() == undefined) {
+                toastr.error("Error", "Enter the Start Date.");
+                IsCheck = false
+                return false;
+            }
+            if ($('#StrStartTime').val() == '' || $('#StrStartTime').val() == undefined || $('#StrEndTime').val() == '' || $('#StrEndTime').val() == '') {
+                toastr.error("Error", "Enter the Start and End Time.");
+                IsCheck = false
+                return false;
+            }
+
+            var TopicIds = $('#TopicIds').val();
+            if (TopicIds != null && TopicIds != undefined) {
+                if (TopicIds.length != 0) {
+                    IsCheck = true;
+                    TopicIds = TopicIds.join(',');
+                }
+            }
+            var atleastonepart = 0;
+              let table2 = $('#tbl').DataTable();
+                table2.$('input[class=check]').each(function (i, row) {
+                    var participantid = $(row).attr('data-participantid');
+                    var batchid = $(row).attr('data-batchid');
+                    if (participantid != '' && participantid != '@Guid.Empty' && participantid != undefined) {
+                        if ($(this).is(':checked')) {
+                            atleastonepart += 1;
+                            IsCheck = true;
+                            tblpushdata.push({
+                                AttendancePartId_pk: '@Guid.Empty',
+                                AttendanceId_fk: '@Guid.Empty',
+                                ParticipantId_fk: participantid,
+                            });
+                        }
+                    }
+                });
+            if (atleastonepart == 0) {
+                toastr.error("Error", "Please selected at least one participant.");
+                IsCheck = true;
+                return false;
+            }
+            formData.append('AttendanceId_pk', '@Guid.Empty');
+            formData.append('BatchId', $('#BatchId').val());
+            formData.append('Lat', lat);
+            formData.append('Long', lng);
+            //formData.append('Address', $('#Year').val());
+            formData.append('StartDate', $('#StartDate').val());
+            formData.append('StrStartTime', $('#StrStartTime').val());
+            formData.append('StrEndTime', $('#StrEndTime').val());
+            formData.append('TopicIds', TopicIds);
+            formData.append('PARTModel', JSON.stringify(tblpushdata));
+            debugger;
+            if (isvalid && IsCheck) {
+                $.ajax({
+                    url: document.baseURI + "/Attendance/CreatedAttend",
+                    type: "Post",
+                    contentType: "application/json; charset=utf-8",
+                    data: formData,
+                    dataType: "json",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (resp) {
+                        if (resp.StatusType == "success") {
+                            toastr.success("Success", resp.Message);
+
+                            BindPartData();
+                            //jQuery.event.trigger("ajaxStop");
+                        }
+                        else {
+                            toastr.error("Error", resp.Message);
+                        }
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        toastr.error("Error", errormsg);
+                        //jQuery.event.trigger("ajaxStop");
+                        return false;
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        }
+
+        function BindPartData() {
+            $("#subdata").html('');
+            var filtermodel = new Object();
+            filtermodel.BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
+
+            $.ajax({
+                type: "Get",
+                url: document.baseURI + "/Attendance/GetPartList",
+                data: filtermodel,
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        if (res.IsAttend) {
+                            $("#btnsubmit").attr("disabled", "disabled");
+                        }
+                        else {
+                            $("#btnsubmit").removeAttr("disabled");
+                        }
+                        $("#subdata").html(res.Data);
+
+                        if ($.fn.dataTable.isDataTable('#tbl')) {
+                            $("#tbl").dataTable().fnDestroy();
+                        }
+                        table = $('#tbl').DataTable({
+                            //scrollY: "400px",
+                            //scrollX: true,
+                            //scrollCollapse: true,
+                            paging: false,
+                            "ordering": false,
+                            // pageLength: 100,
+                            fixedColumns: {
+                                leftColumns: 1,
+                                rightColumns: 1
+                            },
+                            order: [[1, 'asc']],
+                            buttons: [{
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Beneficiary Lists',//$('#IDDistrict option:selected').text() +
+                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                filename: 'Beneficiary List',
+                                exportOptions: { modifier: { page: 'all' } }
+                            }],
+                        });
+                        $('.dataTables_filter input[type="search"]').css(
+                            { 'width': '500px', 'display': 'inline-block' }
+                        );
+                        $('#div-download').empty();
+                        table.buttons().container().appendTo($('#div-download'));
+                    }
+                    else {
+                        $("#subdata").html(res.Data);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+
+    </script>
+}

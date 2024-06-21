@@ -2,14 +2,18 @@
 @*@model  List<Leadership.Models.HRModel>*@
 @using Hunarmis.Models;
 @using Hunarmis.Manager;
+@*@using System.Data*@
 @{
     ViewBag.Title = "Questions: Assessment";
     // ViewBag.TitleIcon = "fa fa-user";
     //ViewBag.SemiTitle = "Leadership Pizza Self-Assessment";
     // ViewBag.SemiTitleLink = "~/";
     string IsSadmin = string.Empty;
-    var idreadyonly = Model.Id != 0 ? "style=pointer-events:none;" : "";
+    var idreadyonlyBT = Model.BatchId != 0 ? "style=pointer-events:none;" : "";
+    var idreadyonlyTC = Model.TrainingCenterId != 0 ? "style=pointer-events:none;" : "";
+    var IsActivereadyonly = (Model.Id != 0 && Model.IsDraft == false) ? "style=pointer-events:none;" : "";
     // var url = Request.Url.AbsolutePath;
+    //DataTable dtcen = Hunarmis.Manager.SPManager.SP_GetDTACMasterList();
 }
 
 
@@ -213,9 +217,26 @@
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(m => m.Id)
                             @Html.HiddenFor(m => m.FormId)
+                            @Html.HiddenFor(m => m.BatchId)
+                            @Html.HiddenFor(m => m.TrainingCenterId)
+                            @Html.HiddenFor(m => m.RandomValue)
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @*<p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>Leadership Pizza Self-Assessment</p>*@
 
+                            @*<p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>Leadership Pizza Self-Assessment</p>*@
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Batch</label>
+                                <div class="col-md-4" @idreadyonlyBT>
+                                    @Html.DropDownListFor(m => m.BatchId, CommonModel.GetBatchForPartLists(), "Select One", htmlAttributes: new { @id = "BatchId", @class = "form-control select2", @required = "required" })<br />
+                                    <span class="field-validation-error" data-valmsg-for="BatchId" data-valmsg-replace="true" style="display:none;"><span id="BatchId-error" class="">The BatchId field is required.</span></span>
+
+                                </div>
+
+                                <label class="control-label col-md-2">Training Center</label>
+                                <div class="col-md-4" @idreadyonlyTC>
+                                    @Html.DropDownListFor(m => m.TrainingCenterId, CommonModel.GetDistTrainingAyCentersList(), "Select One", htmlAttributes: new { @id = "TrainingCenterId", @class = "form-control select2", @required = "required" })<br />
+                                    <span class="field-validation-error" data-valmsg-for="TrainingCenterId" data-valmsg-replace="true" style="display:none;"><span id="SchoolId-error" class="">The TrainingCenterId field is required.</span></span>
+                                </div>
+                            </div>
                             @{
                                 if (Model != null)
                                 {
@@ -228,7 +249,11 @@
                                 <div class="col-md-3 pull-right">
                                     <span class="">
                                         <button type="submit" class="previous btn btn-primary btn-lg" id="btnsubmit">Submit</button>
-                                        <a href="~/Assessment/Add?FId=@Model.FormId" class="btn btn-dark btn-lg">Reset</a>
+                                        <button type="submit" class="previous btn btn-info btn-lg btn-draft" id="btnDraft" @IsActivereadyonly><i class="fa fa-edit"></i> Save Draft</button>
+                                        @if (string.IsNullOrWhiteSpace(Model.RandomValue))
+                                        {
+                                            <a href="~/Assessment/Add?FId=@Model.FormId" class="btn btn-dark btn-lg">Reset</a>
+                                        }
                                     </span>
 
                                 </div>
@@ -254,6 +279,17 @@
 
         var PartTimeSumtxt = 0;
         $(document).ready(function () {
+
+            if ('@Model' !='null') {
+                if ('@Model.RandomValue' != '') {
+                    setTimeout(function () {
+                        $('#BatchId').val('@Model.BatchId');
+                        $('#BatchId').trigger('change');
+                        $('#TrainingCenterId').val('@Model.BatchId');
+                        $('#TrainingCenterId').trigger('change');
+                    }, 2000);
+                }
+            }
 
             $('#FormSubmit').validate({
                 errorClass: 'help-block animation-slideDown',
@@ -287,6 +323,52 @@
                         required: true
                     }
                 }
+            });
+
+            $("#btnDraft").click(function (e) {
+                e.preventDefault();
+                debugger;
+                $('span[data-valmsg-for="BatchId"]').hide();
+                $('span[data-valmsg-for="TrainingCenterId"]').hide();
+                if ($('#BatchId').val() == '' || $('#BatchId').val() == null) {
+                    if (!$('#BatchId').val()) {
+                        $('span[data-valmsg-for="BatchId"]').show();
+                        $('#BatchId').focus();
+                    }
+                    if (!$('#TrainingCenterId').val()) {
+                        $('span[data-valmsg-for="TrainingCenterId"]').show();
+                    }
+                    return false;
+                }
+                $('#IsDraft').val(true);
+                var valdata = $("#FormSubmit").serialize();
+                $.ajax({
+                    url: "/Assessment/Add",
+                    type: "POST",
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: valdata,
+                    success: function (resp) {
+                        if (resp.IsSuccess) {
+                            toastr.success('Success', resp.msg);
+                            var html = $(resp.htmlData);
+                            var hiddenList = $('input[type="hidden"]', html);
+                            $.each(hiddenList, function (i, item) {
+                                console.log(item);
+                                if (item.id) {
+                                    var hf = $('#' + item.id);
+                                    if (hf) {
+                                        $(hf).val($(item).val());
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            toastr.error('Danger', resp.msg);
+                        }
+                        //console.log(resdata);
+                    }
+                });
             });
 
             $('#FormSubmit').submit(function (e) {
@@ -365,7 +447,7 @@
                                             var hf = $('#' + item.id);
                                             if (hf) {
                                                 $(hf).val($(item).val());
-                                                $(hf).val($(item).val());
+                                                //$(hf).val($(item).val());
                                             }
                                         }
                                     });
@@ -517,7 +599,7 @@
         }
 
         function OnChangeRadio(QuestionCode, SelVal, DepandAns, Ele) {
-            
+
             // var clname = $('.' + QuestionCode).attr('class');
             var clname = $('.' + QuestionCode).attr('class') == undefined ? null : $('.' + QuestionCode).attr('class');
             //if (clname) {

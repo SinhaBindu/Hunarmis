@@ -1,0 +1,287 @@
+﻿@model Hunarmis.Models.UserMappedModel
+@using Hunarmis.Manager
+@{
+    ViewBag.Title = "User Mapped";
+    ViewBag.TitleIcon = "fa fa-user";
+    ViewBag.SemiTitle = "User Mapped Lists";
+    ViewBag.SemiTitleLink = "/Master/UserMappedList";
+}
+<style>
+    .dataTables_wrapper {
+        padding: 5px;
+    }
+
+    .card-table thead tr th {
+        font-size: 12px !important;
+        padding: 10px 10px !important;
+        background: #5B2C54;
+        color: #fff !important;
+    }
+
+    .card-table tbody tr td {
+        font-size: 12px !important;
+        padding: 10px 10px !important;
+    }
+
+    .panel {
+        min-height: 500px
+    }
+</style>
+
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel-spacer">
+                        <p class="bord-btm pad-ver text-main text-bold">
+                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title
+                        </p>
+                    </div>
+                    <div class="content-manage">
+                        <div id="div-download"></div>
+                        @using (Html.BeginForm("GetUserDetailData", "Master", FormMethod.Post, new { id = "submission-form" }))
+                        {
+
+                            <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                            <div class="panel-bodys">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="col-lg-8">
+                                        @Html.DropDownListFor(model => model.RoleId, CommonModel.GetRoleList(true), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                @*<div class="form-group">
+                                        @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                        <div class="col-lg-8">
+                                            @Html.DropDownListFor(model => model.DistrictId, CommonModel.GetDistrict("1"), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="mark-devide"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.TrainAgencyId, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                        <div class="col-lg-8">
+                                            @Html.DropDownListFor(model => model.TrainAgencyId, CommonModel.GetTrainingAgency(), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(model => model.TrainAgencyId, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="mark-devide"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.TrainCenterIdMappedMult, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                        <div class="col-lg-8">
+                                            @Html.DropDownListFor(model => model.TrainCenterIdMappedMult, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control multiple" })
+                                            @Html.ValidationMessageFor(model => model.TrainCenterIdMappedMult, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="mark-devide"></div>
+                                    </div>*@
+                            </div>
+
+                            <div class="break"></div>
+                            <div id="submission-data">
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script src="~/Scripts/CustomValidator.js"></script>*@
+    <script src="~/Scripts/Custom/Master.js"></script>
+
+
+
+    <script>
+        $(document).ready(function () {
+
+           // $('#TACs').multiselect();
+            //$('#DistrictId').change(function () {
+            //    $('#TrainCenterIdMappedMult').val('');
+            //    if ($('#DistrictID').val() != '' && $('#TrainAgencyId').val() != '') {
+            //        BindTrainingCenter("TrainCenterIdMappedMult", 0, false, $('#DistrictId').val(), $('#TrainAgencyId').val());
+            //        $('#TrainCenterIdMappedMult').multiSelect();
+            //    }
+            //});
+            //$('#TrainAgencyId').change(function () {
+            //    $('#TrainCenterIdMappedMult').val('');
+            //    if ($('#DistrictID').val() != '' && $('#TrainAgencyId').val() != '') {
+            //        BindTrainingCenter("TrainCenterIdMappedMult", 0, false, $('#DistrictId').val(), $('#TrainAgencyId').val());
+            //        $('#TrainCenterIdMappedMult').multiSelect();
+            //    }
+            //});
+            // setTimeout(BindData, 2000);
+            //$('.multiple').multiselect({
+            //    includeSelectAllOption: true
+            //});
+            //$('#DataList tbody tr td.multiple').multiSelect('refresh');
+            $('#RoleId').change(function () {
+                BindData();
+
+
+
+            });
+
+
+
+            //const myTable = $('#DataList').dataTable({
+            //    stateSave: true
+            //});
+            //const allPagesCheckboxes = myTable.fnGetNodes();
+            //console.log(allPagesCheckboxes);
+            //$('#selectAll').click(function () {
+            //    const thisText = $(this).text();
+            //    if (thisText === "Unselect All") {
+            //        $('input[type="checkbox"]', allPagesCheckboxes)
+            //            .attr('checked', false);
+            //        $(this).text('Select All');
+            //    }
+            //    else {
+            //        $('input[type="checkbox"]', allPagesCheckboxes)
+            //            .attr('checked', true);
+            //        $(this).text('Unselect All');
+            //    }
+
+            //});
+
+        });
+        function CheckUnchecked(cur) {
+            debugger;
+            if ($(cur).attr('id') == 'selectAll') {
+                $('#DataList tbody tr .check').each(function (i, item) {
+                    $(item).prop('checked', $(cur).prop('checked'));
+                });
+            } else {
+                var isallChecked = true;
+                $('#DataList tbody tr .check').each(function (i, item) {
+                    if (!$(item).prop('checked')) {
+                        isallChecked = false;
+                        return;
+                    }
+                });
+                $('#selectAll').prop('checked', isallChecked);
+            }
+        }
+
+        function BindData() {
+            $('#submission-data').removeClass("text-danger");
+            var url = $('#submission-form').attr("action");
+            var formData = $('#submission-form').serialize();
+            var RoleId = $('#RoleId').val();
+            $.ajax({
+                url: url,
+                type: "Post",
+                data: { 'RoleId': RoleId, 'CheckBox': 1 },
+                success: function (resp) {
+                    if (resp.IsSuccess) {
+                        $('#submission-data').html(resp.Data);
+                        //$('select').multiSelect();
+
+                        if ($.fn.dataTable.isDataTable('#DataList')) {
+                            $("#DataList").dataTable().fnDestroy();
+                        }
+                        table = $('#DataList').DataTable({
+                            //scrollY: "400px",
+                            //scrollX: true,
+                            //scrollCollapse: true,
+                            //paging: false,
+                            //"ordering": false,
+                            pageLength: 50,
+
+                            fixedColumns: {
+                                leftColumns: 1,
+                                rightColumns: 1
+                            },
+                            buttons: [{
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'User Lists',//$('#IDDistrict option:selected').text() +
+                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                filename: 'User List',
+                                exportOptions: { modifier: { page: 'all' } }
+                            }],
+                        });
+                        $('.dataTables_filter input[type="search"]').css(
+                            { 'width': '500px', 'display': 'inline-block' }
+                        );
+                        $('#div-download').empty();
+                        table.buttons().container().appendTo($('#div-download'));
+
+                        //GET MULTISELECTED VALUES IN DataTable
+                        $('#DataList tbody tr').each(function (i, row) {
+                            var values = [];
+                            var hdval = $(row).find('#hd' + i).val();
+                            if (hdval != '' && hdval != undefined) {
+                                hdval = $(row).find('#hd' + i).val().split(",");
+                                for (var i in hdval) {
+                                    var optionVal = hdval[i];
+                                    $(row).find("select").find("option[value=" + optionVal + "]").prop("selected", "selected");
+                                }
+                            }
+                        });
+                        $('.multiple').multiselect({
+                            includeSelectAllOption: true
+                        });
+
+                    }
+                    else {
+                        $('#submission-data').html("Record Not Found !!");//TO DO
+                        $('#submission-data').addClass("text-danger");//TO DO
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    $('#submission-data').html(errormsg);
+                }
+            });
+        }
+        //Submit Data
+        function CUData(MappedId, UserId, RoleId, TACId) {
+            debugger;
+            var IsCheck = false;
+
+            var TACIdarr = $('#' + TACId).val();
+            if (TACIdarr != null && TACIdarr != undefined && TACIdarr.length != 0) {
+                IsCheck = true;
+                TACIdarr = TACIdarr.join(',');
+            }
+
+            if (UserId && IsCheck) {
+                $.ajax({
+                    url: document.baseURI + "/Master/CUUserMapped",
+                    type: "Post",
+                    data: { 'MappedId': MappedId, 'UserId': UserId, 'RoleId': RoleId, 'TACId': TACIdarr },
+                    //cache: false,
+                    //contentType: false,
+                    //processData: false,
+                    success: function (resp) {
+                        if (resp.StatusType == "success") {
+                            toastr.success("Success", resp.Message);
+                            BindData();
+                            //jQuery.event.trigger("ajaxStop");
+                        }
+                        else {
+                            toastr.error("Error", resp.Message);
+                        }
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        toastr.error("Error", errormsg);
+                        //jQuery.event.trigger("ajaxStop");
+                        return false;
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+
+        }
+
+    </script>
+}

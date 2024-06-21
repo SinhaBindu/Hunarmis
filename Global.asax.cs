@@ -52,6 +52,8 @@ namespace Hunarmis
                                 User.Role = dr["RoleN"].ToString();
                                 User.DistrictId = dr["DId"].ToString();
                                 User.District = dr["DistName"].ToString();
+                                User.MappedTCenterIds = dr["MappedTCenterIds"].ToString();
+                                User.MappedTCenters = dr["TrainingCenters"].ToString();
                             }
                         }
                         HttpContext.Current.Session["CUser"] = User;

@@ -12,29 +12,20 @@ namespace Hunarmis.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_Survey
+    public partial class tbl_AssessmentSchedule
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbl_Survey()
-        {
-            this.tbl_SurveyAnswer = new HashSet<tbl_SurveyAnswer>();
-        }
-    
-        public int Id { get; set; }
-        public Nullable<int> FormId { get; set; }
-        public Nullable<int> BatchId { get; set; }
-        public Nullable<int> TrainingCenterId { get; set; }
+        public System.Guid AssessmentScheduleId_pk { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<int> YearId { get; set; }
-        public Nullable<int> FrequencyId { get; set; }
-        public Nullable<bool> IsDraft { get; set; }
+        public Nullable<System.TimeSpan> StartTime { get; set; }
+        public Nullable<System.TimeSpan> EndTime { get; set; }
+        public Nullable<int> BatchId_fk { get; set; }
+        public Nullable<int> TrainingCenterId_fk { get; set; }
+        public Nullable<int> CourseId_fk { get; set; }
+        public Nullable<bool> AssessmentSchedule { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_SurveyAnswer> tbl_SurveyAnswer { get; set; }
     }
 }

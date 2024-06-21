@@ -367,11 +367,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AssessmentController.cs" />
+    <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\ParticipantController.cs" />
+    <Compile Include="Controllers\ParticipantUserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -391,6 +393,8 @@
     <Compile Include="Manager\HtmlToText.cs" />
     <Compile Include="Manager\JsonResponseData.cs" />
     <Compile Include="Manager\OMSPManager.cs" />
+    <Compile Include="Models\AssessmentScheduleModel.cs" />
+    <Compile Include="Models\AttendanceModel.cs" />
     <Compile Include="Models\BatchModel.cs" />
     <Compile Include="Models\Benefit_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
@@ -418,6 +422,7 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ParticipantChildModel.cs" />
+    <Compile Include="Models\ParticipantLoginModel.cs" />
     <Compile Include="Models\ParticipantModel.cs" />
     <Compile Include="Manager\SPManager.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -468,13 +473,37 @@
     <Compile Include="Models\QuestionOption.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SessionPlanTopic_Master.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\State_Master.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_AssessmentSchedule.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_AssessmentSendLinkEmail.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_AttendanceParticipant.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_AttendParticipant.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_AttendPartTopic.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_FileUpload.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_MailData.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Mapped.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_MappedTrainCenter.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Participant.cs">
@@ -506,6 +535,7 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TrainingCentreModel.cs" />
+    <Compile Include="Models\UserMappedModel.cs" />
     <Compile Include="Models\Year_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -551,10 +581,12 @@
     <Content Include="Content\css\design\nav.css" />
     <Content Include="Content\css\design\responsive.css" />
     <Content Include="Content\css\design\style.css" />
+    <Content Include="Content\css\example-styles.css" />
     <Content Include="Content\css\initcarousel-1.css" />
     <Content Include="Content\css\jquery-ui-timepicker-addon.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\mgaccordion.css" />
+    <Content Include="Content\css\MultipleSelectBox.css" />
     <Content Include="Content\css\nifty.min.css" />
     <Content Include="Content\css\printdesign.css" />
     <Content Include="Content\css\responsive.css" />
@@ -1571,6 +1603,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\Custom\jquery.multi-select.min.js" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <EntityDeploy Include="Models\DBModel.edmx">
@@ -1706,6 +1739,17 @@
     <Content Include="Views\Assessment\_Index.cshtml" />
     <Content Include="Views\Assessment\_ScorerSummaryData.cshtml" />
     <Content Include="Views\Home\TrainingCenterWise.cshtml" />
+    <Content Include="Views\Master\UserMapped.cshtml" />
+    <Content Include="Views\Master\_UserDetailMPData.cshtml" />
+    <Content Include="Views\Attendance\CreatedAttend.cshtml" />
+    <Content Include="Views\Attendance\_PData.cshtml" />
+    <Content Include="Views\Attendance\_ParticipantData.cshtml" />
+    <Content Include="Views\Attendance\AssessmentSchedule.cshtml" />
+    <Content Include="Views\Attendance\_AssessmentScheduleData.cshtml" />
+    <Content Include="Views\ParticipantUser\AssessmentInvalid.cshtml" />
+    <Content Include="Views\ParticipantUser\AssessmentExpired.cshtml" />
+    <Content Include="Views\ParticipantUser\AssessmentDone.cshtml" />
+    <Content Include="Views\ParticipantUser\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,64 @@
+﻿@using System.Data
+@using Hunarmis.Manager
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
+}
+
+<style>
+    table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting_asc_disabled, table.dataTable thead > tr > th.sorting_desc_disabled, table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting_asc_disabled, table.dataTable thead > tr > td.sorting_desc_disabled {
+        padding-right: 0px !important;
+    }
+
+    table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date,
+    table.dataTable td.dt-type-numeric,
+    table.dataTable td.dt-type-date {
+        text-align: left !important;
+    }
+</style>
+<div class="bg-light rounded h-100 p-4">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped" id="tbl">
+            <thead class="text-center">
+                <tr>
+                    <th class="text-center tblth">Srno.</th>
+                    <th class="text-center tblth">Batch Name</th>
+                    <th class="text-center tblth">Date</th>
+                    <th class="text-center tblth">Start Time</th>
+                    <th class="text-center tblth">End Time</th>
+                    <th style="width: 80px" class="text-center tblth">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (dt.Rows.Count > 0)
+                    {
+                        int srno = 1;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            var st = Convert.ToDateTime(dr["StartTime"].ToString()).ToString(@"hh\:mm");
+                            var et = Convert.ToDateTime(dr["EndTime"].ToString()).ToString(@"hh\:mm");
+                            <tr class="text-center">
+                                <td>@(srno++)</td>
+                                <td>@dr["BatchName"]</td>
+                                <td>@CommonModel.FormateDtDMY(dr["Date"].ToString())</td>
+                                <td>@st</td>
+                                <td>@et</td>
+                                <td>
+                                    <a href="~/Attendance/AssessmentSchedule?Id=@dr["AssessmentScheduleId_pk"]" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>

@@ -12,10 +12,27 @@ namespace Hunarmis.Manager
 {
     public static partial class SPManager
     {
-        public static DataTable SPGetUserlist()
+        public static DataTable SPGetUserlist(int? RoleId)
         {
             StoredProcedure sp = new StoredProcedure("SPGetUserlist");
+            sp.Command.AddParameter("@RoleId", RoleId, DbType.Int32);
             sp.Command.AddParameter("@User", HttpContext.Current.User.Identity.Name, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_GetDTACMasterList(int DistrictId = 0, int TAgencyId = 0)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetDTACMasterList");
+            sp.Command.AddParameter("@DistrictId", DistrictId, DbType.Int32);
+            sp.Command.AddParameter("@TAgencyId", TAgencyId, DbType.Int32);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_GetBatchForPart(string TCIds, int BatchId = 0)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetBatchForPart");
+            sp.Command.AddParameter("@TCIds", TCIds, DbType.String);
+            sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -149,5 +166,34 @@ namespace Hunarmis.Manager
             return ds;
         }
         #endregion
+        #region Attendance Module
+        public static DataTable SP_GetParticipant(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetParticipant");
+            sp.Command.AddParameter("@BatchId", Convert.ToInt32(model.BatchId), DbType.Int32);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_GetAssessmentScheduleList(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetAssessmentScheduleList");
+            sp.Command.AddParameter("@BatchId", Convert.ToInt32(model.BatchId), DbType.Int32);
+            sp.Command.AddParameter("@AssessmentScheduleId",model.AssessmentScheduleId, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        #endregion
+        #region 
+        public static DataTable SP_LoginForParticipantCheck(ParticipantLoginModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_LoginForParticipantCheck");
+            sp.Command.AddParameter("@EmailID", model.EmailID, DbType.String);
+            sp.Command.AddParameter("@Password", model.Password.ToString(), DbType.String);
+            sp.Command.AddParameter("@RandomValue", model.RandomValue, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        #endregion
+
     }
 }

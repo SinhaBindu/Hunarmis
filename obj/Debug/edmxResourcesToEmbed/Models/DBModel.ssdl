@@ -198,6 +198,24 @@
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
     <Property Name="UpdatedOn" Type="datetime" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="SessionPlanTopic_Master">
+    <Key>
+      <PropertyRef Name="SessionPlanTPId_pk" />
+    </Key>
+    <Property Name="SessionPlanTPId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="Methodology" Type="nvarchar(max)" />
+    <Property Name="DurationMinutes" Type="nvarchar" MaxLength="10" />
+    <Property Name="SESSIONPlanType" Type="nvarchar(max)" />
+    <Property Name="DAYWise" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
   <EntityType Name="State_Master">
     <Key>
       <PropertyRef Name="Id" />
@@ -209,6 +227,84 @@
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_AssessmentSchedule">
+    <Key>
+      <PropertyRef Name="AssessmentScheduleId_pk" />
+    </Key>
+    <Property Name="AssessmentScheduleId_pk" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Date" Type="date" />
+    <Property Name="StartTime" Type="time" Precision="7" />
+    <Property Name="EndTime" Type="time" Precision="7" />
+    <Property Name="BatchId_fk" Type="int" />
+    <Property Name="TrainingCenterId_fk" Type="int" />
+    <Property Name="CourseId_fk" Type="int" />
+    <Property Name="AssessmentSchedule" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_AssessmentSendLinkEmail">
+    <Key>
+      <PropertyRef Name="AssessmentSendLinkPartId_pk" />
+    </Key>
+    <Property Name="AssessmentSendLinkPartId_pk" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AssessmentScheduleId_fk" Type="uniqueidentifier" />
+    <Property Name="ParticipantId_fk" Type="uniqueidentifier" />
+    <Property Name="RandomValue" Type="uniqueidentifier" />
+    <Property Name="AssessmentLink" Type="nvarchar(max)" />
+    <Property Name="Password" Type="uniqueidentifier" />
+    <Property Name="AssessmentSchedule" Type="bit" />
+    <Property Name="IsEmailSend" Type="int" />
+    <Property Name="NoofAttempt" Type="int" />
+    <Property Name="AttemptDt" Type="datetime" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_AttendanceParticipant">
+    <Key>
+      <PropertyRef Name="AttendanceId_pk" />
+    </Key>
+    <Property Name="AttendanceId_pk" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="BatchId" Type="int" />
+    <Property Name="Lat" Type="nvarchar" MaxLength="50" />
+    <Property Name="Long" Type="nvarchar" MaxLength="50" />
+    <Property Name="StartDate" Type="date" />
+    <Property Name="EndDate" Type="date" />
+    <Property Name="StartTime" Type="time" Precision="7" />
+    <Property Name="EndTime" Type="time" Precision="7" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_AttendParticipant">
+    <Key>
+      <PropertyRef Name="AttendancePartId_pk" />
+    </Key>
+    <Property Name="AttendancePartId_pk" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AttendanceId_fk" Type="uniqueidentifier" />
+    <Property Name="ParticipantId_fk" Type="uniqueidentifier" />
+    <Property Name="AttendPartIsActive" Type="bit" />
+    <Property Name="AttendPartCreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="AttendPartCreatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_AttendPartTopic">
+    <Key>
+      <PropertyRef Name="AttendanceTopicId_pk" />
+    </Key>
+    <Property Name="AttendanceTopicId_pk" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AttendanceId_fk" Type="uniqueidentifier" />
+    <Property Name="TopicId" Type="int" />
+    <Property Name="AttendTopicIsActive" Type="bit" />
+    <Property Name="AttendTopicCreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="AttendTopicCreatedOn" Type="datetime" />
   </EntityType>
   <EntityType Name="tbl_FileUpload">
     <Key>
@@ -235,6 +331,30 @@
     <Property Name="LinkData" Type="nvarchar(max)" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="tbl_Mapped">
+    <Key>
+      <PropertyRef Name="MappedId_pk" />
+    </Key>
+    <Property Name="MappedId_pk" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RoleId" Type="int" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="140" />
+    <Property Name="TrainCenterIdMappedMult" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="150" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="150" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_MappedTrainCenter">
+    <Key>
+      <PropertyRef Name="TrainCenterMappedId_pk" />
+    </Key>
+    <Property Name="TrainCenterMappedId_pk" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="MappedId_fk" Type="uniqueidentifier" />
+    <Property Name="DistrictId" Type="int" />
+    <Property Name="TrainingAgencyId" Type="int" />
+    <Property Name="TrainingCenterId" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Participant">
     <Key>
@@ -324,7 +444,7 @@
     <Property Name="UpdatedOn" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'HunarPilot_DB.dbo.tbl_ParticipantRemarks_History' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="tbl_ParticipantRemarks_History">
     <Key>
       <PropertyRef Name="OrderNo" />
@@ -396,10 +516,12 @@ warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does 
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FormId" Type="int" />
-    <Property Name="SchoolId" Type="int" />
+    <Property Name="BatchId" Type="int" />
+    <Property Name="TrainingCenterId" Type="int" />
     <Property Name="Date" Type="date" />
     <Property Name="YearId" Type="int" />
     <Property Name="FrequencyId" Type="int" />
+    <Property Name="IsDraft" Type="bit" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
     <Property Name="CreatedOn" Type="datetime" />
@@ -554,8 +676,15 @@ warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does 
     <EntitySet Name="QuestionBook" EntityType="Self.QuestionBook" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QuestionOption" EntityType="Self.QuestionOption" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="State_Master" EntityType="Self.State_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_AssessmentSchedule" EntityType="Self.tbl_AssessmentSchedule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_AssessmentSendLinkEmail" EntityType="Self.tbl_AssessmentSendLinkEmail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_AttendanceParticipant" EntityType="Self.tbl_AttendanceParticipant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_AttendParticipant" EntityType="Self.tbl_AttendParticipant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_AttendPartTopic" EntityType="Self.tbl_AttendPartTopic" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_FileUpload" EntityType="Self.tbl_FileUpload" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_MailData" EntityType="Self.tbl_MailData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Mapped" EntityType="Self.tbl_Mapped" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_MappedTrainCenter" EntityType="Self.tbl_MappedTrainCenter" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Participant" EntityType="Self.tbl_Participant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Participant_Calling" EntityType="Self.tbl_Participant_Calling" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_SendMail" EntityType="Self.tbl_SendMail" Schema="dbo" store:Type="Tables" />
@@ -565,6 +694,21 @@ warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does 
     <EntitySet Name="TrainingAgency_Master" EntityType="Self.TrainingAgency_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrainingCenter_Master" EntityType="Self.TrainingCenter_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Year_Master" EntityType="Self.Year_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SessionPlanTopic_Master" EntityType="Self.SessionPlanTopic_Master" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [SessionPlanTopic_Master].[SessionPlanTPId_pk] AS [SessionPlanTPId_pk], 
+    [SessionPlanTopic_Master].[Title] AS [Title], 
+    [SessionPlanTopic_Master].[Methodology] AS [Methodology], 
+    [SessionPlanTopic_Master].[DurationMinutes] AS [DurationMinutes], 
+    [SessionPlanTopic_Master].[SESSIONPlanType] AS [SESSIONPlanType], 
+    [SessionPlanTopic_Master].[DAYWise] AS [DAYWise], 
+    [SessionPlanTopic_Master].[IsActive] AS [IsActive], 
+    [SessionPlanTopic_Master].[CreatedBy] AS [CreatedBy], 
+    [SessionPlanTopic_Master].[CreatedOn] AS [CreatedOn], 
+    [SessionPlanTopic_Master].[UpdatedBy] AS [UpdatedBy], 
+    [SessionPlanTopic_Master].[UpdatedOn] AS [UpdatedOn]
+    FROM [dbo].[SessionPlanTopic_Master] AS [SessionPlanTopic_Master]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Self.tbl_ParticipantRemarks_History" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [tbl_ParticipantRemarks_History].[RemarkHistoryID] AS [RemarkHistoryID], 

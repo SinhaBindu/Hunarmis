@@ -1,7 +1,11 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
+﻿//using DocumentFormat.OpenXml.Office2010.ExcelAc;
+//using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
+//using DocumentFormat.OpenXml.Spreadsheet;
 using Hunarmis.Models;
+using Irony.Parsing.Construction;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
+using SubSonic.Extensions;
 using SubSonic.Schema;
 using System;
 using System.Collections.Generic;
@@ -20,6 +24,7 @@ using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows.Interop;
 
 namespace Hunarmis.Manager
 {
@@ -102,79 +107,6 @@ namespace Hunarmis.Manager
         }
         #endregion
 
-        #region Sending Email
-        public static string SendMail(string To, string Subject, string Body, string ReceiverName, string SenderName, int noofsend)
-        {
-            Hunar_DBEntities db_ = new Hunar_DBEntities();
-            string bodydata = string.Empty;
-            string bodyTemplate = string.Empty;
-            try
-            {
-                bodyTemplate = "Hi " + SenderName + "," + " <br /> <br /> <br /> " + Body;
-                //using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/Views/Shared/MailTemplate.html")))
-                //{
-                //    bodyTemplate = reader.ReadToEnd();
-                //}
-                //bodyTemplate = "<table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n\t\t<tbody>\r\n <tr>\r\n\t\t\t<td align=\"center\"> " + bodydata + "\r\n\t\t\t\t\r\n  \t</tbody></tr>\r\n</table>";
-                MailMessage mail = new MailMessage();
-                //mail.To.Add("bindu@careindia.org");
-                mail.To.Add(To);
-                mail.From = new MailAddress("kgbvjh4care@gmail.com", "Hunar MIS");
-                //mail.From = new MailAddress("hunarmis2024@gmail.com");
-                mail.Subject = Subject + " ( " + SenderName + " )";
-                //mail.Body = Body;
-                //bodydata = bodyTemplate.Replace("{Dearusername}", ReceiverName).Replace("{bodytext}", Body).Replace("{newusername}", SenderName);
-                //bodydata = bodyTemplate.Replace("{bodytext}", Body);
-                //mail.Body = bodyTemplate;
-                mail.Body = bodyTemplate;
-                mail.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.UseDefaultCredentials = false;
-                //smtp.Credentials = new System.Net.NetworkCredential("hunarmis2024@gmail.com", "Hunar@2024");//Pasw-Care@321 // Enter seders User name and password       
-                //smtp.Credentials = new System.Net.NetworkCredential("careindiabtsp@gmail.com", "gupczsbvzinhivzw");//Pasw-Care@321 // Enter seders User name and password       
-                smtp.Credentials = new System.Net.NetworkCredential("kgbvjh4care@gmail.com", "yklzeazktmknvcbu");// yklz eazk tmkn vcbu//Pasw-Care@321 // Enter seders User name and password       
-                smtp.EnableSsl = true;
-                smtp.Send(mail);
-                //  noofsend++;
-
-
-                tbl_SendMail tbl = new tbl_SendMail();
-                tbl.Id = Guid.NewGuid();
-                tbl.MTo = To;
-                tbl.MFrom = "kgbvjh4care@gmail.com";
-                //tbl.MFrom = "careindiabtsp@gmail.com";
-                tbl.Subject = Subject + " ( " + SenderName + " )";
-                tbl.Boby = bodyTemplate;
-                tbl.ReceiverName = ReceiverName;
-                tbl.SenderName = SenderName;
-                tbl.IsSented = true;
-                tbl.CreatedBy = "";
-                tbl.CreatedOn = DateTime.Now;
-                db_.tbl_SendMail.Add(tbl);
-                db_.SaveChanges();
-                return "Success" + noofsend;
-            }
-            catch (Exception ex)
-            {
-                tbl_SendMail tbl = new tbl_SendMail();
-                tbl.Id = Guid.NewGuid();
-                tbl.MTo = To;
-                //tbl.MFrom = "careindiabtsp@gmail.com";
-                tbl.MFrom = "kgbvjh4care@gmail.com";
-                tbl.Subject = Subject + " ( " + SenderName + " )";
-                tbl.Boby = bodyTemplate;
-                tbl.ReceiverName = ReceiverName;
-                tbl.SenderName = SenderName;
-                tbl.IsSented = false;
-                db_.tbl_SendMail.Add(tbl);
-                db_.SaveChanges();
-                return "Error :" + ex.Message;
-            }
-        }
-
-        #endregion
 
         #region Get User Role 
         public static string IsRoleLogin()
@@ -185,6 +117,15 @@ namespace Hunarmis.Manager
                 str = "all";
             }
             else
+            {
+                str = HttpContext.Current.User.Identity.Name;
+            }
+            return str;
+        }
+        public static string IsUserRoleLogin()
+        {
+            string str = string.Empty;
+            if (HttpContext.Current.User.IsInRole(RoleNameCont.User))
             {
                 str = HttpContext.Current.User.Identity.Name;
             }
@@ -217,6 +158,97 @@ namespace Hunarmis.Manager
             }
             return "all";
         }
+        public static List<SelectListItem> GetUserMappedTrainCenterLists(int IsAll = 2, string TCenterIds = "")
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List<SelectListItem> list = new List<SelectListItem>();
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(TCenterIds))
+                {
+                    if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        if (HttpContext.Current.User.IsInRole(RoleNameCont.Trainer) || HttpContext.Current.User.IsInRole(RoleNameCont.Mobilizer))
+                        {
+                            var tcsplt = TCenterIds.Split(',');
+                            foreach (var item in tcsplt)
+                            {
+                                DataTable dt = SPManager.SP_GetDTACMasterList();
+                                var itemid = Convert.ToInt32(item);
+                                list = new SelectList(dt.AsEnumerable().Where(x => x.Field<int>("TrainingCenterId") == itemid), "TrainingCenterId", "DistTrainingAgencyCenter").OrderBy(x => x.Text).ToList();
+                            }
+                            if (IsAll == 0)
+                            {
+                                list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                            }
+                            else if (IsAll == 1)
+                            {
+                                list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                            }
+                            return list;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return list;
+        }
+        public static List<SelectListItem> GetBatchForPartLists(int IsAll = 2, string TCenterIds = "", int BatchId = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(TCenterIds))
+                {
+                    if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        if (HttpContext.Current.User.IsInRole(RoleNameCont.Trainer) || HttpContext.Current.User.IsInRole(RoleNameCont.Mobilizer))
+                        {
+                            DataTable dt1 = SPManager.SP_GetBatchForPart(MvcApplication.CUser.MappedTCenterIds);
+                            list = dt1.AsEnumerable().Select(x => new SelectListItem()
+                            {
+                                Value = x.Field<Int32>("BatchId").ToString(),
+                                Text = x.Field<string>("BatchName")
+                            }).ToList();
+                            //list = new SelectList(dt1.AsEnumerable(), "BatchId", "BatchName").OrderBy(x => x.Text).ToList();
+                        }
+                    }
+                }
+                else
+                {
+                    if (!HttpContext.Current.User.IsInRole(RoleNameCont.Trainer) || !HttpContext.Current.User.IsInRole(RoleNameCont.Mobilizer) || !HttpContext.Current.User.IsInRole(RoleNameCont.User))
+                    {
+                        DataTable dt = SPManager.SP_GetBatchForPart(TCenterIds);
+                        list = dt.AsEnumerable().Select(x => new SelectListItem()
+                        {
+                            Value = x.Field<Int32>("BatchId").ToString(),
+                            Text = x.Field<string>("BatchName")
+                        }).ToList();
+                        //list = new SelectList(.AsEnumerable(), "BatchId", "BatchName").OrderBy(x => x.Text).ToList();
+                    }
+                }
+                if (IsAll == 0)
+                {
+                    list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                }
+                else if (IsAll == 1)
+                {
+                    list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                return list;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
         //    public static UserViewModel User
         //    {
@@ -425,7 +457,7 @@ namespace Hunarmis.Manager
 
             try
             {
-                DataTable dt = new DataTable();
+                //DataTable dt = new DataTable();
                 //dt = SP_Model.SPDistrict();
                 //var listitem = ConvertDataTable<SelectListItem>(dt);
                 var listitem = new SelectList(_db.District_Master.Where(x => x.IsActive == true && x.StateId == StateId), "ID", "DistrictName").OrderBy(x => x.Text).ToList();
@@ -439,6 +471,24 @@ namespace Hunarmis.Manager
                     listitem.Insert(0, new SelectListItem { Value = "", Text = "Select" });
                 }
                 return listitem;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static List<SelectListItem> GetSessionPlanTopic(bool IsAll = false)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List<SelectListItem> items = new List<SelectListItem>();
+            try
+            {
+                items = new SelectList(_db.SessionPlanTopic_Master.Where(x => x.IsActive == true), "SessionPlanTPId_pk", "Title").OrderBy(x => x.Text).ToList();
+                if (IsAll)
+                {
+                    items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                return items;
             }
             catch (Exception)
             {
@@ -537,6 +587,69 @@ namespace Hunarmis.Manager
                 throw;
             }
         }
+        public static List<SelectListItem> GetDistTrainingAgencyCenterList(DataTable dtcen, List<tbl_MappedTrainCenter> Listselval = null, int DistrictId = 0, int TAgencyId = 0)
+        {
+            try
+            {
+                DataTable dt = dtcen;
+                //SPManager.SP_GetDTACMasterList(DistrictId, TAgencyId);
+                var lists = new List<SelectListItem>();
+                //items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        if (Listselval != null && Listselval.Count > 0)
+                        {
+
+                            var sval = Listselval.Any(x => x.TrainingCenterId == Convert.ToInt32(dr["TrainingCenterId"].ToString()));
+                            if (sval)
+                            {
+                                lists.Add(new SelectListItem { Value = dr["TrainingCenterId"].ToString(), Text = dr["DistTrainingAgencyCenter"].ToString(), Selected = true });
+                            }
+                            else
+                            {
+                                lists.Add(new SelectListItem { Value = dr["TrainingCenterId"].ToString(), Text = dr["DistTrainingAgencyCenter"].ToString() });
+                            }
+                        }
+                        else
+                        {
+                            lists.Add(new SelectListItem { Value = dr["TrainingCenterId"].ToString(), Text = dr["DistTrainingAgencyCenter"].ToString() });
+                        }
+                    }
+                    return lists.OrderBy(x => x.Text).ToList();
+                }
+                return lists;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static List<SelectListItem> GetDistTrainingAyCentersList(bool IsAll = false)
+        {
+            try
+            {
+                DataTable dt = SPManager.SP_GetDTACMasterList();
+                var lists = new List<SelectListItem>();
+                lists.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        lists.Add(new SelectListItem { Value = dr["TrainingCenterId"].ToString(), Text = dr["DistTrainingAgencyCenter"].ToString(), Selected = true });
+                    }
+                    return lists.OrderBy(x => x.Text).ToList();
+                }
+                return lists;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public static List<SelectListItem> GetLocatedKM(bool IsAll = false)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
@@ -1156,6 +1269,27 @@ namespace Hunarmis.Manager
             }
             return dt;
         }
+        public static TimeSpan GetTimeSpanValue(string displayValue)
+        {
+            DateTime dateTime = DateTime.Now;
+            if (displayValue.StartsWith("10") || displayValue.StartsWith("11") || displayValue.StartsWith("12"))
+                dateTime = DateTime.ParseExact(displayValue, "hh:mm tt", CultureInfo.InvariantCulture);
+            else
+                dateTime = DateTime.ParseExact(displayValue, "h:mm tt", CultureInfo.InvariantCulture);
+            return dateTime.TimeOfDay;
+        }
+        public static string GetTimeAMPM(TimeSpan timeSp)
+        {
+            TimeSpan timespan = timeSp;
+            string displayTime = "";
+            if (timespan != null)
+            {
+                DateTime time = DateTime.Today.Add(timespan);
+                displayTime = time.ToString("hh:mm tt");
+            }
+            return displayTime;
+        }
+
         #endregion
 
         #region Sending Email
@@ -1219,12 +1353,130 @@ namespace Hunarmis.Manager
         //    }
         //}
 
+        #region Sending Email
+        public static string SendMail(string To, string Subject, string Body, string ReceiverName, string SenderName, int noofsend)
+        {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            string bodydata = string.Empty;
+            string bodyTemplate = string.Empty;
+            try
+            {
+                bodyTemplate = "Hi " + SenderName + "," + " <br /> <br /> <br /> " + Body;
+                //using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/Views/Shared/MailTemplate.html")))
+                //{
+                //    bodyTemplate = reader.ReadToEnd();
+                //}
+                //bodyTemplate = "<table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n\t\t<tbody>\r\n <tr>\r\n\t\t\t<td align=\"center\"> " + bodydata + "\r\n\t\t\t\t\r\n  \t</tbody></tr>\r\n</table>";
+                MailMessage mail = new MailMessage();
+                //mail.To.Add("bindu@careindia.org");
+                mail.To.Add(To);
+                mail.From = new MailAddress("kgbvjh4care@gmail.com", "Hunar MIS");
+                //mail.From = new MailAddress("hunarmis2024@gmail.com");
+                mail.Subject = Subject + " ( " + SenderName + " )";
+                //mail.Body = Body;
+                //bodydata = bodyTemplate.Replace("{Dearusername}", ReceiverName).Replace("{bodytext}", Body).Replace("{newusername}", SenderName);
+                //bodydata = bodyTemplate.Replace("{bodytext}", Body);
+                //mail.Body = bodyTemplate;
+                mail.Body = bodyTemplate;
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.UseDefaultCredentials = false;
+                //smtp.Credentials = new System.Net.NetworkCredential("hunarmis2024@gmail.com", "Hunar@2024");//Pasw-Care@321 // Enter seders User name and password       
+                //smtp.Credentials = new System.Net.NetworkCredential("careindiabtsp@gmail.com", "gupczsbvzinhivzw");//Pasw-Care@321 // Enter seders User name and password       
+                smtp.Credentials = new System.Net.NetworkCredential("kgbvjh4care@gmail.com", "yklzeazktmknvcbu");// yklz eazk tmkn vcbu//Pasw-Care@321 // Enter seders User name and password       
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+                //  noofsend++;
+
+
+                tbl_SendMail tbl = new tbl_SendMail();
+                tbl.Id = Guid.NewGuid();
+                tbl.MTo = To;
+                tbl.MFrom = "kgbvjh4care@gmail.com";
+                //tbl.MFrom = "careindiabtsp@gmail.com";
+                tbl.Subject = Subject + " ( " + SenderName + " )";
+                tbl.Boby = bodyTemplate;
+                tbl.ReceiverName = ReceiverName;
+                tbl.SenderName = SenderName;
+                tbl.IsSented = true;
+                tbl.CreatedBy = "";
+                tbl.CreatedOn = DateTime.Now;
+                db_.tbl_SendMail.Add(tbl);
+                db_.SaveChanges();
+                return "Success" + noofsend;
+            }
+            catch (Exception ex)
+            {
+                tbl_SendMail tbl = new tbl_SendMail();
+                tbl.Id = Guid.NewGuid();
+                tbl.MTo = To;
+                //tbl.MFrom = "careindiabtsp@gmail.com";
+                tbl.MFrom = "kgbvjh4care@gmail.com";
+                tbl.Subject = Subject + " ( " + SenderName + " )";
+                tbl.Boby = bodyTemplate;
+                tbl.ReceiverName = ReceiverName;
+                tbl.SenderName = SenderName;
+                tbl.IsSented = false;
+                db_.tbl_SendMail.Add(tbl);
+                db_.SaveChanges();
+                return "Error :" + ex.Message;
+            }
+        }
+
         #endregion
+
+        #endregion
+
+        //public static string GetAssessmentAfterBatchLock(string BatchId, string PartRandamURl)
+        //{
+        //    string strurl = "";
+        //    Hunar_DBEntities _db = new Hunar_DBEntities();
+        //    FilterModel model = new FilterModel();
+        //    var getpartass = _db.tbl_AssessmentSendLinkEmail.Where(x => x.AssessmentLink == PartRandamURl && x.AssessmentSchedule == false && MvcApplication.CUser.)?.FirstOrDefault();
+        //    //var getpartass = _db.tbl_AssessmentSendLinkEmail.Where(x => x.RandomValue == PartRandamRandomValue && x.AssessmentSchedule == false)?.FirstOrDefault();
+        //    if (getpartass != null)
+        //    {
+        //        model.BatchId = "0";
+        //        model.AssessmentScheduleId = getpartass.AssessmentScheduleId_fk.ToString();
+        //        DataTable dt = SPManager.SP_GetAssessmentScheduleList(model);
+        //        if (dt.Rows.Count > 0)
+        //        {
+        //            if (!Convert.ToBoolean(dt.Rows[0]["AssessmentCurStatus"].ToString()))
+        //            {
+        //                strurl = getpartass.AssessmentLink;
+        //                return strurl;
+        //            }
+        //            else
+        //            {
+        //                strurl = "201";//Assessment Date expire Invalid Link
+        //                return strurl;
+        //            }
+        //        }
+        //        //    .Where(x => x.Field<Guid>("AssessmentScheduleId_fk") == getpartass.AssessmentScheduleId_fk).CopyToDataTable();
+        //    }
+
+        //    strurl = "202";//Assessment Invalid AND Assessment Date expire Link
+        //    return strurl;
+        //}
 
         public static decimal ToDecimal(string str)
         {
             return Decimal.TryParse(str, out decimal res) ? res : 0M;
         }
+
+        //public class AssessmentResultModel
+        //{
+        //    public string Admin = "Admin";
+        //    public string Viewer = "Viewer";
+        //    public string User = "User";
+        //    public string District = "District";
+        //    public string State = "State";
+        //    public string Verifier = "Verifier";
+        //    public string Trainer = "Trainer";
+        //    public string Mobilizer = "Mobilizer";
+        //}
 
         public class RoleNameCont
         {
@@ -1234,6 +1486,8 @@ namespace Hunarmis.Manager
             public const string District = "District";
             public const string State = "State";
             public const string Verifier = "Verifier";
+            public const string Trainer = "Trainer";
+            public const string Mobilizer = "Mobilizer";
         }
 
     }

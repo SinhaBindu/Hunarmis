@@ -111,6 +111,8 @@ namespace Hunarmis.Models
         public string District { get; set; }    
         public string RoleId { get; set; }    
         public string Role { get; set; }    
+        public string MappedTCenterIds { get; set; }    
+        public string MappedTCenters { get; set; }    
         public string LockoutEnabled { get; set; }    
     }
     public class ResetPasswordViewModel

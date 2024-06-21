@@ -203,6 +203,24 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SessionPlanTopic_Master">
+          <Key>
+            <PropertyRef Name="SessionPlanTPId_pk" />
+          </Key>
+          <Property Name="SessionPlanTPId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="Methodology" Type="nvarchar(max)" />
+          <Property Name="DurationMinutes" Type="nvarchar" MaxLength="10" />
+          <Property Name="SESSIONPlanType" Type="nvarchar(max)" />
+          <Property Name="DAYWise" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="State_Master">
           <Key>
             <PropertyRef Name="Id" />
@@ -214,6 +232,84 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="Updated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_AssessmentSchedule">
+          <Key>
+            <PropertyRef Name="AssessmentScheduleId_pk" />
+          </Key>
+          <Property Name="AssessmentScheduleId_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="StartTime" Type="time" Precision="7" />
+          <Property Name="EndTime" Type="time" Precision="7" />
+          <Property Name="BatchId_fk" Type="int" />
+          <Property Name="TrainingCenterId_fk" Type="int" />
+          <Property Name="CourseId_fk" Type="int" />
+          <Property Name="AssessmentSchedule" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_AssessmentSendLinkEmail">
+          <Key>
+            <PropertyRef Name="AssessmentSendLinkPartId_pk" />
+          </Key>
+          <Property Name="AssessmentSendLinkPartId_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AssessmentScheduleId_fk" Type="uniqueidentifier" />
+          <Property Name="ParticipantId_fk" Type="uniqueidentifier" />
+          <Property Name="RandomValue" Type="uniqueidentifier" />
+          <Property Name="AssessmentLink" Type="nvarchar(max)" />
+          <Property Name="Password" Type="uniqueidentifier" />
+          <Property Name="AssessmentSchedule" Type="bit" />
+          <Property Name="IsEmailSend" Type="int" />
+          <Property Name="NoofAttempt" Type="int" />
+          <Property Name="AttemptDt" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_AttendanceParticipant">
+          <Key>
+            <PropertyRef Name="AttendanceId_pk" />
+          </Key>
+          <Property Name="AttendanceId_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BatchId" Type="int" />
+          <Property Name="Lat" Type="nvarchar" MaxLength="50" />
+          <Property Name="Long" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="StartTime" Type="time" Precision="7" />
+          <Property Name="EndTime" Type="time" Precision="7" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_AttendParticipant">
+          <Key>
+            <PropertyRef Name="AttendancePartId_pk" />
+          </Key>
+          <Property Name="AttendancePartId_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AttendanceId_fk" Type="uniqueidentifier" />
+          <Property Name="ParticipantId_fk" Type="uniqueidentifier" />
+          <Property Name="AttendPartIsActive" Type="bit" />
+          <Property Name="AttendPartCreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="AttendPartCreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_AttendPartTopic">
+          <Key>
+            <PropertyRef Name="AttendanceTopicId_pk" />
+          </Key>
+          <Property Name="AttendanceTopicId_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AttendanceId_fk" Type="uniqueidentifier" />
+          <Property Name="TopicId" Type="int" />
+          <Property Name="AttendTopicIsActive" Type="bit" />
+          <Property Name="AttendTopicCreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="AttendTopicCreatedOn" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_FileUpload">
           <Key>
@@ -240,6 +336,30 @@
           <Property Name="LinkData" Type="nvarchar(max)" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbl_Mapped">
+          <Key>
+            <PropertyRef Name="MappedId_pk" />
+          </Key>
+          <Property Name="MappedId_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="140" />
+          <Property Name="TrainCenterIdMappedMult" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_MappedTrainCenter">
+          <Key>
+            <PropertyRef Name="TrainCenterMappedId_pk" />
+          </Key>
+          <Property Name="TrainCenterMappedId_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MappedId_fk" Type="uniqueidentifier" />
+          <Property Name="DistrictId" Type="int" />
+          <Property Name="TrainingAgencyId" Type="int" />
+          <Property Name="TrainingCenterId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Participant">
           <Key>
@@ -329,7 +449,7 @@
           <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'HunarPilot_DB.dbo.tbl_ParticipantRemarks_History' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_ParticipantRemarks_History">
           <Key>
             <PropertyRef Name="OrderNo" />
@@ -401,10 +521,12 @@ warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does 
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FormId" Type="int" />
-          <Property Name="SchoolId" Type="int" />
+          <Property Name="BatchId" Type="int" />
+          <Property Name="TrainingCenterId" Type="int" />
           <Property Name="Date" Type="date" />
           <Property Name="YearId" Type="int" />
           <Property Name="FrequencyId" Type="int" />
+          <Property Name="IsDraft" Type="bit" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="CreatedOn" Type="datetime" />
@@ -559,8 +681,15 @@ warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does 
           <EntitySet Name="QuestionBook" EntityType="Self.QuestionBook" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionOption" EntityType="Self.QuestionOption" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State_Master" EntityType="Self.State_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_AssessmentSchedule" EntityType="Self.tbl_AssessmentSchedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_AssessmentSendLinkEmail" EntityType="Self.tbl_AssessmentSendLinkEmail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_AttendanceParticipant" EntityType="Self.tbl_AttendanceParticipant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_AttendParticipant" EntityType="Self.tbl_AttendParticipant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_AttendPartTopic" EntityType="Self.tbl_AttendPartTopic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_FileUpload" EntityType="Self.tbl_FileUpload" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_MailData" EntityType="Self.tbl_MailData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Mapped" EntityType="Self.tbl_Mapped" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_MappedTrainCenter" EntityType="Self.tbl_MappedTrainCenter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Participant" EntityType="Self.tbl_Participant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Participant_Calling" EntityType="Self.tbl_Participant_Calling" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_SendMail" EntityType="Self.tbl_SendMail" Schema="dbo" store:Type="Tables" />
@@ -570,6 +699,21 @@ warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does 
           <EntitySet Name="TrainingAgency_Master" EntityType="Self.TrainingAgency_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainingCenter_Master" EntityType="Self.TrainingCenter_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Year_Master" EntityType="Self.Year_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SessionPlanTopic_Master" EntityType="Self.SessionPlanTopic_Master" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SessionPlanTopic_Master].[SessionPlanTPId_pk] AS [SessionPlanTPId_pk], 
+    [SessionPlanTopic_Master].[Title] AS [Title], 
+    [SessionPlanTopic_Master].[Methodology] AS [Methodology], 
+    [SessionPlanTopic_Master].[DurationMinutes] AS [DurationMinutes], 
+    [SessionPlanTopic_Master].[SESSIONPlanType] AS [SESSIONPlanType], 
+    [SessionPlanTopic_Master].[DAYWise] AS [DAYWise], 
+    [SessionPlanTopic_Master].[IsActive] AS [IsActive], 
+    [SessionPlanTopic_Master].[CreatedBy] AS [CreatedBy], 
+    [SessionPlanTopic_Master].[CreatedOn] AS [CreatedOn], 
+    [SessionPlanTopic_Master].[UpdatedBy] AS [UpdatedBy], 
+    [SessionPlanTopic_Master].[UpdatedOn] AS [UpdatedOn]
+    FROM [dbo].[SessionPlanTopic_Master] AS [SessionPlanTopic_Master]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Self.tbl_ParticipantRemarks_History" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tbl_ParticipantRemarks_History].[RemarkHistoryID] AS [RemarkHistoryID], 
@@ -678,15 +822,23 @@ warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does 
           <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
           <EntitySet Name="QuestionBooks" EntityType="Hunar_DBModel.QuestionBook" />
           <EntitySet Name="QuestionOptions" EntityType="Hunar_DBModel.QuestionOption" />
+          <EntitySet Name="FormMasters" EntityType="Hunar_DBModel.FormMaster" />
+          <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Hunar_DBModel.tbl_ParticipantRemarks_History" />
+          <EntitySet Name="tbl_Mapped" EntityType="Hunar_DBModel.tbl_Mapped" />
+          <EntitySet Name="tbl_MappedTrainCenter" EntityType="Hunar_DBModel.tbl_MappedTrainCenter" />
+          <EntitySet Name="tbl_AttendanceParticipant" EntityType="Hunar_DBModel.tbl_AttendanceParticipant" />
+          <EntitySet Name="tbl_AttendParticipant" EntityType="Hunar_DBModel.tbl_AttendParticipant" />
+          <EntitySet Name="tbl_AttendPartTopic" EntityType="Hunar_DBModel.tbl_AttendPartTopic" />
+          <EntitySet Name="SessionPlanTopic_Master" EntityType="Hunar_DBModel.SessionPlanTopic_Master" />
           <EntitySet Name="tbl_Survey" EntityType="Hunar_DBModel.tbl_Survey" />
           <EntitySet Name="tbl_SurveyAnswer" EntityType="Hunar_DBModel.tbl_SurveyAnswer" />
           <AssociationSet Name="FK_tbl_SurveyAnswer_tbl_Survey" Association="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey">
             <End Role="tbl_Survey" EntitySet="tbl_Survey" />
             <End Role="tbl_SurveyAnswer" EntitySet="tbl_SurveyAnswer" />
           </AssociationSet>
-          <EntitySet Name="FormMasters" EntityType="Hunar_DBModel.FormMaster" />
-          <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Hunar_DBModel.tbl_ParticipantRemarks_History" />
-        </EntityContainer>
+          <EntitySet Name="tbl_AssessmentSchedule" EntityType="Hunar_DBModel.tbl_AssessmentSchedule" />
+          <EntitySet Name="tbl_AssessmentSendLinkEmail" EntityType="Hunar_DBModel.tbl_AssessmentSendLinkEmail" />
+          </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -1094,54 +1246,6 @@ warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does 
           <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tbl_Survey">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FormId" Type="Int32" />
-          <Property Name="SchoolId" Type="Int32" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="YearId" Type="Int32" />
-          <Property Name="FrequencyId" Type="Int32" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_SurveyAnswer" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_Survey" ToRole="tbl_SurveyAnswer" />
-        </EntityType>
-        <EntityType Name="tbl_SurveyAnswer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SId_fk" Type="Int32" />
-          <Property Name="QuestionId_fk" Type="Int32" />
-          <Property Name="QuestionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="QuestionOption_fk" Type="Int32" />
-          <Property Name="ResponseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InputValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="InputValue1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_Survey" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_SurveyAnswer" ToRole="tbl_Survey" />
-        </EntityType>
-        <Association Name="FK_tbl_SurveyAnswer_tbl_Survey">
-          <End Type="Hunar_DBModel.tbl_Survey" Role="tbl_Survey" Multiplicity="0..1" />
-          <End Type="Hunar_DBModel.tbl_SurveyAnswer" Role="tbl_SurveyAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Survey">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="tbl_SurveyAnswer">
-              <PropertyRef Name="SId_fk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="FormMaster">
           <Key>
             <PropertyRef Name="Id" />
@@ -1197,7 +1301,175 @@ warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does 
           <Property Name="RemarkHistoryID" Type="Guid" />
           <Property Name="OrderNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-      </Schema>
+        <EntityType Name="tbl_Mapped">
+          <Key>
+            <PropertyRef Name="MappedId_pk" />
+          </Key>
+          <Property Name="MappedId_pk" Type="Guid" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="UserId" Type="String" MaxLength="140" FixedLength="false" Unicode="true" />
+          <Property Name="TrainCenterIdMappedMult" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_MappedTrainCenter">
+          <Key>
+            <PropertyRef Name="TrainCenterMappedId_pk" />
+          </Key>
+          <Property Name="TrainCenterMappedId_pk" Type="Guid" Nullable="false" />
+          <Property Name="MappedId_fk" Type="Guid" />
+          <Property Name="DistrictId" Type="Int32" />
+          <Property Name="TrainingAgencyId" Type="Int32" />
+          <Property Name="TrainingCenterId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_AttendanceParticipant">
+          <Key>
+            <PropertyRef Name="AttendanceId_pk" />
+          </Key>
+          <Property Name="AttendanceId_pk" Type="Guid" Nullable="false" />
+          <Property Name="BatchId" Type="Int32" />
+          <Property Name="Lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Long" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="EndTime" Type="Time" Precision="7" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_AttendParticipant">
+          <Key>
+            <PropertyRef Name="AttendancePartId_pk" />
+          </Key>
+          <Property Name="AttendancePartId_pk" Type="Guid" Nullable="false" />
+          <Property Name="AttendanceId_fk" Type="Guid" />
+          <Property Name="ParticipantId_fk" Type="Guid" />
+          <Property Name="AttendPartIsActive" Type="Boolean" />
+          <Property Name="AttendPartCreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AttendPartCreatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_AttendPartTopic">
+          <Key>
+            <PropertyRef Name="AttendanceTopicId_pk" />
+          </Key>
+          <Property Name="AttendanceTopicId_pk" Type="Guid" Nullable="false" />
+          <Property Name="AttendanceId_fk" Type="Guid" />
+          <Property Name="TopicId" Type="Int32" />
+          <Property Name="AttendTopicIsActive" Type="Boolean" />
+          <Property Name="AttendTopicCreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AttendTopicCreatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="SessionPlanTopic_Master">
+          <Key>
+            <PropertyRef Name="SessionPlanTPId_pk" />
+          </Key>
+          <Property Name="SessionPlanTPId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Methodology" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DurationMinutes" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SESSIONPlanType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DAYWise" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_Survey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormId" Type="Int32" />
+          <Property Name="BatchId" Type="Int32" />
+          <Property Name="TrainingCenterId" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="YearId" Type="Int32" />
+          <Property Name="FrequencyId" Type="Int32" />
+          <Property Name="IsDraft" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_SurveyAnswer" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_Survey" ToRole="tbl_SurveyAnswer" />
+        </EntityType>
+        <EntityType Name="tbl_SurveyAnswer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SId_fk" Type="Int32" />
+          <Property Name="QuestionId_fk" Type="Int32" />
+          <Property Name="QuestionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionOption_fk" Type="Int32" />
+          <Property Name="ResponseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InputValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InputValue1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_Survey" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_SurveyAnswer" ToRole="tbl_Survey" />
+        </EntityType>
+        <Association Name="FK_tbl_SurveyAnswer_tbl_Survey">
+          <End Type="Hunar_DBModel.tbl_Survey" Role="tbl_Survey" Multiplicity="0..1" />
+          <End Type="Hunar_DBModel.tbl_SurveyAnswer" Role="tbl_SurveyAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Survey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_SurveyAnswer">
+              <PropertyRef Name="SId_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tbl_AssessmentSchedule">
+          <Key>
+            <PropertyRef Name="AssessmentScheduleId_pk" />
+          </Key>
+          <Property Name="AssessmentScheduleId_pk" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="EndTime" Type="Time" Precision="7" />
+          <Property Name="BatchId_fk" Type="Int32" />
+          <Property Name="TrainingCenterId_fk" Type="Int32" />
+          <Property Name="CourseId_fk" Type="Int32" />
+          <Property Name="AssessmentSchedule" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_AssessmentSendLinkEmail">
+          <Key>
+            <PropertyRef Name="AssessmentSendLinkPartId_pk" />
+          </Key>
+          <Property Name="AssessmentSendLinkPartId_pk" Type="Guid" Nullable="false" />
+          <Property Name="AssessmentScheduleId_fk" Type="Guid" />
+          <Property Name="ParticipantId_fk" Type="Guid" />
+          <Property Name="RandomValue" Type="Guid" />
+          <Property Name="AssessmentLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="Guid" />
+          <Property Name="AssessmentSchedule" Type="Boolean" />
+          <Property Name="IsEmailSend" Type="Int32" />
+          <Property Name="NoofAttempt" Type="Int32" />
+          <Property Name="AttemptDt" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1602,42 +1874,6 @@ warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Survey">
-            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Survey">
-              <MappingFragment StoreEntitySet="tbl_Survey">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="FrequencyId" ColumnName="FrequencyId" />
-                <ScalarProperty Name="YearId" ColumnName="YearId" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
-                <ScalarProperty Name="FormId" ColumnName="FormId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_SurveyAnswer">
-            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_SurveyAnswer">
-              <MappingFragment StoreEntitySet="tbl_SurveyAnswer">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="InputValue1" ColumnName="InputValue1" />
-                <ScalarProperty Name="InputValue" ColumnName="InputValue" />
-                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
-                <ScalarProperty Name="QuestionOption_fk" ColumnName="QuestionOption_fk" />
-                <ScalarProperty Name="QuestionCode" ColumnName="QuestionCode" />
-                <ScalarProperty Name="QuestionId_fk" ColumnName="QuestionId_fk" />
-                <ScalarProperty Name="SId_fk" ColumnName="SId_fk" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="FormMasters">
             <EntityTypeMapping TypeName="Hunar_DBModel.FormMaster">
               <MappingFragment StoreEntitySet="FormMaster">
@@ -1691,6 +1927,170 @@ warning 6002: The table/view 'Hunar_DB.dbo.tbl_ParticipantRemarks_History' does 
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="RegID" ColumnName="RegID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Mapped">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Mapped">
+              <MappingFragment StoreEntitySet="tbl_Mapped">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TrainCenterIdMappedMult" ColumnName="TrainCenterIdMappedMult" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="MappedId_pk" ColumnName="MappedId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MappedTrainCenter">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_MappedTrainCenter">
+              <MappingFragment StoreEntitySet="tbl_MappedTrainCenter">
+                <ScalarProperty Name="TrainingCenterId" ColumnName="TrainingCenterId" />
+                <ScalarProperty Name="TrainingAgencyId" ColumnName="TrainingAgencyId" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="MappedId_fk" ColumnName="MappedId_fk" />
+                <ScalarProperty Name="TrainCenterMappedId_pk" ColumnName="TrainCenterMappedId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AttendanceParticipant">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_AttendanceParticipant">
+              <MappingFragment StoreEntitySet="tbl_AttendanceParticipant">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="AttendanceId_pk" ColumnName="AttendanceId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AttendParticipant">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_AttendParticipant">
+              <MappingFragment StoreEntitySet="tbl_AttendParticipant">
+                <ScalarProperty Name="AttendPartCreatedOn" ColumnName="AttendPartCreatedOn" />
+                <ScalarProperty Name="AttendPartCreatedBy" ColumnName="AttendPartCreatedBy" />
+                <ScalarProperty Name="AttendPartIsActive" ColumnName="AttendPartIsActive" />
+                <ScalarProperty Name="ParticipantId_fk" ColumnName="ParticipantId_fk" />
+                <ScalarProperty Name="AttendanceId_fk" ColumnName="AttendanceId_fk" />
+                <ScalarProperty Name="AttendancePartId_pk" ColumnName="AttendancePartId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AttendPartTopic">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_AttendPartTopic">
+              <MappingFragment StoreEntitySet="tbl_AttendPartTopic">
+                <ScalarProperty Name="AttendTopicCreatedOn" ColumnName="AttendTopicCreatedOn" />
+                <ScalarProperty Name="AttendTopicCreatedBy" ColumnName="AttendTopicCreatedBy" />
+                <ScalarProperty Name="AttendTopicIsActive" ColumnName="AttendTopicIsActive" />
+                <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+                <ScalarProperty Name="AttendanceId_fk" ColumnName="AttendanceId_fk" />
+                <ScalarProperty Name="AttendanceTopicId_pk" ColumnName="AttendanceTopicId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SessionPlanTopic_Master">
+            <EntityTypeMapping TypeName="Hunar_DBModel.SessionPlanTopic_Master">
+              <MappingFragment StoreEntitySet="SessionPlanTopic_Master">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DAYWise" ColumnName="DAYWise" />
+                <ScalarProperty Name="SESSIONPlanType" ColumnName="SESSIONPlanType" />
+                <ScalarProperty Name="DurationMinutes" ColumnName="DurationMinutes" />
+                <ScalarProperty Name="Methodology" ColumnName="Methodology" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SessionPlanTPId_pk" ColumnName="SessionPlanTPId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Survey">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Survey">
+              <MappingFragment StoreEntitySet="tbl_Survey">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
+                <ScalarProperty Name="FrequencyId" ColumnName="FrequencyId" />
+                <ScalarProperty Name="YearId" ColumnName="YearId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="TrainingCenterId" ColumnName="TrainingCenterId" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="FormId" ColumnName="FormId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SurveyAnswer">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_SurveyAnswer">
+              <MappingFragment StoreEntitySet="tbl_SurveyAnswer">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="InputValue1" ColumnName="InputValue1" />
+                <ScalarProperty Name="InputValue" ColumnName="InputValue" />
+                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
+                <ScalarProperty Name="QuestionOption_fk" ColumnName="QuestionOption_fk" />
+                <ScalarProperty Name="QuestionCode" ColumnName="QuestionCode" />
+                <ScalarProperty Name="QuestionId_fk" ColumnName="QuestionId_fk" />
+                <ScalarProperty Name="SId_fk" ColumnName="SId_fk" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AssessmentSchedule">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_AssessmentSchedule">
+              <MappingFragment StoreEntitySet="tbl_AssessmentSchedule">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="AssessmentSchedule" ColumnName="AssessmentSchedule" />
+                <ScalarProperty Name="CourseId_fk" ColumnName="CourseId_fk" />
+                <ScalarProperty Name="TrainingCenterId_fk" ColumnName="TrainingCenterId_fk" />
+                <ScalarProperty Name="BatchId_fk" ColumnName="BatchId_fk" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="AssessmentScheduleId_pk" ColumnName="AssessmentScheduleId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AssessmentSendLinkEmail">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_AssessmentSendLinkEmail">
+              <MappingFragment StoreEntitySet="tbl_AssessmentSendLinkEmail">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="AttemptDt" ColumnName="AttemptDt" />
+                <ScalarProperty Name="NoofAttempt" ColumnName="NoofAttempt" />
+                <ScalarProperty Name="IsEmailSend" ColumnName="IsEmailSend" />
+                <ScalarProperty Name="AssessmentSchedule" ColumnName="AssessmentSchedule" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AssessmentLink" ColumnName="AssessmentLink" />
+                <ScalarProperty Name="RandomValue" ColumnName="RandomValue" />
+                <ScalarProperty Name="ParticipantId_fk" ColumnName="ParticipantId_fk" />
+                <ScalarProperty Name="AssessmentScheduleId_fk" ColumnName="AssessmentScheduleId_fk" />
+                <ScalarProperty Name="AssessmentSendLinkPartId_pk" ColumnName="AssessmentSendLinkPartId_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

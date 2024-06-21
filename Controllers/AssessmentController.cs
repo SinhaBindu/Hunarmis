@@ -9,9 +9,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using static Hunarmis.Manager.CommonModel;
 
 namespace Hunarmis.Controllers
 {
+    [Authorize(Roles = "Admin,State,Trainer,Verifier")]
     public class AssessmentController : Controller
     {
         // GET: Assessment
@@ -124,18 +126,47 @@ namespace Hunarmis.Controllers
             }
         }
 
-        public ActionResult Add(int? Id, int FId)
+        //Trainer
+        [Authorize(Roles = "Admin,State,Verifier,Trainer")]
+        public ActionResult AddRole(int? Id, int FId)
         {
-            var m = GetAdd(Id, FId);
+            var m = GetAdd(Id, FId, "");
             return View(m);
         }
-        private QesRes GetAdd(int? Id, int FId)
+        // [Authorize(Roles = "User")]
+        [AllowAnonymous]
+        public ActionResult Add(int? Id, int FId, string Rdmkeyno)
         {
+            if (Session["AssessmentSendLinkPartId_pk"] != null)
+            {
+                var AssessmentSendLinkPartId_pk = Session["AssessmentSendLinkPartId_pk"].ToString();
+                var AssessmentScheduleId_fk = Session["AssessmentScheduleId_fk"].ToString();
+                var PartUserId = Session["PartUserId"].ToString();
+                var EmailID = Session["EmailID"].ToString();
+                var Password = Session["Password"].ToString();
+                var RandomValue = Session["RandomValue"].ToString();
+                var TrainingCenterId = Session["TrainingCenterId"].ToString();
+                var CourseId = Session["CourseId"].ToString();
+                var BatchId = Session["BatchId"].ToString();
+                var AssessmentCurStatus = Session["AssessmentCurStatus"].ToString();
+                var IsAssessmentExpired = Session["IsAssessmentExpired"].ToString();
+                if (AssessmentCurStatus == "1")
+                {
+                    return RedirectToAction("AssessmentDone", "ParticipantUser");
+                }
+                var m = GetAdd(Id, FId, RandomValue);
+                return View(m);
+            }
+            return RedirectToAction("Login", "ParticipantUser");
+        }
+        private QesRes GetAdd(int? Id, int FId, string Rdmkeyno)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
             FormModel model;
             List<FormModel> modellist = new List<FormModel>();
 
-            var tblhr = db.tbl_Survey.Find(Id);
-            var tblhrAns = db.tbl_SurveyAnswer.Where(x => x.SId_fk == Id).ToList();
+            var tblhr = _db.tbl_Survey.Find(Id);
+            var tblhrAns = _db.tbl_SurveyAnswer.Where(x => x.SId_fk == Id).ToList();
             var fid = Convert.ToInt32(FId);
             var tbl = db.QuestionBooks.Where(x => x.IsActive == true && x.FormId_fk == fid && x.IsQuestionDisplay == true).OrderBy(x => x.QuestionCode).ToList();
             var tbloptionlist = db.QuestionOptions.Where(x => x.IsActive == true && x.FormId_fk == fid).ToList();
@@ -210,11 +241,31 @@ namespace Hunarmis.Controllers
             {
                 if (tblhr.Id > 0)
                 {
-                    return new QesRes { Id = tblhr.Id, FormId = fid, YearId = tblhr.YearId, SchoolId = tblhr.SchoolId.Value, FrequencyId = tblhr.FrequencyId, Qlist = qList };
+                    if (!string.IsNullOrWhiteSpace(Rdmkeyno))
+                    {
+                        tblhr.BatchId = Convert.ToInt32(Session["BatchId"].ToString());
+                        tblhr.TrainingCenterId = Convert.ToInt32(Session["TrainingCenterId"].ToString());
+                    }
+                    return new QesRes
+                    {
+                        Id = tblhr.Id,
+                        FormId = fid,
+                        YearId = tblhr.YearId,
+                        BatchId = tblhr.BatchId.Value,
+                        TrainingCenterId = tblhr.TrainingCenterId.Value,
+                        FrequencyId = tblhr.FrequencyId,
+                        RandomValue = Rdmkeyno,
+                        Qlist = qList
+                    };
                 }
             }
             ViewBag.Qlist = qList;
-            return new QesRes { SchoolId = 0, FormId = fid, Qlist = qList };
+            if (Session["BatchId"] != null && Session["TrainingCenterId"] != null)
+            {
+                return new QesRes { SchoolId = 0, BatchId = Convert.ToInt32(Session["BatchId"].ToString()), TrainingCenterId = Convert.ToInt32(Session["TrainingCenterId"].ToString()), RandomValue = Session["TrainingCenterId"].ToString(), FormId = fid, Qlist = qList };
+
+            }
+            return new QesRes { SchoolId = 0, BatchId =0, TrainingCenterId = 0, RandomValue = Rdmkeyno, FormId = fid, Qlist = qList };
         }
 
         [HttpPost]
@@ -227,10 +278,10 @@ namespace Hunarmis.Controllers
                 //var resdata = this.Request.Unvalidated.Form.AllKeys;
                 if (model != null)
                 {
-                    //if (model.SchoolId == 0)
-                    //{
-                    //    return Json(new { IsSuccess = false, res = "", msg = "Select School !" }, JsonRequestBehavior.AllowGet);
-                    //}
+                    if (model.BatchId == 0)
+                    {
+                        return Json(new { IsSuccess = false, res = "", msg = "Select School !" }, JsonRequestBehavior.AllowGet);
+                    }
                     var maintbl = model.Id != 0 ? db.tbl_Survey.Find(model.Id) : new tbl_Survey();
                     if (maintbl != null)
                     {
@@ -246,7 +297,8 @@ namespace Hunarmis.Controllers
                                 maintbl.YearId = model.YearId == null ? DateTime.Now.Year : Convert.ToInt32(model.YearId);
                                 maintbl.FrequencyId = model.FrequencyId == null ? DateTime.Now.Month : Convert.ToInt32(model.FrequencyId);
                                 maintbl.Date = DateTime.Now.Date;
-                                maintbl.SchoolId = model.SchoolId;
+                                maintbl.BatchId = model.BatchId;
+                                maintbl.TrainingCenterId = model.TrainingCenterId;
                                 maintbl.CreatedBy = User.Identity.Name;
                                 maintbl.CreatedOn = DateTime.Now;
                                 maintbl.IsActive = true;
@@ -371,7 +423,7 @@ namespace Hunarmis.Controllers
                         //Success("HR save and modified successfully !", true);
                         // return RedirectToAction("Index", "HR");
                         ModelState.Clear();
-                        var res = GetAdd(maintbl.Id, maintbl.FormId.Value);
+                        var res = GetAdd(maintbl.Id, maintbl.FormId.Value, model.RandomValue);
                         var html = ConvertViewToString("add", res);
                         var action = maintbl.Id == 0 ? "Saved" : "Modified";
                         var resResponse = Json(new { IsSuccess = true, htmlData = html, msg = action }, JsonRequestBehavior.AllowGet);

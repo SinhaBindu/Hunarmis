@@ -93,6 +93,10 @@ namespace Hunarmis.Models
         public int Para { get; set; }
         public int SchoolType { get; set; }
         public int SchoolId { get; set; }
+        public int BatchId { get; set; }
+        public int TrainingCenterId { get; set; }
+        public int CourseId { get; set; }
+        public string RandomValue { get; set; }
         public int DistrictId { get; set; }
         public int BlockId { get; set; }
         public string DISECODE { get; set; }

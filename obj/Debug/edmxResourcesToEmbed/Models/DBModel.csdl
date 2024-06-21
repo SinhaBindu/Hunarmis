@@ -37,14 +37,22 @@
     <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
     <EntitySet Name="QuestionBooks" EntityType="Hunar_DBModel.QuestionBook" />
     <EntitySet Name="QuestionOptions" EntityType="Hunar_DBModel.QuestionOption" />
+    <EntitySet Name="FormMasters" EntityType="Hunar_DBModel.FormMaster" />
+    <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Hunar_DBModel.tbl_ParticipantRemarks_History" />
+    <EntitySet Name="tbl_Mapped" EntityType="Hunar_DBModel.tbl_Mapped" />
+    <EntitySet Name="tbl_MappedTrainCenter" EntityType="Hunar_DBModel.tbl_MappedTrainCenter" />
+    <EntitySet Name="tbl_AttendanceParticipant" EntityType="Hunar_DBModel.tbl_AttendanceParticipant" />
+    <EntitySet Name="tbl_AttendParticipant" EntityType="Hunar_DBModel.tbl_AttendParticipant" />
+    <EntitySet Name="tbl_AttendPartTopic" EntityType="Hunar_DBModel.tbl_AttendPartTopic" />
+    <EntitySet Name="SessionPlanTopic_Master" EntityType="Hunar_DBModel.SessionPlanTopic_Master" />
     <EntitySet Name="tbl_Survey" EntityType="Hunar_DBModel.tbl_Survey" />
     <EntitySet Name="tbl_SurveyAnswer" EntityType="Hunar_DBModel.tbl_SurveyAnswer" />
     <AssociationSet Name="FK_tbl_SurveyAnswer_tbl_Survey" Association="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey">
       <End Role="tbl_Survey" EntitySet="tbl_Survey" />
       <End Role="tbl_SurveyAnswer" EntitySet="tbl_SurveyAnswer" />
     </AssociationSet>
-    <EntitySet Name="FormMasters" EntityType="Hunar_DBModel.FormMaster" />
-    <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Hunar_DBModel.tbl_ParticipantRemarks_History" />
+    <EntitySet Name="tbl_AssessmentSchedule" EntityType="Hunar_DBModel.tbl_AssessmentSchedule" />
+    <EntitySet Name="tbl_AssessmentSendLinkEmail" EntityType="Hunar_DBModel.tbl_AssessmentSendLinkEmail" />
   </EntityContainer>
   <EntityType Name="AspNetRole">
     <Key>
@@ -453,54 +461,6 @@
     <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityType Name="tbl_Survey">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FormId" Type="Int32" />
-    <Property Name="SchoolId" Type="Int32" />
-    <Property Name="Date" Type="DateTime" Precision="0" />
-    <Property Name="YearId" Type="Int32" />
-    <Property Name="FrequencyId" Type="Int32" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="tbl_SurveyAnswer" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_Survey" ToRole="tbl_SurveyAnswer" />
-  </EntityType>
-  <EntityType Name="tbl_SurveyAnswer">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="SId_fk" Type="Int32" />
-    <Property Name="QuestionId_fk" Type="Int32" />
-    <Property Name="QuestionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="QuestionOption_fk" Type="Int32" />
-    <Property Name="ResponseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="InputValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="InputValue1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="tbl_Survey" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_SurveyAnswer" ToRole="tbl_Survey" />
-  </EntityType>
-  <Association Name="FK_tbl_SurveyAnswer_tbl_Survey">
-    <End Type="Hunar_DBModel.tbl_Survey" Role="tbl_Survey" Multiplicity="0..1" />
-    <End Type="Hunar_DBModel.tbl_SurveyAnswer" Role="tbl_SurveyAnswer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Survey">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="tbl_SurveyAnswer">
-        <PropertyRef Name="SId_fk" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="FormMaster">
     <Key>
       <PropertyRef Name="Id" />
@@ -555,5 +515,173 @@
     <Property Name="RemarksHistoryDate" Type="DateTime" Precision="3" />
     <Property Name="RemarkHistoryID" Type="Guid" />
     <Property Name="OrderNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="tbl_Mapped">
+    <Key>
+      <PropertyRef Name="MappedId_pk" />
+    </Key>
+    <Property Name="MappedId_pk" Type="Guid" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" />
+    <Property Name="UserId" Type="String" MaxLength="140" FixedLength="false" Unicode="true" />
+    <Property Name="TrainCenterIdMappedMult" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbl_MappedTrainCenter">
+    <Key>
+      <PropertyRef Name="TrainCenterMappedId_pk" />
+    </Key>
+    <Property Name="TrainCenterMappedId_pk" Type="Guid" Nullable="false" />
+    <Property Name="MappedId_fk" Type="Guid" />
+    <Property Name="DistrictId" Type="Int32" />
+    <Property Name="TrainingAgencyId" Type="Int32" />
+    <Property Name="TrainingCenterId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbl_AttendanceParticipant">
+    <Key>
+      <PropertyRef Name="AttendanceId_pk" />
+    </Key>
+    <Property Name="AttendanceId_pk" Type="Guid" Nullable="false" />
+    <Property Name="BatchId" Type="Int32" />
+    <Property Name="Lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Long" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Precision="0" />
+    <Property Name="EndDate" Type="DateTime" Precision="0" />
+    <Property Name="StartTime" Type="Time" Precision="7" />
+    <Property Name="EndTime" Type="Time" Precision="7" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbl_AttendParticipant">
+    <Key>
+      <PropertyRef Name="AttendancePartId_pk" />
+    </Key>
+    <Property Name="AttendancePartId_pk" Type="Guid" Nullable="false" />
+    <Property Name="AttendanceId_fk" Type="Guid" />
+    <Property Name="ParticipantId_fk" Type="Guid" />
+    <Property Name="AttendPartIsActive" Type="Boolean" />
+    <Property Name="AttendPartCreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="AttendPartCreatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbl_AttendPartTopic">
+    <Key>
+      <PropertyRef Name="AttendanceTopicId_pk" />
+    </Key>
+    <Property Name="AttendanceTopicId_pk" Type="Guid" Nullable="false" />
+    <Property Name="AttendanceId_fk" Type="Guid" />
+    <Property Name="TopicId" Type="Int32" />
+    <Property Name="AttendTopicIsActive" Type="Boolean" />
+    <Property Name="AttendTopicCreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="AttendTopicCreatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="SessionPlanTopic_Master">
+    <Key>
+      <PropertyRef Name="SessionPlanTPId_pk" />
+    </Key>
+    <Property Name="SessionPlanTPId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Methodology" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DurationMinutes" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="SESSIONPlanType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DAYWise" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbl_Survey">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FormId" Type="Int32" />
+    <Property Name="BatchId" Type="Int32" />
+    <Property Name="TrainingCenterId" Type="Int32" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="YearId" Type="Int32" />
+    <Property Name="FrequencyId" Type="Int32" />
+    <Property Name="IsDraft" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tbl_SurveyAnswer" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_Survey" ToRole="tbl_SurveyAnswer" />
+  </EntityType>
+  <EntityType Name="tbl_SurveyAnswer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SId_fk" Type="Int32" />
+    <Property Name="QuestionId_fk" Type="Int32" />
+    <Property Name="QuestionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="QuestionOption_fk" Type="Int32" />
+    <Property Name="ResponseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="InputValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InputValue1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tbl_Survey" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_SurveyAnswer" ToRole="tbl_Survey" />
+  </EntityType>
+  <Association Name="FK_tbl_SurveyAnswer_tbl_Survey">
+    <End Type="Hunar_DBModel.tbl_Survey" Role="tbl_Survey" Multiplicity="0..1" />
+    <End Type="Hunar_DBModel.tbl_SurveyAnswer" Role="tbl_SurveyAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Survey">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_SurveyAnswer">
+        <PropertyRef Name="SId_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tbl_AssessmentSchedule">
+    <Key>
+      <PropertyRef Name="AssessmentScheduleId_pk" />
+    </Key>
+    <Property Name="AssessmentScheduleId_pk" Type="Guid" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="StartTime" Type="Time" Precision="7" />
+    <Property Name="EndTime" Type="Time" Precision="7" />
+    <Property Name="BatchId_fk" Type="Int32" />
+    <Property Name="TrainingCenterId_fk" Type="Int32" />
+    <Property Name="CourseId_fk" Type="Int32" />
+    <Property Name="AssessmentSchedule" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbl_AssessmentSendLinkEmail">
+    <Key>
+      <PropertyRef Name="AssessmentSendLinkPartId_pk" />
+    </Key>
+    <Property Name="AssessmentSendLinkPartId_pk" Type="Guid" Nullable="false" />
+    <Property Name="AssessmentScheduleId_fk" Type="Guid" />
+    <Property Name="ParticipantId_fk" Type="Guid" />
+    <Property Name="RandomValue" Type="Guid" />
+    <Property Name="AssessmentLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="Guid" />
+    <Property Name="AssessmentSchedule" Type="Boolean" />
+    <Property Name="IsEmailSend" Type="Int32" />
+    <Property Name="NoofAttempt" Type="Int32" />
+    <Property Name="AttemptDt" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>

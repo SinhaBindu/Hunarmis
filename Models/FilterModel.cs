@@ -20,6 +20,10 @@ namespace Hunarmis.Models
         public string BatchId { get; set; }
         [Display(Name = "Training Center")]
         public string TrainingCenterID { get; set; }
+        [Display(Name = "Session Plan")]
+        public string TopicId { get; set; }
+        [Display(Name = "Session Plan")]
+        public string TopicName { get; set; }
         [Display(Name = "From Date")]
         public string FromDt { get; set; }
         [Display(Name = "To Date")]
@@ -51,5 +55,16 @@ namespace Hunarmis.Models
         public string CallStatus { get; set; }
         [Display(Name = "Type of Assessment")]
         public string FormId { get; set; }
+
+        [Display(Name = "Attendance Date")]
+        public DateTime AttendanceDt { get; set; }
+        [Display(Name = "Attendance Start Time")]
+        public TimeSpan AttendanceStartTime { get; set; }
+        [Display(Name = "Attendance End Time")]
+        public TimeSpan AttendanceEndTime { get; set; }
+        public string AssessmentScheduleId { get; set; }
+        public string EmailId { get; set; }
+        public string Password { get; set; }
+        public string RandomValue { get; set; }
     }
 }

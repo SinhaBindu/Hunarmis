@@ -1,9 +1,12 @@
-﻿using Hunarmis.Manager;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using Hunarmis.Manager;
 using Hunarmis.Models;
 using Microsoft.AspNetCore.Cors;
 using Newtonsoft.Json;
+using SubSonic.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -21,25 +24,36 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
+
+        #region
         public ActionResult UserDetaillist()
         {
             RegisterViewModel model = new RegisterViewModel();
             return View(model);
         }
-        public ActionResult GetUserDetailData()
+        public ActionResult GetUserDetailData(int? RoleId, int CheckBox = 0)
         {
             try
             {
+                RoleId = RoleId == null ? 0 : RoleId;
                 bool IsCheck = false;
-                var tbllist = SPManager.SPGetUserlist();
+                var tbllist = SPManager.SPGetUserlist(RoleId);
                 if (tbllist != null)
                 {
                     IsCheck = true;
+                }
+                if (CheckBox == 1)
+                {
+                    var html1 = ConvertViewToString("_UserDetailMPData", tbllist);
+                    var res1 = Json(new { IsSuccess = IsCheck, Data = html1 }, JsonRequestBehavior.AllowGet);
+                    res1.MaxJsonLength = int.MaxValue;
+                    return res1;
                 }
                 var html = ConvertViewToString("_UserDetailData", tbllist);
                 var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
                 res.MaxJsonLength = int.MaxValue;
                 return res;
+
             }
             catch (Exception ex)
             {
@@ -47,6 +61,116 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
             }
         }
+        public ActionResult UserMapped()
+        {
+            return View();
+        }
+        //[HttpPost]
+        //public ActionResult CUUserMapped(UserMappedModel model)
+        //{
+        //    return Json("", JsonRequestBehavior.AllowGet);
+        //}
+        [HttpPost]
+        //[EnableCors("*")]
+        public JsonResult CUUserMapped(Guid? MappedId, string UserId, string RoleId, string TACId)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            JsonResponseData response = new JsonResponseData();
+            int res = 0;
+            try
+            {
+                var tbl = (MappedId != null && MappedId != Guid.Empty) ? _db.tbl_Mapped.Find(MappedId) : new tbl_Mapped();
+                //tbl = tbl == null ? new tbl_Mapped() : tbl;
+                tbl_MappedTrainCenter tbltcmapp;
+                List<tbl_MappedTrainCenter> tbllist = new List<tbl_MappedTrainCenter>();
+                if (tbl != null && !string.IsNullOrWhiteSpace(UserId))
+                {
+                    
+                    tbl.RoleId = Convert.ToInt16(RoleId);
+                    tbl.UserId = UserId;
+                    tbl.TrainCenterIdMappedMult = TACId;
+                    tbl.IsActive = true;
+                    if (!string.IsNullOrWhiteSpace(TACId))
+                    {
+                        var TACsplt = TACId.Split(',');
+                        if (TACsplt.Length != 0)
+                        {
+                            if (MappedId != Guid.Empty && MappedId != null)
+                            {
+                                var tbldet = _db.tbl_MappedTrainCenter.Where(x => x.MappedId_fk == MappedId).ToList();
+                                _db.tbl_MappedTrainCenter.RemoveRange(tbldet);
+                                _db.SaveChanges();
+                            }
+                            foreach (var item in TACsplt)
+                            {
+                                if (!string.IsNullOrWhiteSpace(item))
+                                {
+                                    tbltcmapp = new tbl_MappedTrainCenter();
+                                    DataTable mstlist = SPManager.SP_GetDTACMasterList().AsEnumerable().Where(x => x.Field<Int32>("TrainingCenterId") == Convert.ToInt32(item)).CopyToDataTable();
+                                    tbltcmapp.TrainCenterMappedId_pk = Guid.NewGuid();
+                                    tbltcmapp.MappedId_fk = tbl.MappedId_pk;
+                                    tbltcmapp.DistrictId = Convert.ToInt32(mstlist.Rows[0]["DistrictId"].ToString());
+                                    tbltcmapp.TrainingAgencyId = Convert.ToInt32(mstlist.Rows[0]["TrainingAgencyId"].ToString());
+                                    tbltcmapp.TrainingCenterId = Convert.ToInt32(item);
+                                    tbllist.Add(tbltcmapp);
+                                }
+                            }
+                        }
+                    }
+
+                    if (MappedId == Guid.Empty || MappedId == null)
+                    {
+                        tbl.MappedId_pk = Guid.NewGuid();
+                        tbl.CreatedBy = MvcApplication.CUser.UserId;
+                        tbl.CreatedOn = DateTime.Now;
+                        _db.tbl_Mapped.Add(tbl);
+                        if (tbllist.Count > 0)
+                        {
+                            _db.tbl_MappedTrainCenter.AddRange(tbllist);
+                        }
+                    }
+                    else
+                    {
+                        tbl.UpdatedBy = MvcApplication.CUser.UserId;
+                        tbl.UpdatedOn = DateTime.Now;
+                        if (MappedId != Guid.Empty && MappedId != null)
+                        {
+                            if (tbllist.Count > 0)
+                            {
+                                _db.tbl_MappedTrainCenter.AddRange(tbllist);
+                            }
+                        }
+                    }
+                    res += _db.SaveChanges();
+                    if (res > 0)
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Record Submitted Successfully!!!", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+                }
+                else
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Data Not Submitted !!", Data = null };
+                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse3.MaxJsonLength = int.MaxValue;
+                    return resResponse3;
+                }
+            }
+            catch (Exception)
+            {
+                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error.", Data = null };
+                var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                resResponse3.MaxJsonLength = int.MaxValue;
+                return resResponse3;
+            }
+            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error..", Data = null };
+            var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
+            resResponse4.MaxJsonLength = int.MaxValue;
+            return resResponse4;
+        }
+        #endregion
 
         #region Master List
         public ActionResult GetStateList(bool SelectAll)
@@ -254,7 +378,7 @@ namespace Hunarmis.Controllers
                             tbl.Id = max == 0 ? 1 : Convert.ToInt32(max.Value) + 1;
 
                         }
-                        
+
                         tbl.CreatedBy = MvcApplication.CUser.UserId;
                         tbl.CreatedOn = DateTime.Now;
                         db.Batch_Master.Add(tbl);

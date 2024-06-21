@@ -1,0 +1,227 @@
+﻿@model Hunarmis.Models.AssessmentScheduleModel
+@using Hunarmis.Manager
+@{
+    ViewBag.Title = "Assessment Schedule";
+    ViewBag.TitleIcon = "fa fa-user";
+    ViewBag.SemiTitle = "Assessment Schedule List";
+    ViewBag.SemiTitleLink = "/Attendance/AssessmentSchedule";
+}
+<style>
+    .table th {
+        font-size: 14px;
+        background: #fff;
+    }
+    .table td {
+        font-size: 13px;
+    }
+    .dataTables_filter, .dataTables_length {
+        margin-bottom: 15px;
+    }
+    table.dataTable > thead > tr > th, table.dataTable > thead > tr > td {
+        padding: 10px 6px !important
+    }
+</style>
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="div-download"></div>
+                <div class="panel">
+                    @using (Html.BeginForm("AssessmentSchedule", "Attendance", FormMethod.Post, new { @class = "panel-body form-horizontal form-padding loader", @id = "formid" }))
+                    {
+                        <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                        <div class="panel-bodys bg-white">
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(m => m.AssessmentScheduleId_pk)
+                            <div class="col-sm-12">
+                                <div class="row mb-3">
+                                    <div class="col-sm-5">
+                                        <div class="rounded h-100 p-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.BatchId_fk, new { @class = "Col-md-2 col-form-label" })<em>*</em>
+                                                @Html.DropDownListFor(model => model.BatchId_fk, CommonModel.GetBatchForPartLists(), "Select One", htmlAttributes: new { @class = "form-control select2 required", @required = "required" })
+                                                @Html.ValidationMessageFor(m => m.BatchId_fk, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.Date, new { @class = "Col-md-2 col-form-label" })<em>*</em>
+                                                @Html.EditorFor(m => m.Date, null, new { htmlAttributes = new { @placeholder = "Enter the Assessment Schedule Date", @class = "form-control col-md-4 required", @required = "required" } })
+                                                @*@Html.EditorFor(m => m.Date, new { htmlAttributes = new { @placeholder = "Assessment Schedule Date", @class = "form-control col-md-4 required", @required = "required" } })*@
+                                                @Html.ValidationMessageFor(m => m.Date, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.StrStartTime, htmlAttributes: new { @class = "Col-md-2 col-form-label" })<em>*</em>
+                                                @Html.EditorFor(m => m.StrStartTime,null, new { htmlAttributes = new { @placeholder = "Enter the start time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
+                                                @Html.ValidationMessageFor(model => model.StrStartTime, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.StrEndTime, htmlAttributes: new { @class = "Col-md-2 col-form-label" })<em>*</em>
+                                                @Html.EditorFor(m => m.StrEndTime,null, new { htmlAttributes = new { @placeholder = "Enter the end time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
+                                                @Html.ValidationMessageFor(model => model.StrEndTime, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-md-12" style="padding-top: 10px !important;">
+                                                <span class="webshow">
+                                                    <input type="submit" class="btn-register" name="btnsubmit" id="btnsubmit" value="Submit" />
+                                                    <a href="~/Attendance/AssessmentSchedule" class="btn-reset"><i class="fa fa-refresh"></i></a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7">
+                                        <div id="subdata" style="height:500px; overflow:scroll;"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+        $(document).ready(function () {
+
+            $('.timepicker').timepicker({
+                timeFormat: 'h:mm p',
+                interval: 60,
+                minTime: '10',
+                maxTime: '6:00pm',
+                defaultTime: '11',
+                startTime: '10:00',
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true
+            });
+            $("#Date").datepicker({
+                dateFormat: 'dd-M-yy',
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                // changeMonth: true,
+                //changeYear: true,
+                minDate: '0',
+               // maxDate: '0',
+            });
+
+            if ('@Model.AssessmentScheduleId_pk' != '@Guid.Empty') {
+                $('#AssessmentScheduleId_pk').val('@Model.AssessmentScheduleId_pk');
+                $('#BatchId_fk').val('@Model.BatchId_fk');
+                $('#Date').val(moment('@Model.Date').format("DD-MMM-YYYY"));
+                $('#StrStartTime').val(('@Model.StrStartTime'));
+                $('#StrEndTime').val(('@Model.StrEndTime'));
+            }
+            BindData();
+            $("#btnsubmit").click(function (e) {
+                e.preventDefault();
+                CUOPT();
+            });
+
+        });
+
+        function BindData() {
+            var BatchId = ($('#BatchId_fk').val() == "0" || $('#BatchId_fk').val() == "") ? 0 : parseInt($('#BatchId_fk').val());
+            $.ajax({
+                type: "GET",
+                url: document.baseURI + "/Attendance/GetAssessmentSchedulellist",
+                data: { 'BatchId_fk': BatchId },//JSON.stringify({}),//
+                cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+
+                        if ($.fn.dataTable.isDataTable('#tbl')) {
+                            $("#tbl").dataTable().fnDestroy();
+                        }
+                        table = $('#tbl').DataTable({
+                            //scrollY: "400px",
+                            //scrollX: true,
+                            //scrollCollapse: true,
+                            paging: false,
+                            pageLength: 100,
+                            fixedColumns: {
+                                leftColumns: 1,
+                                rightColumns: 1
+                            },
+                            order: [[0, 'asc']],
+                            buttons: [{
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export To Excel</span>', title: $('#BatchId_fk option:selected').text()+' Assessment Schedule Lists',//$('#IDDistrict option:selected').text() +
+                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                filename: 'Assessment Schedule List',
+                                exportOptions: { modifier: { page: 'all' } }
+                            }],
+                        });
+                        $('.dataTables_filter input[type="search"]').css(
+                            { 'width': '200px', 'display': 'inline-block' }
+                        );
+                        $('#div-download').empty();
+                        table.buttons().container().appendTo($('#div-download'));
+                    }
+                    $("#subdata").html(res.Data);
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+
+        function CUOPT() {
+            debugger;
+            var isvalid = $("#formid").valid();
+            var IsCheck = true;
+
+            var formData = new FormData();
+            formData.append('AssessmentScheduleId_pk', $('#AssessmentScheduleId_pk').val());
+            formData.append('BatchId_fk', $('#BatchId_fk').val());
+            formData.append('Date', $('#Date').val());
+            formData.append('StrStartTime', $('#StrStartTime').val());
+            formData.append('StrEndTime', $('#StrEndTime').val());
+
+            //formData.append('v_model', JSON.stringify(MS_model));
+            var url = document.baseURI + "/Attendance/AssessmentSchedule";
+            if (isvalid && IsCheck) {
+                $.ajax({
+                    url: url,
+                    type: "Post",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (resp) {
+                        if (resp.StatusType == "success") {
+                            toastr.success("Success", resp.Message);
+                            BindData();
+                            window.location.href = url;
+                            $('#AssessmentScheduleId_pk').val('@Guid.Empty');
+                            $('#BatchId_fk').val('0'); $('#Date').val(''); $('#StrStartTime').val(''); $('#StrEndTime').val('');
+                            //jQuery.event.trigger("ajaxStop");
+                        }
+                        else {
+                            toastr.error("Error", resp.Message);
+                        }
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        toastr.error("Error", errormsg);
+                        //jQuery.event.trigger("ajaxStop");
+                        return false;
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+
+        }
+
+</script>
+}
