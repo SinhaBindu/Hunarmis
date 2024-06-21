@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <ul id="mainnav-menu" class="list-group">
-                        @if (!IsViewer)
+                        @if (!IsViewer && Session["AssessmentSendLinkPartId_pk"] == null)
                         {
                             @Html.ActionLinkMenu("<i class='fa fa-home main-icon'></i> <span class=\"menu-title\">Dashboard</span>", "Index", "Home")
                             if (User.IsInRole("Admin") || User.IsInRole("State") || User.IsInRole("User") || User.IsInRole("Verifier") || User.IsInRole("Viewer") || User.IsInRole("District"))

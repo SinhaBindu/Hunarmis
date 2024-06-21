@@ -154,7 +154,8 @@ namespace Hunarmis.Controllers
                 {
                     return RedirectToAction("AssessmentDone", "ParticipantUser");
                 }
-                var m = GetAdd(Id, FId, RandomValue);
+                Rdmkeyno = RandomValue;
+                var m = GetAdd(Id, FId, Rdmkeyno);
                 return View(m);
             }
             return RedirectToAction("Login", "ParticipantUser");
@@ -288,12 +289,23 @@ namespace Hunarmis.Controllers
                         maintbl.FormId = Convert.ToInt32(model.FormId);
                         if (model.Id == 0)//&& !(db_.tbl_Survey.Any(x => x.SchoolId == model.Id))
                         {
-                            if (db_.tbl_Survey.Any(x => x.CreatedBy == User.Identity.Name && x.FormId == model.FormId))
+                            if (db_.tbl_Survey.Any(x => x.CreatedBy == Session["PartUserId"].ToString() && x.FormId == model.FormId && x.BatchId == x.BatchId))
                             {
                                 return Json(new { IsSuccess = false, res = "", msg = "This Record Is Already Exists !" }, JsonRequestBehavior.AllowGet);
                             }
                             else
                             {
+                                maintbl.IsDraft = model.IsDraft;
+                                if (!model.IsDraft)
+                                {
+                                    maintbl.IsActive = true;
+                                    maintbl.IsDraft = false;
+                                }
+                                else if (maintbl.IsActive.HasValue)
+                                {
+                                    maintbl.IsDraft = false;
+                                    maintbl.IsActive = false;
+                                }
                                 maintbl.YearId = model.YearId == null ? DateTime.Now.Year : Convert.ToInt32(model.YearId);
                                 maintbl.FrequencyId = model.FrequencyId == null ? DateTime.Now.Month : Convert.ToInt32(model.FrequencyId);
                                 maintbl.Date = DateTime.Now.Date;
@@ -301,7 +313,6 @@ namespace Hunarmis.Controllers
                                 maintbl.TrainingCenterId = model.TrainingCenterId;
                                 maintbl.CreatedBy = User.Identity.Name;
                                 maintbl.CreatedOn = DateTime.Now;
-                                maintbl.IsActive = true;
                                 db.tbl_Survey.Add(maintbl);
                             }
                         }
