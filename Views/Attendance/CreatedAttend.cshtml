@@ -1,4 +1,4 @@
-﻿@model Hunarmis.Models.AttendanceModel
+﻿    @model Hunarmis.Models.AttendanceModel
 @using Hunarmis.Manager
 @{
     ViewBag.Title = "Attendance";
@@ -26,6 +26,47 @@
     .panel {
         min-height: 500px
     }
+    .breakers {
+        display: block;
+        height: 20px
+    }
+    .multiselect {
+        width: 100% !important;
+    }
+
+    .multiselect-container {
+        width: 350px !important;
+        height: 350px;
+        overflow-y: scroll
+    }
+
+        .multiselect-container > li > a > label {
+            padding: 3px 20px 3px 20px !important;
+        }
+
+    .dropdown-menu {
+        font-size: 12px !important;
+    }
+
+    .multiselect-selected-text {
+        display: block;
+        width: 350px;
+        white-space: pre-wrap;
+        height: 20px;
+        overflow-y: scroll;
+    }
+    .search-box {
+        padding: 20px;
+        background: #F9F8FF;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+    .search-box label {
+        margin-left: -10px;
+    }
+    .tp-mrgn {
+        margin-top: -15px
+    }
 </style>
 
 
@@ -51,77 +92,84 @@
                             <div class="panel-bodys">
                                 <div class="manage-input">
                                     <div class="card1">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                            <div class="col-lg-8">
-                                                @Html.DropDownListFor(model => model.BatchId, CommonModel.GetBatch(), "Select One", htmlAttributes: new { @class = "form-control select2" })
-                                                @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                        <div class="search-box">
+                                            <div class="form-group">
+                                                <div class="col-lg-6">
+                                                    @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "col-lg-12" })
+                                                    @Html.DropDownListFor(model => model.BatchId, CommonModel.GetBatch(), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                                </div>
                                             </div>
-                                            <div class="mark-devide"></div>
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.TopicIds, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                            <div class="col-lg-8">
-                                                @Html.DropDownListFor(model => model.TopicIds, CommonModel.GetSessionPlanTopic(), "Select One", htmlAttributes: new { @class = "form-control multiple", multiple = "multiple" })
-                                                @Html.ValidationMessageFor(model => model.TopicIds, "", new { @class = "text-danger" })
+                                            <div class="form-group tp-mrgn">
+                                                <div class="col-lg-6">
+                                                    @Html.LabelFor(model => model.TopicIds, htmlAttributes: new { @class = "col-lg-12" })
+                                                    @Html.DropDownListFor(model => model.TopicIds, CommonModel.GetSessionPlanTopic(), "Select One", htmlAttributes: new { @class = "form-control multiple", multiple = "multiple" })
+                                                    @Html.ValidationMessageFor(model => model.TopicIds, "", new { @class = "text-danger" })
+                                                </div>
                                             </div>
-                                            <div class="mark-devide"></div>
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-lg-2" })
-                                            <div class="col-lg-2">
-                                                @Html.EditorFor(m => m.StartDate, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "form-control col-md-4 required", @required = "required" } })
-                                                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                            <div class="breakers"></div>
+                                            <div class="form-group">
+                                                &nbsp;
                                             </div>
-                                            <div class="mark-devide"></div>
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.StrStartTime, htmlAttributes: new { @class = "control-label col-lg-2" })
-                                            <div class="col-lg-2">
-                                                @Html.EditorFor(m => m.StrStartTime, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Start Time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
-                                                @Html.ValidationMessageFor(model => model.StrStartTime, "", new { @class = "text-danger" })
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-lg-2" })
+                                                <div class="col-lg-2">
+                                                    @Html.EditorFor(m => m.StartDate, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "form-control col-md-4 required", @required = "required" } })
+                                                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
                                             </div>
-                                            <div class="mark-devide"></div>
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.StrEndTime, htmlAttributes: new { @class = "control-label col-lg-2" })
-                                            <div class="col-lg-2">
-                                                @Html.EditorFor(m => m.StrEndTime, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance End Time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
-                                                @Html.ValidationMessageFor(model => model.StrEndTime, "", new { @class = "text-danger" })
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.StrStartTime, htmlAttributes: new { @class = "control-label col-lg-2" })
+                                                <div class="col-lg-2">
+                                                    @Html.EditorFor(m => m.StrStartTime, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Start Time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
+                                                    @Html.ValidationMessageFor(model => model.StrStartTime, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
                                             </div>
-                                            <div class="mark-devide"></div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.StrEndTime, htmlAttributes: new { @class = "control-label col-lg-2" })
+                                                <div class="col-lg-2">
+                                                    @Html.EditorFor(m => m.StrEndTime, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance End Time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
+                                                    @Html.ValidationMessageFor(model => model.StrEndTime, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                &nbsp;
+                                            </div>
                                         </div>
+                                        
+                                        
                                         @*<div class="form-group">
-                                                @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                                <div class="col-lg-8">
-                                                    @Html.DropDownListFor(model => model.DistrictId, CommonModel.GetDistrict("1"), "Select One", htmlAttributes: new { @class = "form-control select2" })
-                                                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
-                                                </div>
-                                                <div class="mark-devide"></div>
-                                            </div>
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.TrainAgencyId, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                                <div class="col-lg-8">
-                                                    @Html.DropDownListFor(model => model.TrainAgencyId, CommonModel.GetTrainingAgency(), "Select One", htmlAttributes: new { @class = "form-control select2" })
-                                                    @Html.ValidationMessageFor(model => model.TrainAgencyId, "", new { @class = "text-danger" })
-                                                </div>
-                                                <div class="mark-devide"></div>
-                                            </div>
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.TrainCenterIdMappedMult, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                                <div class="col-lg-8">
-                                                    @Html.DropDownListFor(model => model.TrainCenterIdMappedMult, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control multiple" })
-                                                    @Html.ValidationMessageFor(model => model.TrainCenterIdMappedMult, "", new { @class = "text-danger" })
-                                                </div>
-                                                <div class="mark-devide"></div>
-                                            </div>*@
+            @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-lg-4" })
+            <div class="col-lg-8">
+                @Html.DropDownListFor(model => model.DistrictId, CommonModel.GetDistrict("1"), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+            </div>
+            <div class="mark-devide"></div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TrainAgencyId, htmlAttributes: new { @class = "control-label col-lg-4" })
+            <div class="col-lg-8">
+                @Html.DropDownListFor(model => model.TrainAgencyId, CommonModel.GetTrainingAgency(), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.TrainAgencyId, "", new { @class = "text-danger" })
+            </div>
+            <div class="mark-devide"></div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TrainCenterIdMappedMult, htmlAttributes: new { @class = "control-label col-lg-4" })
+            <div class="col-lg-8">
+                @Html.DropDownListFor(model => model.TrainCenterIdMappedMult, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control multiple" })
+                @Html.ValidationMessageFor(model => model.TrainCenterIdMappedMult, "", new { @class = "text-danger" })
+            </div>
+            <div class="mark-devide"></div>
+        </div>*@
 
                                         <div class="form-group">
-                                            <br />
-                                            <div class="col-md-3"></div>
+                                            @*<div class="col-md-3"></div>*@
                                             <div class="col-md-7">
                                                 <span class="">
-                                                    @*<button type="submit" class="previous btn btn-primary btn-lg">Submit</button>*@
                                                     <input type="submit" name="btnsubmit" value="Attendance Submit" id="btnsubmit" class="btn-lg btn-primary" />
                                                     <a href="~/Attendance/CreatedAttend" class="btn-reset"><i class="fa fa-refresh"></i></a>
                                                 </span>
