@@ -22,10 +22,21 @@
             margin: 0px;
             padding: 0px;
             font-family: "Outfit", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #EDF1F7
         }
         .cool-login {
+            margin: auto;
+            width: 900px;
             display: flex;
-            height: 100%;
+            align-items: center;
+            height: 500px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
         }
         .login-sider, .post-login {
             flex: 1;
@@ -36,8 +47,10 @@
             top: 0px;
             margin-top: 0px;
             overflow: inherit;
-            background: url('../../Content/css/assets/hunar-participants.jpg')top right;
+            background: url('../../Content/images/hunar-participants.jpg')top center;
             background-size: cover;
+            /*background: #275BC3;*/
+            border-radius: 10px 0 0 10px;
         }
         .post-login {
             height: 100vh;
@@ -52,24 +65,35 @@
         label {
             display: block;
         }
+        a {
+            color: #275BC3
+        }
+        h1, h3, p {
+            text-align: center;
+        }
+        h1 {
+            font-size: 25px;
+            color: #275BC3;
+        }
         .form-control {
             margin-bottom: 4px;
             width: 100%;
-            background: none;
-            padding: 9px 15px;
-            border: none;
-            border-bottom: 1px solid #a09f9f;
+            background: #F9FBFC;
+            padding: 11px 15px;
+            border: 1px solid #F1F0F6;
+            border-radius: 5px;
             outline: none;
         }
         .login-btn {
             padding: 12px 0;
-            background: #48C8FF;
+            background: #275BC3;
             color: #fff;
             width: 100%;
             cursor: pointer;
             border: none;
             transition: background-color 0.5s ease;
             font-size: 15px;
+            border-radius: 5px;
         }
         .login-btn:hover {
             background: #e17b19
