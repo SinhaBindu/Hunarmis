@@ -364,6 +364,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SessionCheckPartAttribute.cs" />
+    <Compile Include="App_Start\SessionCheckAttribute.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AssessmentController.cs" />
@@ -399,6 +401,7 @@
     <Compile Include="Models\Benefit_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CertificateModel.cs" />
     <Compile Include="Models\CoursesModel.cs" />
     <Compile Include="Models\DBModel1.cs">
       <AutoGen>True</AutoGen>
@@ -1657,6 +1660,7 @@
     <Content Include="Scripts\plugins\jquery.themepunch.plugins.min4361.js" />
     <Content Include="Scripts\plugins\jquery.themepunch.revolution.min4361.js" />
     <Content Include="Scripts\smartphoto.js" />
+    <Content Include="Views\Shared\MailTemplate.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1750,8 +1754,12 @@
     <Content Include="Views\Attendance\_AssessmentScheduleData.cshtml" />
     <Content Include="Views\ParticipantUser\AssessmentInvalid.cshtml" />
     <Content Include="Views\ParticipantUser\AssessmentExpired.cshtml" />
-    <Content Include="Views\ParticipantUser\AssessmentDone.cshtml" />
     <Content Include="Views\ParticipantUser\Login.cshtml" />
+    <Content Include="Views\Shared\CertificateIssuePart.html" />
+    <Content Include="Views\ParticipantUser\AssessmentDone_old.cshtml" />
+    <Content Include="Views\Home\CallStatus.cshtml" />
+    <Content Include="Views\Home\_CallStatusData.cshtml" />
+    <Content Include="Views\ParticipantUser\AssessmentDone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

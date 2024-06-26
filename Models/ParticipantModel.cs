@@ -84,12 +84,17 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = DplyPartName.TrainerName)]
         public string TrainerName { get; set; }
-        [Required]
+       
         [Display(Name = DplyPartName.IsPlaced)]
         public bool IsPlaced { get; set; }
         [Required]
+        [Display(Name = DplyPartName.IsPlaced)]
+        public string Is_Placed { get; set; }
         [Display(Name = DplyPartName.IsOffered)]
         public Nullable<bool> IsOffered { get; set; }
+        [Required]
+        [Display(Name = DplyPartName.IsOffered)]
+        public string Is_Offered { get; set; }
     }
     public static class DplyPartName
     {

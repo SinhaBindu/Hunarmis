@@ -42,6 +42,7 @@ namespace Hunarmis.Models
         public Nullable<bool> IsOffered { get; set; }
         public Nullable<int> CallTempStatus { get; set; }
         public Nullable<System.DateTime> CallTempStatusDate { get; set; }
+        public string CallTempReportedBy { get; set; }
         public string CallRemark { get; set; }
         public Nullable<int> CallMonth { get; set; }
         public Nullable<int> CallYear { get; set; }
@@ -52,6 +53,9 @@ namespace Hunarmis.Models
         public Nullable<int> FixedCallLimitMonth { get; set; }
         public Nullable<int> AtPresentCallStatus { get; set; }
         public string RemarkStatus { get; set; }
+        public string RemarkReportedBy { get; set; }
         public Nullable<System.DateTime> RemarkDate { get; set; }
+        public Nullable<System.Guid> RemarksID_fk { get; set; }
+        public Nullable<System.Guid> CallingID_fk { get; set; }
     }
 }

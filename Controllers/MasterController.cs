@@ -16,6 +16,7 @@ using static Hunarmis.Manager.Enums;
 namespace Hunarmis.Controllers
 {
     [Authorize]
+    [SessionCheck]
     public class MasterController : Controller
     {
         Hunar_DBEntities db = new Hunar_DBEntities();
@@ -25,6 +26,15 @@ namespace Hunarmis.Controllers
             return View();
         }
 
+        #region Mail send For Participant
+        [AllowAnonymous]
+        [HttpGet]
+        public JsonResult SendMailForParticipant()
+        {
+            var res = CommonModel.SendMailForParticipants();
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
         #region
         public ActionResult UserDetaillist()
         {
@@ -85,21 +95,33 @@ namespace Hunarmis.Controllers
                 List<tbl_MappedTrainCenter> tbllist = new List<tbl_MappedTrainCenter>();
                 if (tbl != null && !string.IsNullOrWhiteSpace(UserId))
                 {
-                    
+
                     tbl.RoleId = Convert.ToInt16(RoleId);
                     tbl.UserId = UserId;
                     tbl.TrainCenterIdMappedMult = TACId;
                     tbl.IsActive = true;
+                    var GuidMappedId = Guid.Empty;
+                    if (MappedId == Guid.Empty || MappedId == null)
+                    {
+                        GuidMappedId = Guid.NewGuid();
+                    }
+                    else if (MappedId != Guid.Empty && MappedId != null)
+                    {
+                        GuidMappedId = MappedId.Value;
+                    }
                     if (!string.IsNullOrWhiteSpace(TACId))
                     {
                         var TACsplt = TACId.Split(',');
-                        if (TACsplt.Length != 0)
+                        if (TACsplt.Length > 0)
                         {
                             if (MappedId != Guid.Empty && MappedId != null)
                             {
                                 var tbldet = _db.tbl_MappedTrainCenter.Where(x => x.MappedId_fk == MappedId).ToList();
-                                _db.tbl_MappedTrainCenter.RemoveRange(tbldet);
-                                _db.SaveChanges();
+                                if (tbldet != null)
+                                {
+                                    _db.tbl_MappedTrainCenter.RemoveRange(tbldet);
+                                    _db.SaveChanges();
+                                }
                             }
                             foreach (var item in TACsplt)
                             {
@@ -108,7 +130,7 @@ namespace Hunarmis.Controllers
                                     tbltcmapp = new tbl_MappedTrainCenter();
                                     DataTable mstlist = SPManager.SP_GetDTACMasterList().AsEnumerable().Where(x => x.Field<Int32>("TrainingCenterId") == Convert.ToInt32(item)).CopyToDataTable();
                                     tbltcmapp.TrainCenterMappedId_pk = Guid.NewGuid();
-                                    tbltcmapp.MappedId_fk = tbl.MappedId_pk;
+                                    tbltcmapp.MappedId_fk = GuidMappedId;
                                     tbltcmapp.DistrictId = Convert.ToInt32(mstlist.Rows[0]["DistrictId"].ToString());
                                     tbltcmapp.TrainingAgencyId = Convert.ToInt32(mstlist.Rows[0]["TrainingAgencyId"].ToString());
                                     tbltcmapp.TrainingCenterId = Convert.ToInt32(item);
@@ -116,11 +138,18 @@ namespace Hunarmis.Controllers
                                 }
                             }
                         }
+                        else
+                        {
+                            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Please choose one Training Center !!!", Data = null };
+                            var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                            resResponse3.MaxJsonLength = int.MaxValue;
+                            return resResponse3;
+                        }
                     }
 
                     if (MappedId == Guid.Empty || MappedId == null)
                     {
-                        tbl.MappedId_pk = Guid.NewGuid();
+                        tbl.MappedId_pk = GuidMappedId;
                         tbl.CreatedBy = MvcApplication.CUser.UserId;
                         tbl.CreatedOn = DateTime.Now;
                         _db.tbl_Mapped.Add(tbl);
@@ -280,6 +309,23 @@ namespace Hunarmis.Controllers
             try
             {
                 var items = CommonModel.GetMonth(SelectAll);
+                if (items != null)
+                {
+                    var data = JsonConvert.SerializeObject(items);
+                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetTrainerAtCenterList(int SelectAll, int TCenterId = 0)
+        {
+            try
+            {
+                var items = CommonModel.GetSP_GetTrainerAtCenterList(SelectAll, TCenterId);
                 if (items != null)
                 {
                     var data = JsonConvert.SerializeObject(items);

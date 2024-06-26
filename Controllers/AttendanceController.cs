@@ -16,6 +16,8 @@ using static Hunarmis.Manager.Enums;
 
 namespace Hunarmis.Controllers
 {
+    [SessionCheck]
+    [Authorize]
     public class AttendanceController : Controller
     {
         // GET: Attendance
@@ -328,8 +330,10 @@ namespace Hunarmis.Controllers
                     tbl.EndTime = duret.TimeOfDay;
                     tbl.AssessmentSchedule = false;
                     tbl.IsActive = true;
+                   
                     if (model.AssessmentScheduleId_pk == Guid.Empty)
                     {
+                     
                         tbl.AssessmentScheduleId_pk = Guid.NewGuid();
                         FilterModel filterModel = new FilterModel();
                         filterModel.BatchId = model.BatchId_fk.Value.ToString();
@@ -340,6 +344,7 @@ namespace Hunarmis.Controllers
                         tbl.CreatedBy = MvcApplication.CUser.UserId;
                         tbl.CreatedOn = DateTime.Now;
                         _db.tbl_AssessmentSchedule.Add(tbl);
+                        var resmail = CommonModel.SendMailForParticipants();
                     }
                     else
                     {

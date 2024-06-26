@@ -97,11 +97,14 @@ namespace Hunarmis.Models
         public int TrainingCenterId { get; set; }
         public int CourseId { get; set; }
         public string RandomValue { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
         public int DistrictId { get; set; }
         public int BlockId { get; set; }
         public string DISECODE { get; set; }
         public int EmpId { get; set; }
         public bool IsDraft { get; set; }
+        public int IsDraftMode { get; set; }
         public int? CommonFrequencyId { get; set; }
         public string TypeofFrequency { get; set; }
 

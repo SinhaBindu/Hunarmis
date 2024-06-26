@@ -56,6 +56,7 @@ namespace Hunarmis
                                 User.MappedTCenters = dr["TrainingCenters"].ToString();
                             }
                         }
+                        
                         HttpContext.Current.Session["CUser"] = User;
                         return CUser;
                     }

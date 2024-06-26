@@ -388,6 +388,7 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="IsOffered" Type="bit" />
     <Property Name="CallTempStatus" Type="int" />
     <Property Name="CallTempStatusDate" Type="datetime" />
+    <Property Name="CallTempReportedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="CallRemark" Type="nvarchar(max)" />
     <Property Name="CallMonth" Type="int" />
     <Property Name="CallYear" Type="int" />
@@ -398,7 +399,10 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="FixedCallLimitMonth" Type="int" />
     <Property Name="AtPresentCallStatus" Type="int" />
     <Property Name="RemarkStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="RemarkReportedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="RemarkDate" Type="datetime" />
+    <Property Name="RemarksID_fk" Type="uniqueidentifier" />
+    <Property Name="CallingID_fk" Type="uniqueidentifier" />
   </EntityType>
   <EntityType Name="tbl_Participant_Calling">
     <Key>
@@ -443,14 +447,11 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="UpdatedOn" Type="datetime" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'HunarPilot_DB.dbo.tbl_ParticipantRemarks_History' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="tbl_ParticipantRemarks_History">
     <Key>
-      <PropertyRef Name="OrderNo" />
-      <PropertyRef Name="ID" />
+      <PropertyRef Name="RemarkHistoryID" />
     </Key>
-    <Property Name="RemarkHistoryID" Type="uniqueidentifier" />
+    <Property Name="RemarkHistoryID" Type="uniqueidentifier" Nullable="false" />
     <Property Name="OrderNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
     <Property Name="RegID" Type="nvarchar" MaxLength="50" />
@@ -480,6 +481,7 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.tbl_ParticipantRemarks_History' 
     <Property Name="IsOffered" Type="bit" />
     <Property Name="CallTempStatus" Type="int" />
     <Property Name="CallTempStatusDate" Type="datetime" />
+    <Property Name="CallTempReportedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="CallRemark" Type="nvarchar(max)" />
     <Property Name="CallMonth" Type="int" />
     <Property Name="CallYear" Type="int" />
@@ -491,6 +493,7 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.tbl_ParticipantRemarks_History' 
     <Property Name="AtPresentCallStatus" Type="int" />
     <Property Name="RemarkStatus" Type="nvarchar" MaxLength="50" />
     <Property Name="RemarkDate" Type="datetime" />
+    <Property Name="RemarkReportedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="RemarksHistoryDate" Type="datetime" />
   </EntityType>
   <EntityType Name="tbl_SendMail">
@@ -687,6 +690,7 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.tbl_ParticipantRemarks_History' 
     <EntitySet Name="tbl_MappedTrainCenter" EntityType="Self.tbl_MappedTrainCenter" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Participant" EntityType="Self.tbl_Participant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Participant_Calling" EntityType="Self.tbl_Participant_Calling" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Self.tbl_ParticipantRemarks_History" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_SendMail" EntityType="Self.tbl_SendMail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Survey" EntityType="Self.tbl_Survey" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_SurveyAnswer" EntityType="Self.tbl_SurveyAnswer" Schema="dbo" store:Type="Tables" />
@@ -708,52 +712,6 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.tbl_ParticipantRemarks_History' 
     [SessionPlanTopic_Master].[UpdatedBy] AS [UpdatedBy], 
     [SessionPlanTopic_Master].[UpdatedOn] AS [UpdatedOn]
     FROM [dbo].[SessionPlanTopic_Master] AS [SessionPlanTopic_Master]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Self.tbl_ParticipantRemarks_History" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [tbl_ParticipantRemarks_History].[RemarkHistoryID] AS [RemarkHistoryID], 
-    [tbl_ParticipantRemarks_History].[OrderNo] AS [OrderNo], 
-    [tbl_ParticipantRemarks_History].[ID] AS [ID], 
-    [tbl_ParticipantRemarks_History].[RegID] AS [RegID], 
-    [tbl_ParticipantRemarks_History].[FirstName] AS [FirstName], 
-    [tbl_ParticipantRemarks_History].[MiddleName] AS [MiddleName], 
-    [tbl_ParticipantRemarks_History].[LastName] AS [LastName], 
-    [tbl_ParticipantRemarks_History].[FullName] AS [FullName], 
-    [tbl_ParticipantRemarks_History].[Gender] AS [Gender], 
-    [tbl_ParticipantRemarks_History].[Age] AS [Age], 
-    [tbl_ParticipantRemarks_History].[DOB] AS [DOB], 
-    [tbl_ParticipantRemarks_History].[PhoneNo] AS [PhoneNo], 
-    [tbl_ParticipantRemarks_History].[AlternatePhoneNo] AS [AlternatePhoneNo], 
-    [tbl_ParticipantRemarks_History].[EmailID] AS [EmailID], 
-    [tbl_ParticipantRemarks_History].[AadharCardNo] AS [AadharCardNo], 
-    [tbl_ParticipantRemarks_History].[BatchId] AS [BatchId], 
-    [tbl_ParticipantRemarks_History].[AssessmentScore] AS [AssessmentScore], 
-    [tbl_ParticipantRemarks_History].[EduQualificationID] AS [EduQualificationID], 
-    [tbl_ParticipantRemarks_History].[EduQualOther] AS [EduQualOther], 
-    [tbl_ParticipantRemarks_History].[CourseEnrolledID] AS [CourseEnrolledID], 
-    [tbl_ParticipantRemarks_History].[StateID] AS [StateID], 
-    [tbl_ParticipantRemarks_History].[DistrictID] AS [DistrictID], 
-    [tbl_ParticipantRemarks_History].[TrainingAgencyID] AS [TrainingAgencyID], 
-    [tbl_ParticipantRemarks_History].[TrainingCenterID] AS [TrainingCenterID], 
-    [tbl_ParticipantRemarks_History].[TrainerName] AS [TrainerName], 
-    [tbl_ParticipantRemarks_History].[IsActive] AS [IsActive], 
-    [tbl_ParticipantRemarks_History].[IsPlaced] AS [IsPlaced], 
-    [tbl_ParticipantRemarks_History].[IsOffered] AS [IsOffered], 
-    [tbl_ParticipantRemarks_History].[CallTempStatus] AS [CallTempStatus], 
-    [tbl_ParticipantRemarks_History].[CallTempStatusDate] AS [CallTempStatusDate], 
-    [tbl_ParticipantRemarks_History].[CallRemark] AS [CallRemark], 
-    [tbl_ParticipantRemarks_History].[CallMonth] AS [CallMonth], 
-    [tbl_ParticipantRemarks_History].[CallYear] AS [CallYear], 
-    [tbl_ParticipantRemarks_History].[CreatedBy] AS [CreatedBy], 
-    [tbl_ParticipantRemarks_History].[CreatedOn] AS [CreatedOn], 
-    [tbl_ParticipantRemarks_History].[UpdatedBy] AS [UpdatedBy], 
-    [tbl_ParticipantRemarks_History].[UpdatedOn] AS [UpdatedOn], 
-    [tbl_ParticipantRemarks_History].[FixedCallLimitMonth] AS [FixedCallLimitMonth], 
-    [tbl_ParticipantRemarks_History].[AtPresentCallStatus] AS [AtPresentCallStatus], 
-    [tbl_ParticipantRemarks_History].[RemarkStatus] AS [RemarkStatus], 
-    [tbl_ParticipantRemarks_History].[RemarkDate] AS [RemarkDate], 
-    [tbl_ParticipantRemarks_History].[RemarksHistoryDate] AS [RemarksHistoryDate]
-    FROM [dbo].[tbl_ParticipantRemarks_History] AS [tbl_ParticipantRemarks_History]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />

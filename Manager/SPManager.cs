@@ -1,4 +1,5 @@
-﻿using Hunarmis.Models;
+﻿using DocumentFormat.OpenXml.EMMA;
+using Hunarmis.Models;
 using SubSonic.Schema;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,13 @@ namespace Hunarmis.Manager
             StoredProcedure sp = new StoredProcedure("SP_GetDTACMasterList");
             sp.Command.AddParameter("@DistrictId", DistrictId, DbType.Int32);
             sp.Command.AddParameter("@TAgencyId", TAgencyId, DbType.Int32);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_GetTrainer1CenterattimeList(int TrainingCenterId=0)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetTrainer");
+            sp.Command.AddParameter("@TrainingCenterId", TrainingCenterId, DbType.Int32);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -66,7 +74,6 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-
         public static DataTable SP_Training_AgencyList()
         {
             StoredProcedure sp = new StoredProcedure("SP_Training_AgencyList");
@@ -79,6 +86,7 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+       
         public static DataTable SP_ParticipantList(FilterModel model)
         {
             model.CallStatus = model.CallStatus == "-1" ? "" : model.CallStatus;
@@ -144,7 +152,7 @@ namespace Hunarmis.Manager
         public static DataSet GetSPScoreMarkAnswer(string User, int FormId)
         {
             StoredProcedure sp = new StoredProcedure("SP_ScoreMarkAnswer");
-            sp.Command.AddParameter("@FormId", FormId, DbType.Int16);
+            sp.Command.AddParameter("@FormId", FormId, DbType.Int32);
             sp.Command.AddParameter("@User", User, DbType.String);
             DataSet ds = sp.ExecuteDataSet();
             return ds;
@@ -152,15 +160,16 @@ namespace Hunarmis.Manager
         public static DataSet GetQuestionSummaryMarks(string User, int FormId)
         {
             StoredProcedure sp = new StoredProcedure("SP_QuestionSummaryMarks");
-            sp.Command.AddParameter("@FormId", FormId, DbType.Int16);
+            sp.Command.AddParameter("@FormId", FormId, DbType.Int32);
             sp.Command.AddParameter("@User", User, DbType.String);
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
-        public static DataSet GetSP_ScorersSummaryMarks(string User, int FormId)
+        public static DataSet GetSP_ScorersSummaryMarks(string User, int FormId, int BatchId)
         {
             StoredProcedure sp = new StoredProcedure("SP_ScorersSummary");
-            sp.Command.AddParameter("@FormId", FormId, DbType.Int16);
+            sp.Command.AddParameter("@FormId", FormId, DbType.Int32);
+            sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
             sp.Command.AddParameter("@User", User, DbType.String);
             DataSet ds = sp.ExecuteDataSet();
             return ds;
@@ -178,18 +187,41 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("SP_GetAssessmentScheduleList");
             sp.Command.AddParameter("@BatchId", Convert.ToInt32(model.BatchId), DbType.Int32);
-            sp.Command.AddParameter("@AssessmentScheduleId",model.AssessmentScheduleId, DbType.String);
+            sp.Command.AddParameter("@AssessmentScheduleId", model.AssessmentScheduleId, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
         #endregion
-        #region 
+        #region Login For Participant
         public static DataTable SP_LoginForParticipantCheck(ParticipantLoginModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_LoginForParticipantCheck");
             sp.Command.AddParameter("@EmailID", model.EmailID, DbType.String);
             sp.Command.AddParameter("@Password", model.Password.ToString(), DbType.String);
             sp.Command.AddParameter("@RandomValue", model.RandomValue, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        #endregion
+        #region Mail send For Participant Email Id
+        public static DataTable SP_MailSendParticipantWise()
+        {
+            StoredProcedure sp = new StoredProcedure("SP_MailSendParticipantWise");
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+
+        #endregion
+
+        #region Report
+        public static DataTable sp_callstatus(FilterModel model)
+        {
+            //FromDt = !string.IsNullOrWhiteSpace(FromDt) ? FromDt:"";
+            StoredProcedure sp = new StoredProcedure("sp_callstatus");
+            sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
+            sp.Command.AddParameter("@ReportedBy", model.UserId, DbType.String);
+            sp.Command.AddParameter("@SD", model.FromDt, DbType.String);
+            sp.Command.AddParameter("@ED", model.ToDt, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <br />
+    <table width="90%" cellpadding="1">
+        <tr>
+            <td align="center" style="background-color: #002b6c;">
+                <span style="font-size:25px; color:#fff;">
+                    <img src="~/Content/images/pcilogo.png" />
+                    Assessment For Skill
+                </span>
+                <br />
+                <br />
+            </td>
+        </tr>
+
+        <tr style="text-align:left;">
+            <td style="margin-left:5%;">
+                <br />
+                <br />
+                <strong class="font-weight-bold">Dear {Dearusername},</strong>
+                <br />
+
+                <br />
+                <strong class="font-weight-bold">
+                    Assessment Date :  <strong style="color:darkblue">{ASDT},</strong>
+                </strong>
+                <br />
+                <strong class="font-weight-bold">Assessment Duration : <strong style="color:darkblue">{DurationTime}</strong></strong>
+                <br />
+                <strong class="font-weight-bold">Assessment Login Credentials</strong>
+                <br />
+                <strong class="font-weight-bold">User Name :<strong style="color:orange"> {EmailID} </strong></strong>
+                <br />
+                <strong class="font-weight-bold">Password : <strong style="color:orange">{Password}</strong></strong>
+                <br />
+                <!--<strong class="font-weight-bold" style="color:forestgreen;">Name : {newusername},</strong>-->
+                <br />
+                <br />
+                {bodytext}
+                <br />
+                <p class="font-weight-bold text-center" style="margin-left: 50px;">Please click the link below to proceed.</p>
+                <a href="https://localhost:44344/ParticipantUser/Login?RandomValue={RandomValue}"
+                   class="btn btn-info font-weight-bold" style="margin-left: 50px;">
+                    <strong>Click Here To Assessment</strong>
+                </a>
+                <br />
+                <br />
+
+                <strong class="font-weight-bold">Thanks & Regards</strong>
+                <br />
+                <strong class="font-weight-bold">{newusername}</strong>
+                <br />
+            </td>
+        </tr>
+        <!--<tr>
+            <td align="center" style="background-color:yellow">
+                <br />
+                <br />
+                <span style="font-size:15px;text-decoration:underline">   Share your knowledge   </span>
+                <br />
+                <span style="font-size:20px;">   <i>If you have knowledge, let others light their candles in it - Margaret Fuller </i>   </span>
+                <br />
+                <br />
+            </td>
+
+        </tr>-->
+        <tfoot>
+            <tr>
+                <td style="width: 100%; font-size: medium; font-weight: bold; margin: 0% 20% 0% 20%; color: #ff6a00;">
+                    This email was generated automatically by Assessment website
+                    for internal use only | do not reply
+                    © <strong class="text-purple">PCI</strong> India
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <!--<h2 style="color:#ff6a00; font-size:medium;">This email was generated automatically by PMRS website for internal use only | do not reply &#169; CARE India </h2>-->
+</body>
+</html> 

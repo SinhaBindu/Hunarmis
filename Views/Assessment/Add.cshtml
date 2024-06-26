@@ -14,6 +14,8 @@
     var IsActivereadyonly = (Model.Id != 0 && Model.IsDraft == false) ? "style=pointer-events:none;" : "";
     // var url = Request.Url.AbsolutePath;
     //DataTable dtcen = Hunarmis.Manager.SPManager.SP_GetDTACMasterList();
+    Model.StartTime = Session["StartTime"].ToString();
+    Model.EndTime = Session["EndTime"].ToString();
 }
 
 
@@ -208,7 +210,16 @@
                 <div class="panel">
                     @using (Html.BeginForm("Add", "Assessment", FormMethod.Post, new { @class = "panel-body form-horizontal form-padding loader", enctype = "multipart/form-data", @id = "FormSubmit" }))
                     {
+                        @*<h3 id="Durationtime" class="text-warning text-center countdown"> </h3>*@
+                        if (Session["StartTime"] != null && Session["EndTime"] != null)
+                        {
 
+                    <h5 id="DT" class="text-warning text-center">
+                        Duration Time : Start :   <strong class="text-info">@CommonModel.GetTimeSpanVal(Session["StartTime"].ToString())</strong>
+                        To End  : <strong class="text-info">@CommonModel.GetTimeSpanVal(Session["EndTime"].ToString())</strong>
+
+                    </h5>
+                        }
                         <div class="col-md-12">
                             @Html.Partial("_Alerts")
                             <strong class="msgerror" style="font-size:16px !important;"></strong>
@@ -220,6 +231,10 @@
                             @Html.HiddenFor(m => m.BatchId)
                             @Html.HiddenFor(m => m.TrainingCenterId)
                             @Html.HiddenFor(m => m.RandomValue)
+                            @Html.HiddenFor(m => m.StartTime)
+                            @Html.HiddenFor(m => m.EndTime)
+                            @Html.HiddenFor(m => m.IsDraftMode)
+                            @Html.HiddenFor(m => m.IsDraft)
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                             @*<p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>Leadership Pizza Self-Assessment</p>*@
@@ -248,11 +263,14 @@
                                 <div class="col-md-2"></div>
                                 <div class="col-md-3 pull-right">
                                     <span class="">
-                                        <button type="submit" class="previous btn btn-primary btn-lg" id="btnsubmit">Submit</button>
-                                        <button type="submit" class="previous btn btn-info btn-lg btn-draft" id="btnDraft" @IsActivereadyonly><i class="fa fa-edit"></i> Save Draft</button>
-                                        @if (string.IsNullOrWhiteSpace(Model.RandomValue))
+                                        @if (Session["BatchId"] != null && Session["TrainingCenterId"] != null)
                                         {
-                                            <a href="~/Assessment/Add?FId=@Model.FormId" class="btn btn-dark btn-lg">Reset</a>
+                                            <button type="submit" class="previous btn btn-primary btn-lg" id="btnsubmit">Final Submit</button>
+                                            <button type="submit" class="previous btn btn-info btn-lg btn-draft" id="btnDraft" @IsActivereadyonly><i class="fa fa-edit"></i> Save Draft</button>
+                                            @*@if (string.IsNullOrWhiteSpace(Model.RandomValue))
+                                                {
+                                                    <a href="~/Assessment/Add?FId=@Model.FormId" class="btn btn-dark btn-lg">Reset</a>
+                                                }*@
                                         }
                                     </span>
 
@@ -277,8 +295,9 @@
 
     <script>
 
-        var PartTimeSumtxt = 0;
+        var PartTimeSumtxt = 0; var ST = "", ET = "";
         $(document).ready(function () {
+
 
             if ('@Model' !='null') {
                 if ('@Model.RandomValue' != '') {
@@ -287,9 +306,35 @@
                         $('#BatchId').trigger('change');
                         $('#TrainingCenterId').val('@Model.BatchId');
                         $('#TrainingCenterId').trigger('change');
+
+                        @*if ('@(Session["StartTime"] !=null)') {
+                            ST = $('#StartTime').val();
+                            ET = $('#EndTime').val();
+                        }*@
+
+                        //var diff =
+                        //    new Date('01/01/1970 ' + ET) -
+                        //    new Date('01/01/1970 ' + ST);
+
+                        //var sec_numb = (diff / 1000) + "";
+                        //var hours = Math.floor(sec_numb / 3600);
+                        //var minutes = Math.floor((sec_numb - (hours * 3600)) / 60);
+                        //var seconds = sec_numb - (hours * 3600) - (minutes * 60);
+
+                        //if (hours < 10) { hours = "0" + hours; }
+                        //if (minutes < 10) { minutes = "0" + minutes; }
+                        //if (seconds < 10) { seconds = "0" + seconds; }
+                        //var time = hours + ':' + minutes + ':' + seconds;
+                        //$('#Durationtime').html('Time Duration : ' + time);
+                        //alert(time);
+
                     }, 2000);
                 }
             }
+
+            //CountTime();
+            StartTimer($('#StartTime').val(), $('#EndTime').val());
+
 
             $('#FormSubmit').validate({
                 errorClass: 'help-block animation-slideDown',
@@ -341,6 +386,7 @@
                     return false;
                 }
                 $('#IsDraft').val(true);
+                $('#IsDraftMode').val(1);
                 var valdata = $("#FormSubmit").serialize();
                 $.ajax({
                     url: "/Assessment/Add",
@@ -378,17 +424,27 @@
                 setTimeout(function () {
                     $('span[id^=error_]').hide();
                     var valid = $('#FormSubmit').valid();
-                    valid = checkIt();
 
                     debugger;
-                    if ('@ViewBag.Qlist' != 'null' && '@ViewBag.Qlist' != '') {
+                    var chkList = $("input[type=checkbox]", $("input[type=checkbox]").parent().parent(':visible'));
+                    var chkDataList = [];
+                    $.each(chkList, function (i, item) {
+                        chkDataList.push({ qcode: $(item).data('qcode'), id: item.id, checked: $(item).is(":checked") });
+                    });
+                    var chkGroup = groupBy(chkDataList, 'qcode');
+                    $.each(chkGroup, function (i, item) {
+                        if (!item.filter(x => x.checked).length) {
+                            $('#error_' + item[0].qcode).show();
+                            valid = false;
+                        }
+                    });
+                    @*if ('@ViewBag.Qlist' != 'null' && '@ViewBag.Qlist' != '') {
                         var Qcount1 = 0; var Qoptcount1 = 0;
                         var mlist = ('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Qlist))');
                         //var safe_name = escapeHtml(resp.htmlData);
 
                         mlist = JSON.parse(mlist.replace(/[\u0000-\u0019]+/g, ""));
                         //mlist = JSON.parse(mlist.replace(/[&<>"'u0027\u0000-\u0019\/]/g, ""));
-
 
                         for (var i = 0; i < mlist.length; i++) {
                             Qoptcount1 = 0;
@@ -415,10 +471,12 @@
                         else {
                             valid = false;
                         }
-                    }
+                    }*@
 
                     if (valid) {
-                        $('.msgerror').hide();
+                       // $('.msgerror').hide();
+                        $('#IsDraft').val(false);
+                        $('#IsDraftMode').val(0);
                         debugger;
                         //Serialize the form datas.
                         var valdata = $("#FormSubmit").serialize();
@@ -472,6 +530,101 @@
             });//form end submited closed
 
         });
+
+        function StartTimer(startDateTimeP, endDateTimeP) {
+
+            var date1 = new Date(startDateTimeP);
+            var date2 = new Date(endDateTimeP);
+            var oneDay = 24 * 60 * 60; // hours*minutes*seconds
+            var oneHour = 60 * 60; // minutes*seconds
+            var oneMinute = 60; // 60 seconds
+            var firstDate = date1.getTime(); // convert to milliseconds
+            var secondDate = date2.getTime(); // convert to milliseconds
+            var seconds = Math.round(Math.abs(firstDate - secondDate) / 1000); //calculate the diffrence in seconds
+            // the difference object
+            var difference = {
+                "days": 0,
+                "hours": 0,
+                "minutes": 0,
+                "seconds": 0,
+            }
+            //calculate all the days and substract it from the total
+            while (seconds >= oneDay) {
+                difference.days++;
+                seconds -= oneDay;
+            }
+            //calculate all the remaining hours then substract it from the total
+            while (seconds >= oneHour) {
+                difference.hours++;
+                seconds -= oneHour;
+            }
+            //calculate all the remaining minutes then substract it from the total
+            while (seconds >= oneMinute) {
+                difference.minutes++;
+                seconds -= oneMinute;
+            }
+            //the remaining seconds :
+            difference.seconds = seconds;
+            //return the difference object
+            //$('#countdown').text(difference.days + ' Days ' + difference.hours + ' Hours ' + difference.minutes + ' Minutes ' + difference.seconds + ' Seconds');
+            //console.log(difference);
+            return difference;
+        }
+        setInterval(function () {
+            //'02/27/2019 11:34:25 PM'
+            var dt = moment(new Date()).format("MM/DD/YYYY");
+            var result = StartTimer(new Date(dt+' 11:34:25 PM'), new Date());
+            $('#Durationtime').text(result.days + ' Days ' + result.hours + ' Hours ' + result.minutes + ' Minutes ' + result.seconds + ' Seconds');
+            //StartTimer();
+        }, 1000);
+
+
+        function CountTime() {
+
+            if ('@(Session["StartTime"] !=null)') {
+                ST = $('#StartTime').val();
+                ET = $('#EndTime').val();
+            }
+
+            var diff =
+                new Date('01/01/1970 ' + ET) -
+                new Date('01/01/1970 ' + ST);
+
+
+            var interval = setInterval(function () {
+                var sec_numb = (diff / 1000) + "";
+                var hours = Math.floor(sec_numb / 3600);
+                var minutes = Math.floor((sec_numb - (hours * 3600)) / 60);
+                var seconds = sec_numb - (hours * 3600) - (minutes * 60);
+            if (hours < 10) { hours = "0" + hours; }
+            if (minutes < 10) { minutes = "0" + minutes; }
+            if (seconds < 10) { seconds = "0" + seconds; }
+                var time = hours + ':' + minutes + ':' + seconds;
+            $('#Durationtime').html('');
+            $('#Durationtime').html('Time Duration : ' + time);
+
+            ////var stime = new Date($('#StartTime').val());
+            ////var timer2 = new Date($('#EndTime').val());
+            ////var seconds = 0;
+            ////var minutes = 0;
+          // var interval = setInterval(function () {
+            ////    seconds++;
+            ////    // var timer = timer2.split(':');
+            ////    //by parsing integer, I avoid all extra string processing
+            ////    //var minutes = parseInt(timer[0], 10);
+            ////    //var seconds = parseInt(timer[1], 10);
+            ////    //--seconds;
+            ////    //minutes = (seconds < 0) ? --minutes : minutes;
+            ////    //console.log(minutes, seconds);
+            ////    if (seconds > 59) {
+            ////        minutes++;
+            ////        seconds = 0;
+            ////    }
+            ////    // seconds = (seconds > 59) ? 0 : seconds;
+            ////    //seconds = (seconds < 10) ? '0' + seconds : seconds;
+            ////    $('.countdown').html(minutes + ':' + seconds);
+            }, 1000);
+        }
 
         function checkIt() {
             let unit = document.getElementsByClassName("rstar");

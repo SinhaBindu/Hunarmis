@@ -20,6 +20,7 @@ using static Hunarmis.Manager.Enums;
 namespace Hunarmis.Controllers
 {
     [Authorize]
+    [SessionCheck]
     public class ParticipantController : Controller
     {
         Hunar_DBEntities db = new Hunar_DBEntities();
@@ -95,8 +96,9 @@ namespace Hunarmis.Controllers
                     model.TrainingAgencyID = tbl.TrainingAgencyID;
                     model.TrainingCenterID = tbl.TrainingCenterID;
                     model.TrainerName = tbl.TrainerName;
-                    model.IsOffered = tbl.IsOffered;
-                    model.IsPlaced = tbl.IsPlaced.Value;
+                    model.Is_Placed = tbl.IsPlaced == true ? "1" : "0";
+                    model.Is_Offered = tbl.IsOffered == true ? "1" : "0";
+
                 }
             }
             return View(model);
@@ -144,17 +146,16 @@ namespace Hunarmis.Controllers
                         tbl.TrainingCenterID = model.TrainingCenterID;
                         tbl.TrainerName = !(string.IsNullOrWhiteSpace(model.TrainerName)) ? model.TrainerName.Trim() : model.TrainerName;
                         tbl.IsActive = true;
-                        tbl.IsPlaced = model.IsPlaced;
-                        tbl.IsOffered = model.IsOffered;
+                        tbl.IsPlaced = model.Is_Placed == "1" ? true : false;
+                        tbl.IsOffered = model.Is_Offered == "1" ? true : false;
                         if (model.ID == Guid.Empty)
                         {
-                            if (User.Identity.IsAuthenticated)
-                            {
-                                tbl.CreatedBy = MvcApplication.CUser.UserId;
-                            }
+                            tbl.CreatedBy = MvcApplication.CUser.UserId;
                             tbl.ID = Guid.NewGuid();
                             tbl.CreatedOn = DateTime.Now;
                             tbl.CallTempStatus = (int)Enums.eTempCallStatus.CallNot;
+                            tbl.CallTempStatusDate = DateTime.Now;
+                            tbl.CallTempReportedBy = MvcApplication.CUser.UserId;
                             //tbl.FixedCallLimitMonth = model.IsPlaced == true ? (int)Enums.eCallLimitDuration.FixedCallLimit : 0;
                             // tbl.AtPresentCallStatus = model.IsPlaced == true ? 0 : 0;
                             tbl.FixedCallLimitMonth = (int)Enums.eCallLimitDuration.FixedCallLimit;
@@ -164,10 +165,7 @@ namespace Hunarmis.Controllers
                         }
                         else
                         {
-                            if (User.Identity.IsAuthenticated)
-                            {
-                                tbl.UpdatedBy = MvcApplication.CUser.UserId;
-                            }
+                            tbl.UpdatedBy = MvcApplication.CUser.UserId;
                             tbl.UpdatedOn = DateTime.Now;
                         }
                         results = db.SaveChanges();
@@ -276,14 +274,15 @@ namespace Hunarmis.Controllers
                     {
                         tbl.CallTempStatus = (int)Enums.eTempCallStatus.CallOnProgress;
                         tbl.CallTempStatusDate = DateTime.Now;
-                        db_.SaveChanges();
+                        tbl.CallTempReportedBy = MvcApplication.CUser.UserId;
+                        int r = db_.SaveChanges();
                     }
                 }
                 model.ParticipantId_fk = PartId;
                 var getdt = db_.tbl_Participant.Where(x => x.IsActive == true && x.ID == PartId)?.FirstOrDefault();
                 if (getdt != null)
                 {
-                    var tblremakHist = db_.tbl_ParticipantRemarks_History.Where(x => x.ID == PartId).OrderByDescending(x=>x.RemarkDate).Take(1)?.FirstOrDefault();
+                    var tblremakHist = db_.tbl_ParticipantRemarks_History.Where(x => x.ID == PartId).OrderByDescending(x => x.RemarkDate).Take(1)?.FirstOrDefault();
                     model.RegID = getdt.RegID;
                     model.FullName = !string.IsNullOrEmpty(getdt.FullName) ? getdt.FullName : getdt.FirstName + " " + getdt.MiddleName + " " + getdt.LastName;
                     model.PhoneNo = getdt.PhoneNo;
@@ -301,7 +300,8 @@ namespace Hunarmis.Controllers
                         model.PrvRemark = tblremakHist.CallTempStatus != null ? tblremakHist.CallRemark : null;//CallTempStatus == 2
                         model.PrvRemarkStatus = tblremakHist.CallTempStatus != null ? tblremakHist.RemarkStatus : null;//CallTempStatus == 2
                     }
-                    else {
+                    else
+                    {
                         model.PrvRemark = getdt.CallTempStatus != null ? getdt.CallRemark : null;//CallTempStatus == 2
                         model.PrvRemarkStatus = getdt.CallTempStatus != null ? getdt.RemarkStatus : null;//CallTempStatus == 2
                     }
@@ -316,6 +316,61 @@ namespace Hunarmis.Controllers
             }
             return View(model);
         }
+        private int GetUpdateRemarks(tbl_Participant tbl, Guid guid)
+        {
+            Hunar_DBEntities dBEntities = new Hunar_DBEntities();
+            tbl_ParticipantRemarks_History tblRm1 = new tbl_ParticipantRemarks_History();
+            int res = 0;
+            if (tbl.ID != Guid.Empty && guid != Guid.Empty)
+            {
+                tblRm1.RemarkHistoryID = guid;
+                tblRm1.ID = tbl.ID;
+                tblRm1.RegID = tbl.RegID;
+                tblRm1.FirstName = tbl.FirstName;
+                tblRm1.MiddleName = tbl.MiddleName;
+                tblRm1.LastName = tbl.LastName;
+                tblRm1.FullName = tbl.FullName;
+                tblRm1.Gender = tbl.Gender;
+                tblRm1.Age = tbl.Age;
+                tblRm1.AadharCardNo = tbl.AadharCardNo;
+                tblRm1.EmailID = tbl.EmailID;
+                tblRm1.PhoneNo = tbl.PhoneNo;
+                tblRm1.AlternatePhoneNo = tbl.AlternatePhoneNo;
+                tblRm1.AssessmentScore = tbl.AssessmentScore;
+                tblRm1.BatchId = tbl.BatchId;
+                tblRm1.EduQualificationID = tbl.EduQualificationID;
+                tblRm1.EduQualOther = tbl.EduQualOther;
+                tblRm1.CourseEnrolledID = tbl.CourseEnrolledID;
+                tblRm1.StateID = tbl.StateID;
+                tblRm1.DistrictID = tbl.DistrictID;
+                tblRm1.TrainingAgencyID = tbl.TrainingAgencyID;
+                tblRm1.TrainingCenterID = tbl.TrainingCenterID;
+                tblRm1.TrainerName = tbl.TrainerName;
+                tblRm1.IsOffered = tbl.IsOffered;
+                tblRm1.IsPlaced = tbl.IsPlaced.Value;
+                tblRm1.CreatedBy = tbl.CreatedBy;
+                tblRm1.CreatedOn = tbl.CreatedOn;
+
+                tblRm1.FixedCallLimitMonth = tbl.FixedCallLimitMonth;
+                tblRm1.AtPresentCallStatus = tbl.AtPresentCallStatus;
+
+                tblRm1.CallTempStatus = tbl.CallTempStatus;
+                tblRm1.CallTempStatusDate = tbl.CallTempStatusDate;
+                tblRm1.CallTempReportedBy = tbl.CallTempReportedBy;
+                tblRm1.CallYear = tbl.CallYear;
+                tblRm1.CallMonth = tbl.CallMonth;
+                tblRm1.CallRemark = tbl.CallRemark.Trim();
+                tblRm1.RemarkStatus = tbl.RemarkStatus;
+                tblRm1.RemarkDate = tbl.RemarkDate;
+                tblRm1.RemarksHistoryDate = DateTime.Now;
+                tblRm1.RemarkReportedBy = MvcApplication.CUser.UserId;
+                dBEntities.tbl_ParticipantRemarks_History.Add(tblRm1);
+                res = dBEntities.SaveChanges();
+
+            }
+            return res;
+        }
+
         [HttpPost]
         public ActionResult AddPartCalling(ParticipantChildModel model)
         {
@@ -351,18 +406,30 @@ namespace Hunarmis.Controllers
 
                             var tblpart = db_.tbl_Participant.Find(model.ParticipantId_fk);
                             tblpart.CallTempStatus = (int)Enums.eTempCallStatus.CallNotPick;
+                            tblpart.CallTempReportedBy = MvcApplication.CUser.UserId;
                             tblpart.CallTempStatusDate = DateTime.Now;
                             tblpart.CallYear = model.QuesYear;
                             tblpart.CallMonth = model.QuesMonth;
                             tblpart.CallRemark = model.Remark.Trim();
                             tblpart.RemarkStatus = model.RemarkStatus;
                             tblpart.RemarkDate = DateTime.Now;
+                            tblpart.RemarkReportedBy = MvcApplication.CUser.UserId;
 
                             results = db_.SaveChanges();
+
+                            if (tblpart != null && results > 0)
+                            {
+                                var gudidremarks = Guid.NewGuid();
+                                results = GetUpdateRemarks(tblpart, gudidremarks);
+                                tblpart.RemarksID_fk = gudidremarks;
+                                results = db_.SaveChanges();
+                            }
+
                             response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Congratulations, you have been Submitted successfully Reg ID : <strong>" + getdt.RegID + " </strong>  </span>", Data = null };
                             var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                             resResponse1.MaxJsonLength = int.MaxValue;
                             return resResponse1;
+
                         }
                     }
                     else if (model.CallType == Enums.GetEnumDescription(Enums.eTypeCall.Yes))
@@ -426,10 +493,13 @@ namespace Hunarmis.Controllers
                                     var tblcal = db_.tbl_Participant_Calling.Where(x => x.ParticipantId_fk == model.ParticipantId_fk);
                                     var noofcall = tblcal != null ? tblcal.Count() + 1 : 0;
                                     tblpart.CallTempStatus = (int)Enums.eTempCallStatus.CallDone;
+                                    tblpart.CallTempReportedBy = MvcApplication.CUser.UserId;
+                                    tblpart.CallTempStatusDate = tbl.CreatedOn;
                                     tblpart.IsPlaced = model.PlacedStatus == Enums.GetEnumDescription(Enums.ePlaced.Yes) ? true : false;
                                     tblpart.CallMonth = model.QuesMonth;
                                     tblpart.CallYear = model.QuesYear;
                                     tblpart.AtPresentCallStatus = noofcall;
+                                    tblpart.CallingID_fk = tbl.ID;
                                     results += db_.SaveChanges();
                                 }
                                 else if (model.ID != Guid.Empty)

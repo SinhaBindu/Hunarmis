@@ -14,6 +14,8 @@ namespace Hunarmis.Models
     
     public partial class tbl_ParticipantRemarks_History
     {
+        public System.Guid RemarkHistoryID { get; set; }
+        public long OrderNo { get; set; }
         public System.Guid ID { get; set; }
         public string RegID { get; set; }
         public string FirstName { get; set; }
@@ -42,6 +44,7 @@ namespace Hunarmis.Models
         public Nullable<bool> IsOffered { get; set; }
         public Nullable<int> CallTempStatus { get; set; }
         public Nullable<System.DateTime> CallTempStatusDate { get; set; }
+        public string CallTempReportedBy { get; set; }
         public string CallRemark { get; set; }
         public Nullable<int> CallMonth { get; set; }
         public Nullable<int> CallYear { get; set; }
@@ -53,8 +56,7 @@ namespace Hunarmis.Models
         public Nullable<int> AtPresentCallStatus { get; set; }
         public string RemarkStatus { get; set; }
         public Nullable<System.DateTime> RemarkDate { get; set; }
+        public string RemarkReportedBy { get; set; }
         public Nullable<System.DateTime> RemarksHistoryDate { get; set; }
-        public Nullable<System.Guid> RemarkHistoryID { get; set; }
-        public long OrderNo { get; set; }
     }
 }

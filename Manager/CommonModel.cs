@@ -1,6 +1,8 @@
 ﻿//using DocumentFormat.OpenXml.Office2010.ExcelAc;
 //using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
 //using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.EMMA;
+using Hunarmis.Helpers;
 using Hunarmis.Models;
 using Irony.Parsing.Construction;
 using Microsoft.AspNet.Identity;
@@ -249,6 +251,42 @@ namespace Hunarmis.Manager
             }
         }
 
+        public static List<SelectListItem> GetSP_GetTrainerAtCenterList(int IsAll = 2, int TCenterId = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List<SelectListItem> list = new List<SelectListItem>();
+            try
+            {
+                if (TCenterId > 0)
+                {
+                    if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        if (HttpContext.Current.User.IsInRole(RoleNameCont.Trainer))
+                        {
+                            DataTable dt = SPManager.SP_GetTrainer1CenterattimeList(TCenterId);
+                            var itemid = Convert.ToInt32(TCenterId);//.Where(x => x.Field<int>("TrainerId") == itemid)
+                            list = new SelectList(dt.AsEnumerable(), "TrainerId", "TrainerName").OrderBy(x => x.Text).ToList();
+
+                            if (IsAll == 0)
+                            {
+                                list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                            }
+                            else if (IsAll == 1)
+                            {
+                                list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                            }
+                            return list;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return list;
+        }
 
         //    public static UserViewModel User
         //    {
@@ -380,6 +418,14 @@ namespace Hunarmis.Manager
             //list.Add(new SelectListItem { Value = "", Text = "Select" });
             list.Add(new SelectListItem { Value = "Yes", Text = "Yes" });
             list.Add(new SelectListItem { Value = "No", Text = "No" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
+        public static List<SelectListItem> GetYesNoValue()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            list.Add(new SelectListItem { Value = "1", Text = "Yes" });
+            list.Add(new SelectListItem { Value = "0", Text = "No" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
         public static List<SelectListItem> GetBoolYesNo()
@@ -1278,6 +1324,13 @@ namespace Hunarmis.Manager
                 dateTime = DateTime.ParseExact(displayValue, "h:mm tt", CultureInfo.InvariantCulture);
             return dateTime.TimeOfDay;
         }
+        public static string GetTimeSpanVal(string displayValue)
+        {
+            string time = "";
+            DateTime durst = DateTime.Parse(displayValue);
+            time = CommonModel.GetTimeAMPM(durst.TimeOfDay);
+            return time.ToString();
+        }
         public static string GetTimeAMPM(TimeSpan timeSp)
         {
             TimeSpan timespan = timeSp;
@@ -1406,6 +1459,107 @@ namespace Hunarmis.Manager
                 db_.tbl_SendMail.Add(tbl);
                 db_.SaveChanges();
                 return "Success" + noofsend;
+            }
+            catch (Exception ex)
+            {
+                tbl_SendMail tbl = new tbl_SendMail();
+                tbl.Id = Guid.NewGuid();
+                tbl.MTo = To;
+                //tbl.MFrom = "careindiabtsp@gmail.com";
+                tbl.MFrom = "kgbvjh4care@gmail.com";
+                tbl.Subject = Subject + " ( " + SenderName + " )";
+                tbl.Boby = bodyTemplate;
+                tbl.ReceiverName = ReceiverName;
+                tbl.SenderName = SenderName;
+                tbl.IsSented = false;
+                db_.tbl_SendMail.Add(tbl);
+                db_.SaveChanges();
+                return "Error :" + ex.Message;
+            }
+        }
+        //Send mail for participant 21-June-2024
+        public static string SendMailForParticipants()
+        {
+            int noofsend = 0;
+            string To = "", Subject = "", Body = "", ReceiverName = ""
+                , SenderName = "", RandomValue = "", Password = "";
+            string ASDT = ""; string DurationTime = "";
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            DataTable dt = SPManager.SP_MailSendParticipantWise();
+            string bodydata = string.Empty;
+            string bodyTemplate = string.Empty;
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/Views/Shared/MailTemplate.html")))
+            {
+                bodyTemplate = reader.ReadToEnd();
+            }
+            try
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        To = row["EmailID"].ToString();
+                        //SenderName = row["EmailID"].ToString();
+                        Subject = row["CourseName"].ToString();
+                        RandomValue = row["RandomValue"].ToString();
+                        ReceiverName = row["Name"].ToString();
+                        Password = row["Password"].ToString();
+                        ASDT = CommonModel.FormateDtDMY(row["ExamDt"].ToString());
+                        DurationTime = "Start :" + CommonModel.GetTimeSpanVal(row["StartTime"].ToString())
+                            + " To End :" + CommonModel.GetTimeSpanVal(row["EndTime"].ToString());
+                        //bodyTemplate += "Hi " + ReceiverName + "," + " <br /> " + Body;
+                        bodydata = bodyTemplate.Replace("{Dearusername}", ReceiverName)
+                            .Replace("{bodytext}", Body)
+                            .Replace("{EmailID}", To).Replace("{Password}", Password)
+                            .Replace("{RandomValue}", RandomValue)
+                            .Replace("{newusername}", "Assessment")
+                            .Replace("{ASDT}", ASDT)
+                            .Replace("{DurationTime}", DurationTime);
+                        //using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/Views/Shared/MailTemplate.html")))
+                        //{
+                        //    bodyTemplate = reader.ReadToEnd();
+                        //}
+                        //bodyTemplate = "<table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n\t\t<tbody>\r\n <tr>\r\n\t\t\t<td align=\"center\"> " + bodydata + "\r\n\t\t\t\t\r\n  \t</tbody></tr>\r\n</table>";
+                        MailMessage mail = new MailMessage();
+                        //mail.To.Add("bindu@careindia.org");
+                        mail.To.Add(To);
+                        mail.From = new MailAddress("kgbvjh4care@gmail.com", "Hunar MIS");
+                        //mail.From = new MailAddress("hunarmis2024@gmail.com");
+                        mail.Subject = Subject + " ( Assessment Date : ) " + ASDT;// + " ( " + SenderName + " )";
+
+                        //bodydata = bodyTemplate.Replace("{bodytext}", Body);
+                        mail.Body = bodydata;
+                        mail.IsBodyHtml = true;
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Port = 587;
+                        smtp.UseDefaultCredentials = false;
+                        //smtp.Credentials = new System.Net.NetworkCredential("hunarmis2024@gmail.com", "Hunar@2024");//Pasw-Care@321 // Enter seders User name and password       
+                        //smtp.Credentials = new System.Net.NetworkCredential("careindiabtsp@gmail.com", "gupczsbvzinhivzw");//Pasw-Care@321 // Enter seders User name and password       
+                        smtp.Credentials = new System.Net.NetworkCredential("kgbvjh4care@gmail.com", "yklzeazktmknvcbu");// yklz eazk tmkn vcbu//Pasw-Care@321 // Enter seders User name and password       
+                        smtp.EnableSsl = true;
+                        smtp.Send(mail);
+                        //  noofsend++;
+
+
+                        tbl_SendMail tbl = new tbl_SendMail();
+                        tbl.Id = Guid.NewGuid();
+                        tbl.MTo = To;
+                        tbl.MFrom = "kgbvjh4care@gmail.com";
+                        //tbl.MFrom = "careindiabtsp@gmail.com";
+                        tbl.Subject = Subject + " ( " + SenderName + " )";
+                        tbl.Boby = bodyTemplate;
+                        tbl.ReceiverName = ReceiverName;
+                        tbl.SenderName = SenderName;
+                        tbl.IsSented = true;
+                        tbl.CreatedBy = "";
+                        tbl.CreatedOn = DateTime.Now;
+                        db_.tbl_SendMail.Add(tbl);
+                        db_.SaveChanges();
+                        return "Success" + noofsend;
+                    }
+                }
+                return "Participants not available For mail";
             }
             catch (Exception ex)
             {

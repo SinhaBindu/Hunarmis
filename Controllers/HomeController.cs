@@ -13,6 +13,7 @@ namespace Hunarmis.Controllers
 {
 
     [Authorize]
+    [SessionCheck]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -142,7 +143,57 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet); throw;
             }
         }
+
+        public ActionResult CallStatus()
+        {
+            FilterModel model = new FilterModel();
+            return View(model);
+        }
+        public ActionResult GetCallStatus(FilterModel model)
+        {
+            DataTable tbllist = new DataTable();
+            var html = "";
+            try
+            {
+                tbllist = SPManager.sp_callstatus(model);
+                bool IsCheck = false;
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                    html = ConvertViewToString("_CallStatusData", tbllist);
+                    var resDt = JsonConvert.SerializeObject(tbllist);
+                    var res = Json(new { IsSuccess = IsCheck, Data = html, resData = resDt }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+                else
+                {
+                    var res = Json(new { IsSuccess = IsCheck, Data = "Record Not Found !!" }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
+        public ActionResult QuesResponse(string PartQuestId, string PartId, int M, int Y)
+        {
+            FilterModel model = new FilterModel();
+            model.ParticipantQuestionId = PartQuestId;
+            //model.YearId = Y;
+            //model.MonthId = M;
+            model.ParticipantId = PartId;
+            DataTable dt = SPManager.SP_PartQuesList(model);
+            return View(dt);
+        }
+
         #endregion
+
+
+
 
         [AllowAnonymous]
         [HttpGet]
@@ -160,7 +211,7 @@ namespace Hunarmis.Controllers
                     Enums.GetEnumDescription(Enums.OptionMailSubject.SummativeAFD),
                     Enums.GetEnumDescription(Enums.OptionMailSubject.SAFDLink)
                     + " <a href=" + link + ">" +
-                    Enums.GetEnumDescription(Enums.OptionMailSubject.SummativeAFD) + "</a> <br /><br /><br /><br /><br /><br /> "+" Thank & Regards",
+                    Enums.GetEnumDescription(Enums.OptionMailSubject.SummativeAFD) + "</a> <br /><br /><br /><br /><br /><br /> " + " Thank & Regards",
                     "", item.Name, noofsend);
             }
             return Json(msg, JsonRequestBehavior.AllowGet);

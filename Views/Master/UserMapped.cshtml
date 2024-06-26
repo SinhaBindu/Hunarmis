@@ -244,10 +244,14 @@
             debugger;
             var IsCheck = false;
 
+
             var TACIdarr = $('#' + TACId).val();
             if (TACIdarr != null && TACIdarr != undefined && TACIdarr.length != 0) {
                 IsCheck = true;
                 TACIdarr = TACIdarr.join(',');
+            }
+            else {
+                toastr.error("Error", 'Please choose one Training Center');
             }
 
             if (UserId && IsCheck) {

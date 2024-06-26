@@ -255,28 +255,28 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(model => model.IsPlaced, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                @Html.LabelFor(model => model.Is_Placed, htmlAttributes: new { @class = "control-label col-lg-4" })
                                 <div class="checkbox">
-                                    @foreach (var item in CommonModel.GetBoolYesNo())
+                                    @foreach (var item in CommonModel.GetYesNoValue())
                                     {
                                         <div class="input-spacer">
-                                            @Html.RadioButtonFor(model => model.IsPlaced, item.Value, new { id = "IsPlaced" + item.Value, @required = "required" }) @item.Text
+                                            @Html.RadioButtonFor(model => model.Is_Placed, item.Value, new { id = "IsPlaced" + item.Value, @required = "required" }) @item.Text
                                         </div>
                                     }
-                                    @Html.ValidationMessageFor(model => model.IsPlaced, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(model => model.Is_Placed, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="mark-devide"></div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(model => model.IsOffered, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                @Html.LabelFor(model => model.Is_Offered, htmlAttributes: new { @class = "control-label col-lg-4" })
                                 <div class="checkbox">
-                                    @foreach (var item in CommonModel.GetBoolYesNo())
+                                    @foreach (var item in CommonModel.GetYesNoValue())
                                     {
                                         <div class="input-spacer">
-                                            @Html.RadioButtonFor(model => model.IsOffered, item.Value, new { id = "IsOffered" + item.Value, @required = "required" }) @item.Text
+                                            @Html.RadioButtonFor(model => model.Is_Offered, item.Value, new { id = "IsOffered" + item.Value, @required = "required" }) @item.Text
                                         </div>
                                     }
-                                    @Html.ValidationMessageFor(model => model.IsOffered, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(model => model.Is_Offered, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="mark-devide"></div>
                             </div>

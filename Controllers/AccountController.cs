@@ -146,6 +146,7 @@ namespace Hunarmis.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
+        [SessionCheck]
         public ActionResult Register(string id = "", string empid = "")
         {
             Hunar_DBEntities db_ = new Hunar_DBEntities();
