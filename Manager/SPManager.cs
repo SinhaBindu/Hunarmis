@@ -36,9 +36,10 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SP_GetBatchForPart(string TCIds, int BatchId = 0)
+        public static DataTable SP_GetBatchForPart(string TrainerId, string TCIds, int BatchId = 0)
         {
             StoredProcedure sp = new StoredProcedure("SP_GetBatchForPart");
+            sp.Command.AddParameter("@TrainerId", TrainerId, DbType.String);
             sp.Command.AddParameter("@TCIds", TCIds, DbType.String);
             sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
@@ -204,9 +205,10 @@ namespace Hunarmis.Manager
         }
         #endregion
         #region Mail send For Participant Email Id
-        public static DataTable SP_MailSendParticipantWise()
+        public static DataTable SP_MailSendParticipantWise(string BatchId)
         {
             StoredProcedure sp = new StoredProcedure("SP_MailSendParticipantWise");
+            sp.Command.AddParameter("@BatchId", BatchId, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

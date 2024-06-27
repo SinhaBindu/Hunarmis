@@ -26,15 +26,6 @@ namespace Hunarmis.Controllers
             return View();
         }
 
-        #region Mail send For Participant
-        [AllowAnonymous]
-        [HttpGet]
-        public JsonResult SendMailForParticipant()
-        {
-            var res = CommonModel.SendMailForParticipants();
-            return Json(res, JsonRequestBehavior.AllowGet);
-        }
-        #endregion
         #region
         public ActionResult UserDetaillist()
         {

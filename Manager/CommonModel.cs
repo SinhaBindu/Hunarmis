@@ -199,20 +199,23 @@ namespace Hunarmis.Manager
             }
             return list;
         }
-        public static List<SelectListItem> GetBatchForPartLists(int IsAll = 2, string TCenterIds = "", int BatchId = 0)
+        public static List<SelectListItem> GetBatchForPartLists(int IsAll = 2, string TCenterIds = "", string TrainerId = "", int BatchId = 0)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
 
             try
             {
-                if (!string.IsNullOrWhiteSpace(TCenterIds))
+                if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    if (HttpContext.Current.User.IsInRole(RoleNameCont.Trainer) || HttpContext.Current.User.IsInRole(RoleNameCont.Mobilizer))
                     {
-                        if (HttpContext.Current.User.IsInRole(RoleNameCont.Trainer) || HttpContext.Current.User.IsInRole(RoleNameCont.Mobilizer))
+                        TrainerId = MvcApplication.CUser.UserId;
+                        TCenterIds = MvcApplication.CUser.MappedTCenterIds;
+                        if (!string.IsNullOrWhiteSpace(TCenterIds))
                         {
-                            DataTable dt1 = SPManager.SP_GetBatchForPart(MvcApplication.CUser.MappedTCenterIds);
+
+                            DataTable dt1 = SPManager.SP_GetBatchForPart(TrainerId, TCenterIds);
                             list = dt1.AsEnumerable().Select(x => new SelectListItem()
                             {
                                 Value = x.Field<Int32>("BatchId").ToString(),
@@ -221,20 +224,22 @@ namespace Hunarmis.Manager
                             //list = new SelectList(dt1.AsEnumerable(), "BatchId", "BatchName").OrderBy(x => x.Text).ToList();
                         }
                     }
-                }
-                else
-                {
-                    if (!HttpContext.Current.User.IsInRole(RoleNameCont.Trainer) || !HttpContext.Current.User.IsInRole(RoleNameCont.Mobilizer) || !HttpContext.Current.User.IsInRole(RoleNameCont.User))
+                    else
                     {
-                        DataTable dt = SPManager.SP_GetBatchForPart(TCenterIds);
-                        list = dt.AsEnumerable().Select(x => new SelectListItem()
+                        if (!HttpContext.Current.User.IsInRole(RoleNameCont.Trainer) || !HttpContext.Current.User.IsInRole(RoleNameCont.Mobilizer) || !HttpContext.Current.User.IsInRole(RoleNameCont.User))
                         {
-                            Value = x.Field<Int32>("BatchId").ToString(),
-                            Text = x.Field<string>("BatchName")
-                        }).ToList();
-                        //list = new SelectList(.AsEnumerable(), "BatchId", "BatchName").OrderBy(x => x.Text).ToList();
+
+                            DataTable dt = SPManager.SP_GetBatchForPart(TrainerId, TCenterIds);
+                            list = dt.AsEnumerable().Select(x => new SelectListItem()
+                            {
+                                Value = x.Field<Int32>("BatchId").ToString(),
+                                Text = x.Field<string>("BatchName")
+                            }).ToList();
+                            //list = new SelectList(.AsEnumerable(), "BatchId", "BatchName").OrderBy(x => x.Text).ToList();
+                        }
                     }
                 }
+
                 if (IsAll == 0)
                 {
                     list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
@@ -1478,14 +1483,15 @@ namespace Hunarmis.Manager
             }
         }
         //Send mail for participant 21-June-2024
-        public static string SendMailForParticipants()
+        public static string SendMailForParticipants(string BatchId = "")
         {
             int noofsend = 0;
             string To = "", Subject = "", Body = "", ReceiverName = ""
                 , SenderName = "", RandomValue = "", Password = "";
-            string ASDT = ""; string DurationTime = "";
+            string ASDT = ""; string DurationTime = ""; string BatchName = "";
+            string TrainerName = ""; string DistrictAgencyTrainingCenter = "";
             Hunar_DBEntities db_ = new Hunar_DBEntities();
-            DataTable dt = SPManager.SP_MailSendParticipantWise();
+            DataTable dt = SPManager.SP_MailSendParticipantWise(BatchId);
             string bodydata = string.Empty;
             string bodyTemplate = string.Empty;
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/Views/Shared/MailTemplate.html")))
@@ -1500,9 +1506,13 @@ namespace Hunarmis.Manager
                     {
                         To = row["EmailID"].ToString();
                         //SenderName = row["EmailID"].ToString();
+                        BatchName = row["BatchName"].ToString();
                         Subject = row["CourseName"].ToString();
                         RandomValue = row["RandomValue"].ToString();
                         ReceiverName = row["Name"].ToString();
+                        TrainerName = row["TrainerName"].ToString();
+                        var URL = CommonModel.GetBaseUrl() + "/ParticipantUser/Login?RandomValue=" + RandomValue;
+                        DistrictAgencyTrainingCenter = row["DistrictAgencyTrainingCenter"].ToString();
                         Password = row["Password"].ToString();
                         ASDT = CommonModel.FormateDtDMY(row["ExamDt"].ToString());
                         DurationTime = "Start :" + CommonModel.GetTimeSpanVal(row["StartTime"].ToString())
@@ -1510,11 +1520,17 @@ namespace Hunarmis.Manager
                         //bodyTemplate += "Hi " + ReceiverName + "," + " <br /> " + Body;
                         bodydata = bodyTemplate.Replace("{Dearusername}", ReceiverName)
                             .Replace("{bodytext}", Body)
-                            .Replace("{EmailID}", To).Replace("{Password}", Password)
+                            .Replace("{CourseName}", Subject)
+                            .Replace("{EmailID}", To)
+                            .Replace("{Password}", Password)
                             .Replace("{RandomValue}", RandomValue)
                             .Replace("{newusername}", "Assessment")
                             .Replace("{ASDT}", ASDT)
-                            .Replace("{DurationTime}", DurationTime);
+                            .Replace("{DurationTime}", DurationTime)
+                            .Replace("{BatchName}", BatchName)
+                            .Replace("{TrainerName}", TrainerName)
+                            .Replace("{URL}", URL)
+                            .Replace("{DistrictAgencyTrainingCenter}", DistrictAgencyTrainingCenter);
                         //using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/Views/Shared/MailTemplate.html")))
                         //{
                         //    bodyTemplate = reader.ReadToEnd();
@@ -1539,7 +1555,7 @@ namespace Hunarmis.Manager
                         smtp.Credentials = new System.Net.NetworkCredential("kgbvjh4care@gmail.com", "yklzeazktmknvcbu");// yklz eazk tmkn vcbu//Pasw-Care@321 // Enter seders User name and password       
                         smtp.EnableSsl = true;
                         smtp.Send(mail);
-                        //  noofsend++;
+                        noofsend++;
 
 
                         tbl_SendMail tbl = new tbl_SendMail();
@@ -1556,8 +1572,9 @@ namespace Hunarmis.Manager
                         tbl.CreatedOn = DateTime.Now;
                         db_.tbl_SendMail.Add(tbl);
                         db_.SaveChanges();
-                        return "Success" + noofsend;
+
                     }
+                    return "Success" + noofsend;
                 }
                 return "Participants not available For mail";
             }

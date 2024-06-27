@@ -27,6 +27,7 @@
                     <th class="text-center tblth">Start Time</th>
                     <th class="text-center tblth">End Time</th>
                     <th style="width: 80px" class="text-center tblth">Edit</th>
+                    <th style="width: 80px" class="text-center tblth">Send</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,16 +39,19 @@
                         {
                             var st = Convert.ToDateTime(dr["StartTime"].ToString()).ToString(@"hh\:mm");
                             var et = Convert.ToDateTime(dr["EndTime"].ToString()).ToString(@"hh\:mm");
-                            <tr class="text-center">
-                                <td>@(srno++)</td>
-                                <td>@dr["BatchName"]</td>
-                                <td>@CommonModel.FormateDtDMY(dr["Date"].ToString())</td>
-                                <td>@st</td>
-                                <td>@et</td>
-                                <td>
-                                    <a href="~/Attendance/AssessmentSchedule?Id=@dr["AssessmentScheduleId_pk"]" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
-                                </td>
-                            </tr>
+                                <tr class="text-center @dr["Assbgcolor"].ToString() @dr["AssessmentExpireDone"].ToString()" >
+                                    <td>@(srno++)</td>
+                                    <td>@dr["BatchName"]</td>
+                                    <td>@CommonModel.FormateDtDMY(dr["Date"].ToString())</td>
+                                    <td>@st</td>
+                                    <td>@et</td>
+                                    <td>
+                                        <a href="~/Attendance/AssessmentSchedule?Id=@dr["AssessmentScheduleId_pk"]" class="btn btn-mint btn-sm icontxtClr"><i class="fa fa-edit"></i></a>
+                                    </td>
+                                    <td>
+                                        <a href="~/Mail/SendMailForParticipant?BatchId=@dr["BatchId_fk"]" class="btn btn-purple btn-sm icontxtClr @dr["mailsendbgcolor"].ToString()"><i class="fa fa-send"></i></a>
+                                    </td>
+                                </tr>
                         }
                     }
                     else

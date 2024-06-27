@@ -309,10 +309,18 @@ namespace Hunarmis.Controllers
                     resResponseal.MaxJsonLength = int.MaxValue;
                     return resResponseal;
                 }
-                if (_db.tbl_AttendanceParticipant.Any(x => x.BatchId == model.BatchId_fk && model.AssessmentScheduleId_pk != model.AssessmentScheduleId_pk))
+                if (_db.tbl_AssessmentSchedule.Any(x => x.BatchId_fk == model.BatchId_fk && x.Date == model.Date && model.AssessmentScheduleId_pk == Guid.Empty))
                 {
                     var getbatch = _db.Batch_Master.Where(x => x.Id == model.BatchId_fk)?.FirstOrDefault().BatchName;
-                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Assessment Schedule is already submitted this " + getbatch + " " + CommonModel.FormateDtDMY(model.Date.ToString()), Data = null };
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Assessment Schedule is already submitted this Batch" + getbatch + " " + CommonModel.FormateDtDMY(model.Date.ToString()), Data = null };
+                    var resResponseal = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponseal.MaxJsonLength = int.MaxValue;
+                    return resResponseal;
+                }
+                if (_db.tbl_AssessmentSchedule.Any(x => x.BatchId_fk == model.BatchId_fk && model.AssessmentScheduleId_pk == Guid.Empty))
+                {
+                    var getbatch = _db.Batch_Master.Where(x => x.Id == model.BatchId_fk)?.FirstOrDefault().BatchName;
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Assessment Schedule is already submitted this Batch" + getbatch + " " + CommonModel.FormateDtDMY(model.Date.ToString()), Data = null };
                     var resResponseal = Json(response, JsonRequestBehavior.AllowGet);
                     resResponseal.MaxJsonLength = int.MaxValue;
                     return resResponseal;
@@ -330,10 +338,10 @@ namespace Hunarmis.Controllers
                     tbl.EndTime = duret.TimeOfDay;
                     tbl.AssessmentSchedule = false;
                     tbl.IsActive = true;
-                   
+
                     if (model.AssessmentScheduleId_pk == Guid.Empty)
                     {
-                     
+
                         tbl.AssessmentScheduleId_pk = Guid.NewGuid();
                         FilterModel filterModel = new FilterModel();
                         filterModel.BatchId = model.BatchId_fk.Value.ToString();
@@ -344,7 +352,7 @@ namespace Hunarmis.Controllers
                         tbl.CreatedBy = MvcApplication.CUser.UserId;
                         tbl.CreatedOn = DateTime.Now;
                         _db.tbl_AssessmentSchedule.Add(tbl);
-                        var resmail = CommonModel.SendMailForParticipants();
+                       // var resmail = CommonModel.SendMailForParticipants(tbl.BatchId_fk.ToString());
                     }
                     else
                     {

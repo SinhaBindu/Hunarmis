@@ -1,8 +1,8 @@
 ﻿@model Hunarmis.Models.FilterModel
 @{
-    ViewBag.Title = "Call Status";
+    ViewBag.Title = "Participant Call Details";
     ViewBag.TitleIcon = "fa fa-user";
-    ViewBag.SemiTitle = "Call Status";
+    ViewBag.SemiTitle = "Participant Call Details";
     ViewBag.SemiTitleLink = "/Home/CallStatus";
     string IsSadmin = string.Empty;
 }
@@ -87,7 +87,7 @@
                                                 <input type="submit" name="btnsubmit" id="btnsubmit" class="btn-register" value="Filter" />
                                             </span>
                                             <span class="check-spacer">
-                                                <a href="~/Participant/PartQuestionList" class="btn-reset"><i class="fa fa-refresh"></i></a>
+                                                <a href="~/Home/CallStatus" class="btn-reset"><i class="fa fa-refresh"></i></a>
                                             </span>
                                           
                                         </div>
@@ -123,7 +123,7 @@
         $(document).ready(function () {
 
             $("#FromDt").datepicker({
-                defaultDate: "+1w",
+                //defaultDate: "+1w",
                 changeMonth: true,
                 numberOfMonths: 1,
                 onClose: function (selectedDate) {
@@ -131,7 +131,7 @@
                 }
             });
             $("#ToDt").datepicker({
-                defaultDate: "+1w",
+                //defaultDate: "+1w",
                 changeMonth: true,
                 numberOfMonths: 1,
                 onClose: function (selectedDate) {

@@ -13,10 +13,10 @@
     <br />
     <table width="90%" cellpadding="1">
         <tr>
-            <td align="center" style="background-color: #002b6c;">
-                <span style="font-size:25px; color:#fff;">
-                    <img src="~/Content/images/pcilogo.png" />
-                    Assessment For Skill
+            <td style="background-color: #002b6c;">
+                <img src="https://hunar.pcidigitals.in/Content/images/pcilogo.png" width="40" height="40" style="margin-top: 1%;" />
+                <span style="font-size: 20px; color: #fff; text-align: center; padding-left: 20%;">
+                    <strong class="text-center" style="padding-left:10px;">Assessment For Skill</strong>
                 </span>
                 <br />
                 <br />
@@ -29,15 +29,26 @@
                 <br />
                 <strong class="font-weight-bold">Dear {Dearusername},</strong>
                 <br />
-
                 <br />
                 <strong class="font-weight-bold">
-                    Assessment Date :  <strong style="color:darkblue">{ASDT},</strong>
+                    Batch  :  <strong style="color:purple">{BatchName}</strong>
+                </strong>
+                <br />
+                <strong class="font-weight-bold">
+                    Course  :  <strong style="color:purple">{CourseName}</strong>
+                </strong>
+                <br />
+                <strong class="font-weight-bold">
+                    Training Center  :  <strong style="color:purple; font-size:small;">{DistrictAgencyTrainingCenter}</strong>
+                </strong>
+                <br />
+                <strong class="font-weight-bold">
+                    Assessment Date :  <strong style="color:darkblue">{ASDT}</strong>
                 </strong>
                 <br />
                 <strong class="font-weight-bold">Assessment Duration : <strong style="color:darkblue">{DurationTime}</strong></strong>
-                <br />
-                <strong class="font-weight-bold">Assessment Login Credentials</strong>
+                <br /> <br />
+                <strong class="font-weight-bold text-decoration-underline">Assessment Login Credentials</strong>
                 <br />
                 <strong class="font-weight-bold">User Name :<strong style="color:orange"> {EmailID} </strong></strong>
                 <br />
@@ -45,20 +56,19 @@
                 <br />
                 <!--<strong class="font-weight-bold" style="color:forestgreen;">Name : {newusername},</strong>-->
                 <br />
-                <br />
                 {bodytext}
                 <br />
-                <p class="font-weight-bold text-center" style="margin-left: 50px;">Please click the link below to proceed.</p>
-                <a href="https://localhost:44344/ParticipantUser/Login?RandomValue={RandomValue}"
-                   class="btn btn-info font-weight-bold" style="margin-left: 50px;">
-                    <strong>Click Here To Assessment</strong>
+                <p class="font-weight-bold text-center" style="margin-left: 60px;">Please click the link below to proceed.</p>
+                <a href="{URL}"
+                   class="btn btn-info font-weight-bold" style="margin-left: 60px;">
+                    <strong>Click Here For Assessment</strong>
                 </a>
                 <br />
                 <br />
 
                 <strong class="font-weight-bold">Thanks & Regards</strong>
                 <br />
-                <strong class="font-weight-bold">{newusername}</strong>
+                <strong class="font-weight-bold" style="color:orange">{newusername}&nbsp; &nbsp;{TrainerName} </strong>
                 <br />
             </td>
         </tr>
