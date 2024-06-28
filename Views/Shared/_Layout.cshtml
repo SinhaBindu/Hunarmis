@@ -28,9 +28,10 @@
 
     <base href="@Hunarmis.Manager.CommonModel.GetBaseUrl()" />
     <style>
-        .icontxtClr{
-            color:white !important;
+        .icontxtClr {
+            color: white !important;
         }
+
         .tblth {
             text-align: center !important;
             background: #5B2C54 !important;
@@ -51,6 +52,7 @@
             font-size: medium;
             color: #1ef4af;
         }
+
         .row-disabled {
             background-color: rgba(236, 240, 241, 0.5);
             pointer-events: none;
@@ -115,13 +117,31 @@
         }
     </script>
     @{
-        if (Session["CUser"] == null)
+        if (Session["CUser"] == null && Session["PartUserId"] != null)
+        {
+            @*<script>
+                     // $(document).ready(function () {
+                      var url = '@Url.Action("Login", "Account")';
+                         location.href = url;
+                   });
+            </script>*@
+        }
+        else if (Session["CUser"] != null && Session["PartUserId"] != null)
+        {
+              @*<script>
+              // $(document).ready(function () {
+               var url = '@Url.Action("Login", "Account")';
+                  location.href = url;
+            });
+            </script>*@
+        }
+        else if (Session["CUser"] == null || Session["PartUserId"] == null)
         {
             <script>
-      $(document).ready(function () {
-      var url = '@Url.Action("Login", "Account")';
-         location.href = url;
-   });
+   $(document).ready(function () {
+   var url = '@Url.Action("Login", "Account")';
+      location.href = url;
+});
             </script>
         }
 

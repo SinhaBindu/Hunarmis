@@ -17,7 +17,7 @@ using static Hunarmis.Manager.CommonModel;
 
 namespace Hunarmis.Controllers
 {
-    [Authorize(Roles = "Admin,State,Trainer,Verifier")]
+    //[Authorize(Roles = "Admin,State,Trainer,Verifier")]
     public class AssessmentController : Controller
     {
         // GET: Assessment
@@ -213,6 +213,7 @@ namespace Hunarmis.Controllers
             }
             return RedirectToAction("Login", "ParticipantUser");
         }
+        [AllowAnonymous]
         private QesRes GetAdd(int? Id, int FId, string Rdmkeyno)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
@@ -316,7 +317,7 @@ namespace Hunarmis.Controllers
                     };
                 }
             }
-            //ViewBag.Qlist = qList;
+            ViewBag.Qlist = qList;
             if (Session["BatchId"] != null && Session["TrainingCenterId"] != null)
             {
                 return new QesRes { SchoolId = 0, BatchId = Convert.ToInt32(Session["BatchId"].ToString()), TrainingCenterId = Convert.ToInt32(Session["TrainingCenterId"].ToString()), RandomValue = Session["RandomValue"].ToString(), StartTime = Session["StartTime"].ToString(), EndTime = Session["EndTime"].ToString(), FormId = fid, Qlist = qList, IsDraft = false };
@@ -324,6 +325,8 @@ namespace Hunarmis.Controllers
             }
             return new QesRes { SchoolId = 0, BatchId = 0, TrainingCenterId = 0, RandomValue = Rdmkeyno, StartTime = "", EndTime = "", FormId = fid, Qlist = qList, IsDraft = false };
         }
+        [AllowAnonymous]
+        [SessionCheckPart]
         [HttpPost]
         public ActionResult Add(QesRes model)
         {

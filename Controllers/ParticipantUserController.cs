@@ -43,7 +43,7 @@ namespace Hunarmis.Controllers
             return View(model);
         }
 
-        [SessionCheckPart]
+        //[SessionCheckPart]
         //[Authorize(Roles = "User")]
         [AllowAnonymous]
         [HttpPost]
@@ -58,6 +58,7 @@ namespace Hunarmis.Controllers
                     DataTable dt = SPManager.SP_LoginForParticipantCheck(model);
                     if (dt.Rows.Count > 0)
                     {
+
                         Session["SurveyId"] = dt.Rows[0]["SurveyId"].ToString();
                         Session["AssessmentSendLinkPartId_pk"] = dt.Rows[0]["AssessmentSendLinkPartId_pk"].ToString();
                         Session["AssessmentScheduleId_fk"] = dt.Rows[0]["AssessmentScheduleId_fk"].ToString();
@@ -154,7 +155,7 @@ namespace Hunarmis.Controllers
                 return View("Error");
             }
         }
-        [SessionCheckPart]
+      //  [SessionCheckPart]
         public ActionResult AssessmentDone()
         {
             CertificateModel model = new CertificateModel();
@@ -200,12 +201,12 @@ namespace Hunarmis.Controllers
             }
             return RedirectToAction("Login", "ParticipantUser");
         }
-        [SessionCheckPart]
+       // [SessionCheckPart]
         public ActionResult AssessmentExpired()
         {
             return View();
         }
-        [SessionCheckPart]
+        //[SessionCheckPart]
         public ActionResult AssessmentInvalid()
         {
             return View();

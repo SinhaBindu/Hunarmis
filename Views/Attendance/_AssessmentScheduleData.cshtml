@@ -39,7 +39,7 @@
                         {
                             var st = Convert.ToDateTime(dr["StartTime"].ToString()).ToString(@"hh\:mm");
                             var et = Convert.ToDateTime(dr["EndTime"].ToString()).ToString(@"hh\:mm");
-                                <tr class="text-center @dr["Assbgcolor"].ToString() @dr["AssessmentExpireDone"].ToString()" >
+                                <tr class="text-center @dr["AssessmentExpireDone"].ToString()" style="background:@dr["Assbgcolor"].ToString() !important; color:#000; ">
                                     <td>@(srno++)</td>
                                     <td>@dr["BatchName"]</td>
                                     <td>@CommonModel.FormateDtDMY(dr["Date"].ToString())</td>

@@ -5,7 +5,7 @@ public class SessionCheckPartAttribute : ActionFilterAttribute
 {
     public override void OnActionExecuting(ActionExecutingContext filterContext)
     {
-        if (HttpContext.Current.Session["PartUserId"] == null || !(bool)HttpContext.Current.Session["PartUserId"])
+        if (HttpContext.Current.Session["PartUserId"] == null)
         {
             filterContext.Result = new RedirectToRouteResult(
                 new System.Web.Routing.RouteValueDictionary {

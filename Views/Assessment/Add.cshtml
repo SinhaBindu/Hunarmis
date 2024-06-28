@@ -438,7 +438,7 @@
                             valid = false;
                         }
                     });
-                    @*if ('@ViewBag.Qlist' != 'null' && '@ViewBag.Qlist' != '') {
+                    if ('@ViewBag.Qlist' != 'null' && '@ViewBag.Qlist' != '') {
                         var Qcount1 = 0; var Qoptcount1 = 0;
                         var mlist = ('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Qlist))');
                         //var safe_name = escapeHtml(resp.htmlData);
@@ -471,7 +471,7 @@
                         else {
                             valid = false;
                         }
-                    }*@
+                    }
 
                     if (valid) {
                        // $('.msgerror').hide();
