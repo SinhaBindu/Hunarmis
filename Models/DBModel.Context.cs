@@ -35,7 +35,6 @@ namespace Hunarmis.Models
         public virtual DbSet<Educational_Master> Educational_Master { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<tbl_UserLogin> tbl_UserLogin { get; set; }
-        public virtual DbSet<Batch_Master> Batch_Master { get; set; }
         public virtual DbSet<TrainingCenter_Master> TrainingCenter_Master { get; set; }
         public virtual DbSet<Month_Master> Month_Master { get; set; }
         public virtual DbSet<Year_Master> Year_Master { get; set; }
@@ -44,7 +43,6 @@ namespace Hunarmis.Models
         public virtual DbSet<LocatedKM_Master> LocatedKM_Master { get; set; }
         public virtual DbSet<tbl_SendMail> tbl_SendMail { get; set; }
         public virtual DbSet<tbl_MailData> tbl_MailData { get; set; }
-        public virtual DbSet<tbl_FileUpload> tbl_FileUpload { get; set; }
         public virtual DbSet<tbl_Participant_Calling> tbl_Participant_Calling { get; set; }
         public virtual DbSet<QuestionBook> QuestionBooks { get; set; }
         public virtual DbSet<QuestionOption> QuestionOptions { get; set; }
@@ -58,8 +56,11 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_Survey> tbl_Survey { get; set; }
         public virtual DbSet<tbl_SurveyAnswer> tbl_SurveyAnswer { get; set; }
         public virtual DbSet<tbl_AssessmentSchedule> tbl_AssessmentSchedule { get; set; }
-        public virtual DbSet<tbl_AssessmentSendLinkEmail> tbl_AssessmentSendLinkEmail { get; set; }
-        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<tbl_ParticipantRemarks_History> tbl_ParticipantRemarks_History { get; set; }
+        public virtual DbSet<tbl_AssessmentSendLinkEmail> tbl_AssessmentSendLinkEmail { get; set; }
+        public virtual DbSet<Batch_Master> Batch_Master { get; set; }
+        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
+        public virtual DbSet<tbl_FileUpload> tbl_FileUpload { get; set; }
+        public virtual DbSet<Tbl_ExceptionHandle> Tbl_ExceptionHandle { get; set; }
     }
 }

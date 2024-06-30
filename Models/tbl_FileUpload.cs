@@ -18,6 +18,8 @@ namespace Hunarmis.Models
         public Nullable<System.DateTime> UploadDate { get; set; }
         public string FileName { get; set; }
         public string FilePath { get; set; }
+        public Nullable<long> TotalData { get; set; }
+        public Nullable<long> NoofInserted { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }

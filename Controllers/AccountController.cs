@@ -57,6 +57,9 @@ namespace Hunarmis.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            Session.Clear();
+            Session["PartUserId"] = null;
+            Session["CUser"] = null;
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -68,6 +71,7 @@ namespace Hunarmis.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            Session["CUser"] = null;
             Hunar_DBEntities _db = new Hunar_DBEntities();
             if (!ModelState.IsValid)
             {
@@ -87,6 +91,7 @@ namespace Hunarmis.Controllers
                     tbl.IsActive = true;
                     _db.tbl_UserLogin.Add(tbl);
                     _db.SaveChanges();
+                    //var user = MvcApplication.CUser.UserId;
                     return RedirectToAction("Index", "Home");
                 //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:

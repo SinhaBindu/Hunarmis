@@ -12,17 +12,18 @@ namespace Hunarmis.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Batch_Master
+    public partial class Tbl_ExceptionHandle
     {
-        public int Id { get; set; }
-        public string BatchName { get; set; }
-        public Nullable<System.DateTime> BatchStartDate { get; set; }
-        public Nullable<System.DateTime> BatchEndDate { get; set; }
-        public Nullable<bool> IsAssessmentDone { get; set; }
+        public System.Guid Id_pk { get; set; }
+        public string Table { get; set; }
+        public string Controller { get; set; }
+        public string Action { get; set; }
+        public string Method { get; set; }
+        public string E_Exception { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
-        public Nullable<System.DateTime> Updated { get; set; }
+        public Nullable<System.DateTime> UpdatedOn { get; set; }
     }
 }

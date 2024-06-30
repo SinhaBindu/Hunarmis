@@ -19,7 +19,7 @@ namespace Hunarmis.Models
         public Nullable<System.Guid> ParticipantId_fk { get; set; }
         public Nullable<System.Guid> RandomValue { get; set; }
         public string AssessmentLink { get; set; }
-        public Nullable<System.Guid> Password { get; set; }
+        public string Password { get; set; }
         public Nullable<bool> AssessmentSchedule { get; set; }
         public Nullable<int> IsEmailSend { get; set; }
         public Nullable<int> NoofAttempt { get; set; }

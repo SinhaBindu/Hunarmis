@@ -196,10 +196,12 @@ namespace Hunarmis.Manager
         #region Login For Participant
         public static DataTable SP_LoginForParticipantCheck(ParticipantLoginModel model)
         {
+            var ParticipantId_fk = model.ParticipantId_fk != Guid.Empty ? model.ParticipantId_fk.ToString() : "";
             StoredProcedure sp = new StoredProcedure("SP_LoginForParticipantCheck");
             sp.Command.AddParameter("@EmailID", model.EmailID, DbType.String);
-            sp.Command.AddParameter("@Password", model.Password.ToString(), DbType.String);
+            sp.Command.AddParameter("@Password", model.Password, DbType.String);
             sp.Command.AddParameter("@RandomValue", model.RandomValue, DbType.String);
+            sp.Command.AddParameter("@ParticiPantId", ParticipantId_fk, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

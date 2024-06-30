@@ -18,6 +18,7 @@ namespace Hunarmis.Controllers
     {
         public ActionResult Index()
         {
+            
             return View();
         }
         public ActionResult GetIndex(FilterModel model)

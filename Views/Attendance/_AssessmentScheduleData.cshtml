@@ -37,8 +37,8 @@
                         int srno = 1;
                         foreach (DataRow dr in dt.Rows)
                         {
-                            var st = Convert.ToDateTime(dr["StartTime"].ToString()).ToString(@"hh\:mm");
-                            var et = Convert.ToDateTime(dr["EndTime"].ToString()).ToString(@"hh\:mm");
+                            var st = Convert.ToDateTime(dr["StartTime"].ToString()).ToString(@"hh\:mm tt");
+                            var et = Convert.ToDateTime(dr["EndTime"].ToString()).ToString(@"hh\:mm tt");
                                 <tr class="text-center @dr["AssessmentExpireDone"].ToString()" style="background:@dr["Assbgcolor"].ToString() !important; color:#000; ">
                                     <td>@(srno++)</td>
                                     <td>@dr["BatchName"]</td>
@@ -49,7 +49,7 @@
                                         <a href="~/Attendance/AssessmentSchedule?Id=@dr["AssessmentScheduleId_pk"]" class="btn btn-mint btn-sm icontxtClr"><i class="fa fa-edit"></i></a>
                                     </td>
                                     <td>
-                                        <a href="~/Mail/SendMailForParticipant?BatchId=@dr["BatchId_fk"]" class="btn btn-purple btn-sm icontxtClr @dr["mailsendbgcolor"].ToString()"><i class="fa fa-send"></i></a>
+                                        <a href="javascript:void(0)" onclick="MailSend('@dr["BatchId_fk"]')" class="btn btn-purple btn-sm icontxtClr @dr["mailsendbgcolor"].ToString()"><i class="fa fa-send"></i></a>
                                     </td>
                                 </tr>
                         }

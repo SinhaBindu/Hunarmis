@@ -135,7 +135,8 @@
             });
             </script>*@
         }
-        else if (Session["CUser"] == null || Session["PartUserId"] == null)
+        else if (HttpContext.Current.Session["CUser"] == null 
+            && HttpContext.Current.Session["PartUserId"] == null)
         {
             <script>
    $(document).ready(function () {

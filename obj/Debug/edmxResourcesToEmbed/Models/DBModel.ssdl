@@ -64,6 +64,7 @@
     <Property Name="BatchName" Type="nvarchar" MaxLength="200" />
     <Property Name="BatchStartDate" Type="datetime" />
     <Property Name="BatchEndDate" Type="datetime" />
+    <Property Name="IsAssessmentDone" Type="bit" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="CreatedOn" Type="datetime" />
@@ -255,7 +256,7 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="ParticipantId_fk" Type="uniqueidentifier" />
     <Property Name="RandomValue" Type="uniqueidentifier" />
     <Property Name="AssessmentLink" Type="nvarchar(max)" />
-    <Property Name="Password" Type="uniqueidentifier" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
     <Property Name="AssessmentSchedule" Type="bit" />
     <Property Name="IsEmailSend" Type="int" />
     <Property Name="NoofAttempt" Type="int" />
@@ -306,6 +307,22 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="AttendTopicCreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="AttendTopicCreatedOn" Type="datetime" />
   </EntityType>
+  <EntityType Name="Tbl_ExceptionHandle">
+    <Key>
+      <PropertyRef Name="Id_pk" />
+    </Key>
+    <Property Name="Id_pk" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Table" Type="nvarchar" MaxLength="200" />
+    <Property Name="Controller" Type="nvarchar" MaxLength="200" />
+    <Property Name="Action" Type="nvarchar" MaxLength="200" />
+    <Property Name="Method" Type="nvarchar" MaxLength="200" />
+    <Property Name="E_Exception" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
   <EntityType Name="tbl_FileUpload">
     <Key>
       <PropertyRef Name="Id" />
@@ -314,6 +331,8 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="UploadDate" Type="date" />
     <Property Name="FileName" Type="nvarchar" MaxLength="500" />
     <Property Name="FilePath" Type="nvarchar(max)" />
+    <Property Name="TotalData" Type="bigint" />
+    <Property Name="NoofInserted" Type="bigint" />
     <Property Name="Description" Type="nvarchar(max)" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
@@ -369,6 +388,7 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="Gender" Type="nvarchar" MaxLength="50" />
     <Property Name="Age" Type="nvarchar" MaxLength="20" />
     <Property Name="DOB" Type="date" />
+    <Property Name="DateOfBirth" Type="nvarchar" MaxLength="50" />
     <Property Name="PhoneNo" Type="nvarchar" MaxLength="20" />
     <Property Name="AlternatePhoneNo" Type="nvarchar" MaxLength="20" />
     <Property Name="EmailID" Type="nvarchar" MaxLength="200" />
@@ -383,6 +403,7 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="TrainingAgencyID" Type="int" />
     <Property Name="TrainingCenterID" Type="int" />
     <Property Name="TrainerName" Type="nvarchar" MaxLength="500" />
+    <Property Name="TrainerId" Type="uniqueidentifier" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="IsPlaced" Type="bit" />
     <Property Name="IsOffered" Type="bit" />
@@ -399,10 +420,11 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="FixedCallLimitMonth" Type="int" />
     <Property Name="AtPresentCallStatus" Type="int" />
     <Property Name="RemarkStatus" Type="nvarchar" MaxLength="50" />
-    <Property Name="RemarkReportedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="RemarkDate" Type="datetime" />
+    <Property Name="RemarkReportedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="RemarksID_fk" Type="uniqueidentifier" />
     <Property Name="CallingID_fk" Type="uniqueidentifier" />
+    <Property Name="IsAssessmentDone" Type="bit" />
   </EntityType>
   <EntityType Name="tbl_Participant_Calling">
     <Key>
@@ -476,6 +498,7 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="TrainingAgencyID" Type="int" />
     <Property Name="TrainingCenterID" Type="int" />
     <Property Name="TrainerName" Type="nvarchar" MaxLength="500" />
+    <Property Name="TrainerId" Type="uniqueidentifier" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="IsPlaced" Type="bit" />
     <Property Name="IsOffered" Type="bit" />
@@ -493,8 +516,8 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="AtPresentCallStatus" Type="int" />
     <Property Name="RemarkStatus" Type="nvarchar" MaxLength="50" />
     <Property Name="RemarkDate" Type="datetime" />
-    <Property Name="RemarkReportedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="RemarksHistoryDate" Type="datetime" />
+    <Property Name="RemarkReportedBy" Type="nvarchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="tbl_SendMail">
     <Key>
@@ -684,6 +707,7 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <EntitySet Name="tbl_AttendanceParticipant" EntityType="Self.tbl_AttendanceParticipant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_AttendParticipant" EntityType="Self.tbl_AttendParticipant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_AttendPartTopic" EntityType="Self.tbl_AttendPartTopic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_ExceptionHandle" EntityType="Self.Tbl_ExceptionHandle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_FileUpload" EntityType="Self.tbl_FileUpload" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_MailData" EntityType="Self.tbl_MailData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Mapped" EntityType="Self.tbl_Mapped" Schema="dbo" store:Type="Tables" />

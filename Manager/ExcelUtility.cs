@@ -35,12 +35,14 @@ namespace Hunarmis.Manager
                     var isRowValid = false;
                     for (int i = 0; i < row.Descendants<Cell>().Count() && i < table.Columns.Count; i++)
                     {
-                        var data = GetCellValue(spreadSheetDocument, row.Descendants<Cell>().ElementAt(i));
+                        Cell cell = row.Descendants<Cell>().ElementAt(i);
+                        int actualCellIndex = CellReferenceToIndex(cell);
+                        var data = GetCellValue(spreadSheetDocument, cell);
                         if (data != null)
                         {
                             isRowValid = true;
                         }
-                        tempRow[i]  = data;
+                        tempRow[actualCellIndex]  = data;
                     }
                     if (isRowValid)
                     {

@@ -70,7 +70,7 @@ namespace Hunarmis.Controllers
             try
             {
                 User = CommonModel.IsRoleLogin();
-                ds = SPManager.GetSP_ScorersSummaryMarks(User, FormId,0);
+                ds = SPManager.GetSP_ScorersSummaryMarks(User, FormId, 0);
                 if (ds.Tables.Count > 0)
                 {
                     tbllist = (ds.Tables[0]);
@@ -142,42 +142,24 @@ namespace Hunarmis.Controllers
         public ActionResult Add(int? Id, int FId, string Rdmkeyno)
         {
             Hunar_DBEntities db_ = new Hunar_DBEntities();
-            if (Session["AssessmentSendLinkPartId_pk"] != null && Session["AssessmentSendLinkPartId_pk"].ToString()!="")
+            if (Session["AssessmentSendLinkPartId_pk"] != null && Session["AssessmentSendLinkPartId_pk"].ToString() != "")
             {
                 ParticipantLoginModel filter = new ParticipantLoginModel();
                 filter.EmailID = Session["EmailID"].ToString();
-                filter.Password = Guid.Parse(Session["Password"].ToString());
+
                 filter.RandomValue = Session["RandomValue"].ToString();
+                filter.ParticipantId_fk = Guid.Parse(Session["PartUserId"].ToString());
                 DataTable dt = SPManager.SP_LoginForParticipantCheck(filter);
                 if (dt.Rows.Count > 0)
                 {
-                    var assessmentsendid = Guid.Parse(dt.Rows[0]["AssessmentSendLinkPartId_pk"].ToString());
-                    var tbl2nd = db_.tbl_AssessmentSendLinkEmail.Find(assessmentsendid);
-                    var AssessmentCurStatus = dt.Rows[0]["AssessmentCurStatus"].ToString();
-                    var IsAssessmentExpired = dt.Rows[0]["IsAssessmentExpired"].ToString();
-                    if (AssessmentCurStatus == "1")
-                    {
-                        var assessmentid = Guid.Parse(dt.Rows[0]["AssessmentScheduleId_fk"].ToString());
-                        var tbl = db_.tbl_AssessmentSchedule.Find(assessmentid);
-                        tbl.AssessmentSchedule = true;
-                        tbl.UpdatedOn = DateTime.Now;
-                        tbl2nd.AssessmentSchedule = true;
-                        tbl2nd.UpdatedOn = DateTime.Now;
-                        db_.SaveChanges();
-                       // return RedirectToAction("AssessmentDone", "ParticipantUser");
-                    }
-                    if (dt.Rows[0]["IsFinalDone"].ToString() == "1")
-                    {
-                        return RedirectToAction("AssessmentDone", "ParticipantUser");
-                    }
-                   
+                    
                     Session["IsExam"] = dt.Rows[0]["IsExam"].ToString();
                     Session["SurveyId"] = dt.Rows[0]["SurveyId"].ToString();
                     Session["AssessmentSendLinkPartId_pk"] = dt.Rows[0]["AssessmentSendLinkPartId_pk"].ToString();
                     Session["AssessmentScheduleId_fk"] = dt.Rows[0]["AssessmentScheduleId_fk"].ToString();
                     Session["PartUserId"] = dt.Rows[0]["PartUserId"].ToString();
                     Session["EmailID"] = dt.Rows[0]["EmailID"].ToString();
-                    Session["Password"] = dt.Rows[0]["Password"].ToString();
+
                     Session["RandomValue"] = dt.Rows[0]["RandomValue"].ToString();
                     Session["TrainingCenterId"] = dt.Rows[0]["TrainingCenterId"].ToString();
                     Session["CourseId"] = dt.Rows[0]["CourseId"].ToString();
@@ -187,6 +169,29 @@ namespace Hunarmis.Controllers
                     Session["IsAssessmentExpired"] = dt.Rows[0]["IsAssessmentExpired"].ToString();
                     Session["StartTime"] = dt.Rows[0]["StartTime"].ToString();
                     Session["EndTime"] = dt.Rows[0]["EndTime"].ToString();
+                    var assessmentsendid = Guid.Parse(dt.Rows[0]["AssessmentSendLinkPartId_pk"].ToString());
+                    var tbl2nd = db_.tbl_AssessmentSendLinkEmail.Find(assessmentsendid);
+                    var AssessmentCurStatus = dt.Rows[0]["AssessmentCurStatus"].ToString();
+                    var IsAssessmentExpired = dt.Rows[0]["IsAssessmentExpired"].ToString();
+                    if (AssessmentCurStatus == "2")
+                    {
+                        return RedirectToAction("AssessmentExpired", "ParticipantUser");
+                    }
+                    else if (AssessmentCurStatus == "1")
+                    {
+                        var assessmentid = Guid.Parse(dt.Rows[0]["AssessmentScheduleId_fk"].ToString());
+                        var tbl = db_.tbl_AssessmentSchedule.Find(assessmentid);
+                        tbl.AssessmentSchedule = true;
+                        tbl.UpdatedOn = DateTime.Now;
+                        tbl2nd.AssessmentSchedule = true;
+                        tbl2nd.UpdatedOn = DateTime.Now;
+                        db_.SaveChanges();
+                        // return RedirectToAction("AssessmentDone", "ParticipantUser");
+                    }
+                    if (dt.Rows[0]["IsFinalDone"].ToString() == "1")
+                    {
+                        return RedirectToAction("AssessmentDone", "ParticipantUser");
+                    }
                     Rdmkeyno = dt.Rows[0]["RandomValue"].ToString();
                     if (AssessmentCurStatus == "0" && dt.Rows[0]["IsExam"].ToString() == "1")
                     {
@@ -339,7 +344,7 @@ namespace Hunarmis.Controllers
                 {
                     ParticipantLoginModel filter = new ParticipantLoginModel();
                     filter.EmailID = Session["EmailID"].ToString();
-                    filter.Password = Guid.Parse(Session["Password"].ToString());
+                    //filter.Password = Session["Password"].ToString();
                     filter.RandomValue = Session["RandomValue"].ToString();
                     DataTable dt = SPManager.SP_LoginForParticipantCheck(filter);
                     if (dt.Rows.Count > 0)

@@ -56,7 +56,7 @@
                             {
                                 if (User.IsInRole("Admin") || User.IsInRole("State"))
                                 {
-                                    @Html.ActionLinkMenu("<i class='fa fa-home main-icon'></i> <span class=\"menu-title\">Excel Bulk Upload</span>", "ExcelFileUpload", "Participant")
+                                    @Html.ActionLinkMenu("<i class='fa fa-file-excel-o main-icon'></i> <span class=\"menu-title\">Excel Bulk Upload</span>", "ExcelFileUpload", "Participant")
                                 }
                                 <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                                 <li class="treeview">
@@ -159,7 +159,7 @@
                                         <i class="arrow"></i>
                                     </a>
                                     <ul class="collapse treeview-menu">
-                                        <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Solar PV</span>", "AddRole", "Assessment", new { FId = 5 })</li>
+                                        <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Solar PV</span>", "AddRole", "Assessment", new { FId = 2 })</li>
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Warehouse</span>", "AddRole", "Assessment", new { FId = 1 })</li>
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-bar-chart'></i> <span>Report</span>", "Summary", "Assessment", new { FId = 2 })</li>
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-bar-chart'></i> <span>Result</span>", "Index", "Assessment", new { FId = 2 })</li>

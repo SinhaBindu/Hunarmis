@@ -17,7 +17,7 @@ using static Hunarmis.Manager.CommonModel;
 namespace Hunarmis.Controllers
 {
     //[Authorize(Roles = "User")]
-    
+
     public class ParticipantUserController : Controller
     {
         // GET: ParticipantUser
@@ -64,7 +64,7 @@ namespace Hunarmis.Controllers
                         Session["AssessmentScheduleId_fk"] = dt.Rows[0]["AssessmentScheduleId_fk"].ToString();
                         Session["PartUserId"] = dt.Rows[0]["PartUserId"].ToString();
                         Session["EmailID"] = dt.Rows[0]["EmailID"].ToString();
-                        Session["Password"] = dt.Rows[0]["Password"].ToString();
+                        //Session["Password"] = dt.Rows[0]["Password"].ToString();
                         Session["RandomValue"] = dt.Rows[0]["RandomValue"].ToString();
                         Session["TrainingCenterId"] = dt.Rows[0]["TrainingCenterId"].ToString();
                         Session["CourseId"] = dt.Rows[0]["CourseId"].ToString();
@@ -75,6 +75,7 @@ namespace Hunarmis.Controllers
                         Session["StartTime"] = dt.Rows[0]["StartTime"].ToString();
                         Session["EndTime"] = dt.Rows[0]["EndTime"].ToString();
                         Session["IsExam"] = dt.Rows[0]["IsExam"].ToString();
+                        Session["IsQuestionAvaiable"] = dt.Rows[0]["IsQuestionAvaiable"].ToString();
                         var assessmentsendid = Guid.Parse(dt.Rows[0]["AssessmentSendLinkPartId_pk"].ToString());
                         var tbl2nd = _db.tbl_AssessmentSendLinkEmail.Find(assessmentsendid);
                         if (!string.IsNullOrWhiteSpace(RandomValue))
@@ -90,6 +91,14 @@ namespace Hunarmis.Controllers
                                 tbl2nd.UpdatedOn = DateTime.Now;
                                 _db.SaveChanges();
                                 return RedirectToAction("AssessmentDone", "ParticipantUser");
+                            }
+                            else if (dt.Rows[0]["AssessmentCurStatus"].ToString() == "2" && dt.Rows[0]["IsExam"].ToString() == "1")
+                            {
+                                return RedirectToAction("AssessmentExpired", "ParticipantUser");
+                            }
+                            else if (dt.Rows[0]["AssessmentCurStatus"].ToString() == "2" && dt.Rows[0]["AssessmentCurStatus"].ToString() == "0")
+                            {
+                                return RedirectToAction("AssessmentExpired", "ParticipantUser");
                             }
                             else if (dt.Rows[0]["IsFinalDone"].ToString() == "0" && (dt.Rows[0]["IsExam"].ToString() == "1" || dt.Rows[0]["AssessmentCurStatus"].ToString() == "1"))
                             {
@@ -112,7 +121,14 @@ namespace Hunarmis.Controllers
                                 tbl2nd.NoofAttempt += 1;
                                 tbl2nd.AttemptDt = DateTime.Now;
                                 _db.SaveChanges();
-                                return RedirectToAction("Add", "Assessment", new { Id = 0, FId = dt.Rows[0]["CourseId"].ToString(), Rdmkeyno = RandomValue });
+                                if (dt.Rows[0]["IsQuestionAvaiable"].ToString() == "1")
+                                {
+                                    return RedirectToAction("Add", "Assessment", new { Id = 0, FId = dt.Rows[0]["CourseId"].ToString(), Rdmkeyno = RandomValue });
+                                }
+                                else
+                                {
+                                    return RedirectToAction("AssessmentDone", "ParticipantUser");
+                                }
                             }
                         }
                         else if (string.IsNullOrWhiteSpace(RandomValue))
@@ -144,6 +160,7 @@ namespace Hunarmis.Controllers
                     else
                     {
                         ModelState.AddModelError("", "Email ID and Password Invalid !!");
+                        model.RandomValue = RandomValue;
                         return View(model);
                     }
                 }
@@ -155,9 +172,10 @@ namespace Hunarmis.Controllers
                 return View("Error");
             }
         }
-      //  [SessionCheckPart]
+        //  [SessionCheckPart]
         public ActionResult AssessmentDone()
         {
+            Hunar_DBEntities dBEntities = new Hunar_DBEntities();
             CertificateModel model = new CertificateModel();
             string bodydata = string.Empty;
             if (Session["SurveyId"] != null && Session["SurveyId"].ToString() != "")
@@ -170,12 +188,22 @@ namespace Hunarmis.Controllers
                     dt = ds.Tables[0];
                     if (dt.Rows.Count > 0)
                     {
+                        var bid =Convert.ToInt32(Session["BatchId"]);
+                        var btch = dBEntities.Batch_Master.Find(bid);
+                        if (btch != null)
+                        {
+                            if (btch.IsAssessmentDone != true)
+                            {
+                                btch.IsAssessmentDone = true;
+                                dBEntities.SaveChanges();
+                            }
+                        }
                         var IsCertf = dt.Rows[0]["IsCertificate"].ToString();
                         model.IsCertificate = IsCertf;
                         model.ScorePercentage = dt.Rows[0]["Percentage"].ToString();
                         if (dt.Rows[0]["IsCertificate"].ToString() == "1")
                         {
-                            string bodyTemplate = string.Empty;
+                            string bodyTemplate = string.Empty;//Server.MapPath("~/Certificate/ParticipantCertificate.html")
                             using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Shared/CertificateIssuePart.html")))
                             {
                                 bodyTemplate = reader.ReadToEnd();
@@ -201,7 +229,7 @@ namespace Hunarmis.Controllers
             }
             return RedirectToAction("Login", "ParticipantUser");
         }
-       // [SessionCheckPart]
+        // [SessionCheckPart]
         public ActionResult AssessmentExpired()
         {
             return View();

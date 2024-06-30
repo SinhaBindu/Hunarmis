@@ -91,10 +91,10 @@
             $('.timepicker').timepicker({
                 timeFormat: 'h:mm p',
                 interval: 60,
-                minTime: '10',
-                maxTime: '6:00pm',
-                defaultTime: '11',
-                startTime: '10:00',
+                minTime: '6',
+                maxTime: '10:00pm',
+                //defaultTime: '11',
+                //startTime: '10:00',
                 dynamic: false,
                 dropdown: true,
                 scrollbar: true
@@ -221,7 +221,30 @@
                 return false;
             }
 
-        }
+    }
+
+    function MailSend(BatchId) {
+        $.ajax({
+            type: "GET",
+            url: document.baseURI + "/Mail/SendMailForParticipant",
+            data: { 'BatchId': BatchId },//JSON.stringify({}),//
+            cache: false,
+            success: function (resp) {
+                if (resp.IsSuccess) {
+                    toastr.success("Success", resp.Message);
+                }
+                else {
+                    toastr.error("Error", resp.Message);
+                }
+            },
+            error: function (req, error) {
+                if (error === 'error') { error = req.statusText; }
+                var errormsg = 'There was a communication error: ' + error;
+                toastr.error("Error", errormsg);
+                return false;
+            }
+        });
+    }
 
 </script>
 }

@@ -498,6 +498,9 @@
     <Compile Include="Models\tbl_AttendPartTopic.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Tbl_ExceptionHandle.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_FileUpload.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -548,6 +551,10 @@
     <Compile Include="Utility\SendEmail.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Certificate\ParticipantCertificate.html" />
+    <Content Include="Certificate\images\1.png" />
+    <Content Include="Certificate\images\2.png" />
+    <Content Include="Certificate\images\certificate-bg.PNG" />
     <Content Include="Content\Addcss.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -654,6 +661,8 @@
     <Content Include="Content\css\themes\type-e\theme-well-red.min.css" />
     <Content Include="Content\css\themes\type-e\theme-yellow.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\1.png" />
+    <Content Include="Content\images\2.png" />
     <Content Include="Content\images\Academics.png" />
     <Content Include="Content\images\alert.jpg" />
     <Content Include="Content\images\alumni-bg.png" />
@@ -661,6 +670,7 @@
     <Content Include="Content\images\blue-angle-bg.png" />
     <Content Include="Content\images\blue-left.png" />
     <Content Include="Content\images\care-white-logo.png" />
+    <Content Include="Content\images\certificate-bg.PNG" />
     <Content Include="Content\images\change-password.png" />
     <Content Include="Content\images\child-labor.png" />
     <Content Include="Content\images\child-literacy.png" />
@@ -1661,6 +1671,7 @@
     <Content Include="Scripts\plugins\jquery.themepunch.plugins.min4361.js" />
     <Content Include="Scripts\plugins\jquery.themepunch.revolution.min4361.js" />
     <Content Include="Scripts\smartphoto.js" />
+    <Content Include="Views\Shared\CertificateIssuePart - Copy.html" />
     <Content Include="Views\Shared\MailTemplate.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

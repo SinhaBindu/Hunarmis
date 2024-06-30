@@ -212,9 +212,9 @@ namespace Hunarmis.Manager
                     {
                         TrainerId = MvcApplication.CUser.UserId;
                         TCenterIds = MvcApplication.CUser.MappedTCenterIds;
+
                         if (!string.IsNullOrWhiteSpace(TCenterIds))
                         {
-
                             DataTable dt1 = SPManager.SP_GetBatchForPart(TrainerId, TCenterIds);
                             list = dt1.AsEnumerable().Select(x => new SelectListItem()
                             {
@@ -238,6 +238,40 @@ namespace Hunarmis.Manager
                             //list = new SelectList(.AsEnumerable(), "BatchId", "BatchName").OrderBy(x => x.Text).ToList();
                         }
                     }
+                }
+
+                if (IsAll == 0)
+                {
+                    list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                }
+                else if (IsAll == 1)
+                {
+                    list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                return list;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static List<SelectListItem> GetBindBatchForPartLists(int IsAll = 2, string TCenterIds = "", string TrainerId = "", int BatchId = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(TCenterIds))
+                {
+
+                    DataTable dt1 = SPManager.SP_GetBatchForPart(TrainerId, TCenterIds);
+                    list = dt1.AsEnumerable().Select(x => new SelectListItem()
+                    {
+                        Value = x.Field<Int32>("BatchId").ToString(),
+                        Text = x.Field<string>("BatchName")
+                    }).ToList();
+                    //list = new SelectList(dt1.AsEnumerable(), "BatchId", "BatchName").OrderBy(x => x.Text).ToList();
                 }
 
                 if (IsAll == 0)
@@ -1411,6 +1445,24 @@ namespace Hunarmis.Manager
         //    }
         //}
 
+        #region Error Expestion
+        public static void ExpSubmit(string Table, string Controller, string Action, string Method, string ExMessage)
+        {
+            Hunar_DBEntities hunar_DB = new Hunar_DBEntities();
+            Tbl_ExceptionHandle tblexp = new Tbl_ExceptionHandle();
+            tblexp.Table = Table;
+            tblexp.Controller = Controller;
+            tblexp.Action = Action;
+            tblexp.Method = Method;
+            tblexp.E_Exception = ExMessage;
+            hunar_DB.Tbl_ExceptionHandle.Add(tblexp);
+            tblexp.IsActive = true;
+            tblexp.CreatedBy = MvcApplication.CUser.UserId;
+            tblexp.CreatedOn = DateTime.Now;
+            hunar_DB.SaveChanges();
+        }
+        #endregion
+
         #region Sending Email
         public static string SendMail(string To, string Subject, string Body, string ReceiverName, string SenderName, int noofsend)
         {
@@ -1483,7 +1535,7 @@ namespace Hunarmis.Manager
             }
         }
         //Send mail for participant 21-June-2024
-        public static string SendMailForParticipants(string BatchId = "")
+        public static int SendMailForParticipants(string BatchId = "")
         {
             int noofsend = 0;
             string To = "", Subject = "", Body = "", ReceiverName = ""
@@ -1574,9 +1626,9 @@ namespace Hunarmis.Manager
                         db_.SaveChanges();
 
                     }
-                    return "Success" + noofsend;
+                    return noofsend;
                 }
-                return "Participants not available For mail";
+                return -1;
             }
             catch (Exception ex)
             {
@@ -1592,7 +1644,7 @@ namespace Hunarmis.Manager
                 tbl.IsSented = false;
                 db_.tbl_SendMail.Add(tbl);
                 db_.SaveChanges();
-                return "Error :" + ex.Message;
+                return -2;
             }
         }
 

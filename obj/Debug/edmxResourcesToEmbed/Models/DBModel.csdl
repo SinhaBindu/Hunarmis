@@ -23,7 +23,6 @@
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
     <EntitySet Name="tbl_UserLogin" EntityType="Hunar_DBModel.tbl_UserLogin" />
-    <EntitySet Name="Batch_Master" EntityType="Hunar_DBModel.Batch_Master" />
     <EntitySet Name="TrainingCenter_Master" EntityType="Hunar_DBModel.TrainingCenter_Master" />
     <EntitySet Name="Month_Master" EntityType="Hunar_DBModel.Month_Master" />
     <EntitySet Name="Year_Master" EntityType="Hunar_DBModel.Year_Master" />
@@ -32,7 +31,6 @@
     <EntitySet Name="LocatedKM_Master" EntityType="Hunar_DBModel.LocatedKM_Master" />
     <EntitySet Name="tbl_SendMail" EntityType="Hunar_DBModel.tbl_SendMail" />
     <EntitySet Name="tbl_MailData" EntityType="Hunar_DBModel.tbl_MailData" />
-    <EntitySet Name="tbl_FileUpload" EntityType="Hunar_DBModel.tbl_FileUpload" />
     <EntitySet Name="tbl_Participant_Calling" EntityType="Hunar_DBModel.tbl_Participant_Calling" />
     <EntitySet Name="QuestionBooks" EntityType="Hunar_DBModel.QuestionBook" />
     <EntitySet Name="QuestionOptions" EntityType="Hunar_DBModel.QuestionOption" />
@@ -50,9 +48,12 @@
       <End Role="tbl_SurveyAnswer" EntitySet="tbl_SurveyAnswer" />
     </AssociationSet>
     <EntitySet Name="tbl_AssessmentSchedule" EntityType="Hunar_DBModel.tbl_AssessmentSchedule" />
-    <EntitySet Name="tbl_AssessmentSendLinkEmail" EntityType="Hunar_DBModel.tbl_AssessmentSendLinkEmail" />
-    <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
     <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Hunar_DBModel.tbl_ParticipantRemarks_History" />
+    <EntitySet Name="tbl_AssessmentSendLinkEmail" EntityType="Hunar_DBModel.tbl_AssessmentSendLinkEmail" />
+    <EntitySet Name="Batch_Master" EntityType="Hunar_DBModel.Batch_Master" />
+    <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
+    <EntitySet Name="tbl_FileUpload" EntityType="Hunar_DBModel.tbl_FileUpload" />
+    <EntitySet Name="Tbl_ExceptionHandle" EntityType="Hunar_DBModel.Tbl_ExceptionHandle" />
   </EntityContainer>
   <EntityType Name="AspNetRole">
     <Key>
@@ -211,20 +212,6 @@
     <Property Name="OutDate" Type="DateTime" Precision="3" />
     <Property Name="IsActive" Type="Boolean" />
   </EntityType>
-  <EntityType Name="Batch_Master">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="BatchName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="BatchStartDate" Type="DateTime" Precision="3" />
-    <Property Name="BatchEndDate" Type="DateTime" Precision="3" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Updated" Type="DateTime" Precision="3" />
-  </EntityType>
   <EntityType Name="TrainingCenter_Master">
     <Key>
       <PropertyRef Name="Id" />
@@ -302,21 +289,6 @@
     <Property Name="LinkData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />
     <Property Name="IsActive" Type="Boolean" />
-  </EntityType>
-  <EntityType Name="tbl_FileUpload">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UploadDate" Type="DateTime" Precision="0" />
-    <Property Name="FileName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="FilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="tbl_Participant_Calling">
     <Key>
@@ -572,74 +544,6 @@
     <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityType Name="tbl_AssessmentSendLinkEmail">
-    <Key>
-      <PropertyRef Name="AssessmentSendLinkPartId_pk" />
-    </Key>
-    <Property Name="AssessmentSendLinkPartId_pk" Type="Guid" Nullable="false" />
-    <Property Name="AssessmentScheduleId_fk" Type="Guid" />
-    <Property Name="ParticipantId_fk" Type="Guid" />
-    <Property Name="RandomValue" Type="Guid" />
-    <Property Name="AssessmentLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Password" Type="Guid" />
-    <Property Name="AssessmentSchedule" Type="Boolean" />
-    <Property Name="IsEmailSend" Type="Int32" />
-    <Property Name="NoofAttempt" Type="Int32" />
-    <Property Name="AttemptDt" Type="DateTime" Precision="3" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="tbl_Participant">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Guid" Nullable="false" />
-    <Property Name="RegID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="MiddleName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="FullName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Age" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="DOB" Type="DateTime" Precision="0" />
-    <Property Name="PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="AlternatePhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="EmailID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="AadharCardNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="BatchId" Type="Int32" />
-    <Property Name="AssessmentScore" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="EduQualificationID" Type="Int32" />
-    <Property Name="EduQualOther" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
-    <Property Name="CourseEnrolledID" Type="Int32" />
-    <Property Name="StateID" Type="Int32" />
-    <Property Name="DistrictID" Type="Int32" />
-    <Property Name="TrainingAgencyID" Type="Int32" />
-    <Property Name="TrainingCenterID" Type="Int32" />
-    <Property Name="TrainerName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="IsPlaced" Type="Boolean" />
-    <Property Name="IsOffered" Type="Boolean" />
-    <Property Name="CallTempStatus" Type="Int32" />
-    <Property Name="CallTempStatusDate" Type="DateTime" Precision="3" />
-    <Property Name="CallTempReportedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CallRemark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="CallMonth" Type="Int32" />
-    <Property Name="CallYear" Type="Int32" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <Property Name="FixedCallLimitMonth" Type="Int32" />
-    <Property Name="AtPresentCallStatus" Type="Int32" />
-    <Property Name="RemarkStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="RemarkReportedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="RemarkDate" Type="DateTime" Precision="3" />
-    <Property Name="RemarksID_fk" Type="Guid" />
-    <Property Name="CallingID_fk" Type="Guid" />
-  </EntityType>
   <EntityType Name="tbl_ParticipantRemarks_History">
     <Key>
       <PropertyRef Name="RemarkHistoryID" />
@@ -688,5 +592,125 @@
     <Property Name="RemarkDate" Type="DateTime" Precision="3" />
     <Property Name="RemarkReportedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="RemarksHistoryDate" Type="DateTime" Precision="3" />
+    <Property Name="TrainerId" Type="Guid" />
+  </EntityType>
+  <EntityType Name="tbl_AssessmentSendLinkEmail">
+    <Key>
+      <PropertyRef Name="AssessmentSendLinkPartId_pk" />
+    </Key>
+    <Property Name="AssessmentSendLinkPartId_pk" Type="Guid" Nullable="false" />
+    <Property Name="AssessmentScheduleId_fk" Type="Guid" />
+    <Property Name="ParticipantId_fk" Type="Guid" />
+    <Property Name="RandomValue" Type="Guid" />
+    <Property Name="AssessmentLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AssessmentSchedule" Type="Boolean" />
+    <Property Name="IsEmailSend" Type="Int32" />
+    <Property Name="NoofAttempt" Type="Int32" />
+    <Property Name="AttemptDt" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Batch_Master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BatchName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="BatchStartDate" Type="DateTime" Precision="3" />
+    <Property Name="BatchEndDate" Type="DateTime" Precision="3" />
+    <Property Name="IsAssessmentDone" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Updated" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbl_Participant">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="RegID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Age" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DOB" Type="DateTime" Precision="0" />
+    <Property Name="DateOfBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="AlternatePhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EmailID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="AadharCardNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="BatchId" Type="Int32" />
+    <Property Name="AssessmentScore" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EduQualificationID" Type="Int32" />
+    <Property Name="EduQualOther" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
+    <Property Name="CourseEnrolledID" Type="Int32" />
+    <Property Name="StateID" Type="Int32" />
+    <Property Name="DistrictID" Type="Int32" />
+    <Property Name="TrainingAgencyID" Type="Int32" />
+    <Property Name="TrainingCenterID" Type="Int32" />
+    <Property Name="TrainerName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="TrainerId" Type="Guid" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsPlaced" Type="Boolean" />
+    <Property Name="IsOffered" Type="Boolean" />
+    <Property Name="CallTempStatus" Type="Int32" />
+    <Property Name="CallTempStatusDate" Type="DateTime" Precision="3" />
+    <Property Name="CallTempReportedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CallRemark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CallMonth" Type="Int32" />
+    <Property Name="CallYear" Type="Int32" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="FixedCallLimitMonth" Type="Int32" />
+    <Property Name="AtPresentCallStatus" Type="Int32" />
+    <Property Name="RemarkStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RemarkDate" Type="DateTime" Precision="3" />
+    <Property Name="RemarkReportedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="RemarksID_fk" Type="Guid" />
+    <Property Name="CallingID_fk" Type="Guid" />
+    <Property Name="IsAssessmentDone" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tbl_FileUpload">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UploadDate" Type="DateTime" Precision="0" />
+    <Property Name="FileName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="FilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TotalData" Type="Int64" />
+    <Property Name="NoofInserted" Type="Int64" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Tbl_ExceptionHandle">
+    <Key>
+      <PropertyRef Name="Id_pk" />
+    </Key>
+    <Property Name="Id_pk" Type="Guid" Nullable="false" />
+    <Property Name="Table" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Controller" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Action" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Method" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="E_Exception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>

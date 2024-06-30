@@ -592,6 +592,7 @@ namespace Hunarmis.Controllers
             DataTable dt = SPManager.SP_PartQuesList(model);
             return View(dt);
         }
+
         #region File Excel Upload Future 
         public ActionResult ExcelFileUpload()
         {
@@ -627,6 +628,7 @@ namespace Hunarmis.Controllers
                             tbl.UploadDate = model.UploadDate;
                             tbl.FileName = model.FileName.Trim();
                             tbl.FilePath = filePath;
+                            tbl.TotalData = dt.Rows.Count;
                             tbl.CreatedBy = MvcApplication.CUser.UserId;
                             tbl.CreatedOn = DateTime.Now;
                             tbl.IsActive = true;
@@ -675,6 +677,7 @@ namespace Hunarmis.Controllers
                                             var DistrictID = db.District_Master.Where(x => x.DistrictName == dname && x.StateId == StateId)?.FirstOrDefault().Id;
                                             tblpart.DistrictID = DistrictID;
 
+                                            tblpart.DateOfBirth = !(string.IsNullOrWhiteSpace(dr["DateofBirth"].ToString())) ? dr["DateofBirth"].ToString().Trim() : null;
                                             tblpart.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
                                             tblpart.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
                                             tblpart.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
@@ -721,6 +724,7 @@ namespace Hunarmis.Controllers
                                                 // tblpart.FixedCallLimitMonth = tblpart.IsPlaced == true ? (int)Enums.eCallLimitDuration.FixedCallLimit : 0;
                                                 tblpart.FixedCallLimitMonth = (int)Enums.eCallLimitDuration.FixedCallLimit;
                                                 tblpart.AtPresentCallStatus = 0;
+                                                tblpart.IsAssessmentDone = false;
                                                 //tblpart.IsOffered = !(string.IsNullOrWhiteSpace(dr["IsOffered"].ToString())) && dr["IsOffered"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
                                                 db.tbl_Participant.Add(tblpart);
                                             }
@@ -737,6 +741,8 @@ namespace Hunarmis.Controllers
                             }
                             if (results > 0)
                             {
+                                tbl.NoofInserted = results - 1;
+                                results += db.SaveChanges();
                                 var res = Json(new { IsSuccess = true, Message = Enums.GetEnumDescription(Enums.eReturnReg.Insert) + strmobile }, JsonRequestBehavior.AllowGet);
                                 res.MaxJsonLength = int.MaxValue;
                                 return res;
@@ -752,6 +758,9 @@ namespace Hunarmis.Controllers
                 }
                 catch (Exception ex)
                 {
+                    CommonModel.ExpSubmit("tbl_FileUpload ,tbl_Participant"
+                         , "Participant", "ExcelFileUpload", "ExcelFileUpload"
+                         , ex.Message);
                     string er = ex.Message;
                     return Json(new { IsSuccess = false, Message = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet);
                 }

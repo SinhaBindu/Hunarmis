@@ -58,5 +58,6 @@ namespace Hunarmis.Models
         public Nullable<System.DateTime> RemarkDate { get; set; }
         public string RemarkReportedBy { get; set; }
         public Nullable<System.DateTime> RemarksHistoryDate { get; set; }
+        public Nullable<System.Guid> TrainerId { get; set; }
     }
 }

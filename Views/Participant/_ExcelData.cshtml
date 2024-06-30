@@ -25,6 +25,8 @@
                     <th class="text-center tblth">Date</th>
                     <th class="text-center tblth">File Name</th>
                     <th class="text-center tblth">File DownLoad</th>
+                    <th class="text-center tblth">Total Data</th>
+                    <th class="text-center tblth">Imported Data</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +40,8 @@
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-center bg-success text-white fw-bold"><strong>@dr["UploadDate"]</strong></td>
                                 <td class="text-left"> @dr["FileName"] </td>
+                                <td class="text-center"> @dr["TotalData"] </td>
+                                <td class="text-center"> @dr["NoofInserted"] </td>
                                 <td class="text-center  bg-success text-white fw-bold">
                                     <a href="@(Hunarmis.Manager.CommonModel.GetBaseUrl()+dr["FilePathDownload"])"><strong><i class="fa fa-download" style=" margin-left: 55% !important;"></i></strong></a>
                                 </td>

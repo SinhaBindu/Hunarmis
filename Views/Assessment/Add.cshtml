@@ -241,7 +241,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2">Batch</label>
                                 <div class="col-md-4" @idreadyonlyBT>
-                                    @Html.DropDownListFor(m => m.BatchId, CommonModel.GetBatchForPartLists(), "Select One", htmlAttributes: new { @id = "BatchId", @class = "form-control select2", @required = "required" })<br />
+                                    @Html.DropDownListFor(m => m.BatchId, CommonModel.GetBindBatchForPartLists(2,Convert.ToString(Model.TrainingCenterId)), "Select One", htmlAttributes: new { @id = "BatchId", @class = "form-control select2", @required = "required" })<br />
                                     <span class="field-validation-error" data-valmsg-for="BatchId" data-valmsg-replace="true" style="display:none;"><span id="BatchId-error" class="">The BatchId field is required.</span></span>
 
                                 </div>
@@ -335,7 +335,6 @@
             //CountTime();
             StartTimer($('#StartTime').val(), $('#EndTime').val());
 
-
             $('#FormSubmit').validate({
                 errorClass: 'help-block animation-slideDown',
                 errorElement: 'div',
@@ -417,6 +416,7 @@
                 });
             });
 
+            //Final Submited
             $('#FormSubmit').submit(function (e) {
                // debugger;
                 e.preventDefault();
@@ -494,8 +494,8 @@
                                 debugger;
                                 if (resp.IsSuccess) {
                                     toastr.success('Success', resp.msg);
-                                    var urlpath = "/Assessment/Index";
-                                    location.href = urlpath;
+                                    var urlpath = "/ParticipantUser/AssessmentDone";
+                                    location.href = document.baseURI + urlpath;
                                     var safe_name = escapeHtml(resp.htmlData);
                                     var html = $(safe_name);//resp.htmlData
                                     var hiddenList = $('input[type="hidden"]', html);
