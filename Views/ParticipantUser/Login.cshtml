@@ -148,12 +148,12 @@
                 
                 <div class="group-form">
                     @*@Html.LabelFor(m => m.EmailID)*@
-                    @Html.TextBoxFor(m => m.EmailID, new { @class = "form-control", @placeholder = "Enter user name" })
+                    @Html.TextBoxFor(m => m.EmailID, new { @class = "form-control", @placeholder = "Enter user name", min = "5", max = "300", maxlength = "300" })
                     @Html.ValidationMessageFor(m => m.EmailID, "", new { @class = "text-danger" })
                 </div>
                 <div class="group-form">
                     @*@Html.LabelFor(m => m.Password)*@
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Enter password" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Enter password",min="12",max="12",maxlength="12" })
                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 </div>
                 <input type="submit" value="Submit" class="login-btn">

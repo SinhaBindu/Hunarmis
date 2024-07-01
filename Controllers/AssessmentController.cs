@@ -139,6 +139,7 @@ namespace Hunarmis.Controllers
         }
         // [Authorize(Roles = "User")]
         [AllowAnonymous]
+        [SessionCheckPart]
         public ActionResult Add(int? Id, int FId, string Rdmkeyno)
         {
             Hunar_DBEntities db_ = new Hunar_DBEntities();
@@ -219,6 +220,7 @@ namespace Hunarmis.Controllers
             return RedirectToAction("Login", "ParticipantUser");
         }
         [AllowAnonymous]
+        [SessionCheckPart]
         private QesRes GetAdd(int? Id, int FId, string Rdmkeyno)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();

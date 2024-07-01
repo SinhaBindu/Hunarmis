@@ -551,10 +551,6 @@
     <Compile Include="Utility\SendEmail.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Certificate\ParticipantCertificate.html" />
-    <Content Include="Certificate\images\1.png" />
-    <Content Include="Certificate\images\2.png" />
-    <Content Include="Certificate\images\certificate-bg.PNG" />
     <Content Include="Content\Addcss.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />

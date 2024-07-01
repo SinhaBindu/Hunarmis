@@ -1554,6 +1554,9 @@ namespace Hunarmis.Manager
             {
                 if (dt.Rows.Count > 0)
                 {
+                    Guid AssessmentScheduleId_pk = Guid.Parse(dt.Rows[0]["AssessmentScheduleId_pk"].ToString());
+                    List<tbl_AssessmentSendLinkEmail> tbllist1 = db_.tbl_AssessmentSendLinkEmail
+                            .Where(x => x.AssessmentScheduleId_fk == AssessmentScheduleId_pk).ToList();
                     foreach (DataRow row in dt.Rows)
                     {
                         To = row["EmailID"].ToString();
@@ -1623,6 +1626,12 @@ namespace Hunarmis.Manager
                         tbl.CreatedBy = "";
                         tbl.CreatedOn = DateTime.Now;
                         db_.tbl_SendMail.Add(tbl);
+                        db_.SaveChanges();
+
+                        Guid Partid = Guid.Parse(row["ParticipantId_fk"].ToString());
+                        tbl_AssessmentSendLinkEmail tbl1 = tbllist1
+                            .Where(x => x.ParticipantId_fk == Partid).FirstOrDefault();
+                        tbl1.IsEmailSend = 2;
                         db_.SaveChanges();
 
                     }
