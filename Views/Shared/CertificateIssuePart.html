@@ -13,7 +13,8 @@
         margin: auto;
         width: 916px;
         height: 647px;
-        background: url(images/certificate-bg.PNG);
+        /*background: url(images/certificate-bg.PNG);*/
+        background-image: url('../../Content/images/certificate-bg.PNG');
     }
 
     p,
@@ -33,7 +34,7 @@
     }
 
     .pci {
-        width: 130px;
+        width: 65px;
     }
 
     h2 {
@@ -75,13 +76,28 @@
     li {
         list-style: none;
         padding: 7px 0;
+        text-align: center
+    }
+    .logout-btn {
+        position: absolute;
+        z-index: 2;
+        top: 20px;
+        left: 20px;
+        background: #284F9C;
+        color: #fff;
+        font-size: 14px;
+        border-radius: 5px;
+        padding: 2px 9px;
+        text-decoration: none;
+        border: 2px solid #8579B4
     }
 </style>
+<a href="javascript:document.getElementById('logoutForm').submit()" class="logout-btn">Logout</a>
 <div class="certificate-design">
     <div class="header">
         <p>
-            <img src="images/2.png" alt="citi logo" class="citi">
-            <img src="images/1.png" alt="pci logo" class="pci">
+            <img src="../../Content/images/2.png" alt="citi logo" class="citi" />
+            <img src="../../Content/images/pcilogo.png" alt="pci logo" class="pci" />
         </p>
         <h2>CERTIFICATE</h2>
         <h3><span>Hunar:</span> Pathways to Progress</h3>
