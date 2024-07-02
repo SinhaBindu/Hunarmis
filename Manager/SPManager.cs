@@ -189,6 +189,7 @@ namespace Hunarmis.Manager
             StoredProcedure sp = new StoredProcedure("SP_GetAssessmentScheduleList");
             sp.Command.AddParameter("@BatchId", Convert.ToInt32(model.BatchId), DbType.Int32);
             sp.Command.AddParameter("@AssessmentScheduleId", model.AssessmentScheduleId, DbType.String);
+            sp.Command.AddParameter("@TrainingCenterIds", MvcApplication.CUser.MappedTCenterIds, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

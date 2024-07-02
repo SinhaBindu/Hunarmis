@@ -78,7 +78,7 @@
         padding: 7px 0;
         text-align: center
     }
-    .logout-btn {
+    .print-btn {
         position: absolute;
         z-index: 2;
         top: 20px;
@@ -91,9 +91,24 @@
         text-decoration: none;
         border: 2px solid #8579B4
     }
+    .logout-btn {
+        position: absolute;
+        z-index: 2;
+        top: 20px;
+        left: 20px;
+        background: #b1691f;
+        color: #fff;
+        font-size: 14px;
+        border-radius: 5px;
+        padding: 2px 9px;
+        text-decoration: none;
+        border: 2px solid #8579B4
+    }
 </style>
-<a href="javascript:document.getElementById('logoutForm').submit()" class="logout-btn">Logout</a>
-<div class="certificate-design">
+<!--<a href="javascript:document.getElementById('logoutForm').submit()" class="logout-btn">Logout</a>-->
+ <a href="javascript:void(0);" onclick='printDiv();' class="print-btn">Print</a>
+ <!--<a href="/ParticipantUser/Login" class="logout-btn">Logout</a>-->
+<div class="certificate-design" id="DivIdToPrint">
     <div class="header">
         <p>
             <img src="../../Content/images/2.png" alt="citi logo" class="citi" />
@@ -104,15 +119,36 @@
         <h4>This certificate is awarded to</h4>
         <ul>
             <li>
-                {Name} in recognition
+                <b>{Name}</b> in recognition
             </li>
-            <li>of the successful completion of {CourseName} conducted <br></li>
-            <li>by {ConductedBy} from {BatchS} to {BatchE} <br></li>
-            <li>at ________________.</li>
+            <li>of the successful completion of <b>{CourseName} Course</b> conducted <br></li>
+            <li>by <b>{ConductedBy} </b> from <b>{BatchS}</b> to <b>{BatchE}</b> <br></li>
+            <li>at <b>{TrainingCenter}</b>.</li>
         </ul>
         <div class="footer">
-            <span>Date of Issue : {IsIssueDt}</span>
-            <span>Authorized Signatory PCI</span>
+            <span>Date Of Exam : <b>{IsIssueDt}</b></span>
+            <span>Authorized Signatory - PCI</span>
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+<script>
+    function printDiv() {
+
+        var divToPrint = document.getElementById('DivIdToPrint');
+
+        var newWin = window.open('', 'Print-Window');
+
+        newWin.document.open();
+
+        newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+
+        newWin.document.close();
+
+        setTimeout(function () { newWin.close(); }, 10);
+
+    }
+</script>

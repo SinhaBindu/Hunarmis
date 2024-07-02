@@ -213,11 +213,11 @@ namespace Hunarmis.Controllers
                                 dt1 = ds.Tables[1];
                                 bodydata = bodyTemplate.Replace("{Name}", dt1.Rows[0]["ReportedNameBy"].ToString())
                            .Replace("{CourseName}", dt1.Rows[0]["CourseName"].ToString())
-                           .Replace("{Completion}", "yes")//dt.Rows[0][""].ToString()
+                           //.Replace("{Completion}", "yes")//dt.Rows[0][""].ToString()
                            .Replace("{ConductedBy}", dt1.Rows[0]["TrainerName"].ToString())
                            .Replace("{BatchS}", dt1.Rows[0]["BatchStartDate"].ToString())
                            .Replace("{BatchE}", dt1.Rows[0]["BatchEndDate"].ToString())
-                           .Replace("{at}", "")
+                           .Replace("{TrainingCenter}", dt1.Rows[0]["TrainingCenter"].ToString())
                            .Replace("{IsIssueDt}", dt1.Rows[0]["CreatedOn"].ToString());
                                 model.HrmlData = bodydata;
                             }

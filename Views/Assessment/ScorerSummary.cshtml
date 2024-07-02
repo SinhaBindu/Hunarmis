@@ -42,6 +42,13 @@
                                             @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-group">
+                                            @Html.LabelFor(m => m.BatchId, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.BatchId, CommonModel.GetBatchForPartLists(), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                            @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -67,12 +74,20 @@
     <script>
         $(document).ready(function () {
            
-            var txt = $('option:selected', $('#FormId')).text();
-            $('#sg-title').html(txt);
+            txtf = $('option:selected', $('#FormId')).text();
+            txtb = $('option:selected', $('#BatchId')).text();
+            $('#sg-title').html(txtf + " : " + txtb);
             LoadReport();
             $('#FormId').change(function () {
-                var txt = $('option:selected', $(this)).text();
-                $('#sg-title').html(txt);
+                txtf = $('option:selected', $(this)).text();
+                txtb = $('option:selected', $('#BatchId')).text();
+                $('#sg-title').html(txtf + " : " + txtb);
+                LoadReport();
+            })
+            $('#BatchId').change(function () {
+                txtf = $('option:selected', $('#FormId')).text();
+                txtb = $('option:selected', $(this)).text();
+                $('#sg-title').html(txtf + " : " + txtb);
                 LoadReport();
             })
 
@@ -85,11 +100,12 @@
             var url = $(id).attr("action");
             var User = 'all';
             var FormId = $("#FormId").val();
+            var BatchId = $("#BatchId").val();
             $.ajax({
                 // url: url,
                 url: document.baseURI + "/Assessment/GetScorerSummary",
                 type: "POST",
-                data: { 'User': User, 'FormId': FormId },
+                data: { 'User': User, 'FormId': FormId, 'BatchId': BatchId },
                 // contentType: "application/json",
                 success: function (resp) {
                     if (resp.IsSuccess) {

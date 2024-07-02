@@ -63,14 +63,14 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
-        public ActionResult GetScorerSummary(string User = "all", int FormId = 1)
+        public ActionResult GetScorerSummary(string User = "all", int FormId = 1,int BatchId=0)
         {
             DataSet ds = new DataSet();
             DataTable tbllist = new DataTable();
             try
             {
                 User = CommonModel.IsRoleLogin();
-                ds = SPManager.GetSP_ScorersSummaryMarks(User, FormId, 0);
+                ds = SPManager.GetSP_ScorersSummaryMarks(User, FormId, BatchId);
                 if (ds.Tables.Count > 0)
                 {
                     tbllist = (ds.Tables[0]);

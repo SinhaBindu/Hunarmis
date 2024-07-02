@@ -1768,6 +1768,7 @@
     <Content Include="Views\Home\CallStatus.cshtml" />
     <Content Include="Views\Home\_CallStatusData.cshtml" />
     <Content Include="Views\ParticipantUser\AssessmentDone.cshtml" />
+    <Content Include="Views\Assessment\AddRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

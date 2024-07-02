@@ -63,8 +63,8 @@
                         <div class="score-content">
                             <div class="score-manage">
                                 <h3>Thanks for appearing in the assessment.</h3>
-                                <h2><span>(Score  - @(!string.IsNullOrWhiteSpace(Model.ScorePercentage)? Math.Round(Convert.ToDecimal(Model.ScorePercentage), 0):0) %)</span></h2>
-                                <a href="#">Logout</a>
+                                <h2><span>(Score  : @(!string.IsNullOrWhiteSpace(Model.ScorePercentage)? Math.Round(Convert.ToDecimal(Model.ScorePercentage), 0):0) %)</span></h2>
+                                @*<a href="#">Logout</a>*@
                             </div>
                         </div>
                     }
