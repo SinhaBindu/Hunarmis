@@ -13,7 +13,6 @@
         margin: auto;
         width: 916px;
         height: 647px;
-        /*background: url(images/certificate-bg.PNG);*/
         background-image: url('../../Content/images/certificate-bg.PNG');
     }
 
@@ -78,6 +77,7 @@
         padding: 7px 0;
         text-align: center
     }
+
     .print-btn {
         position: absolute;
         z-index: 2;
@@ -91,23 +91,51 @@
         text-decoration: none;
         border: 2px solid #8579B4
     }
-    .logout-btn {
-        position: absolute;
-        z-index: 2;
-        top: 20px;
-        left: 20px;
-        background: #b1691f;
-        color: #fff;
-        font-size: 14px;
-        border-radius: 5px;
-        padding: 2px 9px;
-        text-decoration: none;
-        border: 2px solid #8579B4
+</style>
+<style>
+    @media print {
+        @page {
+            margin: 0;
+        }
+        .certificate-design {
+            background-image: url('../../Content/images/certificate-bg.PNG');
+            -webkit-print-color-adjust: exact !important; /*Chrome, Safari */
+            color-adjust: exact !important; /*Firefox*/
+        }
+
+        h2 {
+            font-size: 40px;
+            letter-spacing: 1px;
+            font-weight: 500;
+            margin: 10px 0;
+        }
+
+        h3 {
+            font-size: 30px;
+            letter-spacing: 1px;
+            font-weight: 500;
+            margin: 10px 0;
+        }
+
+            h3 span {
+                color: #F3987A;
+            }
+
+        h4 {
+            font-size: 22px;
+            letter-spacing: 1px;
+            font-weight: 500;
+            margin: 20px 0 10px;
+            color: #F3987A;
+        }
+
+        .print-btn {
+            display: none
+        }
     }
 </style>
-<!--<a href="javascript:document.getElementById('logoutForm').submit()" class="logout-btn">Logout</a>-->
- <a href="javascript:void(0);" onclick='printDiv();' class="print-btn">Print</a>
- <!--<a href="/ParticipantUser/Login" class="logout-btn">Logout</a>-->
+<!--<a href="javascript:document.getElementById('logoutForm').submit()" class="logout-btn" onclick='printDiv();'>Logout</a>-->
+<a href="javascript:void(0);" class="print-btn" onClick="window.print()">Print</a>
 <div class="certificate-design" id="DivIdToPrint">
     <div class="header">
         <p>
