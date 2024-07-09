@@ -32,7 +32,14 @@ namespace Hunarmis.Manager
         public static DataTable SP_GetTrainer1CenterattimeList(int TrainingCenterId=0)
         {
             StoredProcedure sp = new StoredProcedure("SP_GetTrainer");
-            sp.Command.AddParameter("@TrainingCenterId", TrainingCenterId, DbType.Int32);
+            sp.Command.AddParameter("@TrainingCenterId", TrainingCenterId.ToString(), DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_GetAllTrainerList(string TrainerId = "")
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetAllTrainerList");
+            sp.Command.AddParameter("@TrainerId", TrainerId.ToString(), DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

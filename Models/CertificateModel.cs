@@ -12,5 +12,8 @@ namespace Hunarmis.Models
         public string HrmlData { get; set; }
         public string IsCertificate { get; set; }
         public string ScorePercentage { get; set; }
+        public int FormId { get; set; }
+        public int BatchId { get; set; }
+        public Guid ParticipantId { get; set; }
     }
 }

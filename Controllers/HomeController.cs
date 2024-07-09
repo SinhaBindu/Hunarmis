@@ -11,7 +11,6 @@ using System.Web.Mvc;
 
 namespace Hunarmis.Controllers
 {
-
     [Authorize]
     [SessionCheck]
     public class HomeController : Controller
@@ -193,7 +192,6 @@ namespace Hunarmis.Controllers
         }
 
         #endregion
-
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;

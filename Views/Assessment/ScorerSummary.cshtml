@@ -1,9 +1,9 @@
 ﻿@model  Hunarmis.Models.FilterModel
 @using Hunarmis.Manager
 @{
-    ViewBag.Title = "Assessment Score Summary";
+    ViewBag.Title = "Assessment Score Summary (Participant Wise)";
     ViewBag.TitleIcon = "fa fa-user";
-    ViewBag.SemiTitle = "Summary Scorer's";
+    ViewBag.SemiTitle = "Score Summary";
     ViewBag.SemiTitleLink = "/Assessment/ScorerSummary";
 }
 <style>
@@ -27,7 +27,9 @@
                 <div class="panel">
                     <div class="panel-spacer">
                         <p class="bord-btm pad-ver text-main text-bold">
-                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title <strong id="sg-title" class="text-info"></strong>
+                            <i class="fa fa-list spacerright2"></i>
+                            @*@ViewBag.Title*@ 
+                            <strong id="sg-title" class="text-info"></strong>
                         </p>
                     </div>
                     @using (Html.BeginForm("GetScorerSummary", "Assessment", FormMethod.Post, new { @id = "tblList-frm", @class = "panel-body form-horizontal form-padding loader" }))
@@ -35,18 +37,23 @@
                         <div class="panel-bodys">
                             <div class="bg-light rounded h-100 p-4">
                                 <div class="row mb-3">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="position-relative form-group">
                                             @Html.LabelFor(m => m.FormId, htmlAttributes: new { @class = "control-label" })
                                             @Html.DropDownListFor(m => m.FormId, CommonModel.GetForm(1), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                             @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="position-relative form-group">
                                             @Html.LabelFor(m => m.BatchId, htmlAttributes: new { @class = "control-label" })
                                             @Html.DropDownListFor(m => m.BatchId, CommonModel.GetBatchForPartLists(), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                             @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left:5%;padding-top:2%">
+                                        <div class="position-relative form-group">
+                                            <strong id="div-download"></strong>
                                         </div>
                                     </div>
                                 </div>
@@ -56,8 +63,6 @@
                     }
                     <div class="panel-body">
                         <div class="row" id="div-main">
-
-
                         </div>
                     </div>
                 </div>
@@ -73,7 +78,7 @@
 
     <script>
         $(document).ready(function () {
-           
+
             txtf = $('option:selected', $('#FormId')).text();
             txtb = $('option:selected', $('#BatchId')).text();
             $('#sg-title').html(txtf + " : " + txtb);
@@ -116,10 +121,38 @@
                         if (Datalist != null && Datalist != undefined) {
                             if (Datalist.length > 0) {
                                 $('#div-main').html(Datalist);
-                                $("#ListDataTable").DataTable();
+                                //$("#ListDataTable").DataTable();
+                                if ($.fn.dataTable.isDataTable('#ListDataTable')) {
+                                    $("#ListDataTable").dataTable().fnDestroy();
+                                }
+                                table = $('#ListDataTable').DataTable({
+                                    //scrollY: "400px",
+                                    //scrollX: true,
+                                    //scrollCollapse: true,
+                                    paging: false,
+                                    pageLength: 100,
+                                    fixedColumns: {
+                                        leftColumns: 1,
+                                        rightColumns: 1
+                                    },
+                                    order: [[0, 'asc']],
+                                    buttons: [{
+                                        extend: 'excel', text: '<span><i class="fa fa-download"></i>Export To Excel</span>', title: $('#BatchId option:selected').text() + ' Assessment Score Summary Lists',//$('#IDDistrict option:selected').text() +
+                                        className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                        filename: 'Assessment Score Summary List',
+                                        exportOptions: { modifier: { page: 'all' } }
+                                    }],
+                                });
+                                $('.dataTables_filter input[type="search"]').css(
+                                    { 'width': '200px', 'display': 'inline-block' }
+                                );
+                                $('#div-download').empty();
+                                table.buttons().container().appendTo($('#div-download'));
+
+
                             }
                             else {
-                                
+
                                 $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
                             }
                         }

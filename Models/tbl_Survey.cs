@@ -27,6 +27,8 @@ namespace Hunarmis.Models
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> YearId { get; set; }
         public Nullable<int> FrequencyId { get; set; }
+        public Nullable<decimal> AssessmentScoreNo { get; set; }
+        public Nullable<bool> IsCertificate { get; set; }
         public Nullable<bool> IsDraft { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }

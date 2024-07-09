@@ -18,6 +18,9 @@ namespace Hunarmis.Models
         public string BatchName { get; set; }
         public Nullable<System.DateTime> BatchStartDate { get; set; }
         public Nullable<System.DateTime> BatchEndDate { get; set; }
+        public Nullable<System.Guid> TrainerId { get; set; }
+        public Nullable<int> CourseId { get; set; }
+        public Nullable<int> TrainingCenterId { get; set; }
         public Nullable<bool> IsAssessmentDone { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }

@@ -64,6 +64,9 @@
     <Property Name="BatchName" Type="nvarchar" MaxLength="200" />
     <Property Name="BatchStartDate" Type="datetime" />
     <Property Name="BatchEndDate" Type="datetime" />
+    <Property Name="TrainerId" Type="uniqueidentifier" />
+    <Property Name="CourseId" Type="int" />
+    <Property Name="TrainingCenterId" Type="int" />
     <Property Name="IsAssessmentDone" Type="bit" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
@@ -200,7 +203,7 @@
     <Property Name="UpdatedOn" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="SessionPlanTopic_Master">
     <Key>
       <PropertyRef Name="SessionPlanTPId_pk" />
@@ -307,6 +310,39 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="AttendTopicCreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="AttendTopicCreatedOn" Type="datetime" />
   </EntityType>
+  <EntityType Name="tbl_ExcelParticipantData">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ParticipantID_fk" Type="uniqueidentifier" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="200" />
+    <Property Name="DistrictName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Name" Type="nvarchar" MaxLength="500" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateofBirth" Type="nvarchar" MaxLength="50" />
+    <Property Name="Age" Type="nvarchar" MaxLength="50" />
+    <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmailID" Type="nvarchar" MaxLength="500" />
+    <Property Name="AadharCardNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="BatchName" Type="nvarchar" MaxLength="200" />
+    <Property Name="BatchStartDate" Type="nvarchar" MaxLength="200" />
+    <Property Name="BatchEndDate" Type="nvarchar" MaxLength="200" />
+    <Property Name="AssessmentScore" Type="nvarchar" MaxLength="200" />
+    <Property Name="QualificationName" Type="nvarchar" MaxLength="200" />
+    <Property Name="EduQualOther" Type="nvarchar" MaxLength="200" />
+    <Property Name="CourseName" Type="nvarchar" MaxLength="500" />
+    <Property Name="TrainingAgencyName" Type="nvarchar" MaxLength="500" />
+    <Property Name="TrainingCenter" Type="nvarchar" MaxLength="500" />
+    <Property Name="TrainerName" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsPlaced" Type="nvarchar" MaxLength="50" />
+    <Property Name="DOBDD" Type="nvarchar" MaxLength="50" />
+    <Property Name="DOBMM" Type="nvarchar" MaxLength="50" />
+    <Property Name="DOBYYYY" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
   <EntityType Name="Tbl_ExceptionHandle">
     <Key>
       <PropertyRef Name="Id_pk" />
@@ -339,6 +375,19 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_LogBatchTrainer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BatchId" Type="int" />
+    <Property Name="TrainerId" Type="uniqueidentifier" />
+    <Property Name="CourseId" Type="int" />
+    <Property Name="TrainingCenterId" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
   </EntityType>
   <EntityType Name="tbl_MailData">
     <Key>
@@ -547,6 +596,8 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <Property Name="Date" Type="date" />
     <Property Name="YearId" Type="int" />
     <Property Name="FrequencyId" Type="int" />
+    <Property Name="AssessmentScoreNo" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="IsCertificate" Type="bit" />
     <Property Name="IsDraft" Type="bit" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
@@ -707,8 +758,10 @@ warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does no
     <EntitySet Name="tbl_AttendanceParticipant" EntityType="Self.tbl_AttendanceParticipant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_AttendParticipant" EntityType="Self.tbl_AttendParticipant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_AttendPartTopic" EntityType="Self.tbl_AttendPartTopic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ExcelParticipantData" EntityType="Self.tbl_ExcelParticipantData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tbl_ExceptionHandle" EntityType="Self.Tbl_ExceptionHandle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_FileUpload" EntityType="Self.tbl_FileUpload" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_LogBatchTrainer" EntityType="Self.tbl_LogBatchTrainer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_MailData" EntityType="Self.tbl_MailData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Mapped" EntityType="Self.tbl_Mapped" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_MappedTrainCenter" EntityType="Self.tbl_MappedTrainCenter" Schema="dbo" store:Type="Tables" />

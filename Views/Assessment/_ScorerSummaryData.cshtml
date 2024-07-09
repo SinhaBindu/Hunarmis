@@ -21,6 +21,8 @@
                     <tr role="row">
                         <th width="25" class="text-center">Sl.No.</th>
                         <th class="text-center">Reported By</th>
+                        <th class="text-center">Batch </th>
+                        <th class="text-center">Training Center</th>
                         <th class="text-center">Total Questions</th>
                         <th class="text-center">Right Answers</th>
                         <th class="text-center">Wrong Answers</th>
@@ -37,11 +39,14 @@
                                 <tr>
                                     <td class="text-center">@(sno++)</td>
                                     <td class="text-left">@dr["ReportedBy"]</td>
+                                    <td class="text-center"><strong>@dr["BatchName"]</strong></td>
+                                    <td class="text-center"><strong>@dr["TrainingCenter"]</strong></td>
                                     <td class="text-center"><strong>@dr["TotalQuestion"]</strong></td>
                                     <td class="text-center"><strong>@dr["ScorersAns"]</strong></td>
                                     <td class="text-center"><strong>@dr["WrongAns"]</strong></td>
                                     <td>
-                                        <span class="text-center d-block badge bg-info" title="Total Question" style="background:@dr["ColorCode"]; font-size:11px; "><strong class="text-center">@dr["Percentage"]</strong></span>
+                                        <span class="text-center d-block badge bg-info" title="Total Question" style="background:@dr["ColorCode"]; font-size:11px;">
+                                        <strong class="text-center">@dr["Percentage"]</strong></span>
                                     </td>
                                 </tr>
                             }

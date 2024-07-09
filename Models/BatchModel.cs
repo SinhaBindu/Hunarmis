@@ -22,6 +22,15 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = "Batch End Date")]
         public Nullable<System.DateTime> BatchEndDate { get; set; }
+        [Required]
+        [Display(Name = "Trainer")]
+        public Nullable<Guid> TrainerId { get; set; }
+        [Required]
+        [Display(Name = "Course")]
+        public Nullable<int> CourseId { get; set; }
+        [Required]
+        [Display(Name = "Training Center")]
+        public Nullable<int> TrainingCenterId { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

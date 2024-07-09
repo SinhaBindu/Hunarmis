@@ -106,11 +106,12 @@
 
                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right panel-default">
                         <ul class="head-list">
-                            <li>
-                                <a href="~/Employee/Profiles"><i class="demo-pli-male icon-lg icon-fw"></i> Profile</a>
-                            </li>
+
                             @if (Request.IsAuthenticated)
                             {
+                                <li>
+                                    <a href="~/Employee/Profiles"><i class="demo-pli-male icon-lg icon-fw"></i> Profile</a>
+                                </li>
                                 <li>
                                     <a href="~/Manage/ChangePassword"><i class="demo-pli-gear icon-lg icon-fw"></i> Change Password</a>
                                 </li>

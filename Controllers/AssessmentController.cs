@@ -63,7 +63,7 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
-        public ActionResult GetScorerSummary(string User = "all", int FormId = 1,int BatchId=0)
+        public ActionResult GetScorerSummary(string User = "all", int FormId = 1, int BatchId = 0)
         {
             DataSet ds = new DataSet();
             DataTable tbllist = new DataTable();
@@ -145,17 +145,19 @@ namespace Hunarmis.Controllers
             Hunar_DBEntities db_ = new Hunar_DBEntities();
             if (Session["AssessmentSendLinkPartId_pk"] != null && Session["AssessmentSendLinkPartId_pk"].ToString() != "")
             {
+
                 ParticipantLoginModel filter = new ParticipantLoginModel();
                 filter.EmailID = Session["EmailID"].ToString();
 
                 filter.RandomValue = Session["RandomValue"].ToString();
                 filter.ParticipantId_fk = Guid.Parse(Session["PartUserId"].ToString());
+
                 DataTable dt = SPManager.SP_LoginForParticipantCheck(filter);
                 if (dt.Rows.Count > 0)
                 {
-                    
                     Session["IsExam"] = dt.Rows[0]["IsExam"].ToString();
                     Session["SurveyId"] = dt.Rows[0]["SurveyId"].ToString();
+
                     Session["AssessmentSendLinkPartId_pk"] = dt.Rows[0]["AssessmentSendLinkPartId_pk"].ToString();
                     Session["AssessmentScheduleId_fk"] = dt.Rows[0]["AssessmentScheduleId_fk"].ToString();
                     Session["PartUserId"] = dt.Rows[0]["PartUserId"].ToString();
@@ -164,16 +166,30 @@ namespace Hunarmis.Controllers
                     Session["RandomValue"] = dt.Rows[0]["RandomValue"].ToString();
                     Session["TrainingCenterId"] = dt.Rows[0]["TrainingCenterId"].ToString();
                     Session["CourseId"] = dt.Rows[0]["CourseId"].ToString();
-                    Session["FormId"] = dt.Rows[0]["FormId"].ToString();
+                    Session["FormId"] = !string.IsNullOrWhiteSpace(dt.Rows[0]["FormId"].ToString()) ? dt.Rows[0]["FormId"].ToString() : FId.ToString();
                     Session["BatchId"] = dt.Rows[0]["BatchId"].ToString();
+
                     Session["AssessmentCurStatus"] = dt.Rows[0]["AssessmentCurStatus"].ToString();
                     Session["IsAssessmentExpired"] = dt.Rows[0]["IsAssessmentExpired"].ToString();
                     Session["StartTime"] = dt.Rows[0]["StartTime"].ToString();
                     Session["EndTime"] = dt.Rows[0]["EndTime"].ToString();
+                    Session["StartDateTime"] = dt.Rows[0]["StartDateTime"].ToString();
+                    Session["EndDateTime"] = dt.Rows[0]["EndDateTime"].ToString();
+                    Session["ExamDate"] = dt.Rows[0]["ExamDate"].ToString();
                     var assessmentsendid = Guid.Parse(dt.Rows[0]["AssessmentSendLinkPartId_pk"].ToString());
                     var tbl2nd = db_.tbl_AssessmentSendLinkEmail.Find(assessmentsendid);
                     var AssessmentCurStatus = dt.Rows[0]["AssessmentCurStatus"].ToString();
                     var IsAssessmentExpired = dt.Rows[0]["IsAssessmentExpired"].ToString();
+
+                    filter.BatchId = Convert.ToInt32(Session["BatchId"].ToString());
+                    filter.ParticipantId = Convert.ToString(Session["PartUserId"]);
+                    filter.FormId = Convert.ToInt32(Session["FormId"]);//
+                    var tblget = db_.tbl_Survey.Where(x => x.CreatedBy == filter.ParticipantId && x.BatchId == filter.BatchId && x.FormId == filter.FormId).ToList();
+                    if (tblget.Any(x => x.IsActive == true))
+                    {
+                        return RedirectToAction("AssessmentDone", "ParticipantUser");
+                    }
+
                     if (AssessmentCurStatus == "2")
                     {
                         return RedirectToAction("AssessmentExpired", "ParticipantUser");
@@ -348,9 +364,18 @@ namespace Hunarmis.Controllers
                     filter.EmailID = Session["EmailID"].ToString();
                     //filter.Password = Session["Password"].ToString();
                     filter.RandomValue = Session["RandomValue"].ToString();
+
+                    Session["FormId"] = model.FormId;
+                    Session["BatchId"] = model.BatchId;
                     DataTable dt = SPManager.SP_LoginForParticipantCheck(filter);
                     if (dt.Rows.Count > 0)
                     {
+                        Session["StartTime"] = dt.Rows[0]["StartTime"].ToString();
+                        Session["EndTime"] = dt.Rows[0]["EndTime"].ToString();
+                        Session["StartDateTime"] = dt.Rows[0]["StartDateTime"].ToString();
+                        Session["EndDateTime"] = dt.Rows[0]["EndDateTime"].ToString();
+                        Session["ExamDate"] = dt.Rows[0]["ExamDate"].ToString();
+
                         var assessmentsendid = Guid.Parse(dt.Rows[0]["AssessmentSendLinkPartId_pk"].ToString());
                         var tbl2nd = db_.tbl_AssessmentSendLinkEmail.Find(assessmentsendid);
                         var AssessmentCurStatus = Session["AssessmentCurStatus"].ToString();
@@ -407,14 +432,17 @@ namespace Hunarmis.Controllers
                                     db_.SaveChanges();
 
                                 }
-                                maintbl.YearId = model.YearId == null ? DateTime.Now.Year : Convert.ToInt32(model.YearId);
-                                maintbl.FrequencyId = model.FrequencyId == null ? DateTime.Now.Month : Convert.ToInt32(model.FrequencyId);
-                                maintbl.Date = DateTime.Now.Date;
-                                maintbl.BatchId = model.BatchId;
-                                maintbl.TrainingCenterId = model.TrainingCenterId;
-                                maintbl.CreatedBy = Session["PartUserId"].ToString();
-                                maintbl.CreatedOn = DateTime.Now;
-                                db.tbl_Survey.Add(maintbl);
+                                if (!db_.tbl_Survey.Any(x => x.CreatedBy == PartUserId && x.FormId == model.FormId && x.BatchId == model.BatchId))
+                                {
+                                    maintbl.YearId = model.YearId == null ? DateTime.Now.Year : Convert.ToInt32(model.YearId);
+                                    maintbl.FrequencyId = model.FrequencyId == null ? DateTime.Now.Month : Convert.ToInt32(model.FrequencyId);
+                                    maintbl.Date = DateTime.Now.Date;
+                                    maintbl.BatchId = model.BatchId;
+                                    maintbl.TrainingCenterId = model.TrainingCenterId;
+                                    maintbl.CreatedBy = Session["PartUserId"].ToString();
+                                    maintbl.CreatedOn = DateTime.Now;
+                                    db.tbl_Survey.Add(maintbl);
+                                }
                             }
                         }
                         else if (model.Id > 0)
@@ -547,6 +575,9 @@ namespace Hunarmis.Controllers
                         var msg = model.IsDraft ? "Save in draft" : "Final Submit Successfully";
                         var resResponse = Json(new { IsSuccess = true, htmlData = html, msg = action }, JsonRequestBehavior.AllowGet);
                         resResponse.MaxJsonLength = int.MaxValue;
+                        Session["SurveyId"] = maintbl.Id;
+                        Session["FormId"] = maintbl.FormId.Value;
+                        Session["BatchId"] = maintbl.BatchId;
                         return resResponse;
                         //Success("HR save and modified successfully !", true);
                         // return Json(new { IsSuccess = true, res = html, MSG = "HR save and modified successfully !" }, JsonRequestBehavior.AllowGet);

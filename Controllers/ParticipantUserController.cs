@@ -74,10 +74,22 @@ namespace Hunarmis.Controllers
                         Session["IsAssessmentExpired"] = dt.Rows[0]["IsAssessmentExpired"].ToString();
                         Session["StartTime"] = dt.Rows[0]["StartTime"].ToString();
                         Session["EndTime"] = dt.Rows[0]["EndTime"].ToString();
+                        Session["StartDateTime"] = dt.Rows[0]["StartDateTime"].ToString();
+                        Session["EndDateTime"] = dt.Rows[0]["EndDateTime"].ToString();
+                        Session["ExamDate"] = dt.Rows[0]["ExamDate"].ToString();
                         Session["IsExam"] = dt.Rows[0]["IsExam"].ToString();
                         Session["IsQuestionAvaiable"] = dt.Rows[0]["IsQuestionAvaiable"].ToString();
                         var assessmentsendid = Guid.Parse(dt.Rows[0]["AssessmentSendLinkPartId_pk"].ToString());
                         var tbl2nd = _db.tbl_AssessmentSendLinkEmail.Find(assessmentsendid);
+                        
+                        var BatchId = Convert.ToInt32(Session["BatchId"].ToString());
+                        var FormId = !string.IsNullOrWhiteSpace(Session["CourseId"].ToString()) ? Convert.ToInt32(Session["FormId"]) : 0;//&& x.BatchId == filter.BatchId && x.FormId == filter.FormId
+                        var PartUserId = Session["PartUserId"].ToString();//
+                        var tblget = _db.tbl_Survey.Where(x => x.CreatedBy == PartUserId && x.BatchId == BatchId && x.FormId == FormId).ToList();//
+                        if (tblget.Any(x => x.IsActive == true))
+                        {
+                            return RedirectToAction("AssessmentDone", "ParticipantUser");
+                        }
                         if (!string.IsNullOrWhiteSpace(RandomValue))
                         {
                             model.RandomValue = RandomValue;
@@ -121,6 +133,7 @@ namespace Hunarmis.Controllers
                                 tbl2nd.NoofAttempt += 1;
                                 tbl2nd.AttemptDt = DateTime.Now;
                                 _db.SaveChanges();
+
                                 if (dt.Rows[0]["IsQuestionAvaiable"].ToString() == "1")
                                 {
                                     return RedirectToAction("Add", "Assessment", new { Id = 0, FId = dt.Rows[0]["CourseId"].ToString(), Rdmkeyno = RandomValue });
@@ -188,7 +201,7 @@ namespace Hunarmis.Controllers
                     dt = ds.Tables[0];
                     if (dt.Rows.Count > 0)
                     {
-                        var bid =Convert.ToInt32(Session["BatchId"]);
+                        var bid = Convert.ToInt32(Session["BatchId"]);
                         var btch = dBEntities.Batch_Master.Find(bid);
                         if (btch != null)
                         {
@@ -203,6 +216,21 @@ namespace Hunarmis.Controllers
                         model.ScorePercentage = dt.Rows[0]["Percentage"].ToString();
                         if (dt.Rows[0]["IsCertificate"].ToString() == "1")
                         {
+                            model.BatchId = bid;
+                            model.FormId = Convert.ToInt32(Session["FormId"]);
+                            model.ParticipantId = Guid.Parse(Session["PartUserId"].ToString());
+                            var tblget = dBEntities.tbl_Survey.Where(x => x.CreatedBy == model.ParticipantId.ToString() && x.BatchId == bid && x.FormId == model.FormId).ToList();
+                            if (tblget.Any())
+                            {
+                                var tblu = tblget.FirstOrDefault();
+                                tblu.AssessmentScoreNo = Convert.ToDecimal(model.ScorePercentage);
+                                tblu.IsCertificate = Convert.ToBoolean(model.IsCertificate);
+
+                                var tblpartu = dBEntities.tbl_Participant.Where(x => x.ID == model.ParticipantId).FirstOrDefault();
+                                tblpartu.AssessmentScore = model.ScorePercentage;
+                                tblpartu.IsAssessmentDone = Convert.ToBoolean(model.IsCertificate);
+                                dBEntities.SaveChanges();
+                            }
                             string bodyTemplate = string.Empty;//Server.MapPath("~/Certificate/ParticipantCertificate.html")
                             using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Shared/CertificateIssuePart.html")))
                             {

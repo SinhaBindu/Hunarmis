@@ -304,7 +304,7 @@ namespace Hunarmis.Manager
                         {
                             DataTable dt = SPManager.SP_GetTrainer1CenterattimeList(TCenterId);
                             var itemid = Convert.ToInt32(TCenterId);//.Where(x => x.Field<int>("TrainerId") == itemid)
-                            list = new SelectList(dt.AsEnumerable(), "TrainerId", "TrainerName").OrderBy(x => x.Text).ToList();
+                            list = new SelectList(dt.AsDataView(), "TrainerId", "TrainerName").OrderBy(x => x.Text).ToList();
 
                             if (IsAll == 0)
                             {
@@ -316,7 +316,41 @@ namespace Hunarmis.Manager
                             }
                             return list;
                         }
+
                     }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return list;
+        }
+
+        public static List<SelectListItem> GetSP_GetAllTrainerList(int IsAll = 2, string TrainerId = "")
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List<SelectListItem> list = new List<SelectListItem>();
+            try
+            {
+                    if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        if (HttpContext.Current.User.IsInRole(RoleNameCont.Admin) || HttpContext.Current.User.IsInRole(RoleNameCont.State))
+                        {
+                            DataTable dt = SPManager.SP_GetAllTrainerList(TrainerId);
+                            list = new SelectList(dt.AsDataView(), "TrainerId", "TrainerNameMobile").OrderBy(x => x.Text).ToList();
+
+                            if (IsAll == 0)
+                            {
+                                list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                            }
+                            else if (IsAll == 1)
+                            {
+                                list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                            }
+                            return list;
+                        }
                 }
             }
             catch (Exception)
@@ -1621,9 +1655,9 @@ namespace Hunarmis.Manager
                         tbl.Subject = Subject + " ( " + SenderName + " )";
                         tbl.Boby = bodyTemplate;
                         tbl.ReceiverName = ReceiverName;
-                        tbl.SenderName = SenderName;
+                        tbl.SenderName = row["ParticipantId_fk"].ToString(); //SenderName;
                         tbl.IsSented = true;
-                        tbl.CreatedBy = "";
+                        tbl.CreatedBy = MvcApplication.CUser.UserId;
                         tbl.CreatedOn = DateTime.Now;
                         db_.tbl_SendMail.Add(tbl);
                         db_.SaveChanges();

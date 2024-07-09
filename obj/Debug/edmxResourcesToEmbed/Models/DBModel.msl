@@ -418,25 +418,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_Survey">
-      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Survey">
-        <MappingFragment StoreEntitySet="tbl_Survey">
-          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
-          <ScalarProperty Name="FrequencyId" ColumnName="FrequencyId" />
-          <ScalarProperty Name="YearId" ColumnName="YearId" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="TrainingCenterId" ColumnName="TrainingCenterId" />
-          <ScalarProperty Name="BatchId" ColumnName="BatchId" />
-          <ScalarProperty Name="FormId" ColumnName="FormId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_SurveyAnswer">
       <EntityTypeMapping TypeName="Hunar_DBModel.tbl_SurveyAnswer">
         <MappingFragment StoreEntitySet="tbl_SurveyAnswer">
@@ -547,22 +528,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Batch_Master">
-      <EntityTypeMapping TypeName="Hunar_DBModel.Batch_Master">
-        <MappingFragment StoreEntitySet="Batch_Master">
-          <ScalarProperty Name="Updated" ColumnName="Updated" />
-          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="IsAssessmentDone" ColumnName="IsAssessmentDone" />
-          <ScalarProperty Name="BatchEndDate" ColumnName="BatchEndDate" />
-          <ScalarProperty Name="BatchStartDate" ColumnName="BatchStartDate" />
-          <ScalarProperty Name="BatchName" ColumnName="BatchName" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_Participant">
       <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant">
         <MappingFragment StoreEntitySet="tbl_Participant">
@@ -647,6 +612,94 @@
           <ScalarProperty Name="Controller" ColumnName="Controller" />
           <ScalarProperty Name="Table" ColumnName="Table" />
           <ScalarProperty Name="Id_pk" ColumnName="Id_pk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Batch_Master">
+      <EntityTypeMapping TypeName="Hunar_DBModel.Batch_Master">
+        <MappingFragment StoreEntitySet="Batch_Master">
+          <ScalarProperty Name="Updated" ColumnName="Updated" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsAssessmentDone" ColumnName="IsAssessmentDone" />
+          <ScalarProperty Name="TrainingCenterId" ColumnName="TrainingCenterId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="TrainerId" ColumnName="TrainerId" />
+          <ScalarProperty Name="BatchEndDate" ColumnName="BatchEndDate" />
+          <ScalarProperty Name="BatchStartDate" ColumnName="BatchStartDate" />
+          <ScalarProperty Name="BatchName" ColumnName="BatchName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_LogBatchTrainer">
+      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_LogBatchTrainer">
+        <MappingFragment StoreEntitySet="tbl_LogBatchTrainer">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TrainingCenterId" ColumnName="TrainingCenterId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="TrainerId" ColumnName="TrainerId" />
+          <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ExcelParticipantData">
+      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_ExcelParticipantData">
+        <MappingFragment StoreEntitySet="tbl_ExcelParticipantData">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="DOBYYYY" ColumnName="DOBYYYY" />
+          <ScalarProperty Name="DOBMM" ColumnName="DOBMM" />
+          <ScalarProperty Name="DOBDD" ColumnName="DOBDD" />
+          <ScalarProperty Name="IsPlaced" ColumnName="IsPlaced" />
+          <ScalarProperty Name="TrainerName" ColumnName="TrainerName" />
+          <ScalarProperty Name="TrainingCenter" ColumnName="TrainingCenter" />
+          <ScalarProperty Name="TrainingAgencyName" ColumnName="TrainingAgencyName" />
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+          <ScalarProperty Name="EduQualOther" ColumnName="EduQualOther" />
+          <ScalarProperty Name="QualificationName" ColumnName="QualificationName" />
+          <ScalarProperty Name="AssessmentScore" ColumnName="AssessmentScore" />
+          <ScalarProperty Name="BatchEndDate" ColumnName="BatchEndDate" />
+          <ScalarProperty Name="BatchStartDate" ColumnName="BatchStartDate" />
+          <ScalarProperty Name="BatchName" ColumnName="BatchName" />
+          <ScalarProperty Name="AadharCardNo" ColumnName="AadharCardNo" />
+          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="DateofBirth" ColumnName="DateofBirth" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="ParticipantID_fk" ColumnName="ParticipantID_fk" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Survey">
+      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Survey">
+        <MappingFragment StoreEntitySet="tbl_Survey">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
+          <ScalarProperty Name="IsCertificate" ColumnName="IsCertificate" />
+          <ScalarProperty Name="AssessmentScoreNo" ColumnName="AssessmentScoreNo" />
+          <ScalarProperty Name="FrequencyId" ColumnName="FrequencyId" />
+          <ScalarProperty Name="YearId" ColumnName="YearId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="TrainingCenterId" ColumnName="TrainingCenterId" />
+          <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

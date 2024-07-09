@@ -634,6 +634,39 @@ namespace Hunarmis.Controllers
                             tbl.IsActive = true;
                             db.tbl_FileUpload.Add(tbl);
 
+                            List<tbl_ExcelParticipantData> listexcepart =
+                                dt.AsEnumerable().Select(x => new tbl_ExcelParticipantData
+                                {
+                                    ID = Guid.NewGuid(),
+                                    StateName = Convert.ToString(x["DistrictName"]),
+                                    DistrictName = Convert.ToString(x["DistrictName"]),
+                                    Name = Convert.ToString(x["Name"]),
+                                    Gender = Convert.ToString(x["Gender"]),
+                                    DateofBirth = Convert.ToString(x["DateofBirth"]),
+                                    Age = Convert.ToString(x["Age"]),
+                                    PhoneNo = Convert.ToString(x["PhoneNo"]),
+                                    EmailID = Convert.ToString(x["EmailID"]),
+                                    AadharCardNo = Convert.ToString(x["AadharCardNo"]),
+                                    BatchName = Convert.ToString(x["BatchName"]),
+                                    BatchStartDate = Convert.ToString(x["BatchStartDate"]),
+                                    BatchEndDate = Convert.ToString(x["BatchEndDate"]),
+                                    AssessmentScore = Convert.ToString(x["AssessmentScore"]),
+                                    QualificationName = Convert.ToString(x["QualificationName"]),
+                                    CourseName = Convert.ToString(x["CourseName"]),
+                                    TrainingAgencyName = Convert.ToString(x["TrainingAgencyName"]),
+                                    TrainingCenter = Convert.ToString(x["TrainingCenter"]),
+                                    TrainerName = Convert.ToString(x["TrainerName"]),
+                                    IsPlaced = Convert.ToString(x["IsPlaced"]),
+                                    DOBDD = Convert.ToString(x["DOBDD"]),
+                                    DOBMM = Convert.ToString(x["DOBMM"]),
+                                    DOBYYYY = Convert.ToString(x["DOBYYYY"]),
+                                    CreatedBy = MvcApplication.CUser.UserId,
+                                    CreatedOn = DateTime.Now,
+                                    IsActive = true,
+                                }).ToList();
+                            db_.tbl_ExcelParticipantData.AddRange(listexcepart);
+                            db_.SaveChanges();
+
                             /* Inserted Data */
                             foreach (DataRow dr in dt.Rows)
                             {
@@ -677,7 +710,11 @@ namespace Hunarmis.Controllers
                                             var DistrictID = db.District_Master.Where(x => x.DistrictName == dname && x.StateId == StateId)?.FirstOrDefault().Id;
                                             tblpart.DistrictID = DistrictID;
 
-                                            tblpart.DateOfBirth = !(string.IsNullOrWhiteSpace(dr["DateofBirth"].ToString())) ? dr["DateofBirth"].ToString().Trim() : null;
+
+                                            //tblpart.DateOfBirth = !(string.IsNullOrWhiteSpace(dr["DateofBirth"].ToString())) ? dr["DateofBirth"].ToString().Trim() : null;
+                                            var dobirth = !(string.IsNullOrWhiteSpace(dr["DateofBirth"].ToString())) ?
+                                                dr["DOBDD"].ToString() + "-" + dr["DOBMM"].ToString() + "-" + dr["DOBYYYY"].ToString() : null;
+                                            tblpart.DateOfBirth = dobirth;
                                             tblpart.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
                                             tblpart.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
                                             tblpart.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
@@ -687,8 +724,10 @@ namespace Hunarmis.Controllers
                                             tblpart.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
 
                                             var bName = Convert.ToString(dr["BatchName"]);
-                                            var BatchId = !(string.IsNullOrWhiteSpace(bName)) ? db.Batch_Master.Where(x => x.BatchName == bName).FirstOrDefault()?.Id : null;
-                                            tblpart.BatchId = BatchId;
+                                            var GetBatchdata = !(string.IsNullOrWhiteSpace(bName)) ? db.Batch_Master.Where(x => x.BatchName == bName).FirstOrDefault() : null;
+                                            tblpart.BatchId = GetBatchdata.Id;
+                                            tblpart.TrainerId = GetBatchdata.TrainerId;
+
                                             var qName = Convert.ToString(dr["QualificationName"]);
                                             var EducationId = !(string.IsNullOrWhiteSpace(qName)) ? db.Educational_Master.Where(x => x.QualificationName == qName).FirstOrDefault()?.Id : null;
                                             tblpart.EduQualificationID = EducationId;

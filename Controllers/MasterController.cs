@@ -383,6 +383,9 @@ namespace Hunarmis.Controllers
                     model.BatchName = tbl.BatchName;
                     model.BatchStartDate = tbl.BatchStartDate;
                     model.BatchEndDate = tbl.BatchEndDate;
+                    model.TrainerId = tbl.TrainerId;
+                    model.CourseId = tbl.CourseId;
+                    model.TrainingCenterId = tbl.TrainingCenterId;
                 }
             }
             return View(model);
@@ -402,6 +405,9 @@ namespace Hunarmis.Controllers
                     tbl.BatchName = model.BatchName.Trim();
                     tbl.BatchStartDate = model.BatchStartDate;
                     tbl.BatchEndDate = model.BatchEndDate;
+                    tbl.TrainerId = model.TrainerId;
+                    tbl.CourseId = model.CourseId;
+                    tbl.TrainingCenterId = model.TrainingCenterId;
                     tbl.IsActive = true;
                     if (model.Id == 0)
                     {
@@ -413,12 +419,11 @@ namespace Hunarmis.Controllers
                         {
                             var max = _db.Batch_Master?.Max(x => x.Id);
                             tbl.Id = max == 0 ? 1 : Convert.ToInt32(max.Value) + 1;
-
                         }
-
                         tbl.CreatedBy = MvcApplication.CUser.UserId;
                         tbl.CreatedOn = DateTime.Now;
                         db.Batch_Master.Add(tbl);
+
                     }
                     else
                     {
@@ -428,6 +433,26 @@ namespace Hunarmis.Controllers
                     int res = db.SaveChanges();
                     if (res > 0)
                     {
+                        var tblpart = _db.tbl_Participant.Where(a => a.BatchId == tbl.Id).ToList();
+                        foreach (var item in tblpart.ToList())
+                        {
+                            var tblupart = _db.tbl_Participant.Find(item.ID);
+                            tblupart.TrainerId = tbl.TrainerId;
+                            tblupart.UpdatedBy = MvcApplication.CUser.UserId;   
+                            tblupart.UpdatedOn = DateTime.Now;   
+                            _db.SaveChanges();
+                        } 
+
+                       tbl_LogBatchTrainer tbllobt = new tbl_LogBatchTrainer();
+                        tbllobt.BatchId = tbl.Id;
+                        tbllobt.TrainerId = tbl.TrainerId;
+                        tbllobt.CourseId = tbl.CourseId;
+                        tbllobt.TrainingCenterId = tbl.TrainingCenterId;
+                        tbllobt.IsActive = true;
+                        tbllobt.CreatedBy = MvcApplication.CUser.UserId;
+                        tbllobt.CreatedOn = DateTime.Now;
+                        db.tbl_LogBatchTrainer.Add(tbllobt);
+                        db.SaveChanges();
                         response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Record Submitted Successfully!!!", Data = null };
                         var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
                         resResponse3.MaxJsonLength = int.MaxValue;

@@ -54,7 +54,7 @@ namespace Hunarmis.Models
         public int TempStatus { get; set; }
         [Display(Name = "Calling Status")]
         public string CallStatus { get; set; }
-        [Display(Name = "Type of Assessment")]
+        [Display(Name = "Course")]
         public string FormId { get; set; }
 
         [Display(Name = "Attendance Date")]

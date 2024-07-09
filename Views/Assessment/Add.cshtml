@@ -214,11 +214,11 @@
                         if (Session["StartTime"] != null && Session["EndTime"] != null)
                         {
 
-                    <h5 id="DT" class="text-warning text-center">
-                        Duration Time : Start :   <strong class="text-info">@CommonModel.GetTimeSpanVal(Session["StartTime"].ToString())</strong>
-                        To End  : <strong class="text-info">@CommonModel.GetTimeSpanVal(Session["EndTime"].ToString())</strong>
-
-                    </h5>
+                            <h5 id="DT" class="text-warning text-center">
+                                Duration Time : Start :   <strong class="text-info">@CommonModel.GetTimeSpanVal(Session["StartTime"].ToString())</strong>
+                                To End  : <strong class="text-info">@CommonModel.GetTimeSpanVal(Session["EndTime"].ToString())</strong>
+                            <span class="renaming-time"></span>
+                            </h5>
                         }
                         <div class="col-md-12">
                             @Html.Partial("_Alerts")
@@ -241,7 +241,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2">Batch</label>
                                 <div class="col-md-4" @idreadyonlyBT>
-                                    @Html.DropDownListFor(m => m.BatchId, CommonModel.GetBindBatchForPartLists(2,Convert.ToString(Model.TrainingCenterId)), "Select One", htmlAttributes: new { @id = "BatchId", @class = "form-control select2", @required = "required" })<br />
+                                    @Html.DropDownListFor(m => m.BatchId, CommonModel.GetBindBatchForPartLists(2, Convert.ToString(Model.TrainingCenterId)), "Select One", htmlAttributes: new { @id = "BatchId", @class = "form-control select2", @required = "required" })<br />
                                     <span class="field-validation-error" data-valmsg-for="BatchId" data-valmsg-replace="true" style="display:none;"><span id="BatchId-error" class="">The BatchId field is required.</span></span>
 
                                 </div>
@@ -295,6 +295,9 @@
 
     <script>
 
+        var StartDateTime = '@Session["StartDateTime"].ToString()';
+        var EndDateTime = '@Session["EndDateTime"].ToString()';
+        var ExamDate = '@Session["ExamDate"].ToString()';
         var PartTimeSumtxt = 0; var ST = "", ET = "";
         $(document).ready(function () {
 
@@ -797,6 +800,61 @@
 
 
     </script>
+    <script>
 
+        // Getting formated date from date string
+        let deadline = new Date(EndDateTime).getTime();
+
+        // Calling defined function at certain interval
+        let x = setInterval(function () {
+
+            // Getting current date and time in required format
+            let now = new Date().getTime();
+
+            // Calculating difference
+            let t = deadline - now;
+
+            // Getting values of days,hours,minutes, seconds
+            let days = Math.floor(
+                t / (1000 * 60 * 60 * 24)
+            );
+            let hours = Math.floor(
+                (t % (1000 * 60 * 60 * 24)) /
+                (1000 * 60 * 60)
+            );
+            let minutes = Math.floor(
+                (t % (1000 * 60 * 60)) / (1000 * 60)
+            );
+            let seconds = Math.floor(
+                (t % (1000 * 60)) / 1000
+            );
+
+            // Show the output time
+
+            $(".renaming-time").text(hours + ':' + minutes + ':' + seconds);
+
+            // Show overtime output
+            if (t < 1) {
+                clearInterval(x);
+                $('#btnDraft').click();
+                location.href = document.baseURI + '/ParticipantUser/Login';
+                //document.getElementById(
+                //    "demo"
+                //).innerHTML = "TIME UP";
+                //document.getElementById(
+                //    "day"
+                //).innerHTML = "0";
+                //document.getElementById(
+                //    "hour"
+                //).innerHTML = "0";
+                //document.getElementById(
+                //    "minute"
+                //).innerHTML = "0";
+                //document.getElementById(
+                //    "second"
+                //).innerHTML = "0";
+            }
+        }, 1000);
+    </script>
 
 }
