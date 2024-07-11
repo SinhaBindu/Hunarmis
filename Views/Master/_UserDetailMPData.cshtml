@@ -83,7 +83,7 @@
                                             @Html.DropDownList("TAC" + index, new SelectList(Hunarmis.Manager.CommonModel.GetDistTrainingAgencyCenterList(dtcen, mappedId), "value", "text"), new { @class = "tdselval form-control multiple TAC", multiple = "multiple" })
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0);" onclick="CUData('@dr["MappedId_pk"]','@dr["Id"]','@dr["RoleId"]', 'TAC' + @index);" class="btn btn-primary">Mapped</a>
+                                            <a href="javascript:void(0);" onclick="CUData('@dr["MappedId_pk"]','@dr["Id"]','@dr["RoleId"]', 'TAC' + @index);" class="btn btn-primary">Map</a>
                                         </td>
                                     </tr>
                                     index++;

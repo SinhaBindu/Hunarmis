@@ -20,8 +20,9 @@
                 <thead>
                     <tr role="row">
                         <th width="25" class="text-center">Sl.No.</th>
-                        <th class="text-center">Reported By</th>
+                        <th class="text-center">Participant Name</th>
                         <th class="text-center">Batch </th>
+                        <th class="text-center">Trainer Name</th>
                         <th class="text-center">Training Center</th>
                         <th class="text-center">Total Questions</th>
                         <th class="text-center">Right Answers</th>
@@ -40,6 +41,7 @@
                                     <td class="text-center">@(sno++)</td>
                                     <td class="text-left">@dr["ReportedBy"]</td>
                                     <td class="text-center"><strong>@dr["BatchName"]</strong></td>
+                                    <td class="text-center"><strong>@dr["TrainerName"]</strong></td>
                                     <td class="text-center"><strong>@dr["TrainingCenter"]</strong></td>
                                     <td class="text-center"><strong>@dr["TotalQuestion"]</strong></td>
                                     <td class="text-center"><strong>@dr["ScorersAns"]</strong></td>

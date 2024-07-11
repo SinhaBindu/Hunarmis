@@ -83,7 +83,7 @@ namespace Hunarmis.Controllers
                         var tbl2nd = _db.tbl_AssessmentSendLinkEmail.Find(assessmentsendid);
                         
                         var BatchId = Convert.ToInt32(Session["BatchId"].ToString());
-                        var FormId = !string.IsNullOrWhiteSpace(Session["CourseId"].ToString()) ? Convert.ToInt32(Session["FormId"]) : 0;//&& x.BatchId == filter.BatchId && x.FormId == filter.FormId
+                        var FormId = !string.IsNullOrWhiteSpace(Session["CourseId"].ToString()) ? Convert.ToInt32(Session["CourseId"]) : 0;//&& x.BatchId == filter.BatchId && x.FormId == filter.FormId
                         var PartUserId = Session["PartUserId"].ToString();//
                         var tblget = _db.tbl_Survey.Where(x => x.CreatedBy == PartUserId && x.BatchId == BatchId && x.FormId == FormId).ToList();//
                         if (tblget.Any(x => x.IsActive == true))
@@ -223,12 +223,12 @@ namespace Hunarmis.Controllers
                             if (tblget.Any())
                             {
                                 var tblu = tblget.FirstOrDefault();
-                                tblu.AssessmentScoreNo = Convert.ToDecimal(model.ScorePercentage);
-                                tblu.IsCertificate = Convert.ToBoolean(model.IsCertificate);
+                                tblu.AssessmentScoreNo =!string.IsNullOrWhiteSpace(model.ScorePercentage)?Convert.ToDecimal(model.ScorePercentage):0;
+                                tblu.IsCertificate = model.IsCertificate=="1"?true:false;
 
                                 var tblpartu = dBEntities.tbl_Participant.Where(x => x.ID == model.ParticipantId).FirstOrDefault();
                                 tblpartu.AssessmentScore = model.ScorePercentage;
-                                tblpartu.IsAssessmentDone = Convert.ToBoolean(model.IsCertificate);
+                                tblpartu.IsAssessmentDone = model.IsCertificate == "1" ? true : false;
                                 dBEntities.SaveChanges();
                             }
                             string bodyTemplate = string.Empty;//Server.MapPath("~/Certificate/ParticipantCertificate.html")
