@@ -211,9 +211,11 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="SessionPlanTPId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" />
     <Property Name="Methodology" Type="nvarchar(max)" />
-    <Property Name="DurationMinutes" Type="nvarchar" MaxLength="10" />
+    <Property Name="DurationMinutes" Type="nvarchar" MaxLength="50" />
     <Property Name="SESSIONPlanType" Type="nvarchar(max)" />
-    <Property Name="DAYWise" Type="nvarchar" MaxLength="50" />
+    <Property Name="DAYWise" Type="nvarchar" MaxLength="200" />
+    <Property Name="CourseId" Type="int" />
+    <Property Name="CourseName" Type="nvarchar" MaxLength="500" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="CreatedOn" Type="datetime" />
@@ -276,6 +278,8 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     </Key>
     <Property Name="AttendanceId_pk" Type="uniqueidentifier" Nullable="false" />
     <Property Name="BatchId" Type="int" />
+    <Property Name="CourseIds" Type="nvarchar(max)" />
+    <Property Name="TopicesIds" Type="nvarchar(max)" />
     <Property Name="Lat" Type="nvarchar" MaxLength="50" />
     <Property Name="Long" Type="nvarchar" MaxLength="50" />
     <Property Name="StartDate" Type="date" />
@@ -305,7 +309,9 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     </Key>
     <Property Name="AttendanceTopicId_pk" Type="uniqueidentifier" Nullable="false" />
     <Property Name="AttendanceId_fk" Type="uniqueidentifier" />
+    <Property Name="CouresId" Type="int" />
     <Property Name="TopicId" Type="int" />
+    <Property Name="TopicOther" Type="nvarchar(max)" />
     <Property Name="AttendTopicIsActive" Type="bit" />
     <Property Name="AttendTopicCreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="AttendTopicCreatedOn" Type="datetime" />
@@ -322,7 +328,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="Gender" Type="nvarchar" MaxLength="50" />
     <Property Name="DateofBirth" Type="nvarchar" MaxLength="50" />
     <Property Name="Age" Type="nvarchar" MaxLength="50" />
-    <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="PhoneNo" Type="nvarchar" MaxLength="500" />
     <Property Name="EmailID" Type="nvarchar" MaxLength="500" />
     <Property Name="AadharCardNo" Type="nvarchar" MaxLength="50" />
     <Property Name="BatchName" Type="nvarchar" MaxLength="200" />
@@ -335,6 +341,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="TrainingAgencyName" Type="nvarchar" MaxLength="500" />
     <Property Name="TrainingCenter" Type="nvarchar" MaxLength="500" />
     <Property Name="TrainerName" Type="nvarchar" MaxLength="200" />
+    <Property Name="TrainerMobileNo" Type="nvarchar" MaxLength="50" />
     <Property Name="IsPlaced" Type="nvarchar" MaxLength="50" />
     <Property Name="DOBDD" Type="nvarchar" MaxLength="50" />
     <Property Name="DOBMM" Type="nvarchar" MaxLength="50" />
@@ -452,6 +459,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="TrainingAgencyID" Type="int" />
     <Property Name="TrainingCenterID" Type="int" />
     <Property Name="TrainerName" Type="nvarchar" MaxLength="500" />
+    <Property Name="TrainerMobileNo" Type="nvarchar" MaxLength="50" />
     <Property Name="TrainerId" Type="uniqueidentifier" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="IsPlaced" Type="bit" />
@@ -783,6 +791,8 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     [SessionPlanTopic_Master].[DurationMinutes] AS [DurationMinutes], 
     [SessionPlanTopic_Master].[SESSIONPlanType] AS [SESSIONPlanType], 
     [SessionPlanTopic_Master].[DAYWise] AS [DAYWise], 
+    [SessionPlanTopic_Master].[CourseId] AS [CourseId], 
+    [SessionPlanTopic_Master].[CourseName] AS [CourseName], 
     [SessionPlanTopic_Master].[IsActive] AS [IsActive], 
     [SessionPlanTopic_Master].[CreatedBy] AS [CreatedBy], 
     [SessionPlanTopic_Master].[CreatedOn] AS [CreatedOn], 

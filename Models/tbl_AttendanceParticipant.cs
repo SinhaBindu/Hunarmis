@@ -16,6 +16,8 @@ namespace Hunarmis.Models
     {
         public System.Guid AttendanceId_pk { get; set; }
         public Nullable<int> BatchId { get; set; }
+        public string CourseIds { get; set; }
+        public string TopicesIds { get; set; }
         public string Lat { get; set; }
         public string Long { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }

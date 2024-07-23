@@ -16,7 +16,9 @@ namespace Hunarmis.Models
     {
         public System.Guid AttendanceTopicId_pk { get; set; }
         public Nullable<System.Guid> AttendanceId_fk { get; set; }
+        public Nullable<int> CouresId { get; set; }
         public Nullable<int> TopicId { get; set; }
+        public string TopicOther { get; set; }
         public Nullable<bool> AttendTopicIsActive { get; set; }
         public string AttendTopicCreatedBy { get; set; }
         public Nullable<System.DateTime> AttendTopicCreatedOn { get; set; }

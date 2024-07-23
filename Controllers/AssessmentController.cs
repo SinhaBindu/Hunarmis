@@ -96,7 +96,7 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
-        public ActionResult GetSummary(string User = "all", int FormId = 1)
+        public ActionResult GetSummary(string User = "all", int FormId = 1, int BatchId = 0)
         {
             DataSet ds = new DataSet();
             DataTable tbllist = new DataTable();
@@ -104,7 +104,7 @@ namespace Hunarmis.Controllers
             try
             {
                 User = CommonModel.IsRoleLogin();
-                ds = SPManager.GetQuestionSummaryMarks(User, FormId);
+                ds = SPManager.GetQuestionSummaryMarks(User, FormId, BatchId);
                 bool IsCheck = false;
                 if (ds.Tables.Count > 0)
                 {

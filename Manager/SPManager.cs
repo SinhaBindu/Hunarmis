@@ -29,7 +29,7 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SP_GetTrainer1CenterattimeList(int TrainingCenterId=0)
+        public static DataTable SP_GetTrainer1CenterattimeList(int TrainingCenterId = 0)
         {
             StoredProcedure sp = new StoredProcedure("SP_GetTrainer");
             sp.Command.AddParameter("@TrainingCenterId", TrainingCenterId.ToString(), DbType.String);
@@ -94,14 +94,18 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-       
         public static DataTable SP_ParticipantList(FilterModel model)
         {
-            model.CallStatus = model.CallStatus == "-1" ? "" : model.CallStatus;
+            //model.CallStatus = !string.IsNullOrEmpty(model.CallStatus) ? model.CallStatus :"";
+            model.UserId = string.IsNullOrEmpty(model.UserId) || model.UserId == "-1" || model.UserId == "0" ? "" : model.UserId;
+            model.CallStatus = string.IsNullOrEmpty(model.CallStatus) || model.CallStatus == "-1" ? "" : model.CallStatus;
             StoredProcedure sp = new StoredProcedure("SP_ParticipantList");
             sp.Command.AddParameter("@Type", model.Type, DbType.Int32);
             sp.Command.AddParameter("@Search", model.Search, DbType.String);
             sp.Command.AddParameter("@CallStatus", model.CallStatus, DbType.String);
+            sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
+            sp.Command.AddParameter("@CourseId", model.CourseId, DbType.String);
+            sp.Command.AddParameter("@UserId", model.UserId, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -165,9 +169,10 @@ namespace Hunarmis.Manager
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
-        public static DataSet GetQuestionSummaryMarks(string User, int FormId)
+        public static DataSet GetQuestionSummaryMarks(string User, int FormId, int BatchId)
         {
             StoredProcedure sp = new StoredProcedure("SP_QuestionSummaryMarks");
+            sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
             sp.Command.AddParameter("@FormId", FormId, DbType.Int32);
             sp.Command.AddParameter("@User", User, DbType.String);
             DataSet ds = sp.ExecuteDataSet();
@@ -234,6 +239,20 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@ReportedBy", model.UserId, DbType.String);
             sp.Command.AddParameter("@SD", model.FromDt, DbType.String);
             sp.Command.AddParameter("@ED", model.ToDt, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_CourseWiseTopices(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_CourseWiseTopices");
+            sp.Command.AddParameter("@CourseId", model.CourseId, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_BatchWiseCourse(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_CourseBatch");
+            sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

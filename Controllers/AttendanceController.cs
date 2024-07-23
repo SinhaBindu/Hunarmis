@@ -27,7 +27,6 @@ namespace Hunarmis.Controllers
         }
         #region Attendance Form Submitted
         public ActionResult CreatedAttend() { return View(); }
-
         public ActionResult GetPartList(FilterModel model)
         {
             DataTable tbllist = new DataTable();
@@ -59,7 +58,6 @@ namespace Hunarmis.Controllers
             }
         }
         [HttpPost]
-        //[EnableCors("*")]
         public JsonResult CreatedAttend(AttendanceModel model)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
@@ -99,12 +97,18 @@ namespace Hunarmis.Controllers
                     TimeSpan durst = CommonModel.GetTimeSpanValue(model.StrStartTime);
                     TimeSpan duret = CommonModel.GetTimeSpanValue(model.StrEndTime);
                     tbl.BatchId = model.BatchId;
+                    tbl.CourseIds = model.CourseIds;
+                    tbl.TopicesIds = model.TopicIds;
                     tbl.Lat = model.Lat;
                     tbl.Long = model.Long;
                     tbl.StartDate = model.StartDate;
                     tbl.StartTime = durst;
                     tbl.EndTime = duret;
                     tbl.IsActive = true;
+                    if (model.AttendanceId_pk==Guid.Empty)
+                    {
+                        tbl.AttendanceId_pk = Guid.NewGuid();
+                    }
                     var reslist = this.Request.Unvalidated.Form["PARTModel"];
                     if (reslist != null)
                     {
@@ -136,35 +140,9 @@ namespace Hunarmis.Controllers
                             }
                         }
                     }
-                    //if (!string.IsNullOrWhiteSpace(model.AttendPartIds))
-                    //{
-                    //    var atpartsplt = model.AttendPartIds.Split(',');
-                    //    if (atpartsplt.Length != 0)
-                    //    {
-                    //        if (model.AttendanceId_pk != Guid.Empty)
-                    //        {
-                    //            var tbldet = _db.tbl_AttendParticipant.Where(x => x.AttendanceId_fk == model.AttendanceId_pk).ToList();
-                    //            _db.tbl_AttendParticipant.RemoveRange(tbldet);
-                    //            _db.SaveChanges();
-                    //        }
-                    //        foreach (var item in atpartsplt)
-                    //        {
-                    //            if (!string.IsNullOrWhiteSpace(item))
-                    //            {
-                    //                tblattendpart = new tbl_AttendParticipant();
-                    //                tblattendpart.AttendancePartId_pk = Guid.NewGuid();
-                    //                tblattendpart.AttendanceId_fk = tbl.AttendanceId_pk;
-                    //                tblattendpart.ParticipantId_fk = Guid.Parse(item);
-                    //                tblattendpart.AttendPartIsActive = true;
-                    //                tblattendpart.AttendPartCreatedBy = MvcApplication.CUser.UserId;
-                    //                tblattendpart.AttendPartCreatedOn = DateTime.Now;
-                    //                tblattendpartlist.Add(tblattendpart);
-                    //            }
-                    //        }
-                    //    }
-                    //}
                     if (!string.IsNullOrWhiteSpace(model.TopicIds))
                     {
+                        //var atCourseIdssplt = model.CourseIds.Split(',');
                         var atpartsplt = model.TopicIds.Split(',');
                         if (atpartsplt.Length != 0)
                         {
@@ -174,25 +152,38 @@ namespace Hunarmis.Controllers
                                 _db.tbl_AttendPartTopic.RemoveRange(tbldet);
                                 _db.SaveChanges();
                             }
+                            var SessionList = _db.SessionPlanTopic_Master.ToList();
                             foreach (var item in atpartsplt)
                             {
+                                var sessiontopiceid = Convert.ToInt32(item);
+                                var CourseId = SessionList.Where(x => x.SessionPlanTPId_pk == sessiontopiceid)?.FirstOrDefault().CourseId;
                                 if (!string.IsNullOrWhiteSpace(item))
                                 {
                                     tblattparttp = new tbl_AttendPartTopic();
                                     tblattparttp.AttendanceTopicId_pk = Guid.NewGuid();
                                     tblattparttp.AttendanceId_fk = tbl.AttendanceId_pk;
-                                    tblattparttp.TopicId = Convert.ToInt32(item);
+                                    tblattparttp.CouresId = CourseId;
+                                    tblattparttp.TopicId = sessiontopiceid;
+                                    if (sessiontopiceid==261)
+                                    {
+                                        tblattparttp.TopicOther = model.TopicOther;
+                                    }
+                                    else
+                                    {
+                                        tblattparttp.TopicOther = null;
+                                    }
                                     tblattparttp.AttendTopicIsActive = true;
                                     tblattparttp.AttendTopicCreatedBy = MvcApplication.CUser.UserId;
                                     tblattparttp.AttendTopicCreatedOn = DateTime.Now;
                                     tblattparttplist.Add(tblattparttp);
                                 }
                             }
+
                         }
                     }
                     if (model.AttendanceId_pk == Guid.Empty)
                     {
-                        tbl.AttendanceId_pk = Guid.NewGuid();
+                        
                         tbl.CreatedBy = MvcApplication.CUser.UserId;
                         tbl.CreatedOn = DateTime.Now;
                         _db.tbl_AttendanceParticipant.Add(tbl);
@@ -250,6 +241,36 @@ namespace Hunarmis.Controllers
             resResponse4.MaxJsonLength = int.MaxValue;
             return resResponse4;
         }
+        public ActionResult GetCalendarAttendanceList(FilterModel model)
+        {
+            DataTable tbllist = new DataTable();
+            var html = "";
+            try
+            {
+                tbllist = SPManager.SP_GetParticipant(model);
+                bool IsCheck = false;
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                    var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+                else
+                {
+                    var res = Json(new { IsSuccess = IsCheck, Data = "Record Not Found !!" }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "There was a communication error.." }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
+
+
         #endregion
 
         #region Assessment Schedule
@@ -260,7 +281,6 @@ namespace Hunarmis.Controllers
                 bool IsCheck = false;
                 FilterModel model = new FilterModel();
                 model.BatchId = BatchId.ToString();
-
                 var tbllist = SPManager.SP_GetAssessmentScheduleList(model);
                 if (tbllist.Rows.Count > 0)
                 {
@@ -341,7 +361,6 @@ namespace Hunarmis.Controllers
 
                     if (model.AssessmentScheduleId_pk == Guid.Empty)
                     {
-
                         tbl.AssessmentScheduleId_pk = Guid.NewGuid();
                         FilterModel filterModel = new FilterModel();
                         filterModel.BatchId = model.BatchId_fk.Value.ToString();
@@ -352,7 +371,7 @@ namespace Hunarmis.Controllers
                         tbl.CreatedBy = MvcApplication.CUser.UserId;
                         tbl.CreatedOn = DateTime.Now;
                         _db.tbl_AssessmentSchedule.Add(tbl);
-                       // var resmail = CommonModel.SendMailForParticipants(tbl.BatchId_fk.ToString());
+                        // var resmail = CommonModel.SendMailForParticipants(tbl.BatchId_fk.ToString());
                     }
                     else
                     {

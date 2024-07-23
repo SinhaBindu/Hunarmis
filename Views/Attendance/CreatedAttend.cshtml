@@ -1,4 +1,4 @@
-﻿    @model Hunarmis.Models.AttendanceModel
+﻿@model Hunarmis.Models.AttendanceModel
 @using Hunarmis.Manager
 @{
     ViewBag.Title = "Attendance";
@@ -26,17 +26,19 @@
     .panel {
         min-height: 500px
     }
+
     .breakers {
         display: block;
         height: 20px
     }
+
     .multiselect {
         width: 100% !important;
     }
 
     .multiselect-container {
         width: 350px !important;
-        height: 350px;
+        height: 200px !important;
         overflow-y: scroll
     }
 
@@ -55,17 +57,24 @@
         height: 20px;
         overflow-y: scroll;
     }
+
     .search-box {
         padding: 20px;
         background: #F9F8FF;
         border-radius: 10px;
         margin-bottom: 15px;
     }
-    .search-box label {
-        margin-left: -10px;
-    }
+
+        .search-box label {
+            margin-left: -10px;
+        }
+
     .tp-mrgn {
         margin-top: -15px
+    }
+
+    .btn-group {
+        width: 70% !important;
     }
 </style>
 
@@ -93,86 +102,97 @@
                                 <div class="manage-input">
                                     <div class="card1">
                                         <div class="search-box">
-                                            <div class="form-group">
-                                                <div class="col-lg-6">
-                                                    @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "col-lg-12" })
-                                                    @Html.DropDownListFor(model => model.BatchId, CommonModel.GetBatch(), "Select One", htmlAttributes: new { @class = "form-control select2" })
-                                                    @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "col-lg-1" })
+                                                    <div class="col-lg-5">
+                                                        @Html.DropDownListFor(model => model.BatchId, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.CourseIds, htmlAttributes: new { @class = "col-lg-1" })
+                                                    <div class="col-lg-5">
+                                                        @Html.DropDownListFor(model => model.CourseIds, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control", multiple = "multiple", @required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.CourseIds, "", new { @class = "text-danger" })
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group tp-mrgn">
-                                                <div class="col-lg-6">
-                                                    @Html.LabelFor(model => model.TopicIds, htmlAttributes: new { @class = "col-lg-12" })
-                                                    @Html.DropDownListFor(model => model.TopicIds, CommonModel.GetSessionPlanTopic(), "Select One", htmlAttributes: new { @class = "form-control multiple", multiple = "multiple" })
-                                                    @Html.ValidationMessageFor(model => model.TopicIds, "", new { @class = "text-danger" })
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.TopicIds, htmlAttributes: new { @class = "col-lg-1" })
+                                                    <div class="col-lg-5">
+                                                        @Html.DropDownListFor(model => model.TopicIds, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control", multiple = "multiple", @required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.TopicIds, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-lg-1" })
+                                                    <div class="col-lg-5">
+                                                        @Html.EditorFor(m => m.StartDate, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "form-control col-md-4 required", @required = "required" } })
+                                                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="breakers"></div>
-                                            <div class="form-group">
-                                                &nbsp;
-                                            </div>
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-lg-2" })
-                                                <div class="col-lg-2">
-                                                    @Html.EditorFor(m => m.StartDate, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "form-control col-md-4 required", @required = "required" } })
-                                                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                            <div class="row" style="display:none;" id="dv-TopicOther">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.TopicOther, htmlAttributes: new { @class = "control-label col-lg-2" })
+                                                    <div class="col-lg-8">
+                                                        @Html.EditorFor(m => m.TopicOther, null, new { htmlAttributes = new { @placeholder = "Enter the Other Topice.", @class = "timepicker form-control col-md-4 required", @required = "required" } })
+                                                        @Html.ValidationMessageFor(model => model.TopicOther, "", new { @class = "text-danger" })
+                                                    </div>
                                                 </div>
-                                                <div class="mark-devide"></div>
                                             </div>
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.StrStartTime, htmlAttributes: new { @class = "control-label col-lg-2" })
-                                                <div class="col-lg-2">
-                                                    @Html.EditorFor(m => m.StrStartTime, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Start Time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
-                                                    @Html.ValidationMessageFor(model => model.StrStartTime, "", new { @class = "text-danger" })
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.StrStartTime, htmlAttributes: new { @class = "control-label col-lg-2" })
+                                                    <div class="col-lg-4">
+                                                        @Html.EditorFor(m => m.StrStartTime, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Start Time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
+                                                        @Html.ValidationMessageFor(model => model.StrStartTime, "", new { @class = "text-danger" })
+                                                    </div>
                                                 </div>
-                                                <div class="mark-devide"></div>
-                                            </div>
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.StrEndTime, htmlAttributes: new { @class = "control-label col-lg-2" })
-                                                <div class="col-lg-2">
-                                                    @Html.EditorFor(m => m.StrEndTime, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance End Time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
-                                                    @Html.ValidationMessageFor(model => model.StrEndTime, "", new { @class = "text-danger" })
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.StrEndTime, htmlAttributes: new { @class = "control-label col-lg-2" })
+                                                    <div class="col-lg-4">
+                                                        @Html.EditorFor(m => m.StrEndTime, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance End Time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
+                                                        @Html.ValidationMessageFor(model => model.StrEndTime, "", new { @class = "text-danger" })
+                                                    </div>
                                                 </div>
-                                                <div class="mark-devide"></div>
                                             </div>
-                                            <div class="form-group">
-                                                &nbsp;
-                                            </div>
+
                                         </div>
-                                        
-                                        
+
                                         @*<div class="form-group">
-            @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-lg-4" })
-            <div class="col-lg-8">
-                @Html.DropDownListFor(model => model.DistrictId, CommonModel.GetDistrict("1"), "Select One", htmlAttributes: new { @class = "form-control select2" })
-                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
-            </div>
-            <div class="mark-devide"></div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.TrainAgencyId, htmlAttributes: new { @class = "control-label col-lg-4" })
-            <div class="col-lg-8">
-                @Html.DropDownListFor(model => model.TrainAgencyId, CommonModel.GetTrainingAgency(), "Select One", htmlAttributes: new { @class = "form-control select2" })
-                @Html.ValidationMessageFor(model => model.TrainAgencyId, "", new { @class = "text-danger" })
-            </div>
-            <div class="mark-devide"></div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.TrainCenterIdMappedMult, htmlAttributes: new { @class = "control-label col-lg-4" })
-            <div class="col-lg-8">
-                @Html.DropDownListFor(model => model.TrainCenterIdMappedMult, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control multiple" })
-                @Html.ValidationMessageFor(model => model.TrainCenterIdMappedMult, "", new { @class = "text-danger" })
-            </div>
-            <div class="mark-devide"></div>
-        </div>*@
+                                                @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                <div class="col-lg-8">
+                                                    @Html.DropDownListFor(model => model.DistrictId, CommonModel.GetDistrict("1"), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.TrainAgencyId, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                <div class="col-lg-8">
+                                                    @Html.DropDownListFor(model => model.TrainAgencyId, CommonModel.GetTrainingAgency(), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(model => model.TrainAgencyId, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.TrainCenterIdMappedMult, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                <div class="col-lg-8">
+                                                    @Html.DropDownListFor(model => model.TrainCenterIdMappedMult, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control multiple" })
+                                                    @Html.ValidationMessageFor(model => model.TrainCenterIdMappedMult, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>*@
 
                                         <div class="form-group">
-                                            @*<div class="col-md-3"></div>*@
-                                            <div class="col-md-7">
-                                                <span class="">
-                                                    <input type="submit" name="btnsubmit" value="Attendance Submit" id="btnsubmit" class="btn-lg btn-primary" />
-                                                    <a href="~/Attendance/CreatedAttend" class="btn-reset"><i class="fa fa-refresh"></i></a>
-                                                </span>
+                                            <div class="col-md-3">
+                                                <input type="submit" name="btnsubmit" value="Attendance Submit" id="btnsubmit" class="btn-lg btn-primary" />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <a href="~/Attendance/CreatedAttend" class="btn-reset"><i class="fa fa-refresh"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -220,13 +240,24 @@
             //    includeSelectAllOption: true
             //});
             //$('#DataList tbody tr td.multiple').multiSelect('refresh');
-            $('.timepicker').timepicker({
+            //timepicker
+            $('#StrStartTime').timepicker({
                 timeFormat: 'h:mm p',
-                interval: 60,
+               // interval: 60,
                 minTime: '10',
-                maxTime: '6:00pm',
-                defaultTime: '11',
+                maxTime: '12:00pm',
+                defaultTime: '10',
                 startTime: '10:00',
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true
+            });
+            $('#StrEndTime').timepicker({
+                timeFormat: 'h:mm p',
+                defaultTime: '3:00pm',
+                minTime: '3:00pm',
+                maxTime: '6:00pm',
+                startTime: '3:00pm',
                 dynamic: false,
                 dropdown: true,
                 scrollbar: true
@@ -254,11 +285,40 @@
             //    $('#AttendanceEndTime').datetimepicker('minDate', e.date)
             //});
             getLocation();
-            $('#TopicIds').multiselect({
-                buttonWidth: '100%'
-            });
+            BindGetTainerWiseBatchesList("BatchId", '', '2', '');
             $('#BatchId').change(function () {
-                BindPartData();
+                OtherTopice();
+                if ($(this).val() != '' && $(this).val() != null) {
+                    debugger;
+                    BindBatchWiseCourseList("CourseIds", '', '2', $(this).val());
+                        $('#CourseIds').multiselect({
+                            buttonWidth: '100%'
+                        });
+                        $('#CourseIds').multiselect('rebuild');
+                        $('#CourseIds').change();
+
+                    BindPartData();
+                }
+            });
+
+            $('#CourseIds').change(function () {
+                OtherTopice();
+                if ($(this).val() != '' && $(this).val() != null) {
+                    BindCourseSessionTopices("TopicIds", '', '2', $(this).val().join(','));
+                   // setTimeout(function () {
+                        $('#TopicIds').multiselect({
+                            includeSelectAllOption: true,
+                            enableFiltering: true,
+                            buttonWidth: '100%',
+                            multiple: true
+                        });
+                        $('#TopicIds').multiselect('rebuild');
+                        $('#TopicIds').change();
+                   // }, 200)
+                }
+            });
+            $('#TopicIds').change(function () {
+                OtherTopice();
             });
 
             $('#submission-form').submit(function (e) {
@@ -464,13 +524,18 @@
             var Latitude = lat;
             var Longitude = lng;
             var Address = $('#Address').val();
-            if (lat == '' || lng =='') {
+            if (lat == '' || lng == '') {
                 toastr.error("Error", "Allow to Location !!");
                 IsCheck = false
-                    return false;
+                return false;
             }
             if ($('#BatchId').val() == '' || $('#BatchId').val() == undefined) {
                 toastr.error("Error", "Please Select Batch !!");
+                IsCheck = false
+                return false;
+            }
+            if ($('#CourseIds').val() == '' || $('#CourseIds').val() == undefined) {
+                toastr.error("Error", "Please Select Courses.");
                 IsCheck = false
                 return false;
             }
@@ -489,14 +554,30 @@
                 IsCheck = false
                 return false;
             }
-
+            var CourseIds = $('#CourseIds').val();
+            if (CourseIds != null && CourseIds != undefined) {
+                if (CourseIds.length != 0) {
+                    IsCheck = true;
+                    CourseIds = CourseIds.join(',');
+                }
+            }
             var TopicIds = $('#TopicIds').val();
             if (TopicIds != null && TopicIds != undefined) {
                 if (TopicIds.length != 0) {
                     IsCheck = true;
                     TopicIds = TopicIds.join(',');
+                    var splitcom = TopicIds.split(',');
+                    for (var i = 0; i < splitcom.length; i++) {
+                        if (splitcom[i] == "261") {
+                            //    || splitcom[i] == "262" || splitcom[i] == "263" || splitcom[i] == "264") {
+                            $('#TopicOther').append($('#TopicOther').val());
+                        }
+                    }
                 }
             }
+        
+       
+
             var atleastonepart = 0;
               let table2 = $('#tbl').DataTable();
                 table2.$('input[class=check]').each(function (i, row) {
@@ -527,6 +608,7 @@
             formData.append('StartDate', $('#StartDate').val());
             formData.append('StrStartTime', $('#StrStartTime').val());
             formData.append('StrEndTime', $('#StrEndTime').val());
+            formData.append('CourseIds', CourseIds);
             formData.append('TopicIds', TopicIds);
             formData.append('PARTModel', JSON.stringify(tblpushdata));
             debugger;
@@ -579,9 +661,11 @@
                     if (res.IsSuccess) {
                         if (res.IsAttend) {
                             $("#btnsubmit").attr("disabled", "disabled");
+                            $("#btnsubmit").css("display", "none");
                         }
                         else {
                             $("#btnsubmit").removeAttr("disabled");
+                            $("#btnsubmit").css("display", "block");
                         }
                         $("#subdata").html(res.Data);
 
@@ -601,9 +685,9 @@
                             },
                             order: [[1, 'asc']],
                             buttons: [{
-                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Beneficiary Lists',//$('#IDDistrict option:selected').text() +
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i> Download</span>', title: 'Participant Lists',//$('#IDDistrict option:selected').text() +
                                 className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
-                                filename: 'Beneficiary List',
+                                filename: 'Participant Lists',
                                 exportOptions: { modifier: { page: 'all' } }
                             }],
                         });
@@ -624,6 +708,24 @@
                 }
             });
         }
-
+        function OtherTopice() {
+            $('#dv-TopicOther').css('display', 'none');
+            $('#TopicOther').css('display', 'none');
+            $('#TopicOther').val('');
+            var TopicIds = $('#TopicIds').val();
+            if (TopicIds != null && TopicIds != undefined) {
+                if (TopicIds.length != 0) {
+                    TopicIds = TopicIds.join(',');
+                    var splitcom = TopicIds.split(',');
+                    for (var i = 0; i < splitcom.length; i++) {
+                        if (splitcom[i] == "261") {
+                        //    || splitcom[i] == "262" || splitcom[i] == "263" || splitcom[i] == "264") {
+                            $('#dv-TopicOther').css('display', 'block');
+                            $('#TopicOther').css('display', 'block');
+                        }
+                    }
+                }
+            }
+        }
     </script>
 }

@@ -38,6 +38,7 @@ namespace Hunarmis.Models
         public Nullable<int> TrainingAgencyID { get; set; }
         public Nullable<int> TrainingCenterID { get; set; }
         public string TrainerName { get; set; }
+        public string TrainerMobileNo { get; set; }
         public Nullable<System.Guid> TrainerId { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<bool> IsPlaced { get; set; }

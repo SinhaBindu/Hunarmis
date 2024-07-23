@@ -23,15 +23,18 @@
                 <tr>
                     <th class="text-center tblth">Srno.</th>
                     <th class="text-center tblth">Edit</th>
-                    <th class="text-center tblth">Center Name</th>
+                    <th class="text-center tblth">Center Name<br />/Location</th>
                     <th class="text-center tblth">Phone No</th>
                     <th class="text-center tblth">Name</th>
                     <th class="text-center tblth">Registration ID</th>
                     <th class="text-center tblth">Email ID</th>
-                    @*<th class="text-center tblth">Aadhar <br />Card No.</th>*@
+                  @*<th class="text-center tblth">Aadhar <br />Card No.</th>*@
                     <th class="text-center tblth">Batch Name</th>
                     <th class="text-center tblth">Batch Start Date</th>
                     <th class="text-center tblth">Batch End Date</th>
+                    <th class="text-center tblth">Course</th>
+                    <th class="text-center tblth">Status/Date</th>
+                    <th class="text-center tblth">Reported By</th>
                     <th class="text-center tblth">Assessment<br /> Score</th>
                 </tr>
             </thead>
@@ -45,11 +48,14 @@
                             <tr>
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-center">
-                                    <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon" target="_blank">
+                                    <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                 </td>
-                                <td class="text-left">@dr["TrainingCenter"]</td>
+                                <td class="text-left">
+                                    @dr["TrainingCenter"]
+                                    /<br />@dr["DistrictName"]
+                                </td>
                                 <td class="" width="20%">
                                     @dr["PhoneNo"]
                                 </td>
@@ -60,15 +66,17 @@
                                 <td class="text-left">@dr["BatchName"]</td>
                                 <td class="text-center">@dr["BatchStartDate"]</td>
                                 <td class="text-center">@dr["BatchEndDate"]</td>
+                                <td class="text-center">@dr["CourseName"]</td>
+                                <td class="text-center">@dr["CurrentStatus"]/<br />@dr["CurrentReportedDate"] </td>
+                                <td class="text-center" style="word-break:break-word !important;">@dr["CurrentReportedByName"]</td>
                                 <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
-
                             </tr>
                         }
                     }
                     else
                     {
                         <tr>
-                            <td colspan="12" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                            <td colspan="15" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
                         </tr>
                     }
                 }

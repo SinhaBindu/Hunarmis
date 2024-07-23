@@ -113,7 +113,7 @@
                             <div class="form-group div-remark" style="display:none;">
                                 @Html.LabelFor(model => model.RemarkStatus, htmlAttributes: new { @class = "control-label col-lg-4" })
                                 <div class="col-lg-8">
-                                    @Html.DropDownListFor(model => model.RemarkStatus, CommonModel.GetRemarkStatusList(false), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                    @Html.DropDownListFor(model => model.RemarkStatus, CommonModel.GetRemarkStatusList(false), "Select One", htmlAttributes: new { @class = "form-control select2" , @required = "required" })
                                     @Html.ValidationMessageFor(model => model.RemarkStatus, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="mark-devide"></div>

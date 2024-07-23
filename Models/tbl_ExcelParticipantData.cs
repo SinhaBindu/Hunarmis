@@ -35,6 +35,7 @@ namespace Hunarmis.Models
         public string TrainingAgencyName { get; set; }
         public string TrainingCenter { get; set; }
         public string TrainerName { get; set; }
+        public string TrainerMobileNo { get; set; }
         public string IsPlaced { get; set; }
         public string DOBDD { get; set; }
         public string DOBMM { get; set; }

@@ -5,21 +5,31 @@
    // GetPackedbubbleData();
     $('#FormId').change(function () {
         var txt = $('option:selected', $(this)).text();
-        $('#sg-title').html(txt);
+        var txt1 = $('option:selected', $('#BatchId')).text();
+        $('#sg-title').html(txt + " / " + txt1);
         GetSummaryData();
     })
+    $('#BatchId').change(function () {
+        var txt = $('option:selected', $('#FormId')).text();
+        var txt1 = $('option:selected', $('#BatchId')).text();
+        $('#sg-title').html(txt + " / " + txt1);
+        GetSummaryData();
+    })
+
 });
 
 function GetSummaryData() {
     $('#ChartSummary').html('');
     var txt = $('option:selected', $('#FormId')).text();
+    var txt1 = $('option:selected', $('#BatchId')).text();
     var formData = $('#formid').serialize();
     var User = 'all';
     var FormId = $("#FormId").val();
+    var BatchId = $("#BatchId").val();
     $.ajax({
         type: "GET",
         url: document.baseURI + "/assessment/GetSummary",
-        data: { 'User': User, 'FormId': FormId },
+        data: { 'User': User, 'FormId': FormId, 'BatchId': BatchId },
         success: function (resp) {
             if (resp.IsSuccess) {
                 debugger
@@ -118,7 +128,7 @@ function GetSummaryData() {
                         //marginRight: 5
                     },
                     title: {
-                        text: '' + txt
+                        text: '' + txt + ' / ' + txt1
                     },
                     subtitle: {
                         text: '<b> Marks Correct/Incorrect : ' + Sans + '(' + (Sans * 100 / STotal).toFixed(1) + '%) / ' + SIncans + '(' + (SIncans * 100 / STotal).toFixed(1) + '%)</b>',

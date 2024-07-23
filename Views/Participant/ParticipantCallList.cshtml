@@ -42,6 +42,7 @@
     .panel {
         min-height: 500px;
     }
+
     .licall::before {
         color: #808080;
         content: '■';
@@ -73,14 +74,17 @@
         left: -0.8em; /* f5ad05 Adjust this value so that it appears where you want. */
         font-size: 1.1em; /* Adjust this value so that it appears what size you want. */
     }
+
     .call-option {
         display: flex;
         gap: 20px;
         padding: 20px 0 15px 20px;
     }
+
         .call-option li {
             list-style: none;
         }
+
     .d-call, .call-progress, .call-yes, .call-no {
         float: left;
         width: 12px;
@@ -89,15 +93,19 @@
         margin-right: 6px;
         margin-top: 4px;
     }
+
     .d-call {
         background: grey;
     }
+
     .call-progress {
         background: #F18888;
     }
+
     .call-yes {
         background: #39B54A;
     }
+
     .call-no {
         background: #FFB300;
     }
@@ -116,7 +124,7 @@
                             <div class="panel-bodys">
                                 <div class="bg-light rounded h-100 p-4">
                                     <div class="row mb-3">
-                                        <div class="col-md-5 ml-4">
+                                        <div class="col-md-4 ml-4">
                                             <ul class="call-option">
                                                 <li><span class="d-call"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallNot))</li>
                                                 <li><span class="call-progress"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallOnProgress))</li>
@@ -124,104 +132,73 @@
                                                 <li><span class="call-no"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallNotPick))</li>
                                             </ul>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="position-relative form-group">
-                                                @Html.LabelFor(model => model.CallStatus, htmlAttributes: new { @class = "control-label" })
-                                                @Html.DropDownListFor(m => m.CallStatus,CommonModel.GetEnumCallStatusList(true), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                        
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="position-relative">
+                                            @Html.LabelFor(model => model.CallStatus, htmlAttributes: new { @class = "control-label col-md-1 " })
+                                            <div class="col-md-2">
+                                                @Html.DropDownListFor(m => m.CallStatus, CommonModel.GetEnumCallStatusList(true), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                                 @Html.ValidationMessageFor(model => model.CallStatus, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
+                                        <div class="position-relative">
+                                            @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-1" })
+                                            <div class="col-md-2">
+                                                @Html.DropDownListFor(m => m.CourseId, CommonModel.GetCourses(true), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                                @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="position-relative">
+                                            @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label col-md-1" })
+                                            <div class="col-md-2">
+                                                @Html.DropDownListFor(m => m.BatchId, CommonModel.GetBatch(true), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                                @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        @*<div class="position-relative">
+                                            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-1" })
+                                            <div class="col-md-2">
+                                                @Html.DropDownListFor(m => m.UserId, CommonModel.GetUserList(), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>*@
                                     </div>
-                                @*<div class="row mb-3">
-                                        <div class="col-sm-4">
-                                            <div class="position-relative form-group">
-                                                @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label" })
-                                                @Html.DropDownListFor(m => m.DistrictId, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="position-relative form-group">
-                                                @Html.LabelFor(model => model.BlockId, htmlAttributes: new { @class = "control-label" })
-                                                @Html.DropDownListFor(m => m.BlockId, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                                @Html.ValidationMessageFor(model => model.BlockId, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="position-relative form-group">
-                                                @Html.LabelFor(model => model.PanchayatId, htmlAttributes: new { @class = "control-label" })
-                                                @Html.DropDownListFor(m => m.PanchayatId, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                                @Html.ValidationMessageFor(model => model.PanchayatId, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-4">
-                                            <div class="position-relative form-group">
-                                                @Html.LabelFor(model => model.VOId, htmlAttributes: new { @class = "control-label" })
-                                                @Html.DropDownListFor(m => m.VOId, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                                @Html.ValidationMessageFor(model => model.VOId, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="position-relative form-group">
-                                                @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })
-                                                @Html.DropDownListFor(m => m.Year, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                                @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="position-relative form-group">
-                                                @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label" })
-                                                @Html.DropDownListFor(m => m.Month, new List<SelectListItem>(), null, new { @class = "form-select " })
-                                                @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <span class="check-spacer">
-                                            <input type="submit" name="btnsubmit" id="btnsubmit" class="btn btn-primary" value="Filter" />
-                                        </span>&nbsp;&nbsp;&nbsp;
-                                        <span class="check-spacer">
-                                            <a href="~/Beneficiary/BFYList" class="btn btn-info"><i class="fa fa-refresh"></i>Refresh</a>
-                                        </span>
-                                    </div>*@
-                            </div>
-                    </div>
-                }
-                        </fieldset>
-                        <div class="box-gap">
-                            <div class="row">
-                                <div class="col=md-12" id="div-download"></div>
-                                <div class="col=md-6"></div>
-                                <div class="col=md-6"></div>
-                                <div class="col=md-6"></div>
-                                <div class="col-md-12">
-                                    <div id="subdata"></div>
                                 </div>
                             </div>
+                        }
+                    </fieldset>
+                    <div class="box-gap">
+                        <div class="row">
+                            <div class="col=md-12" id="div-download"></div>
+                            <div class="col=md-6"></div>
+                            <div class="col=md-6"></div>
+                            <div class="col=md-6"></div>
+                            <div class="col-md-12">
+                                <div id="subdata"></div>
+                            </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
-        </div>
+    </div>
+</div>
 
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-            @*<script src="~/Scripts/JS/Master.js"></script>*@
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script src="~/Scripts/JS/Master.js"></script>*@
 
-            @*<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
-                <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
-                <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-                <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-                <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
+    @*<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
 
-            <script>
+    <script>
         $(document).ready(function () {
-
             //    GetYearList("Year", 0);
             //    GetMonthList("Month", 0);
             //    GetDistrict("DistrictId", 0);
@@ -236,15 +213,23 @@
             //    });
             //    /* Role Wise */
             //    BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
-            BindData();
+            setTimeout(function () {
+                $('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
+                //$('select[name="CallStatus"]').find('option[value="0"]').attr("selected", true).change();
+                //$('select[name="BatchId"]').find('option[value="21"]').attr("selected", true).change();
+                BindData();
+            },200);
             $('#CallStatus').change(function () {
                 BindData();
-                 });
+            });
+            $('#BatchId').change(function () {
+                BindData();
+            });
             $("#formid").submit(function (e) {
                 e.preventDefault();
                 BindData();
             });
-            setInterval(startRefresh, 5000);
+            setInterval(startRefresh, 500);//change 5000
 
         });
 
@@ -310,7 +295,8 @@
             filtermodel.Type = '@((int)Enums.ePlaced.Yes)';//$('#Type').val() == '' ? '' : $('#Type').val();
             filtermodel.Search = "";//$('#Search').val() == '' ? '' : $('#Search').val();
             filtermodel.CallStatus =  $('#CallStatus').val() == '' ? '' : $('#CallStatus').val();
-            //filtermodel.BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
+            filtermodel.BatchId = $('#BatchId').val() == '' ? '0' : $('#BatchId').val();
+            filtermodel.CourseId = $('#CourseId').val() == '' ? '0' : $('#CourseId').val();
             var formData = $('#formid').serialize();
 
             $.ajax({
@@ -337,9 +323,9 @@
                             },
                             order: [[1, 'asc']],
                             buttons: [{
-                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Beneficiary Lists',//$('#IDDistrict option:selected').text() +
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Download</span>', title: 'Participant Lists',//$('#IDDistrict option:selected').text() +
                                 className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
-                                filename: 'Beneficiary List',
+                                filename: 'Participant List',
                                 exportOptions: { modifier: { page: 'all' } }
                             }],
                         });
@@ -360,6 +346,6 @@
                 }
             });
         }
-            </script>
-        }
+    </script>
+}
 

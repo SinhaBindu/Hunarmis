@@ -19,6 +19,8 @@ namespace Hunarmis.Models
         public string DistrictId { get; set; }
         [Display(Name = "Batch")]
         public string BatchId { get; set; }
+        [Display(Name = "Course")]
+        public string CourseId { get; set; }
         [Display(Name = "Training Center")]
         public string TrainingCenterID { get; set; }
         [Display(Name = "Session Plan")]

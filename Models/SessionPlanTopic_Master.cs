@@ -20,6 +20,8 @@ namespace Hunarmis.Models
         public string DurationMinutes { get; set; }
         public string SESSIONPlanType { get; set; }
         public string DAYWise { get; set; }
+        public Nullable<int> CourseId { get; set; }
+        public string CourseName { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

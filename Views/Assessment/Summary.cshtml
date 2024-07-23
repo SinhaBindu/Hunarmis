@@ -28,11 +28,18 @@
                         <div class="panel-bodys">
                             <div class="bg-light rounded h-100 p-4">
                                 <div class="row mb-3">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="position-relative form-group">
                                             @Html.LabelFor(m => m.FormId, htmlAttributes: new { @class = "control-label" })
                                             @Html.DropDownListFor(m => m.FormId, CommonModel.GetForm(1), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                             @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="position-relative form-group">
+                                            @Html.LabelFor(m => m.BatchId, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.BatchId, CommonModel.GetBatchForPartLists(), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                            @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>

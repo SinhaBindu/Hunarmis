@@ -334,23 +334,86 @@ namespace Hunarmis.Manager
             List<SelectListItem> list = new List<SelectListItem>();
             try
             {
-                    if (HttpContext.Current.User.Identity.IsAuthenticated)
+                if (HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    if (HttpContext.Current.User.IsInRole(RoleNameCont.Admin) || HttpContext.Current.User.IsInRole(RoleNameCont.State))
                     {
-                        if (HttpContext.Current.User.IsInRole(RoleNameCont.Admin) || HttpContext.Current.User.IsInRole(RoleNameCont.State))
-                        {
-                            DataTable dt = SPManager.SP_GetAllTrainerList(TrainerId);
-                            list = new SelectList(dt.AsDataView(), "TrainerId", "TrainerNameMobile").OrderBy(x => x.Text).ToList();
+                        DataTable dt = SPManager.SP_GetAllTrainerList(TrainerId);
+                        list = new SelectList(dt.AsDataView(), "TrainerId", "TrainerNameMobile").OrderBy(x => x.Text).ToList();
 
-                            if (IsAll == 0)
-                            {
-                                list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
-                            }
-                            else if (IsAll == 1)
-                            {
-                                list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
-                            }
-                            return list;
+                        if (IsAll == 0)
+                        {
+                            list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
                         }
+                        else if (IsAll == 1)
+                        {
+                            list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                        }
+                        return list;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return list;
+        }
+
+        public static List<SelectListItem> GetBatchWiseCourse(int IsAll = 2, string BatchId = "")
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List<SelectListItem> list = new List<SelectListItem>();
+            try
+            {
+                if (HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    //if (HttpContext.Current.User.IsInRole(RoleNameCont.Admin) || HttpContext.Current.User.IsInRole(RoleNameCont.State))
+                    //{
+                    FilterModel model = new FilterModel(); model.BatchId = BatchId;
+                    DataTable dt = SPManager.SP_BatchWiseCourse(model);
+                    list = new SelectList(dt.AsDataView(), "Value", "Text").OrderBy(x => x.Text).ToList();
+                    if (IsAll == 0)
+                    {
+                        list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                    }
+                    else if (IsAll == 1)
+                    {
+                        list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                    }
+                    return list;
+                    //}
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return list;
+        }
+
+        public static List<SelectListItem> GetSPCourseWiseTopices(int IsAll = 2, string CourseId = "")
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List<SelectListItem> list = new List<SelectListItem>();
+            try
+            {
+                if (HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    FilterModel model = new FilterModel(); model.CourseId = CourseId;
+                    DataTable dt = SPManager.SP_CourseWiseTopices(model);
+                    list = new SelectList(dt.AsDataView(), "SessionPlanTPId_pk", "Text").OrderBy(x => x.Text).ToList();
+                    if (IsAll == 0)
+                    {
+                        list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                    }
+                    else if (IsAll == 1)
+                    {
+                        list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                    }
+                    return list;
                 }
             }
             catch (Exception)
@@ -460,7 +523,8 @@ namespace Hunarmis.Manager
             Hunar_DBEntities _db = new Hunar_DBEntities();
             try
             {
-                var items = new SelectList(_db.FormMasters, "Id", "Name").OrderBy(x => x.Text).ToList();
+                // var items = new SelectList(_db.FormMasters, "Id", "Name").OrderBy(x => x.Text).ToList();
+                var items = new SelectList(_db.Courses_Master, "Id", "CourseName").OrderBy(x => x.Text).ToList();
                 //if (IsAll == 0)
                 //{
                 //    items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
@@ -1353,6 +1417,8 @@ namespace Hunarmis.Manager
             list.Add(new SelectListItem { Value = "Invalid No", Text = "Invalid No" });
             list.Add(new SelectListItem { Value = "Switch off", Text = "Switch off" });
             list.Add(new SelectListItem { Value = "Not responding", Text = "Not responding" });
+            list.Add(new SelectListItem { Value = "Not enrolled", Text = "Not enrolled" });
+            list.Add(new SelectListItem { Value = "Other", Text = "Other" });
             if (IsAll)
             {
                 list.Insert(0, new SelectListItem { Value = "-1", Text = "All" });
@@ -1484,15 +1550,16 @@ namespace Hunarmis.Manager
         {
             Hunar_DBEntities hunar_DB = new Hunar_DBEntities();
             Tbl_ExceptionHandle tblexp = new Tbl_ExceptionHandle();
+            tblexp.Id_pk = Guid.NewGuid();
             tblexp.Table = Table;
             tblexp.Controller = Controller;
             tblexp.Action = Action;
             tblexp.Method = Method;
             tblexp.E_Exception = ExMessage;
-            hunar_DB.Tbl_ExceptionHandle.Add(tblexp);
             tblexp.IsActive = true;
             tblexp.CreatedBy = MvcApplication.CUser.UserId;
             tblexp.CreatedOn = DateTime.Now;
+            hunar_DB.Tbl_ExceptionHandle.Add(tblexp);
             hunar_DB.SaveChanges();
         }
         #endregion

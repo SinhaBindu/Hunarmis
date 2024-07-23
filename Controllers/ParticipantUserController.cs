@@ -81,7 +81,7 @@ namespace Hunarmis.Controllers
                         Session["IsQuestionAvaiable"] = dt.Rows[0]["IsQuestionAvaiable"].ToString();
                         var assessmentsendid = Guid.Parse(dt.Rows[0]["AssessmentSendLinkPartId_pk"].ToString());
                         var tbl2nd = _db.tbl_AssessmentSendLinkEmail.Find(assessmentsendid);
-                        
+
                         var BatchId = Convert.ToInt32(Session["BatchId"].ToString());
                         var FormId = !string.IsNullOrWhiteSpace(Session["CourseId"].ToString()) ? Convert.ToInt32(Session["CourseId"]) : 0;//&& x.BatchId == filter.BatchId && x.FormId == filter.FormId
                         var PartUserId = Session["PartUserId"].ToString();//
@@ -223,8 +223,8 @@ namespace Hunarmis.Controllers
                             if (tblget.Any())
                             {
                                 var tblu = tblget.FirstOrDefault();
-                                tblu.AssessmentScoreNo =!string.IsNullOrWhiteSpace(model.ScorePercentage)?Convert.ToDecimal(model.ScorePercentage):0;
-                                tblu.IsCertificate = model.IsCertificate=="1"?true:false;
+                                tblu.AssessmentScoreNo = !string.IsNullOrWhiteSpace(model.ScorePercentage) ? Convert.ToDecimal(model.ScorePercentage) : 0;
+                                tblu.IsCertificate = model.IsCertificate == "1" ? true : false;
 
                                 var tblpartu = dBEntities.tbl_Participant.Where(x => x.ID == model.ParticipantId).FirstOrDefault();
                                 tblpartu.AssessmentScore = model.ScorePercentage;
@@ -239,6 +239,9 @@ namespace Hunarmis.Controllers
                             if (!string.IsNullOrWhiteSpace(bodyTemplate))
                             {
                                 dt1 = ds.Tables[1];
+
+                                decimal ASCP = Convert.ToDecimal(dt.Rows[0]["Percentage"].ToString());
+                                var AScore = Math.Round(ASCP, MidpointRounding.ToEven);
                                 bodydata = bodyTemplate.Replace("{Name}", dt1.Rows[0]["ReportedNameBy"].ToString())
                            .Replace("{CourseName}", dt1.Rows[0]["CourseName"].ToString())
                            //.Replace("{Completion}", "yes")//dt.Rows[0][""].ToString()
@@ -246,7 +249,8 @@ namespace Hunarmis.Controllers
                            .Replace("{BatchS}", dt1.Rows[0]["BatchStartDate"].ToString())
                            .Replace("{BatchE}", dt1.Rows[0]["BatchEndDate"].ToString())
                            .Replace("{TrainingCenter}", dt1.Rows[0]["TrainingCenter"].ToString())
-                           .Replace("{IsIssueDt}", dt1.Rows[0]["CreatedOn"].ToString());
+                           .Replace("{IsIssueDt}", dt1.Rows[0]["CreatedOn"].ToString())
+                           .Replace("{AssessmentScore}", AScore.ToString());
                                 model.HrmlData = bodydata;
                             }
                         }

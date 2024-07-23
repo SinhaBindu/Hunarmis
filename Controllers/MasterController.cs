@@ -200,8 +200,11 @@ namespace Hunarmis.Controllers
                 var items = CommonModel.GetState(SelectAll);
                 if (items != null)
                 {
-                    var data = JsonConvert.SerializeObject(items);
-                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
                 }
                 return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
             }
@@ -217,8 +220,11 @@ namespace Hunarmis.Controllers
                 var items = CommonModel.GetDistrict(SelectAll, StateId);
                 if (items != null)
                 {
-                    var data = JsonConvert.SerializeObject(items);
-                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
                 }
                 return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
             }
@@ -234,8 +240,11 @@ namespace Hunarmis.Controllers
                 var items = CommonModel.GetBatch(SelectAll);
                 if (items != null)
                 {
-                    var data = JsonConvert.SerializeObject(items);
-                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
                 }
                 return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
             }
@@ -251,8 +260,11 @@ namespace Hunarmis.Controllers
                 var items = CommonModel.GetTrainingAgency(SelectAll);
                 if (items != null)
                 {
-                    var data = JsonConvert.SerializeObject(items);
-                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
                 }
                 return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
             }
@@ -268,8 +280,11 @@ namespace Hunarmis.Controllers
                 var items = CommonModel.GetTrainingCenter(SelectAll, DistrictId, TrainingAgencyId);
                 if (items != null)
                 {
-                    var data = JsonConvert.SerializeObject(items);
-                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
                 }
                 return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
             }
@@ -285,8 +300,11 @@ namespace Hunarmis.Controllers
                 var items = CommonModel.GetYear(SelectAll);
                 if (items != null)
                 {
-                    var data = JsonConvert.SerializeObject(items);
-                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
                 }
                 return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
             }
@@ -302,8 +320,11 @@ namespace Hunarmis.Controllers
                 var items = CommonModel.GetMonth(SelectAll);
                 if (items != null)
                 {
-                    var data = JsonConvert.SerializeObject(items);
-                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
                 }
                 return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
             }
@@ -319,8 +340,11 @@ namespace Hunarmis.Controllers
                 var items = CommonModel.GetSP_GetTrainerAtCenterList(SelectAll, TCenterId);
                 if (items != null)
                 {
-                    var data = JsonConvert.SerializeObject(items);
-                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
                 }
                 return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
             }
@@ -336,8 +360,71 @@ namespace Hunarmis.Controllers
                 var items = CommonModel.GetEnumCallStatusList(SelectAll);
                 if (items != null)
                 {
-                    var data = JsonConvert.SerializeObject(items);
-                    return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetCourseSessionTopicesList(int SelectAll, string CourseIds = "")
+        {
+            try
+            {
+                var items = CommonModel.GetSPCourseWiseTopices(SelectAll, CourseIds);
+                if (items != null)
+                {
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetBatchWiseCourseList(int SelectAll, string BatchIds = "")
+        {
+            try
+            {
+                var items = CommonModel.GetBatchWiseCourse(SelectAll, BatchIds);
+                if (items != null)
+                {
+                    if (items.Count > 0)
+                    {
+                            var data = JsonConvert.SerializeObject(items);
+                            return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetTainerWiseBatchesList(int SelectAll, string TarinerIds = "")
+        {
+            try
+            {
+                var items = CommonModel.GetBatchForPartLists(SelectAll, TarinerIds);
+                if (items != null)
+                {
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
                 }
                 return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
             }
@@ -438,12 +525,12 @@ namespace Hunarmis.Controllers
                         {
                             var tblupart = _db.tbl_Participant.Find(item.ID);
                             tblupart.TrainerId = tbl.TrainerId;
-                            tblupart.UpdatedBy = MvcApplication.CUser.UserId;   
-                            tblupart.UpdatedOn = DateTime.Now;   
+                            tblupart.UpdatedBy = MvcApplication.CUser.UserId;
+                            tblupart.UpdatedOn = DateTime.Now;
                             _db.SaveChanges();
-                        } 
+                        }
 
-                       tbl_LogBatchTrainer tbllobt = new tbl_LogBatchTrainer();
+                        tbl_LogBatchTrainer tbllobt = new tbl_LogBatchTrainer();
                         tbllobt.BatchId = tbl.Id;
                         tbllobt.TrainerId = tbl.TrainerId;
                         tbllobt.CourseId = tbl.CourseId;
@@ -519,24 +606,29 @@ namespace Hunarmis.Controllers
                 var tbl = model.Id != 0 ? db.Courses_Master.Find(model.Id) : new Courses_Master();
                 if (tbl != null && model != null)
                 {
-                    tbl.CourseName = model.CourseName;
+                    tbl.CourseName = model.CourseName.Trim();
                     tbl.IsActive = true;
+                    FormMaster formM = model.Id != 0 ? db.FormMasters.Find(model.Id) : new FormMaster();
+                    formM.Name = tbl.CourseName;
+
                     if (model.Id == 0)
                     {
                         if (!_db.Courses_Master.Any())
                         {
                             tbl.Id = 1;
+                            formM.Id = tbl.Id;
                         }
                         else
                         {
                             var max = _db.Courses_Master?.Max(x => x.Id);
                             tbl.Id = max == 0 ? 1 : Convert.ToInt32(max.Value) + 1;
-
+                            formM.Id = tbl.Id;
                         }
 
                         tbl.CreatedBy = MvcApplication.CUser.UserId;
                         tbl.CreatedOn = DateTime.Now;
                         db.Courses_Master.Add(tbl);
+                        db.FormMasters.Add(formM);
                     }
                     else
                     {

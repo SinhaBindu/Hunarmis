@@ -32,6 +32,11 @@
                     <th class="text-center tblth">Batch Name</th>
                     <th class="text-center tblth">Batch Start Date</th>
                     <th class="text-center tblth">Batch End Date</th>
+                    <th class="text-center tblth">Remark Status</th>
+                    <th class="text-center tblth">Remark Date</th>
+                    <th class="text-center tblth">Course</th>
+                    <th class="text-center tblth">Reported Date</th>
+                    <th class="text-center tblth">Reported By</th>
                     <th class="text-center tblth">Assessment<br /> Score</th>
                 </tr>
             </thead>
@@ -55,6 +60,7 @@
                             var callstatus = Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallOnProgress
                                 ? "pointer-events: none;" : Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallDone ?
                                 "pointer-events: none;" : Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallNotPick ? "" : "";
+                           
                             <tr data-tempcalls="@dr["CallTempStatus"].ToString()"
                                 data-partid="@dr["ID"].ToString()" style="@csstemp">
                                 <td class="text-center">@calltempst</td>
@@ -84,6 +90,11 @@
                                 <td class="text-left">@dr["BatchName"]</td>
                                 <td class="text-center">@dr["BatchStartDate"]</td>
                                 <td class="text-center">@dr["BatchEndDate"]</td>
+                                <td class="text-center">@dr["RemarkStatus"]</td>
+                                <td class="text-center">@dr["RemarkDT"]</td>
+                                <td class="text-center">@dr["CourseName"]</td>
+                                <td class="text-center">@dr["CallTempStatusDT"] </td>
+                                <td class="text-center" style="word-break:break-word !important;">@dr["CallStatusReportedBy"]</td>
                                 <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
                             </tr>
                         }

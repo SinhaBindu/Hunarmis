@@ -105,6 +105,17 @@
                                 {
                                     <li class="treeview">
                                         <a href="#">
+                                            <i class="fa fa-user main-icon"></i>
+                                            <span class="menu-title">Attendance</span>
+                                            <i class="arrow"></i>
+                                        </a>
+                                        <ul class="collapse treeview-menu">
+                                            <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Attendance </span>", "CreatedAttend", "Attendance")</li>
+                                            <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Assessment Schedule</span>", "AssessmentSchedule", "Attendance")</li>
+                                        </ul>
+                                    </li>
+                                    <li class="treeview">
+                                        <a href="#">
                                             <i class="fa fa-database main-icon"></i>
                                             <span class="menu-title">Master</span>
                                             <i class="arrow"></i>
@@ -134,7 +145,7 @@
                                     <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                                 }
                             }
-                            if (User.IsInRole("Trainer") || User.IsInRole("Admin") || User.IsInRole("State") || User.IsInRole("Verifier") || User.IsInRole("Viewer") || User.IsInRole("District"))
+                            if (User.IsInRole("Trainer"))//|| User.IsInRole("State") || User.IsInRole("Verifier") || User.IsInRole("Viewer") || User.IsInRole("District")
                             {
                                 <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                                 <li class="treeview">
@@ -148,6 +159,19 @@
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Assessment Schedule</span>", "AssessmentSchedule", "Attendance")</li>
                                     </ul>
                                 </li>
+                                <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-user main-icon"></i>
+                                        <span class="menu-title">Report (Assessment)</span>
+                                        <i class="arrow"></i>
+                                    </a>
+                                    <ul class="collapse treeview-menu">
+                                        <li>@Html.ActionLinkMenu("<i class='fa fa-bar-chart'></i><span>Course Wise</span>", "Summary", "Assessment", new { FId = 1 })</li>
+                                        <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>Score Summary </span>", "ScorerSummary", "Assessment", new { FId = 1 })</li>
+                                    </ul>
+                                </li>
+                                <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                             }
                             @*if (User.IsInRole("Trainer") || User.IsInRole("Mobilizer"))
                                 {

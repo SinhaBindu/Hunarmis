@@ -648,14 +648,15 @@ namespace Hunarmis.Controllers
                                     EmailID = Convert.ToString(x["EmailID"]),
                                     AadharCardNo = Convert.ToString(x["AadharCardNo"]),
                                     BatchName = Convert.ToString(x["BatchName"]),
-                                    BatchStartDate = Convert.ToString(x["BatchStartDate"]),
-                                    BatchEndDate = Convert.ToString(x["BatchEndDate"]),
+                                  //  BatchStartDate = Convert.ToString(x["BatchStartDate"]),
+                                  //  BatchEndDate = Convert.ToString(x["BatchEndDate"]),
                                     AssessmentScore = Convert.ToString(x["AssessmentScore"]),
                                     QualificationName = Convert.ToString(x["QualificationName"]),
                                     CourseName = Convert.ToString(x["CourseName"]),
                                     TrainingAgencyName = Convert.ToString(x["TrainingAgencyName"]),
                                     TrainingCenter = Convert.ToString(x["TrainingCenter"]),
                                     TrainerName = Convert.ToString(x["TrainerName"]),
+                                    TrainerMobileNo =Convert.ToString(x["TrainerMobileNo"]),
                                     IsPlaced = Convert.ToString(x["IsPlaced"]),
                                     DOBDD = Convert.ToString(x["DOBDD"]),
                                     DOBMM = Convert.ToString(x["DOBMM"]),
@@ -744,6 +745,7 @@ namespace Hunarmis.Controllers
                                             var TrainingCenterId = !(string.IsNullOrWhiteSpace(trainingCenter)) ? db.TrainingCenter_Master.Where(x => x.TrainingCenter == trainingCenter).FirstOrDefault()?.Id : null;
                                             tblpart.TrainingCenterID = TrainingCenterId;
                                             tblpart.TrainerName = !(string.IsNullOrWhiteSpace(dr["TrainerName"].ToString())) ? dr["TrainerName"].ToString().Trim() : null;
+                                            tblpart.TrainerMobileNo = !(string.IsNullOrWhiteSpace(dr["TrainerMobileNo"].ToString())) ? dr["TrainerMobileNo"].ToString().Trim() : null;
                                             //if (!string.IsNullOrEmpty(dr["DateofBirth"].ToString()))
                                             //{
                                             //    tblpart.DOB = Convert.ToDateTime(dr["DateofBirth"].ToString());
@@ -767,11 +769,11 @@ namespace Hunarmis.Controllers
                                                 //tblpart.IsOffered = !(string.IsNullOrWhiteSpace(dr["IsOffered"].ToString())) && dr["IsOffered"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
                                                 db.tbl_Participant.Add(tblpart);
                                             }
+                                            //tbl.NoofInserted = results - 1;
                                             results += db.SaveChanges();
                                         }
                                     }
                                 }
-
 
                             }
                             if (!string.IsNullOrEmpty(strmobile))
@@ -801,6 +803,17 @@ namespace Hunarmis.Controllers
                          , "Participant", "ExcelFileUpload", "ExcelFileUpload"
                          , ex.Message);
                     string er = ex.Message;
+                    //Tbl_ExceptionHandle tbl = new Tbl_ExceptionHandle();
+                    //tbl.Id_pk = Guid.NewGuid(); 
+                    //tbl.Action = "ExcelFileUpload";
+                    //tbl.Controller = "Participant";
+                    //tbl.Table = "Participant,tbl_ExcelParticipantData";
+                    //tbl.E_Exception = er;
+                    //tbl.CreatedBy = MvcApplication.CUser.UserId;
+                    //tbl.CreatedOn= DateTime.Now;
+                    //tbl.IsActive = true;
+                    //db_.Tbl_ExceptionHandle.Add(tbl);
+                    //db_.SaveChanges();
                     return Json(new { IsSuccess = false, Message = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -847,6 +860,6 @@ namespace Hunarmis.Controllers
                 return writer.ToString();
             }
         }
-
+        
     }
 }

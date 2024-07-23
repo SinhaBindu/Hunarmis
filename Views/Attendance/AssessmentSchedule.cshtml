@@ -11,12 +11,15 @@
         font-size: 14px;
         background: #fff;
     }
+
     .table td {
         font-size: 13px;
     }
+
     .dataTables_filter, .dataTables_length {
         margin-bottom: 15px;
     }
+
     table.dataTable > thead > tr > th, table.dataTable > thead > tr > td {
         padding: 10px 6px !important
     }
@@ -50,12 +53,12 @@
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.StrStartTime, htmlAttributes: new { @class = "Col-md-2 col-form-label" })<em>*</em>
-                                                @Html.EditorFor(m => m.StrStartTime,null, new { htmlAttributes = new { @placeholder = "Enter the start time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
+                                                @Html.EditorFor(m => m.StrStartTime, null, new { htmlAttributes = new { @placeholder = "Enter the start time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
                                                 @Html.ValidationMessageFor(model => model.StrStartTime, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.StrEndTime, htmlAttributes: new { @class = "Col-md-2 col-form-label" })<em>*</em>
-                                                @Html.EditorFor(m => m.StrEndTime,null, new { htmlAttributes = new { @placeholder = "Enter the end time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
+                                                @Html.EditorFor(m => m.StrEndTime, null, new { htmlAttributes = new { @placeholder = "Enter the end time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
                                                 @Html.ValidationMessageFor(model => model.StrEndTime, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="col-md-12" style="padding-top: 10px !important;">
@@ -85,7 +88,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-<script>
+    <script>
         $(document).ready(function () {
 
             $('.timepicker').timepicker({
@@ -117,7 +120,15 @@
                 $('#StrStartTime').val(('@Model.StrStartTime'));
                 $('#StrEndTime').val(('@Model.StrEndTime'));
             }
-            BindData();
+            $('#BatchId_fk').change(function () {
+                if ($(this).val()!='') {
+                    BindData();
+                }
+            });
+          if ('@CommonModel.RoleNameCont.Trainer' != '@MvcApplication.CUser.Role') {
+                  BindData();
+             }
+
             $("#btnsubmit").click(function (e) {
                 e.preventDefault();
                 CUOPT();
@@ -130,7 +141,7 @@
             $.ajax({
                 type: "GET",
                 url: document.baseURI + "/Attendance/GetAssessmentSchedulellist",
-                data: { 'BatchId_fk': BatchId },//JSON.stringify({}),//
+                data: { 'BatchId': BatchId },//JSON.stringify({}),//
                 cache: false,
                 success: function (res) {
                     if (res.IsSuccess) {
@@ -246,5 +257,5 @@
         });
     }
 
-</script>
+    </script>
 }
