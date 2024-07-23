@@ -74,7 +74,19 @@
     }
 
     .btn-group {
-        width: 70% !important;
+        width: 100% !important;
+    }
+    .mrtop {
+        margin-top: -13px
+    }
+    .mrtop-bot {
+        margin-top: 9px
+    }
+    div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
+        background: #F59678 !important;
+        color: #fff !important;
+        border: 1px solid #D38167 !important;
+        margin-bottom: 12px;
     }
 </style>
 
@@ -104,29 +116,13 @@
                                         <div class="search-box">
                                             <div class="row">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "col-lg-1" })
+                                                    @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label col-lg-1" })
                                                     <div class="col-lg-5">
                                                         @Html.DropDownListFor(model => model.BatchId, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                                         @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.CourseIds, htmlAttributes: new { @class = "col-lg-1" })
-                                                    <div class="col-lg-5">
-                                                        @Html.DropDownListFor(model => model.CourseIds, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control", multiple = "multiple", @required = "required" })
-                                                        @Html.ValidationMessageFor(model => model.CourseIds, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.TopicIds, htmlAttributes: new { @class = "col-lg-1" })
-                                                    <div class="col-lg-5">
-                                                        @Html.DropDownListFor(model => model.TopicIds, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control", multiple = "multiple", @required = "required" })
-                                                        @Html.ValidationMessageFor(model => model.TopicIds, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
+                                                <div class="form-group mrtop">
                                                     @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-lg-1" })
                                                     <div class="col-lg-5">
                                                         @Html.EditorFor(m => m.StartDate, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "form-control col-md-4 required", @required = "required" } })
@@ -134,26 +130,45 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="break"></div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.CourseIds, htmlAttributes: new { @class = "col-lg-1" })
+                                                    <div class="col-lg-5">
+                                                        @Html.DropDownListFor(model => model.CourseIds, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control", multiple = "multiple", @required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.CourseIds, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mrtop">
+                                                    @Html.LabelFor(model => model.TopicIds, htmlAttributes: new { @class = "col-lg-1" })
+                                                    <div class="col-lg-5">
+                                                        @Html.DropDownListFor(model => model.TopicIds, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control", multiple = "multiple", @required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.TopicIds, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="break"></div>
                                             <div class="row" style="display:none;" id="dv-TopicOther">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.TopicOther, htmlAttributes: new { @class = "control-label col-lg-2" })
-                                                    <div class="col-lg-8">
+                                                    <div class="col-lg-10">
                                                         @Html.EditorFor(m => m.TopicOther, null, new { htmlAttributes = new { @placeholder = "Enter the Other Topice.", @class = "timepicker form-control col-md-4 required", @required = "required" } })
                                                         @Html.ValidationMessageFor(model => model.TopicOther, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="break"></div>
                                             <div class="row">
                                                 <div class="form-group">
-                                                    @Html.LabelFor(model => model.StrStartTime, htmlAttributes: new { @class = "control-label col-lg-2" })
-                                                    <div class="col-lg-4">
+                                                    @Html.LabelFor(model => model.StrStartTime, htmlAttributes: new { @class = "control-label col-lg-1" })
+                                                    <div class="col-lg-5">
                                                         @Html.EditorFor(m => m.StrStartTime, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Start Time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
                                                         @Html.ValidationMessageFor(model => model.StrStartTime, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.StrEndTime, htmlAttributes: new { @class = "control-label col-lg-2" })
-                                                    <div class="col-lg-4">
+                                                <div class="form-group mrtop">
+                                                    @Html.LabelFor(model => model.StrEndTime, htmlAttributes: new { @class = "control-label col-lg-1" })
+                                                    <div class="col-lg-5">
                                                         @Html.EditorFor(m => m.StrEndTime, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance End Time", @class = "timepicker form-control col-md-4 required", @required = "required" } })
                                                         @Html.ValidationMessageFor(model => model.StrEndTime, "", new { @class = "text-danger" })
                                                     </div>
@@ -191,7 +206,7 @@
                                             <div class="col-md-3">
                                                 <input type="submit" name="btnsubmit" value="Attendance Submit" id="btnsubmit" class="btn-lg btn-primary" />
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 mrtop-bot">
                                                 <a href="~/Attendance/CreatedAttend" class="btn-reset"><i class="fa fa-refresh"></i></a>
                                             </div>
                                         </div>
