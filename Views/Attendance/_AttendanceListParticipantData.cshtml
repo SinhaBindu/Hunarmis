@@ -1,0 +1,91 @@
+﻿@using System.Data
+@using System.Text.RegularExpressions;
+@using Hunarmis.Manager
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
+}
+<style>
+    table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting_asc_disabled, table.dataTable thead > tr > th.sorting_desc_disabled, table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting_asc_disabled, table.dataTable thead > tr > td.sorting_desc_disabled {
+        padding-right: 0px !important;
+    }
+
+    table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date,
+    table.dataTable td.dt-type-numeric,
+    table.dataTable td.dt-type-date {
+        text-align: left !important;
+    }
+
+    .row-disabled {
+        /*background-color: forestgreen !important;*/
+        color: #000;
+        pointer-events: none;
+        width: 100%;
+    }
+</style>
+<h4 class="text-capitalize text-center text-success"></h4>
+<div class="bg-light rounded h-100 p-4">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped" id="tbl">
+            <thead class="text-center">
+                <tr>
+                    <th class="text-center tblth">Srno.</th>
+                    <th class="text-center tblth">Attendance Date</th>
+                    <th class="text-center tblth">Duration <br />Minutes</th>
+                    <th class="text-center tblth">Center Name</th>
+                    <th class="text-center tblth">Phone No</th>
+                    <th class="text-center tblth">Name</th>
+                    <th class="text-center tblth">Registration ID</th>
+                    <th class="text-center tblth">Email ID</th>
+                    <th class="text-center tblth">Batch</th>
+                    <th class="text-center tblth">Course</th>
+                    <th class="text-center tblth">Topic</th>
+                    <th class="text-center tblth">Day Wise</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (dt.Rows.Count > 0)
+                    {
+                        int srno = 1, index = 0;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            var ColorCode = !string.IsNullOrWhiteSpace(dr["SumDurationMinutes"].ToString()) ? "#49A31C" : "";
+                                <tr>
+                                    <td class="text-center">@(srno++)</td>
+                                    <td class="text-left">@dr["AttendanceDate"]</td>
+                                    <td class="text-left">
+                                        <span class="text-center d-block badge bg-info" title="Total Question" style="background:@ColorCode; font-size:11px;">
+                                            <strong>@dr["SumDurationMinutes"]</strong>
+                                        </span>
+                                    </td>
+                                    <td class="text-left">@dr["TrainingCenter"]</td>
+                                    <td class="" width="20%">
+                                        @dr["PhoneNo"]
+                                    </td>
+                                    <td class="text-left">@dr["Name"]</td>
+                                    <td class="text-center text-white"><span style="background: #604ccf !important; display: block; color: #fff !important; padding: 7px; margin-top: 6px; border-radius: 4px; font-weight: bold">@dr["RegID"]</span></td>
+                                    <td class="text-left">@dr["EmailID"]</td>
+                                    <td class="text-left">@dr["BatchName"]</td>
+                                    <td class="text-left">@dr["CourseName"]</td>
+                                    <td class="text-left">@dr["MethodologyText"]</td>
+                                    <td class="text-left">@dr["DAYWiseText"]</td>
+
+                                </tr>
+                            index++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="12" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>

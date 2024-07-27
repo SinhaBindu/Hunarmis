@@ -17,6 +17,10 @@ namespace Hunarmis.Manager
             info = 2,
             warning = 3
         }
+        public enum ModuleBatches
+        {
+            Assessment = 2,
+        }
         public enum ePlaced
         {
             Yes = 1,

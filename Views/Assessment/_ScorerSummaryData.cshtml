@@ -20,9 +20,12 @@
                 <thead>
                     <tr role="row">
                         <th width="25" class="text-center">Sl.No.</th>
+                        <th class="text-center">Assessment Date</th>
                         <th class="text-center">Participant Name</th>
+                        <th class="text-center">Participant <br /> Mobile No</th>
                         <th class="text-center">Batch </th>
                         <th class="text-center">Trainer Name</th>
+                        <th class="text-center">Course</th>
                         <th class="text-center">Training Center</th>
                         <th class="text-center">Total Questions</th>
                         <th class="text-center">Right Answers</th>
@@ -40,9 +43,12 @@
                                 <tr>
                                     <td class="text-center">@(sno++)</td>
                                     <td class="text-left">@dr["ReportedBy"]</td>
-                                    <td class="text-center"><strong>@dr["BatchName"]</strong></td>
-                                    <td class="text-center"><strong>@dr["TrainerName"]</strong></td>
-                                    <td class="text-center"><strong>@dr["TrainingCenter"]</strong></td>
+                                    <td class="text-left">@dr["ReportedBy"]</td>
+                                    <td class="text-left">@dr["PhoneNo"]</td>
+                                    <td class="text-center">@dr["BatchName"]</td>
+                                    <td class="text-center">@dr["TrainerName"]</td>
+                                    <td class="text-center">@dr["CourseName"]</td>
+                                    <td class="text-center">@dr["TrainingCenter"]</td>
                                     <td class="text-center"><strong>@dr["TotalQuestion"]</strong></td>
                                     <td class="text-center"><strong>@dr["ScorersAns"]</strong></td>
                                     <td class="text-center"><strong>@dr["WrongAns"]</strong></td>

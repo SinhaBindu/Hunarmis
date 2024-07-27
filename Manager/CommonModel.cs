@@ -160,6 +160,61 @@ namespace Hunarmis.Manager
             }
             return "all";
         }
+        public static List<SelectListItem> GetSPModuleWiseBatches(int IsAll = 2, int ModuleType = 0, int CourseId = 0, int BatchId = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List<SelectListItem> list = new List<SelectListItem>();
+            string TrainerId = ""; string TCenterIds = "";
+            try
+            {
+                if (HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    if (HttpContext.Current.User.IsInRole(RoleNameCont.Trainer) || HttpContext.Current.User.IsInRole(RoleNameCont.Mobilizer))
+                    {
+                        TrainerId = MvcApplication.CUser.UserId;
+                        TCenterIds = MvcApplication.CUser.MappedTCenterIds;
+
+                        if (!string.IsNullOrWhiteSpace(TCenterIds))
+                        {
+                            DataTable dt1 = SPManager.SP_GetModuleWiseBatches(ModuleType, CourseId,TrainerId, TCenterIds, BatchId);
+                            list = dt1.AsEnumerable().Select(x => new SelectListItem()
+                            {
+                                Value = x.Field<Int32>("BatchId").ToString(),
+                                Text = x.Field<string>("BatchName")
+                            }).ToList();
+                            //list = new SelectList(dt1.AsEnumerable(), "BatchId", "BatchName").OrderBy(x => x.Text).ToList();
+                        }
+                    }
+                    else
+                    {
+                        if (!HttpContext.Current.User.IsInRole(RoleNameCont.Trainer) || !HttpContext.Current.User.IsInRole(RoleNameCont.Mobilizer) || !HttpContext.Current.User.IsInRole(RoleNameCont.User))
+                        {
+                            DataTable dt = SPManager.SP_GetModuleWiseBatches(ModuleType, CourseId, TrainerId, TCenterIds, BatchId);
+                            list = dt.AsEnumerable().Select(x => new SelectListItem()
+                            {
+                                Value = x.Field<Int32>("BatchId").ToString(),
+                                Text = x.Field<string>("BatchName")
+                            }).ToList();
+                            //list = new SelectList(.AsEnumerable(), "BatchId", "BatchName").OrderBy(x => x.Text).ToList();
+                        }
+                    }
+                }
+
+                if (IsAll == 0)
+                {
+                    list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                }
+                else if (IsAll == 1)
+                {
+                    list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                return list;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public static List<SelectListItem> GetUserMappedTrainCenterLists(int IsAll = 2, string TCenterIds = "")
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();

@@ -89,12 +89,13 @@
                                 <li class="treeview">
                                     <a href="#">
                                         <i class="fa fa-user main-icon"></i>
-                                        <span class="menu-title">Report (Assessment)</span>
+                                        <span class="menu-title">Assessment</span>
                                         <i class="arrow"></i>
                                     </a>
                                     <ul class="collapse treeview-menu">
                                         @*<li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Solar PV</span>", "AddRole", "Assessment", new { FId = 5 })</li>
                                             <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Warehouse</span>", "AddRole", "Assessment", new { FId = 1 })</li>*@
+                                        <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Assessment Schedule</span>", "AssessmentSchedule", "Attendance")</li>
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-bar-chart'></i><span>Course Wise</span>", "Summary", "Assessment", new { FId = 1 })</li>
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>Score Summary </span>", "ScorerSummary", "Assessment", new { FId = 1 })</li>
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-pie-chart'></i><span>Participant Wise </span>", "Index", "Assessment", new { FId = 1 })</li>
@@ -111,7 +112,8 @@
                                         </a>
                                         <ul class="collapse treeview-menu">
                                             <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Attendance </span>", "CreatedAttend", "Attendance")</li>
-                                            <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Assessment Schedule</span>", "AssessmentSchedule", "Attendance")</li>
+                                            <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Attendance List</span>", "AttendanceList", "Attendance")</li>
+
                                         </ul>
                                     </li>
                                     <li class="treeview">
@@ -156,17 +158,18 @@
                                     </a>
                                     <ul class="collapse treeview-menu">
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Attendance </span>", "CreatedAttend", "Attendance")</li>
-                                        <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Assessment Schedule</span>", "AssessmentSchedule", "Attendance")</li>
+                                        <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Attendance List</span>", "AttendanceList", "Attendance")</li>
                                     </ul>
                                 </li>
                                 <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                                 <li class="treeview">
                                     <a href="#">
                                         <i class="fa fa-user main-icon"></i>
-                                        <span class="menu-title">Report (Assessment)</span>
+                                        <span class="menu-title">Assessment</span>
                                         <i class="arrow"></i>
                                     </a>
                                     <ul class="collapse treeview-menu">
+                                        <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Assessment Schedule</span>", "AssessmentSchedule", "Attendance")</li>
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-bar-chart'></i><span>Course Wise</span>", "Summary", "Assessment", new { FId = 1 })</li>
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>Score Summary </span>", "ScorerSummary", "Assessment", new { FId = 1 })</li>
                                     </ul>

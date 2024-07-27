@@ -1777,6 +1777,8 @@
     <Content Include="Views\Assessment\AddRole.cshtml" />
     <Content Include="Views\Attendance\_AttendDonePartDataList.cshtml" />
     <Content Include="Views\Attendance\CalendarAttendanceList.cshtml" />
+    <Content Include="Views\Attendance\AttendanceList.cshtml" />
+    <Content Include="Views\Attendance\_AttendanceListParticipantData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

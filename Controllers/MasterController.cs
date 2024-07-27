@@ -333,6 +333,46 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetCourses(bool SelectAll,int DistrictId=0)
+        {
+            try
+            {
+                var items = CommonModel.GetCourses(SelectAll,DistrictId);
+                if (items != null)
+                {
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetModuleWiseBatches(int SelectAll,int ModuleType=0, int CourseId=0,int BatchId=0)
+        {
+            try
+            {
+                var items = CommonModel.GetSPModuleWiseBatches(SelectAll, ModuleType, CourseId, BatchId);
+                if (items != null)
+                {
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult GetTrainerAtCenterList(int SelectAll, int TCenterId = 0)
         {
             try

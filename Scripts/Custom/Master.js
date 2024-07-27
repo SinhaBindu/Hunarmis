@@ -159,7 +159,7 @@ function BindYearList(ElementId, SelectedValue, SelectAll) {
         data: JSON.stringify({ 'SelectAll': SelectAll }),
         contentType: "application/json; charset=utf-8",
         //global: false,
-        //async: false,
+        async: false,
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
@@ -199,7 +199,7 @@ function BindMonthList(ElementId, SelectedValue, SelectAll) {
         data: JSON.stringify({ 'SelectAll': SelectAll }),
         contentType: "application/json; charset=utf-8",
         //global: false,
-        //async: false,
+        async: false,
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
@@ -237,7 +237,7 @@ function BindStateList(ElementId, SelectedValue, SelectAll) {
         data: JSON.stringify({ 'SelectAll': SelectAll }),
         contentType: "application/json; charset=utf-8",
         //global: false,
-        //async: false,
+        async: false,
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
@@ -272,7 +272,7 @@ function BindDistrict(ElementId, SelectedValue, SelectAll, Para) {
         data: JSON.stringify({ 'SelectAll': SelectAll, 'StateId': Para }),
         contentType: "application/json; charset=utf-8",
         //global: false,
-        //async: false,
+        async: false,
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
@@ -307,7 +307,42 @@ function BindBatchList(ElementId, SelectedValue, SelectAll) {
         data: JSON.stringify({ 'SelectAll': SelectAll }),
         contentType: "application/json; charset=utf-8",
         //global: false,
-        //async: false,
+        async: false,
+        dataType: "json",
+        success: function (resp) {
+            if (resp.IsSuccess) {
+                var data = JSON.parse(resp.res);
+                $.each(data, function (i, exp) {
+                    $('#' + ElementId).append($("<option>").val(exp.Value).text(exp.Text));
+                });
+                $('#' + ElementId).val(SelectedValue);
+            }
+            else {
+                //alert(resp.IsSuccess);
+            }
+        },
+        error: function (req, error) {
+            if (error === 'error') { error = req.statusText; }
+            var errormsg = 'There was a communication error: ' + error;
+            //Do To Message display
+        }
+    });
+
+    //console.log('select value-'+SelectedValue);
+    $('#' + ElementId).trigger("chosen:updated");
+}
+function BindGetCourses(ElementId, SelectedValue, SelectAll,Para1) {
+    $('#' + ElementId).empty();
+    $('#' + ElementId).prop("disabled", false);
+    //$('#' + ElementId).append($("<option>").val('').text('Select'));
+    $.ajax({
+        //url: document.baseURI + "/Master/GetHSCDistrict",
+        url: document.baseURI + "Master/GetCourses",
+        type: "Post",
+        data: JSON.stringify({ 'SelectAll': SelectAll, 'DistrictId': Para1 }),
+        contentType: "application/json; charset=utf-8",
+        //global: false,
+        async: false,
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
@@ -342,7 +377,7 @@ function BindTrainingAgency(ElementId, SelectedValue, SelectAll) {
         data: JSON.stringify({ 'SelectAll': SelectAll }),
         contentType: "application/json; charset=utf-8",
         //global: false,
-        //async: false,
+        async: false,
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
@@ -377,7 +412,7 @@ function BindTrainingCenter(ElementId, SelectedValue, SelectAll, Para1, Para2) {
         data: JSON.stringify({ 'SelectAll': SelectAll, 'DistrictId': Para1, 'TrainingAgencyId': Para2 }),
         contentType: "application/json; charset=utf-8",
         //global: false,
-        //async: false,
+        async: false,
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
@@ -413,7 +448,7 @@ function BindTainerAtCenter(ElementId, SelectedValue, SelectAll, Para) {
         data: JSON.stringify({ 'SelectAll': SelectAll, 'TCenterId': Para }),
         contentType: "application/json; charset=utf-8",
         //global: false,
-        //async: false,
+        async: false,
         dataType: "json",
         success: function (resp) {
             if (resp.IsSuccess) {
@@ -474,7 +509,42 @@ function BindCourseSessionTopices(ElementId, SelectedValue, SelectAll, Para) {
     //console.log('select value-'+SelectedValue);
     $('#' + ElementId).trigger("chosen:updated");
 }
+function BindModuleWiseBatches(ElementId, SelectedValue, SelectAll, Para1,Para2,Para3) {
+    debugger;
+    $('#' + ElementId).empty();
+    $('#' + ElementId).prop("disabled", false);
+    //$('#' + ElementId).append($("<option>").val('').text('Select'));
+    $.ajax({
+        //url: document.baseURI + "/Master/GetHSCDistrict",
+        url: document.baseURI + "Master/GetModuleWiseBatches",
+        type: "Post",
+        data: JSON.stringify({ 'SelectAll': SelectAll, 'ModuleType': Para1, 'CourseId': Para2, 'BatchId': Para3 }),
+        contentType: "application/json; charset=utf-8",
+        //global: false,
+        async: false,
+        dataType: "json",
+        success: function (resp) {
+            if (resp.IsSuccess) {
+                var data = JSON.parse(resp.res);
+                $.each(data, function (i, exp) {
+                    $('#' + ElementId).append($("<option>").val(exp.Value).text(exp.Text));
+                });
+                $('#' + ElementId).val(SelectedValue);
+            }
+            else {
+                //alert(resp.IsSuccess);
+            }
+        },
+        error: function (req, error) {
+            if (error === 'error') { error = req.statusText; }
+            var errormsg = 'There was a communication error: ' + error;
+            //Do To Message display
+        }
+    });
 
+    //console.log('select value-'+SelectedValue);
+    $('#' + ElementId).trigger("chosen:updated");
+}
 function BindBatchWiseCourseList(ElementId, SelectedValue, SelectAll, Para) {
     debugger;
     $('#' + ElementId).empty();

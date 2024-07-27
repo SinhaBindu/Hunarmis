@@ -52,6 +52,18 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SP_GetModuleWiseBatches(int ModuleType = 0,int CId=0, string TrainerId="", string TCIds="", int BatchId = 0)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetModuleWiseBatches");
+            sp.Command.AddParameter("@TrainerId", TrainerId, DbType.String);
+            sp.Command.AddParameter("@TCIds", TCIds, DbType.String);
+            sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
+            sp.Command.AddParameter("@CourseId", CId, DbType.Int32);
+            sp.Command.AddParameter("@ModuleType", ModuleType, DbType.Int32);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+
         public static DataTable SP_GetUserList()
         {
             StoredProcedure sp = new StoredProcedure("SP_GetUserList");
@@ -192,6 +204,13 @@ namespace Hunarmis.Manager
         public static DataTable SP_GetParticipant(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_GetParticipant");
+            sp.Command.AddParameter("@BatchId", Convert.ToInt32(model.BatchId), DbType.Int32);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_AttendanceParticipantList(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_AttendanceParticipantList");
             sp.Command.AddParameter("@BatchId", Convert.ToInt32(model.BatchId), DbType.Int32);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;

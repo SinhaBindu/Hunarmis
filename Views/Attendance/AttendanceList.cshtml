@@ -1,0 +1,313 @@
+﻿@model Hunarmis.Models.FilterModel
+@using Hunarmis.Manager
+@{
+    ViewBag.Title = "Attendance Lists";
+    ViewBag.TitleIcon = "fa fa-user";
+    ViewBag.SemiTitle = "Attendance";
+    ViewBag.SemiTitleLink = "/Attendance/CreatedAttend";
+}
+<style>
+    .dataTables_wrapper {
+        padding: 5px;
+    }
+
+    .card-table thead tr th {
+        font-size: 12px !important;
+        padding: 10px 10px !important;
+        background: #5B2C54;
+        color: #fff !important;
+    }
+
+    .card-table tbody tr td {
+        font-size: 12px !important;
+        padding: 10px 10px !important;
+    }
+
+    .panel {
+        min-height: 500px
+    }
+
+    .breakers {
+        display: block;
+        height: 20px
+    }
+
+    .multiselect {
+        width: 100% !important;
+    }
+
+    .multiselect-container {
+        width: 350px !important;
+        height: 200px !important;
+        overflow-y: scroll
+    }
+
+        .multiselect-container > li > a > label {
+            padding: 3px 20px 3px 20px !important;
+        }
+
+    .dropdown-menu {
+        font-size: 12px !important;
+    }
+
+    .multiselect-selected-text {
+        display: block;
+        width: 350px;
+        white-space: pre-wrap;
+        height: 20px;
+        overflow-y: scroll;
+    }
+
+    .search-box {
+        padding: 20px;
+        background: #F9F8FF;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+        .search-box label {
+            margin-left: -10px;
+        }
+
+    .tp-mrgn {
+        margin-top: -15px
+    }
+
+    .btn-group {
+        width: 100% !important;
+    }
+    .mrtop {
+        margin-top: -13px
+    }
+    .mrtop-bot {
+        margin-top: 9px
+    }
+    div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
+        background: #F59678 !important;
+        color: #fff !important;
+        border: 1px solid #D38167 !important;
+        margin-bottom: 12px;
+    }
+</style>
+
+
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel-spacer">
+                        <p class="bord-btm pad-ver text-main text-bold">
+                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title
+                        </p>
+                    </div>
+                    <div class="content-manage">
+                        <div id="div-download"></div>
+                        @using (Html.BeginForm("GetAttendanceList", "Attendance", FormMethod.Post, new { id = "submission-form" }))
+                        {
+                            <input type="hidden" name="Latitude" id="Latitude" value="" />
+                            <input type="hidden" name="Longitude" id="Longitude" value="" />
+                            <input type="hidden" name="Address" id="Address" value="" />
+                            <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                            <div class="panel-bodys">
+                                <div class="manage-input">
+                                    <div class="card1">
+                                        <div class="search-box">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label col-lg-1" })
+                                                    <div class="col-lg-5">
+                                                        @Html.DropDownListFor(model => model.BatchId, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                @*<div class="form-group mrtop">
+                                                    @Html.LabelFor(model => model.FromDt, htmlAttributes: new { @class = "control-label col-lg-1" })
+                                                    <div class="col-lg-5">
+                                                        @Html.EditorFor(m => m.FromDt, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "datepicker form-control col-md-4 required", @required = "required" } })
+                                                        @Html.ValidationMessageFor(model => model.FromDt, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mrtop">
+                                                    @Html.LabelFor(model => model.ToDt, htmlAttributes: new { @class = "control-label col-lg-1" })
+                                                    <div class="col-lg-5">
+                                                        @Html.EditorFor(m => m.ToDt, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "datepicker form-control col-md-4 required", @required = "required" } })
+                                                        @Html.ValidationMessageFor(model => model.ToDt, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>*@
+                                            </div>
+                                            <div class="break"></div>
+                                            @*<div class="row">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.CourseIds, htmlAttributes: new { @class = "col-lg-1" })
+                                                    <div class="col-lg-5">
+                                                        @Html.DropDownListFor(model => model.CourseIds, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control", multiple = "multiple", @required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.CourseIds, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                               
+                                            </div>
+                                            <div class="break"></div>*@
+
+                                        </div>
+
+                                        @*<div class="form-group">
+                                            <div class="col-md-3">
+                                                <input type="submit" name="btnsubmit" value="Attendance Submit" id="btnsubmit" class="btn-lg btn-primary" />
+                                            </div>
+                                        </div>*@
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="break"></div>
+                            <div id="subdata">
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script src="~/Scripts/CustomValidator.js"></script>*@
+    <script src="~/Scripts/Custom/Master.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAw2rgDsJqTKA8ern_oI6heqv-xgSLuu1U"></script>
+
+    <script>
+        (function () {
+            var dateFormat = "dd-M-yy",
+                from = $("#FromDt")
+                    .datepicker({
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 1,
+                        dateFormat: 'dd-M-yy',
+                        //minDate: -3,
+                        //maxDate: "1w"
+                    })
+                    .on("change", function () {
+                        to.datepicker("option", "minDate", getDate(this));
+                    }),
+                to = $("#ToDt").datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 1,
+                    dateFormat: 'dd-M-yy',
+                    // minDate: -3,
+                    //maxDate: "1w"
+
+                })
+                    .on("change", function () {
+                        from.datepicker("option", "maxDate", getDate(this));
+                    });
+
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+
+                return date;
+            }
+
+
+        })
+        $(document).ready(function () {
+
+            BindGetTainerWiseBatchesList("BatchId", '', '2', '');
+            $('#BatchId').change(function () {
+                BindPartData();
+            });
+
+            //$('#CourseIds').change(function () {
+               
+            //});
+            
+            //$('#submission-form').submit(function (e) {
+            //    e.preventDefault();
+            //});
+
+        });
+       
+        function BindPartData() {
+            $("#subdata").html('');
+            var filtermodel = new Object();
+            filtermodel.BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
+            filtermodel.FromDt = $('#FromDt').val() == '' ? '' : $('#FromDt').val();
+            filtermodel.ToDt = $('#ToDt').val() == '' ? '' : $('#ToDt').val();
+            $.ajax({
+                type: "Get",
+                url: document.baseURI + "/Attendance/GetAttendanceList",
+                data: filtermodel,
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+
+                        if ($.fn.dataTable.isDataTable('#tbl')) {
+                            $("#tbl").dataTable().fnDestroy();
+                        }
+                        table = $('#tbl').DataTable({
+                            //scrollY: "400px",
+                            //scrollX: true,
+                            //scrollCollapse: true,
+                            paging: false,
+                            //"ordering": false,
+                            order: [[1, 'desc']],
+                            // pageLength: 100,
+                            fixedColumns: {
+                                leftColumns: 1,
+                                rightColumns: 1
+                            },
+                            buttons: [{
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i> Download</span>', title: 'Participant Lists',//$('#IDDistrict option:selected').text() +
+                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                filename: 'Participant Lists',
+                                exportOptions: { modifier: { page: 'all' } }
+                            }],
+                        });
+                        $('.dataTables_filter input[type="search"]').css(
+                            { 'width': '500px', 'display': 'inline-block' }
+                        );
+                        $('#div-download').empty();
+                        table.buttons().container().appendTo($('#div-download'));
+                    }
+                    else {
+                        $("#subdata").html(res.Data);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+        function OtherTopice() {
+            $('#dv-TopicOther').css('display', 'none');
+            $('#TopicOther').css('display', 'none');
+            $('#TopicOther').val('');
+            var TopicIds = $('#TopicIds').val();
+            if (TopicIds != null && TopicIds != undefined) {
+                if (TopicIds.length != 0) {
+                    TopicIds = TopicIds.join(',');
+                    var splitcom = TopicIds.split(',');
+                    for (var i = 0; i < splitcom.length; i++) {
+                        if (splitcom[i] == "261") {
+                        //    || splitcom[i] == "262" || splitcom[i] == "263" || splitcom[i] == "264") {
+                            $('#dv-TopicOther').css('display', 'block');
+                            $('#TopicOther').css('display', 'block');
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+}
