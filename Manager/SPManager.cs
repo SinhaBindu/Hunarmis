@@ -173,10 +173,11 @@ namespace Hunarmis.Manager
             return dt;
         }
         #region Start 7 june 2024  Assessment Controller 
-        public static DataSet GetSPScoreMarkAnswer(string User, int FormId)
+        public static DataSet GetSPScoreMarkAnswer(string User, int FormId, int BatchId)
         {
             StoredProcedure sp = new StoredProcedure("SP_ScoreMarkAnswer");
             sp.Command.AddParameter("@FormId", FormId, DbType.Int32);
+            sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
             sp.Command.AddParameter("@User", User, DbType.String);
             DataSet ds = sp.ExecuteDataSet();
             return ds;
@@ -184,8 +185,8 @@ namespace Hunarmis.Manager
         public static DataSet GetQuestionSummaryMarks(string User, int FormId, int BatchId)
         {
             StoredProcedure sp = new StoredProcedure("SP_QuestionSummaryMarks");
-            sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
             sp.Command.AddParameter("@FormId", FormId, DbType.Int32);
+            sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
             sp.Command.AddParameter("@User", User, DbType.String);
             DataSet ds = sp.ExecuteDataSet();
             return ds;

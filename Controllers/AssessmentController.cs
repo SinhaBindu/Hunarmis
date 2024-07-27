@@ -26,7 +26,7 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
-        public ActionResult GetIndex(string User = "all", int FormId = 1)
+        public ActionResult GetIndex(string User = "all", int FormId = 1, int BatchId = 0)
         {
             DataSet ds = new DataSet();
             DataTable tbllist = new DataTable();
@@ -34,7 +34,7 @@ namespace Hunarmis.Controllers
             try
             {
                 User = CommonModel.IsRoleLogin();
-                ds = SPManager.GetSPScoreMarkAnswer(User, FormId);
+                ds = SPManager.GetSPScoreMarkAnswer(User, FormId, BatchId);
                 bool IsCheck = false;
                 if (ds.Tables.Count > 0)
                 {

@@ -20,8 +20,8 @@
                 <div class="panel">
                     <div class="panel-spacer">
                         <p class="bord-btm pad-ver text-main text-bold">
-                                <i class="fa fa-list spacerright2"></i>@ViewBag.Title <strong id="sg-title" class="text-info"></strong>
-                            </p>
+                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title <strong id="sg-title" class="text-info"></strong>
+                        </p>
                     </div>
                     @using (Html.BeginForm("GetIndex", "Assessment", FormMethod.Post, new { @id = "tblList-frm", @class = "panel-body form-horizontal form-padding loader" }))
                     {
@@ -31,8 +31,16 @@
                                     <div class="col-md-3">
                                         <div class="position-relative form-group">
                                             @Html.LabelFor(model => model.FormId, htmlAttributes: new { @class = "control-label" })
-                                            @Html.DropDownListFor(m => m.FormId, CommonModel.GetForm(1), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                            @*@Html.DropDownListFor(m => m.FormId, CommonModel.GetForm(1), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })*@
+                                            @Html.DropDownListFor(m => m.FormId, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                             @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="position-relative form-group">
+                                            @Html.LabelFor(m => m.BatchId, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                            @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>
@@ -54,7 +62,6 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12" id="sub-data-view">
-
                             </div>
                         </div>
                     </div>
@@ -109,15 +116,25 @@
             //    }]
             //});
 
-            var txt = $('option:selected', $('#FormId')).text();
-            $('#sg-title').html(txt);
-
-            LoadReport();
-            $('#FormId').change(function () {
-                var txt = $('option:selected', $(this)).text();
-                $('#sg-title').html(txt);
-                LoadReport();
-            })
+             BindGetCourses("FormId", "", 0, 0);
+             //BindModuleWiseBatches("BatchId","",2, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(),0)
+             txtf = $('option:selected', $('#FormId')).text();
+             txtb = $('option:selected', $('#BatchId')).text();
+             $('#sg-title').html(txtf + " : " + txtb);
+            // LoadReport();
+             $('#FormId').change(function () {
+                 BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0)
+                 txtf = $('option:selected', $(this)).text();
+                 txtb = $('option:selected', $('#BatchId')).text();
+                 $('#sg-title').html(txtf + " : " + txtb);
+                // LoadReport();
+             })
+             $('#BatchId').change(function () {
+                 txtf = $('option:selected', $('#FormId')).text();
+                 txtb = $('option:selected', $(this)).text();
+                 $('#sg-title').html(txtf + " : " + txtb);
+                 LoadReport();
+             })
 
         });
 
@@ -141,11 +158,12 @@
             var url = $(id).attr("action");
             var User = 'all';
             var FormId = $("#FormId").val();
+            var BatchId = $("#BatchId").val();
             $.ajax({
                 // url: url,
                 url: document.baseURI + "/Assessment/GetIndex",
                 type: "POST",
-                data: { 'User': User, 'FormId': FormId },
+                data: { 'User': User, 'FormId': FormId, 'BatchId': BatchId },
                 // contentType: "application/json",
                 success: function (resp) {
                     if (resp.IsSuccess) {
@@ -159,6 +177,7 @@
 
                                 var gpy = groupBy(Datalist, "Reportedby");
                                 $.each(gpy, function (item, row) {
+                                    debugger;
                                     var htmlul = "<dl>";
 
                                     var chart;
@@ -168,12 +187,17 @@
                                     //
                                     var Datafilter = Datalist.filter(x => x.Reportedby == item);
 
+                                    var indexsro = 0;
                                     for (var i = 0; i < Datafilter.length; i++) {
                                         QList.push(Datafilter[i].Question);
                                         totalAns += Datafilter[i].Ans == 1 ?? Datafilter[i].Ans;
                                         totalIncorrect += Datafilter[i].Ans == 0 ?? Datafilter[i].Ans;
-                                        htmlul += "<dt>" + Datafilter[i].QuestionCode + ". " + Datafilter[i].Question + "</dt>";
-                                        htmlul += "<dd>" + (Datafilter[i].Ans == 1 ? " <strong style='color:#008000'>Correct : " + Datafilter[i].Ans : "</strong> <strong style='color:#FF0000'>Incorrect : " + Datafilter[i].Ans) + "</strong></dd>";
+                                        if (Datafilter[i].Ans == 0) {
+                                            indexsro++;
+                                            htmlul += "<dt>" + indexsro + ". " + Datafilter[i].Question + "</dt>";
+                                            //htmlul += "<dd>" + (Datafilter[i].Ans == 1 ? " <strong style='color:#008000'>Correct : " + Datafilter[i].Ans : "</strong> <strong style='color:#FF0000'>Incorrect : " + Datafilter[i].Ans) + "</strong></dd>";
+                                            htmlul += Datafilter[i].Ans == 0 ? "<dd> </strong> <strong style='color:#FF0000'>Incorrect : " + Datafilter[i].OptionlblText + "</strong></dd>" : "";
+                                        }
                                         // var clr = Datafilter[i].Ans == 0 ? '#FF0000' : '#008000';
                                         //Datal.push({ name: Datafilter[i].Question, y: Datafilter[i].Ans, color: clr });
                                     }
@@ -221,15 +245,15 @@
                                             align: 'center'
                                         },
                                         subtitle: {
-                                            text: '<b> Marks Correct/Incorrect : ' + TAns + '/' + TIncorrect + '</b>',
+                                            text: '<b> Questions Correct/Incorrect : ' + TAns + '/' + TIncorrect + '</b>',
                                             align: 'center',
                                             style: {
                                                 fontSize: 12
                                             },
                                         },
                                         tooltip: {
-                                            //  pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                                            pointFormat: '{series.name}: <b>{point.y}</b>'
+                                             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                            //pointFormat: '{series.name}: <b>{point.y}</b>'
                                         },
                                         credits: {
                                             enabled: false
@@ -267,7 +291,7 @@
                                         },
 
                                         series: [{
-                                            name: 'Marks',
+                                            name: 'Questions',
                                             allowPointSelect: true,
                                             keys: ['name', 'y', 'selected', 'sliced'],
                                             data: Datal,
@@ -307,7 +331,6 @@
                 }
             });
         }
-
 
     </script>
 }
