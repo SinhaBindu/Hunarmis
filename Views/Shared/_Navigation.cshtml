@@ -58,7 +58,7 @@
                                 {
                                     @Html.ActionLinkMenu("<i class='fa fa-file-excel-o main-icon'></i> <span class=\"menu-title\">Excel Bulk Upload</span>", "ExcelFileUpload", "Participant")
                                 }
-                                <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                                <hr style="border-bottom: 1px solid #ECF0F5; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                                 <li class="treeview">
                                     <a href="#">
                                         <i class="fa fa-user main-icon"></i>
@@ -73,7 +73,7 @@
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-street-view'></i> <span>Call Status</span>", "CallStatus", "Home")</li>
                                     </ul>
                                 </li>
-                                <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                                <hr style="border-bottom: 1px solid #ECF0F5; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                                 <li class="treeview">
                                     <a href="#">
                                         <i class="fa fa-line-chart main-icon"></i>
@@ -85,7 +85,7 @@
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-bar-chart'></i> <span>Training Center</span>", "TrainingCenterWise", "Home")</li>
                                     </ul>
                                 </li>
-                                <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                                <hr style="border-bottom: 1px solid #ECF0F5; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                                 <li class="treeview">
                                     <a href="#">
                                         <i class="fa fa-user main-icon"></i>
@@ -101,7 +101,7 @@
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-pie-chart'></i><span>Participant Wise </span>", "Index", "Assessment", new { FId = 1 })</li>
                                     </ul>
                                 </li>
-                                <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                                <hr style="border-bottom: 1px solid #ECF0F5; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                                 if (User.IsInRole("Admin") || User.IsInRole("State"))
                                 {
                                     <li class="treeview">
@@ -130,7 +130,7 @@
                                             <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Training Center</span>", "TrainingCenter", "Master")</li>
                                         </ul>
                                     </li>
-                                    <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                                    <hr style="border-bottom: 1px solid #ECF0F5; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                                     <li class="treeview">
                                         <a href="#">
                                             <i class="fa fa-cog main-icon"></i>
@@ -144,12 +144,12 @@
                                             @*<li>@Html.ActionLinkMenu("<i class='fa fa-key'></i> <span>Reset Password</span>", "UserResetPassword", "Account")</li>*@
                                         </ul>
                                     </li>
-                                    <hr style="border-bottom:1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                                    <hr style="border-bottom: 1px solid #ECF0F5; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                                 }
                             }
                             if (User.IsInRole("Trainer"))//|| User.IsInRole("State") || User.IsInRole("Verifier") || User.IsInRole("Viewer") || User.IsInRole("District")
                             {
-                                <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                                <hr style="border-bottom: 1px solid #ECF0F5; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                                 <li class="treeview">
                                     <a href="#">
                                         <i class="fa fa-user main-icon"></i>
@@ -161,7 +161,7 @@
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Attendance List</span>", "AttendanceList", "Attendance")</li>
                                     </ul>
                                 </li>
-                                <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                                <hr style="border-bottom: 1px solid #ECF0F5; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                                 <li class="treeview">
                                     <a href="#">
                                         <i class="fa fa-user main-icon"></i>
@@ -174,7 +174,7 @@
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>Score Summary </span>", "ScorerSummary", "Assessment", new { FId = 1 })</li>
                                     </ul>
                                 </li>
-                                <hr style="border-bottom: 1px solid #CCCCCC; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
+                                <hr style="border-bottom: 1px solid #ECF0F5; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                             }
                             @*if (User.IsInRole("Trainer") || User.IsInRole("Mobilizer"))
                                 {

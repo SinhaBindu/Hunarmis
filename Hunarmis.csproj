@@ -679,6 +679,11 @@
     <Content Include="Content\images\Co-curriculum.png" />
     <Content Include="Content\images\dash-bg.png" />
     <Content Include="Content\images\dashboard-icon.png" />
+    <Content Include="Content\images\dummy-graph\graph1.png" />
+    <Content Include="Content\images\dummy-graph\graph2.png" />
+    <Content Include="Content\images\dummy-graph\graph3.png" />
+    <Content Include="Content\images\dummy-graph\graph4.png" />
+    <Content Include="Content\images\dummy-graph\graph5.png" />
     <Content Include="Content\images\empty-icon.png" />
     <Content Include="Content\images\empty-list-icon.png" />
     <Content Include="Content\images\error.jpg" />
@@ -1779,6 +1784,7 @@
     <Content Include="Views\Attendance\CalendarAttendanceList.cshtml" />
     <Content Include="Views\Attendance\AttendanceList.cshtml" />
     <Content Include="Views\Attendance\_AttendanceListParticipantData.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

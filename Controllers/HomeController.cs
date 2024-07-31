@@ -20,6 +20,13 @@ namespace Hunarmis.Controllers
             
             return View();
         }
+
+        public ActionResult Dashboard()
+        {
+
+            return View();
+        }
+
         public ActionResult GetIndex(FilterModel model)
         {
             bool IsCheck = false;
