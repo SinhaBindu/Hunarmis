@@ -581,8 +581,12 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Batch_Id" Type="int" />
+    <Property Name="AssessmentId" Type="uniqueidentifier" />
+    <Property Name="ParticipantId" Type="uniqueidentifier" />
     <Property Name="MFrom" Type="nvarchar" MaxLength="500" />
     <Property Name="MTo" Type="nvarchar" MaxLength="500" />
+    <Property Name="ToOtherMail" Type="nvarchar" MaxLength="500" />
     <Property Name="Subject" Type="nvarchar(max)" />
     <Property Name="Boby" Type="nvarchar(max)" />
     <Property Name="ReceiverName" Type="nvarchar(max)" />
@@ -598,6 +602,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssessmentId" Type="uniqueidentifier" />
     <Property Name="FormId" Type="int" />
     <Property Name="BatchId" Type="int" />
     <Property Name="TrainingCenterId" Type="int" />
@@ -606,12 +611,21 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="FrequencyId" Type="int" />
     <Property Name="AssessmentScoreNo" Type="decimal" Precision="5" Scale="2" />
     <Property Name="IsCertificate" Type="bit" />
+    <Property Name="Lat" Type="nvarchar" MaxLength="50" />
+    <Property Name="Long" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="LeavePage" Type="int" />
+    <Property Name="ExtraCol" Type="nvarchar" MaxLength="500" />
     <Property Name="IsDraft" Type="bit" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
     <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="LocalIP" Type="nvarchar" MaxLength="200" />
+    <Property Name="PublicIP" Type="nvarchar" MaxLength="200" />
+    <Property Name="ConLocalIP" Type="nvarchar(max)" />
+    <Property Name="ConPublicIP" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="tbl_SurveyAnswer">
     <Key>

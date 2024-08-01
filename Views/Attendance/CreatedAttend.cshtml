@@ -338,6 +338,7 @@
 
             $('#submission-form').submit(function (e) {
                 e.preventDefault();
+                getLocation();
                 if (lat != '' && lng != '' && lat != undefined && lng != undefined) {
                     if ($("#submission-form").valid()) {
                         CUData();
@@ -723,6 +724,7 @@
                 }
             });
         }
+
         function OtherTopice() {
             $('#dv-TopicOther').css('display', 'none');
             $('#TopicOther').css('display', 'none');

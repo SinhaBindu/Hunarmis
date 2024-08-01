@@ -1,11 +1,16 @@
 ﻿using Hunarmis.Manager;
 using Hunarmis.Models;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Sockets;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,16 +22,13 @@ namespace Hunarmis.Controllers
     {
         public ActionResult Index()
         {
-            
             return View();
         }
-
         public ActionResult Dashboard()
         {
 
             return View();
         }
-
         public ActionResult GetIndex(FilterModel model)
         {
             bool IsCheck = false;
@@ -67,12 +69,10 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
-        
         public ActionResult CallingDashboard()
         {
             return View();
         }
-
         public ActionResult GetCallingDashboard(FilterModel model)
         {
             bool IsCheck = false;
@@ -151,7 +151,6 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet); throw;
             }
         }
-
         public ActionResult CallStatus()
         {
             FilterModel model = new FilterModel();
@@ -197,7 +196,6 @@ namespace Hunarmis.Controllers
             DataTable dt = SPManager.SP_PartQuesList(model);
             return View(dt);
         }
-
         #endregion
         private string ConvertViewToString(string viewName, object model)
         {

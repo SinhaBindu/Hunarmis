@@ -86,9 +86,15 @@ namespace Hunarmis.Models
         }
         public DateTime? Date { get; set; }
         public int? YearId { get; set; }
+        public Guid? AssessmentId { get; set; }
         public int? FrequencyId { get; set; }
         public int? MonthId { get; set; }
         public int FormId { get; set; }
+        public string Lat { get; set; }
+        public string Long { get; set; }
+        public string Address { get; set; }
+        public string LeavePage { get; set; }
+        public string ExtraCol { get; set; }
         public List<FormModel> Qlist { get; set; }
         public int Para { get; set; }
         public int SchoolType { get; set; }

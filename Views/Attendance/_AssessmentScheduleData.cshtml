@@ -27,7 +27,7 @@
                     <th class="text-center tblth">Start Time</th>
                     <th class="text-center tblth">End Time</th>
                     <th style="width: 80px" class="text-center tblth">Edit</th>
-                    <th style="width: 80px" class="text-center tblth">Send</th>
+                    @*<th style="width: 80px" class="text-center tblth">Send</th>*@
                 </tr>
             </thead>
             <tbody>
@@ -48,9 +48,9 @@
                                     <td>
                                         <a href="~/Attendance/AssessmentSchedule?Id=@dr["AssessmentScheduleId_pk"]" class="btn btn-mint btn-sm icontxtClr"><i class="fa fa-edit"></i></a>
                                     </td>
-                                    <td>
+                                    @*<td>
                                         <a href="javascript:void(0)" onclick="MailSend('@dr["BatchId_fk"]')" class="btn btn-purple btn-sm icontxtClr @dr["mailsendbgcolor"].ToString()"><i class="fa fa-send"></i></a>
-                                    </td>
+                                    </td>*@
                                 </tr>
                         }
                     }

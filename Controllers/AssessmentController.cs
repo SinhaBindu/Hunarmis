@@ -1,8 +1,10 @@
-﻿using DocumentFormat.OpenXml.Drawing;
+﻿using Antlr.Runtime.Misc;
+using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.EMMA;
 using Hunarmis.Manager;
 using Hunarmis.Models;
 using Newtonsoft.Json;
+using NLog.Fluent;
 using SubSonic.Extensions;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using static Hunarmis.Manager.CommonModel;
 
 namespace Hunarmis.Controllers
@@ -327,6 +330,8 @@ namespace Hunarmis.Controllers
                     return new QesRes
                     {
                         Id = tblhr.Id,
+                        Lat = tblhr.Lat,
+                        Long = tblhr.Long,
                         FormId = fid,
                         YearId = tblhr.YearId,
                         BatchId = tblhr.BatchId.Value,
@@ -346,22 +351,36 @@ namespace Hunarmis.Controllers
                 return new QesRes { SchoolId = 0, BatchId = Convert.ToInt32(Session["BatchId"].ToString()), TrainingCenterId = Convert.ToInt32(Session["TrainingCenterId"].ToString()), RandomValue = Session["RandomValue"].ToString(), StartTime = Session["StartTime"].ToString(), EndTime = Session["EndTime"].ToString(), FormId = fid, Qlist = qList, IsDraft = false };
 
             }
-            return new QesRes { SchoolId = 0, BatchId = 0, TrainingCenterId = 0, RandomValue = Rdmkeyno, StartTime = "", EndTime = "", FormId = fid, Qlist = qList, IsDraft = false };
+            return new QesRes { SchoolId = 0, BatchId = 0, Lat = "", Long = "", TrainingCenterId = 0, RandomValue = Rdmkeyno, StartTime = "", EndTime = "", FormId = fid, Qlist = qList, IsDraft = false };
         }
         [AllowAnonymous]
         [SessionCheckPart]
         [HttpPost]
         public ActionResult Add(QesRes model)
         {
+
+            var d = JsonConvert.SerializeObject(model);
+           System.IO.File.AppendAllText(Server.MapPath("~/log.txt") , $"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}: {d}{Environment.NewLine}");
+
             Hunar_DBEntities db_ = new Hunar_DBEntities();
             var result = 0; //var fid = Convert.ToInt32(2);
+            string localIP = GetLocalIPAddress();
+            string publicIP = GetPublicIPAddress();
             try
             {
+                if (string.IsNullOrWhiteSpace(model.Lat) && string.IsNullOrWhiteSpace(model.Long))
+                {
+                    return Json(new { IsSuccess = false, htmlData = "Please select at least one answer in each question.", msg = "Please select at least one answer in each question." }, JsonRequestBehavior.AllowGet);
+                }
                 //var resdata = this.Request.Unvalidated.Form.AllKeys;
                 if (model != null && Session["PartUserId"] != null)
                 {
                     ParticipantLoginModel filter = new ParticipantLoginModel();
                     filter.EmailID = Session["EmailID"].ToString();
+                    filter.AssessmentScheduleId_fk = Guid.Parse(Session["AssessmentScheduleId_fk"].ToString());
+                    filter.BatchId = model.BatchId;
+                    filter.FormId = model.FormId;
+                    filter.ParticipantId_fk = Guid.Parse(Session["PartUserId"].ToString());
                     //filter.Password = Session["Password"].ToString();
                     filter.RandomValue = Session["RandomValue"].ToString();
 
@@ -389,7 +408,8 @@ namespace Hunarmis.Controllers
                             tbl2nd.AssessmentSchedule = true;
                             tbl2nd.UpdatedOn = DateTime.Now;
                             db_.SaveChanges();
-                            return RedirectToAction("AssessmentDone", "ParticipantUser");
+                            return Json(new { IsSuccess = false, type=1, Redirect = "AssessmentDone",  Control= "ParticipantUser" }, JsonRequestBehavior.AllowGet);
+                           // return RedirectToAction("AssessmentDone", "ParticipantUser");
                         }
                     }
 
@@ -397,7 +417,17 @@ namespace Hunarmis.Controllers
                     {
                         return Json(new { IsSuccess = false, res = "", msg = "Select School !" }, JsonRequestBehavior.AllowGet);
                     }
-                    var maintbl = model.Id != 0 ? db.tbl_Survey.Find(model.Id) : new tbl_Survey();
+                    var assId = Guid.Parse(Session["AssessmentScheduleId_fk"].ToString());
+                    var partId = Session["PartUserId"].ToString();
+                    var maintbl = model.Id != 0 ? db_.tbl_Survey.Find(model.Id) : new tbl_Survey();
+                    var main_tbl = maintbl.Id == 0 ? db_.tbl_Survey.Where(x => x.AssessmentId == assId && x.BatchId == model.BatchId && x.CreatedBy == partId)?.FirstOrDefault() : null;
+                    if (main_tbl != null)
+                    {
+                        maintbl = model.Id == 0 && main_tbl.Id != 0 ? main_tbl : new tbl_Survey();
+                        model.Id = maintbl.Id;
+                        model.BatchId = maintbl.BatchId.Value;
+                        model.FormId = maintbl.FormId.Value;
+                    }
                     if (maintbl != null)
                     {
                         maintbl.FormId = Convert.ToInt32(model.FormId);
@@ -412,12 +442,12 @@ namespace Hunarmis.Controllers
                             else
                             {
                                 maintbl.IsDraft = model.IsDraft;
-                                if (model.IsDraft)
+                                if (model.IsDraft && model.IsDraftMode == 1)
                                 {
                                     maintbl.IsActive = false;
                                     maintbl.IsDraft = true;
                                 }
-                                else if (!model.IsDraft)
+                                else if (!model.IsDraft && model.IsDraftMode == 0)
                                 {
                                     maintbl.IsDraft = false;
                                     maintbl.IsActive = true;
@@ -437,10 +467,19 @@ namespace Hunarmis.Controllers
                                     maintbl.YearId = model.YearId == null ? DateTime.Now.Year : Convert.ToInt32(model.YearId);
                                     maintbl.FrequencyId = model.FrequencyId == null ? DateTime.Now.Month : Convert.ToInt32(model.FrequencyId);
                                     maintbl.Date = DateTime.Now.Date;
+                                    maintbl.AssessmentId = Guid.Parse(Session["AssessmentScheduleId_fk"].ToString());
                                     maintbl.BatchId = model.BatchId;
+                                    maintbl.Lat = model.Lat;
+                                    maintbl.Long = model.Long;
                                     maintbl.TrainingCenterId = model.TrainingCenterId;
                                     maintbl.CreatedBy = Session["PartUserId"].ToString();
                                     maintbl.CreatedOn = DateTime.Now;
+
+                                    maintbl.LocalIP = localIP;
+                                    maintbl.PublicIP = publicIP;
+                                    maintbl.ConLocalIP = localIP;
+                                    maintbl.ConPublicIP = publicIP;
+
                                     db.tbl_Survey.Add(maintbl);
                                 }
                             }
@@ -450,10 +489,18 @@ namespace Hunarmis.Controllers
                             maintbl.UpdatedBy = Session["PartUserId"].ToString();
                             maintbl.UpdatedOn = DateTime.Now;
                             maintbl.IsDraft = model.IsDraft;
-                            if (!model.IsDraft)
+                            
+                            maintbl.ConLocalIP = maintbl.LocalIP == localIP ? localIP : maintbl.ConLocalIP+ "@/" + localIP;
+                            maintbl.ConPublicIP = maintbl.ConPublicIP == publicIP ? publicIP : maintbl.ConPublicIP + "@/" + publicIP;
+                            maintbl.LocalIP = localIP;
+                            maintbl.PublicIP = publicIP;
+
+                            if (!model.IsDraft && model.IsDraftMode == 0)
                             {
                                 maintbl.IsActive = true;
                             }
+                            //maintbl.Lat = model.Lat;
+                            //maintbl.Long = model.Long;
                         }
                         result += db.SaveChanges();
                         if (model.Qlist != null && maintbl.Id > 0)
@@ -511,7 +558,8 @@ namespace Hunarmis.Controllers
                                                     var ans = asnlist.FirstOrDefault(x => x.QuestionCode == item.QuestionCode && x.QuestionOption_fk == item.OptionList[i].OptionId_Pk);
                                                     if (ans != null)
                                                     {
-                                                        db.tbl_SurveyAnswer.Remove(ans);
+                                                        db_.tbl_SurveyAnswer.Remove(ans);
+                                                        db_.SaveChanges();
                                                     }
                                                 }
                                             }
@@ -569,6 +617,10 @@ namespace Hunarmis.Controllers
                         //Success("HR save and modified successfully !", true);
                         // return RedirectToAction("Index", "HR");
                         ModelState.Clear();
+                        model.Id = maintbl.Id;
+                        model.BatchId = maintbl.BatchId.Value;
+                        model.FormId = maintbl.FormId.Value;
+                        model.RandomValue = model.RandomValue;
                         var res = GetAdd(maintbl.Id, maintbl.FormId.Value, model.RandomValue);
                         var html = ConvertViewToString("add", res);
                         var action = maintbl.Id == 0 ? "Saved" : "Modified";
@@ -578,6 +630,8 @@ namespace Hunarmis.Controllers
                         Session["SurveyId"] = maintbl.Id;
                         Session["FormId"] = maintbl.FormId.Value;
                         Session["BatchId"] = maintbl.BatchId;
+                        Session["Assessement_Id"] = maintbl.AssessmentId;
+                        GetParticipantSaveUpdateScore();
                         return resResponse;
                         //Success("HR save and modified successfully !", true);
                         // return Json(new { IsSuccess = true, res = html, MSG = "HR save and modified successfully !" }, JsonRequestBehavior.AllowGet);
@@ -598,6 +652,60 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, htmlData = "Something went wrong.", msg = "Something went wrong." }, JsonRequestBehavior.AllowGet);
             }
             // return View(model);
+        }
+
+        private int GetParticipantSaveUpdateScore()
+        {
+            int reslt = 0;
+            Hunar_DBEntities dBEntities = new Hunar_DBEntities();
+            CertificateModel model = new CertificateModel();
+            string bodydata = string.Empty;
+            if (Session["SurveyId"] != null && Session["SurveyId"].ToString() != "")
+            {
+                DataSet ds = SPManager.GetSP_ScorersSummaryMarks(Session["PartUserId"].ToString(), Convert.ToInt32(Session["FormId"].ToString()), Convert.ToInt32(Session["BatchId"].ToString()));
+                DataTable dt = new DataTable();
+                DataTable dt1 = new DataTable();
+                if (ds.Tables.Count > 0)
+                {
+                    dt = ds.Tables[0];
+                    if (dt.Rows.Count > 0)
+                    {
+                        var bid = Convert.ToInt32(Session["BatchId"]);
+                        var btch = dBEntities.Batch_Master.Find(bid);
+                        if (btch != null)
+                        {
+                            if (btch.IsAssessmentDone != true)
+                            {
+                                btch.IsAssessmentDone = true;
+                                dBEntities.SaveChanges();
+                            }
+                        }
+                        var IsCertf = dt.Rows[0]["IsCertificate"].ToString();
+                        model.IsCertificate = IsCertf;
+                        model.ScorePercentage = dt.Rows[0]["Percentage"].ToString();
+                        //if (dt.Rows[0]["IsCertificate"].ToString() == "1")
+                        //{
+                        model.BatchId = bid;
+                        model.FormId = Convert.ToInt32(Session["FormId"]);
+                        model.ParticipantId = Guid.Parse(Session["PartUserId"].ToString());
+                        var tblget = dBEntities.tbl_Survey.Where(x => x.CreatedBy == model.ParticipantId.ToString() && x.BatchId == bid && x.FormId == model.FormId).ToList();
+                        if (tblget.Any())
+                        {
+                            var tblu = tblget.FirstOrDefault();
+                            tblu.AssessmentScoreNo = !string.IsNullOrWhiteSpace(model.ScorePercentage) ? Convert.ToDecimal(model.ScorePercentage) : 0;
+                            tblu.IsCertificate = model.IsCertificate == "1" ? true : false;
+
+                            var tblpartu = dBEntities.tbl_Participant.Where(x => x.ID == model.ParticipantId).FirstOrDefault();
+                            tblpartu.AssessmentScore = model.ScorePercentage;
+                            tblpartu.IsAssessmentDone = model.IsCertificate == "1" ? true : false;
+                            reslt = dBEntities.SaveChanges();
+                            return reslt;
+                        }
+                        //}
+                    }
+                }
+            }
+            return reslt;
         }
         public ActionResult GetViewData(int? Id)
         {
@@ -700,6 +808,7 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
             }
         }
+
 
         #region Recursion
         public static List<FormModel> BuildQuestion(List<FormModel> source)

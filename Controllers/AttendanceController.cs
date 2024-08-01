@@ -308,6 +308,36 @@ namespace Hunarmis.Controllers
         #endregion
 
         #region Assessment Schedule
+        public ActionResult GetSendPartList(FilterModel model)
+        {
+            DataTable tbllist = new DataTable();
+            var html = "";
+            try
+            {
+                tbllist = SPManager.SP_GetAssessmentParticipant(model);
+                bool IsCheck = false; bool Is_Disable = false;
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                    Is_Disable = Convert.ToInt32(tbllist.Compute("sum(IsAssessmentExamDone)", string.Empty))== tbllist.Rows.Count?true:false;
+                    html = ConvertViewToString("_ParticipantSendData", tbllist);
+                    var res = Json(new { IsSuccess = IsCheck, Data = html, IsDisable = Is_Disable }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+                else
+                {
+                    var res = Json(new { IsSuccess = IsCheck, Data = "Record Not Found !!" }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "There was a communication error.." }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
         public ActionResult GetAssessmentSchedulellist(int BatchId = 0)
         {
             try
@@ -371,14 +401,14 @@ namespace Hunarmis.Controllers
                     resResponseal.MaxJsonLength = int.MaxValue;
                     return resResponseal;
                 }
-                if (_db.tbl_AssessmentSchedule.Any(x => x.BatchId_fk == model.BatchId_fk && model.AssessmentScheduleId_pk == Guid.Empty))
-                {
-                    var getbatch = _db.Batch_Master.Where(x => x.Id == model.BatchId_fk)?.FirstOrDefault().BatchName;
-                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Assessment Schedule is already submitted this Batch" + getbatch + " " + CommonModel.FormateDtDMY(model.Date.ToString()), Data = null };
-                    var resResponseal = Json(response, JsonRequestBehavior.AllowGet);
-                    resResponseal.MaxJsonLength = int.MaxValue;
-                    return resResponseal;
-                }
+                //if (_db.tbl_AssessmentSchedule.Any(x => x.BatchId_fk == model.BatchId_fk && model.AssessmentScheduleId_pk == Guid.Empty))
+                //{
+                //    var getbatch = _db.Batch_Master.Where(x => x.Id == model.BatchId_fk)?.FirstOrDefault().BatchName;
+                //    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Assessment Schedule is already submitted this Batch" + getbatch + " " + CommonModel.FormateDtDMY(model.Date.ToString()), Data = null };
+                //    var resResponseal = Json(response, JsonRequestBehavior.AllowGet);
+                //    resResponseal.MaxJsonLength = int.MaxValue;
+                //    return resResponseal;
+                //}
                 //  DataTable dt = SPManager.SP_GetBatchForPart(TCenterIds);
                 var tbl = model.AssessmentScheduleId_pk != Guid.Empty ? _db.tbl_AssessmentSchedule.Find(model.AssessmentScheduleId_pk) : new tbl_AssessmentSchedule();
                 if (tbl != null && model != null)

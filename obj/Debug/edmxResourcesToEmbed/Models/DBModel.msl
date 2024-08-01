@@ -192,24 +192,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_SendMail">
-      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_SendMail">
-        <MappingFragment StoreEntitySet="tbl_SendMail">
-          <ScalarProperty Name="ExtraCol2" ColumnName="ExtraCol2" />
-          <ScalarProperty Name="ExtraCol1" ColumnName="ExtraCol1" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="IsSented" ColumnName="IsSented" />
-          <ScalarProperty Name="SenderName" ColumnName="SenderName" />
-          <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
-          <ScalarProperty Name="Boby" ColumnName="Boby" />
-          <ScalarProperty Name="Subject" ColumnName="Subject" />
-          <ScalarProperty Name="MTo" ColumnName="MTo" />
-          <ScalarProperty Name="MFrom" ColumnName="MFrom" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_MailData">
       <EntityTypeMapping TypeName="Hunar_DBModel.tbl_MailData">
         <MappingFragment StoreEntitySet="tbl_MailData">
@@ -377,25 +359,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_AssessmentSchedule">
-      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_AssessmentSchedule">
-        <MappingFragment StoreEntitySet="tbl_AssessmentSchedule">
-          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="AssessmentSchedule" ColumnName="AssessmentSchedule" />
-          <ScalarProperty Name="CourseId_fk" ColumnName="CourseId_fk" />
-          <ScalarProperty Name="TrainingCenterId_fk" ColumnName="TrainingCenterId_fk" />
-          <ScalarProperty Name="BatchId_fk" ColumnName="BatchId_fk" />
-          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="AssessmentScheduleId_pk" ColumnName="AssessmentScheduleId_pk" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_ParticipantRemarks_History">
       <EntityTypeMapping TypeName="Hunar_DBModel.tbl_ParticipantRemarks_History">
         <MappingFragment StoreEntitySet="tbl_ParticipantRemarks_History">
@@ -533,27 +496,6 @@
           <ScalarProperty Name="TrainerId" ColumnName="TrainerId" />
           <ScalarProperty Name="BatchId" ColumnName="BatchId" />
           <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbl_Survey">
-      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Survey">
-        <MappingFragment StoreEntitySet="tbl_Survey">
-          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
-          <ScalarProperty Name="IsCertificate" ColumnName="IsCertificate" />
-          <ScalarProperty Name="AssessmentScoreNo" ColumnName="AssessmentScoreNo" />
-          <ScalarProperty Name="FrequencyId" ColumnName="FrequencyId" />
-          <ScalarProperty Name="YearId" ColumnName="YearId" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="TrainingCenterId" ColumnName="TrainingCenterId" />
-          <ScalarProperty Name="BatchId" ColumnName="BatchId" />
-          <ScalarProperty Name="FormId" ColumnName="FormId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -708,6 +650,78 @@
           <ScalarProperty Name="CouresId" ColumnName="CouresId" />
           <ScalarProperty Name="AttendanceId_fk" ColumnName="AttendanceId_fk" />
           <ScalarProperty Name="AttendanceTopicId_pk" ColumnName="AttendanceTopicId_pk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_AssessmentSchedule">
+      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_AssessmentSchedule">
+        <MappingFragment StoreEntitySet="tbl_AssessmentSchedule">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="AssessmentSchedule" ColumnName="AssessmentSchedule" />
+          <ScalarProperty Name="CourseId_fk" ColumnName="CourseId_fk" />
+          <ScalarProperty Name="TrainingCenterId_fk" ColumnName="TrainingCenterId_fk" />
+          <ScalarProperty Name="BatchId_fk" ColumnName="BatchId_fk" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="AssessmentScheduleId_pk" ColumnName="AssessmentScheduleId_pk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_SendMail">
+      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_SendMail">
+        <MappingFragment StoreEntitySet="tbl_SendMail">
+          <ScalarProperty Name="ExtraCol2" ColumnName="ExtraCol2" />
+          <ScalarProperty Name="ExtraCol1" ColumnName="ExtraCol1" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsSented" ColumnName="IsSented" />
+          <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+          <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+          <ScalarProperty Name="Boby" ColumnName="Boby" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="ToOtherMail" ColumnName="ToOtherMail" />
+          <ScalarProperty Name="MTo" ColumnName="MTo" />
+          <ScalarProperty Name="MFrom" ColumnName="MFrom" />
+          <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+          <ScalarProperty Name="AssessmentId" ColumnName="AssessmentId" />
+          <ScalarProperty Name="Batch_Id" ColumnName="Batch_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Survey">
+      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Survey">
+        <MappingFragment StoreEntitySet="tbl_Survey">
+          <ScalarProperty Name="ConPublicIP" ColumnName="ConPublicIP" />
+          <ScalarProperty Name="ConLocalIP" ColumnName="ConLocalIP" />
+          <ScalarProperty Name="PublicIP" ColumnName="PublicIP" />
+          <ScalarProperty Name="LocalIP" ColumnName="LocalIP" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
+          <ScalarProperty Name="ExtraCol" ColumnName="ExtraCol" />
+          <ScalarProperty Name="LeavePage" ColumnName="LeavePage" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Long" ColumnName="Long" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="IsCertificate" ColumnName="IsCertificate" />
+          <ScalarProperty Name="AssessmentScoreNo" ColumnName="AssessmentScoreNo" />
+          <ScalarProperty Name="FrequencyId" ColumnName="FrequencyId" />
+          <ScalarProperty Name="YearId" ColumnName="YearId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="TrainingCenterId" ColumnName="TrainingCenterId" />
+          <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="AssessmentId" ColumnName="AssessmentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

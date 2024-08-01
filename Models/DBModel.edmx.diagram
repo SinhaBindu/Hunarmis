@@ -24,7 +24,6 @@
         <EntityTypeShape EntityType="Hunar_DBModel.Benefit_Master" Width="1.5" PointX="12.375" PointY="0.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.JobEmployed_Master" Width="1.5" PointX="5" PointY="9.875" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.LocatedKM_Master" Width="1.5" PointX="13.375" PointY="3.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_SendMail" Width="1.5" PointX="7.75" PointY="11.25" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_MailData" Width="1.5" PointX="14.375" PointY="0.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant_Calling" Width="1.5" PointX="13.375" PointY="6.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.QuestionBook" Width="1.5" PointX="7.75" PointY="13.875" IsExpanded="false" />
@@ -33,21 +32,22 @@
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_Mapped" Width="1.5" PointX="8" PointY="9.875" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_MappedTrainCenter" Width="1.5" PointX="10.875" PointY="9.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_SurveyAnswer" Width="1.5" PointX="18" PointY="3" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_AssessmentSchedule" Width="1.5" PointX="4.625" PointY="12.625" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_ParticipantRemarks_History" Width="1.5" PointX="7.625" PointY="13" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_AssessmentSendLinkEmail" Width="1.5" PointX="4.625" PointY="14" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_FileUpload" Width="1.5" PointX="8.875" PointY="6.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.Tbl_ExceptionHandle" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.Batch_Master" Width="1.5" PointX="0.75" PointY="12.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_LogBatchTrainer" Width="1.5" PointX="13.75" PointY="8.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Survey" Width="1.5" PointX="15.75" PointY="2.125" />
-        <AssociationConnector Association="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" />
+        <EntityTypeShape EntityType="Hunar_DBModel.Tbl_ExceptionHandle" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="Hunar_DBModel.Batch_Master" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_LogBatchTrainer" Width="1.5" PointX="13.75" PointY="8.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_ExcelParticipantData" Width="1.5" PointX="10.375" PointY="14.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant" Width="1.5" PointX="13.375" PointY="12.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_AttendanceParticipant" Width="1.5" PointX="12.75" PointY="14.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_AttendParticipant" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.SessionPlanTopic_Master" Width="1.5" PointX="3.75" PointY="15.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_AttendPartTopic" Width="1.5" PointX="6.375" PointY="15.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_AttendanceParticipant" Width="1.5" PointX="12.75" PointY="14.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_AttendParticipant" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="Hunar_DBModel.SessionPlanTopic_Master" Width="1.5" PointX="3.75" PointY="15.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_AttendPartTopic" Width="1.5" PointX="6.375" PointY="15.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_AssessmentSchedule" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_SendMail" Width="1.5" PointX="15.75" PointY="10.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Survey" Width="1.5" PointX="15.75" PointY="12" />
+        <AssociationConnector Association="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

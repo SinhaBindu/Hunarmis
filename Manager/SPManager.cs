@@ -201,7 +201,7 @@ namespace Hunarmis.Manager
             return ds;
         }
         #endregion
-        #region Attendance Module
+        #region Attendance && Assessment Module
         public static DataTable SP_GetParticipant(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_GetParticipant");
@@ -240,10 +240,18 @@ namespace Hunarmis.Manager
         }
         #endregion
         #region Mail send For Participant Email Id
-        public static DataTable SP_MailSendParticipantWise(string BatchId)
+        public static DataTable SP_GetAssessmentParticipant(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetAssessmentParticipant");
+            sp.Command.AddParameter("@BatchId", Convert.ToInt32(model.BatchId), DbType.Int32);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_MailSendParticipantWise(string BatchId, string ParticipantIds)
         {
             StoredProcedure sp = new StoredProcedure("SP_MailSendParticipantWise");
             sp.Command.AddParameter("@BatchId", BatchId, DbType.String);
+            sp.Command.AddParameter("@ParticipantIds", ParticipantIds, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

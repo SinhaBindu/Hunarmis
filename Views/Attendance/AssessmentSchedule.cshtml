@@ -10,6 +10,7 @@
     table {
         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     }
+
     .table th {
         font-size: 14px;
         background: #fff;
@@ -26,11 +27,13 @@
     table.dataTable > thead > tr > th, table.dataTable > thead > tr > td {
         padding: 10px 6px !important
     }
+
     .tblth {
         background: #8A77F4 !important;
         color: #fff;
         border: 1px solid #fff !important
     }
+
     div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
         background: #F59678 !important;
         color: #fff !important;
@@ -76,17 +79,22 @@
                                                 @Html.ValidationMessageFor(model => model.StrEndTime, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="col-md-12" style="padding-top: 10px !important;">
-                                                <span class="webshow">
+                                                <div class="col-md-3">
                                                     <input type="submit" class="btn-register" name="btnsubmit" id="btnsubmit" value="Submit" />
+                                                </div>
+                                                <div class="col-md-3">
                                                     <a href="~/Attendance/AssessmentSchedule" class="btn-reset"><i class="fa fa-refresh"></i></a>
-                                                </span>
+                                                </div>
+                                                <div class="col-md-3" style="display:none;" id="div-send">
+                                                    <a href="javascript:void(0)" onclick="MailSend()" id="btnsendmail" class="btn btn-purple btn-sm"><i class="fa fa-send"></i></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-1">
                                     </div>
                                     <div class="col-sm-6">
-                                        <div id="subdata" style="height:500px; overflow:scroll;"></div>
+                                        <div id="subdata" style="height:auto; overflow:scroll;"></div>
                                     </div>
                                 </div>
 
@@ -95,6 +103,10 @@
                     }
                 </div>
             </div>
+            <div class="col-sm-12">
+                <div id="participantdata"></div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -103,14 +115,16 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <script>
+<script>
         $(document).ready(function () {
 
             $('.timepicker').timepicker({
                 timeFormat: 'h:mm p',
                 interval: 60,
-                minTime: '8',
-                maxTime: '8:00pm',
+                minTime: '12:00am',
+                //minTime: '8',
+                //maxTime: '8:00pm',
+                maxTime: '11:50pm',
                 //defaultTime: '11',
                 //startTime: '10:00',
                 dynamic: false,
@@ -134,13 +148,15 @@
                 $('#Date').val(moment('@Model.Date').format("DD-MMM-YYYY"));
                 $('#StrStartTime').val(('@Model.StrStartTime'));
                 $('#StrEndTime').val(('@Model.StrEndTime'));
+                BindPartData();
             }
             $('#BatchId_fk').change(function () {
                 if ($(this).val()!='') {
                     BindData();
+                    BindPartData();
                 }
             });
-          if ('@CommonModel.RoleNameCont.Trainer' != '@MvcApplication.CUser.Role') {
+            if ('@CommonModel.RoleNameCont.Trainer' != '@MvcApplication.CUser.Role') {
                   BindData();
              }
 
@@ -150,6 +166,24 @@
             });
 
         });
+
+    function CheckUnchecked(cur) {
+        if ($(cur).attr('id') == 'selectAll') {
+            $('#tblsend tbody tr .check').each(function (i, item) {
+                $(item).prop('checked', $(cur).prop('checked'));
+            });
+        } else {
+            var isallChecked = true;
+            $('#tblsend tbody tr .check').each(function (i, item) {
+                if (!$(item).prop('checked')) {
+                    isallChecked = false;
+                    return;
+                }
+            });
+            $('#selectAll').prop('checked', isallChecked);
+        }
+    }
+
 
         function BindData() {
             var BatchId = ($('#BatchId_fk').val() == "0" || $('#BatchId_fk').val() == "") ? 0 : parseInt($('#BatchId_fk').val());
@@ -161,6 +195,7 @@
                 success: function (res) {
                     if (res.IsSuccess) {
                         $("#subdata").html(res.Data);
+                        $("#div-send").css("display", "block");
 
                         if ($.fn.dataTable.isDataTable('#tbl')) {
                             $("#tbl").dataTable().fnDestroy();
@@ -183,11 +218,11 @@
                                 exportOptions: { modifier: { page: 'all' } }
                             }],
                         });
-                        $('.dataTables_filter input[type="search"]').css(
-                            { 'width': '200px', 'display': 'inline-block' }
-                        );
-                        $('#div-download').empty();
-                        table.buttons().container().appendTo($('#div-download'));
+                        //$('.dataTables_filter input[type="search"]').css(
+                        //    { 'width': '200px', 'display': 'inline-block' }
+                        //);
+                       // $('#div-download').empty();
+                       // table.buttons().container().appendTo($('#div-download'));
                     }
                     $("#subdata").html(res.Data);
                 },
@@ -225,7 +260,10 @@
                         if (resp.StatusType == "success") {
                             toastr.success("Success", resp.Message);
                             BindData();
-                            window.location.href = url;
+                            BindPartData();
+                            if ('@Model.AssessmentScheduleId_pk'!='@Guid.Empty') {
+                                 window.location.href = url;
+                            }
                             $('#AssessmentScheduleId_pk').val('@Guid.Empty');
                             $('#BatchId_fk').val('0'); $('#Date').val(''); $('#StrStartTime').val(''); $('#StrEndTime').val('');
                             //jQuery.event.trigger("ajaxStop");
@@ -250,27 +288,125 @@
     }
 
     function MailSend(BatchId) {
-        $.ajax({
-            type: "GET",
-            url: document.baseURI + "/Mail/SendMailForParticipant",
-            data: { 'BatchId': BatchId },//JSON.stringify({}),//
-            cache: false,
-            success: function (resp) {
-                if (resp.IsSuccess) {
-                    toastr.success("Success", resp.Message);
-                }
-                else {
-                    toastr.error("Error", resp.Message);
-                }
-            },
-            error: function (req, error) {
-                if (error === 'error') { error = req.statusText; }
-                var errormsg = 'There was a communication error: ' + error;
-                toastr.error("Error", errormsg);
+        debugger;
+            BatchId = $('#BatchId_fk').val() == '' ? '' : $('#BatchId_fk').val();
+            var atleastonepart = 0; var ParticipantIds = "";
+            let table2 = $('#tblsend').DataTable();
+                 table2.$('input[class=check]').each(function (i, row) {
+                     var participantid = $(row).attr('data-participantid');
+                     var batchid = $(row).attr('data-batchid');
+                     if (participantid != '' && participantid != '@Guid.Empty' && participantid != undefined) {
+                         if ($(this).is(':checked')) {
+                             atleastonepart += 1;
+                             IsCheck = true;
+                             debugger;
+                             ParticipantIds += ParticipantIds == "" ? participantid : ',' + participantid ;
+                         }
+                     }
+                 });
+            if (atleastonepart == 0 || ParticipantIds=="") {
+                 toastr.error("Error", "Please selected at least one participant.");
+                 IsCheck = true;
+                 return false;
+            }
+            if (BatchId != null && BatchId != "" && BatchId != undefined && ParticipantIds != "" && ParticipantIds != null && ParticipantIds != undefined) {
+                $.ajax({
+                    type: "GET",
+                    url: document.baseURI + "/Mail/SendMailForParticipant",
+                    data: { 'BatchId': BatchId, 'ParticipantIds': ParticipantIds },//JSON.stringify({}),//
+                    cache: false,
+                    success: function (resp) {
+                        if (resp.IsSuccess) {
+                            toastr.success("Success", resp.resData);
+                            BindData();
+                            BindPartData();
+                        }
+                        else {
+                            toastr.error("Error", resp.resData);
+                        }
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        toastr.error("Error", errormsg);
+                        return false;
+                    }
+                });
+            }
+            else {
+                toastr.error("Error", "Please Select Batch..");
                 return false;
             }
-        });
-    }
+        }
 
-    </script>
+      //Participant List Data
+       function BindPartData() {
+            $("#participantdata").html('');
+            var filtermodel = new Object();
+              filtermodel.BatchId = $('#BatchId_fk').val() == '' ? '' : $('#BatchId_fk').val();
+
+            $.ajax({
+                type: "Get",
+                url: document.baseURI + "/Attendance/GetSendPartList",
+                data: filtermodel,
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        if (res.IsDisable) {
+                            $("#btnsubmit").attr("disabled", "disabled");
+                            $("#btnsubmit").css("display", "none");
+                            $("#btnsendmail").attr("disabled", "disabled");
+                            $("#btnsendmail").css("display", "none");
+                        }
+                        else {
+                            $("#btnsubmit").removeAttr("disabled");
+                            $("#btnsubmit").css("display", "block");
+                            $("#btnsendmail").removeAttr("disabled");
+                            $("#btnsendmail").css("display", "block");
+                        }
+                        $("#participantdata").html(res.Data);
+
+                        if ($.fn.dataTable.isDataTable('#tblsend')) {
+                            $("#tblsend").dataTable().fnDestroy();
+                        }
+                        table = $('#tblsend').DataTable({
+                            //scrollY: "400px",
+                            //scrollX: true,
+                            //scrollCollapse: true,
+                            "dom": '<"pull-left"f><"pull-right"l>tip',
+                            paging: false,
+                            "ordering": false,
+                            // pageLength: 100,
+                            fixedColumns: {
+                                leftColumns: 1,
+                                rightColumns: 1
+                            },
+                            order: [[1, 'asc']],
+                            buttons: [{
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i> Download</span>', title: 'Participant Lists',//$('#IDDistrict option:selected').text() +
+                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                filename: 'Participant Lists',
+                                exportOptions: { modifier: { page: 'all' } }
+                            }],
+                        });
+                        $('.dataTables_filter input[type="search"]').css(
+                            { 'width': '500px', 'display': 'inline-block' }
+                        );
+                        $('#div-download').empty();
+                        table.buttons().container().appendTo($('#div-download'));
+                    }
+                    else {
+                        $("#participantdata").html("<b class='text-danger'>" + res.Data +"</b>");
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    $("#participantdata").html("<b class='text-danger'>" + error + "</b>");
+                    //Do To Message display
+                }
+            });
+        }
+
+</script>
 }

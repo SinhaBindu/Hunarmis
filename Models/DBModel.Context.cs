@@ -41,7 +41,6 @@ namespace Hunarmis.Models
         public virtual DbSet<Benefit_Master> Benefit_Master { get; set; }
         public virtual DbSet<JobEmployed_Master> JobEmployed_Master { get; set; }
         public virtual DbSet<LocatedKM_Master> LocatedKM_Master { get; set; }
-        public virtual DbSet<tbl_SendMail> tbl_SendMail { get; set; }
         public virtual DbSet<tbl_MailData> tbl_MailData { get; set; }
         public virtual DbSet<tbl_Participant_Calling> tbl_Participant_Calling { get; set; }
         public virtual DbSet<QuestionBook> QuestionBooks { get; set; }
@@ -50,19 +49,20 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_Mapped> tbl_Mapped { get; set; }
         public virtual DbSet<tbl_MappedTrainCenter> tbl_MappedTrainCenter { get; set; }
         public virtual DbSet<tbl_SurveyAnswer> tbl_SurveyAnswer { get; set; }
-        public virtual DbSet<tbl_AssessmentSchedule> tbl_AssessmentSchedule { get; set; }
         public virtual DbSet<tbl_ParticipantRemarks_History> tbl_ParticipantRemarks_History { get; set; }
         public virtual DbSet<tbl_AssessmentSendLinkEmail> tbl_AssessmentSendLinkEmail { get; set; }
         public virtual DbSet<tbl_FileUpload> tbl_FileUpload { get; set; }
         public virtual DbSet<Tbl_ExceptionHandle> Tbl_ExceptionHandle { get; set; }
         public virtual DbSet<Batch_Master> Batch_Master { get; set; }
         public virtual DbSet<tbl_LogBatchTrainer> tbl_LogBatchTrainer { get; set; }
-        public virtual DbSet<tbl_Survey> tbl_Survey { get; set; }
         public virtual DbSet<tbl_ExcelParticipantData> tbl_ExcelParticipantData { get; set; }
         public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<tbl_AttendanceParticipant> tbl_AttendanceParticipant { get; set; }
         public virtual DbSet<tbl_AttendParticipant> tbl_AttendParticipant { get; set; }
         public virtual DbSet<SessionPlanTopic_Master> SessionPlanTopic_Master { get; set; }
         public virtual DbSet<tbl_AttendPartTopic> tbl_AttendPartTopic { get; set; }
+        public virtual DbSet<tbl_AssessmentSchedule> tbl_AssessmentSchedule { get; set; }
+        public virtual DbSet<tbl_SendMail> tbl_SendMail { get; set; }
+        public virtual DbSet<tbl_Survey> tbl_Survey { get; set; }
     }
 }

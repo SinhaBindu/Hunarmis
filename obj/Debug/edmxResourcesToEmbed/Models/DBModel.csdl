@@ -29,7 +29,6 @@
     <EntitySet Name="Benefit_Master" EntityType="Hunar_DBModel.Benefit_Master" />
     <EntitySet Name="JobEmployed_Master" EntityType="Hunar_DBModel.JobEmployed_Master" />
     <EntitySet Name="LocatedKM_Master" EntityType="Hunar_DBModel.LocatedKM_Master" />
-    <EntitySet Name="tbl_SendMail" EntityType="Hunar_DBModel.tbl_SendMail" />
     <EntitySet Name="tbl_MailData" EntityType="Hunar_DBModel.tbl_MailData" />
     <EntitySet Name="tbl_Participant_Calling" EntityType="Hunar_DBModel.tbl_Participant_Calling" />
     <EntitySet Name="QuestionBooks" EntityType="Hunar_DBModel.QuestionBook" />
@@ -38,24 +37,25 @@
     <EntitySet Name="tbl_Mapped" EntityType="Hunar_DBModel.tbl_Mapped" />
     <EntitySet Name="tbl_MappedTrainCenter" EntityType="Hunar_DBModel.tbl_MappedTrainCenter" />
     <EntitySet Name="tbl_SurveyAnswer" EntityType="Hunar_DBModel.tbl_SurveyAnswer" />
-    <EntitySet Name="tbl_AssessmentSchedule" EntityType="Hunar_DBModel.tbl_AssessmentSchedule" />
     <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Hunar_DBModel.tbl_ParticipantRemarks_History" />
     <EntitySet Name="tbl_AssessmentSendLinkEmail" EntityType="Hunar_DBModel.tbl_AssessmentSendLinkEmail" />
     <EntitySet Name="tbl_FileUpload" EntityType="Hunar_DBModel.tbl_FileUpload" />
     <EntitySet Name="Tbl_ExceptionHandle" EntityType="Hunar_DBModel.Tbl_ExceptionHandle" />
     <EntitySet Name="Batch_Master" EntityType="Hunar_DBModel.Batch_Master" />
     <EntitySet Name="tbl_LogBatchTrainer" EntityType="Hunar_DBModel.tbl_LogBatchTrainer" />
-    <EntitySet Name="tbl_Survey" EntityType="Hunar_DBModel.tbl_Survey" />
-    <AssociationSet Name="FK_tbl_SurveyAnswer_tbl_Survey" Association="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey">
-      <End Role="tbl_Survey" EntitySet="tbl_Survey" />
-      <End Role="tbl_SurveyAnswer" EntitySet="tbl_SurveyAnswer" />
-    </AssociationSet>
     <EntitySet Name="tbl_ExcelParticipantData" EntityType="Hunar_DBModel.tbl_ExcelParticipantData" />
     <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
     <EntitySet Name="tbl_AttendanceParticipant" EntityType="Hunar_DBModel.tbl_AttendanceParticipant" />
     <EntitySet Name="tbl_AttendParticipant" EntityType="Hunar_DBModel.tbl_AttendParticipant" />
     <EntitySet Name="SessionPlanTopic_Master" EntityType="Hunar_DBModel.SessionPlanTopic_Master" />
     <EntitySet Name="tbl_AttendPartTopic" EntityType="Hunar_DBModel.tbl_AttendPartTopic" />
+    <EntitySet Name="tbl_AssessmentSchedule" EntityType="Hunar_DBModel.tbl_AssessmentSchedule" />
+    <EntitySet Name="tbl_SendMail" EntityType="Hunar_DBModel.tbl_SendMail" />
+    <EntitySet Name="tbl_Survey" EntityType="Hunar_DBModel.tbl_Survey" />
+    <AssociationSet Name="FK_tbl_SurveyAnswer_tbl_Survey" Association="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey">
+      <End Role="tbl_Survey" EntitySet="tbl_Survey" />
+      <End Role="tbl_SurveyAnswer" EntitySet="tbl_SurveyAnswer" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="AspNetRole">
     <Key>
@@ -264,23 +264,6 @@
     <Property Name="ID" Type="Int32" Nullable="false" />
     <Property Name="KM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="tbl_SendMail">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Guid" Nullable="false" />
-    <Property Name="MFrom" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="MTo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Boby" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ReceiverName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="SenderName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="IsSented" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="ExtraCol1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="ExtraCol2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-  </EntityType>
   <EntityType Name="tbl_MailData">
     <Key>
       <PropertyRef Name="ID" />
@@ -441,24 +424,6 @@
     <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
     <NavigationProperty Name="tbl_Survey" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_SurveyAnswer" ToRole="tbl_Survey" />
   </EntityType>
-  <EntityType Name="tbl_AssessmentSchedule">
-    <Key>
-      <PropertyRef Name="AssessmentScheduleId_pk" />
-    </Key>
-    <Property Name="AssessmentScheduleId_pk" Type="Guid" Nullable="false" />
-    <Property Name="Date" Type="DateTime" Precision="0" />
-    <Property Name="StartTime" Type="Time" Precision="7" />
-    <Property Name="EndTime" Type="Time" Precision="7" />
-    <Property Name="BatchId_fk" Type="Int32" />
-    <Property Name="TrainingCenterId_fk" Type="Int32" />
-    <Property Name="CourseId_fk" Type="Int32" />
-    <Property Name="AssessmentSchedule" Type="Boolean" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-  </EntityType>
   <EntityType Name="tbl_ParticipantRemarks_History">
     <Key>
       <PropertyRef Name="RemarkHistoryID" />
@@ -593,39 +558,6 @@
     <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityType Name="tbl_Survey">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FormId" Type="Int32" />
-    <Property Name="BatchId" Type="Int32" />
-    <Property Name="TrainingCenterId" Type="Int32" />
-    <Property Name="Date" Type="DateTime" Precision="0" />
-    <Property Name="YearId" Type="Int32" />
-    <Property Name="FrequencyId" Type="Int32" />
-    <Property Name="AssessmentScoreNo" Type="Decimal" Precision="5" Scale="2" />
-    <Property Name="IsCertificate" Type="Boolean" />
-    <Property Name="IsDraft" Type="Boolean" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="tbl_SurveyAnswer" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_Survey" ToRole="tbl_SurveyAnswer" />
-  </EntityType>
-  <Association Name="FK_tbl_SurveyAnswer_tbl_Survey">
-    <End Type="Hunar_DBModel.tbl_Survey" Role="tbl_Survey" Multiplicity="0..1" />
-    <End Type="Hunar_DBModel.tbl_SurveyAnswer" Role="tbl_SurveyAnswer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Survey">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="tbl_SurveyAnswer">
-        <PropertyRef Name="SId_fk" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="tbl_ExcelParticipantData">
     <Key>
       <PropertyRef Name="ID" />
@@ -774,4 +706,86 @@
     <Property Name="AttendTopicCreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="AttendTopicCreatedOn" Type="DateTime" Precision="3" />
   </EntityType>
+  <EntityType Name="tbl_AssessmentSchedule">
+    <Key>
+      <PropertyRef Name="AssessmentScheduleId_pk" />
+    </Key>
+    <Property Name="AssessmentScheduleId_pk" Type="Guid" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="StartTime" Type="Time" Precision="7" />
+    <Property Name="EndTime" Type="Time" Precision="7" />
+    <Property Name="BatchId_fk" Type="Int32" />
+    <Property Name="TrainingCenterId_fk" Type="Int32" />
+    <Property Name="CourseId_fk" Type="Int32" />
+    <Property Name="AssessmentSchedule" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbl_SendMail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Batch_Id" Type="Int32" />
+    <Property Name="AssessmentId" Type="Guid" />
+    <Property Name="ParticipantId" Type="Guid" />
+    <Property Name="MFrom" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MTo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ToOtherMail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Boby" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ReceiverName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SenderName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsSented" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ExtraCol1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ExtraCol2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tbl_Survey">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AssessmentId" Type="Guid" />
+    <Property Name="FormId" Type="Int32" />
+    <Property Name="BatchId" Type="Int32" />
+    <Property Name="TrainingCenterId" Type="Int32" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="YearId" Type="Int32" />
+    <Property Name="FrequencyId" Type="Int32" />
+    <Property Name="AssessmentScoreNo" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="IsCertificate" Type="Boolean" />
+    <Property Name="Lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Long" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LeavePage" Type="Int32" />
+    <Property Name="ExtraCol" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsDraft" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="LocalIP" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PublicIP" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ConLocalIP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ConPublicIP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_SurveyAnswer" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_Survey" ToRole="tbl_SurveyAnswer" />
+  </EntityType>
+  <Association Name="FK_tbl_SurveyAnswer_tbl_Survey">
+    <End Type="Hunar_DBModel.tbl_Survey" Role="tbl_Survey" Multiplicity="0..1" />
+    <End Type="Hunar_DBModel.tbl_SurveyAnswer" Role="tbl_SurveyAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Survey">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_SurveyAnswer">
+        <PropertyRef Name="SId_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

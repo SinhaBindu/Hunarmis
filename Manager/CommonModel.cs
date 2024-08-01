@@ -21,7 +21,10 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Web;
@@ -35,6 +38,28 @@ namespace Hunarmis.Manager
         private static Hunar_DBEntities dbe = new Hunar_DBEntities();
 
         #region BaseUrl
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+           // throw new Exception("No network adapters with an IPv4 address in the system!");
+            return "Error";
+        }
+        public static string GetPublicIPAddress()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string publicIPAddress = client.GetStringAsync("https://api.ipify.org").Result;
+                return publicIPAddress;
+            }
+        }
+
         public static string GetBaseUrl()
         {
             var str = HttpContext.Current.Request.Url.Host;
@@ -176,7 +201,7 @@ namespace Hunarmis.Manager
 
                         if (!string.IsNullOrWhiteSpace(TCenterIds))
                         {
-                            DataTable dt1 = SPManager.SP_GetModuleWiseBatches(ModuleType, CourseId,TrainerId, TCenterIds, BatchId);
+                            DataTable dt1 = SPManager.SP_GetModuleWiseBatches(ModuleType, CourseId, TrainerId, TCenterIds, BatchId);
                             list = dt1.AsEnumerable().Select(x => new SelectListItem()
                             {
                                 Value = x.Field<Int32>("BatchId").ToString(),
@@ -1691,17 +1716,20 @@ namespace Hunarmis.Manager
             }
         }
         //Send mail for participant 21-June-2024
-        public static int SendMailForParticipants(string BatchId = "")
+        public static int SendMailForParticipants(string BatchId, string ParticipantIds)
         {
             int noofsend = 0;
             string To = "", Subject = "", Body = "", ReceiverName = ""
                 , SenderName = "", RandomValue = "", Password = "";
             string ASDT = ""; string DurationTime = ""; string BatchName = "";
             string TrainerName = ""; string DistrictAgencyTrainingCenter = "";
+            string OtherEmailID = ""; string maxdateExam = ""; string maxdateExamTimeStartEnd = "";
             Hunar_DBEntities db_ = new Hunar_DBEntities();
-            DataTable dt = SPManager.SP_MailSendParticipantWise(BatchId);
+            DataTable dt = SPManager.SP_MailSendParticipantWise(BatchId, ParticipantIds);
             string bodydata = string.Empty;
             string bodyTemplate = string.Empty;
+            Guid AssessmentScheduleId_pk = Guid.Empty;
+            Guid ParticipantId = Guid.Empty;
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/Views/Shared/MailTemplate.html")))
             {
                 bodyTemplate = reader.ReadToEnd();
@@ -1710,12 +1738,16 @@ namespace Hunarmis.Manager
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Guid AssessmentScheduleId_pk = Guid.Parse(dt.Rows[0]["AssessmentScheduleId_pk"].ToString());
+                    AssessmentScheduleId_pk = Guid.Parse(dt.Rows[0]["AssessmentScheduleId_pk"].ToString());
                     List<tbl_AssessmentSendLinkEmail> tbllist1 = db_.tbl_AssessmentSendLinkEmail
                             .Where(x => x.AssessmentScheduleId_fk == AssessmentScheduleId_pk).ToList();
                     foreach (DataRow row in dt.Rows)
                     {
+                        maxdateExam = row["ExamDt"].ToString();
+                        maxdateExamTimeStartEnd = row["StartTime"].ToString()+"/" + row["EndTime"].ToString();
                         To = row["EmailID"].ToString();
+                        ParticipantId = Guid.Parse(row["ParticipantId_fk"].ToString());
+                        OtherEmailID = row["OtherEmailID"].ToString();
                         //SenderName = row["EmailID"].ToString();
                         BatchName = row["BatchName"].ToString();
                         Subject = row["CourseName"].ToString();
@@ -1749,7 +1781,7 @@ namespace Hunarmis.Manager
                         //bodyTemplate = "<table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n\t\t<tbody>\r\n <tr>\r\n\t\t\t<td align=\"center\"> " + bodydata + "\r\n\t\t\t\t\r\n  \t</tbody></tr>\r\n</table>";
                         MailMessage mail = new MailMessage();
                         //mail.To.Add("bindu@careindia.org");
-                        mail.To.Add(To);
+                        mail.To.Add(To + "," + OtherEmailID);
                         mail.From = new MailAddress("kgbvjh4care@gmail.com", "Hunar MIS");
                         //mail.From = new MailAddress("hunarmis2024@gmail.com");
                         mail.Subject = Subject + " ( Assessment Date : ) " + ASDT;// + " ( " + SenderName + " )";
@@ -1771,7 +1803,11 @@ namespace Hunarmis.Manager
 
                         tbl_SendMail tbl = new tbl_SendMail();
                         tbl.Id = Guid.NewGuid();
-                        tbl.MTo = To;
+                        tbl.MTo = row["EmailID"].ToString();
+                        tbl.ToOtherMail = OtherEmailID;
+                        tbl.Batch_Id = Convert.ToInt32(row["BatchId"].ToString());
+                        tbl.AssessmentId = AssessmentScheduleId_pk;
+                        tbl.ParticipantId = Guid.Parse(row["ParticipantId_fk"].ToString());
                         tbl.MFrom = "kgbvjh4care@gmail.com";
                         //tbl.MFrom = "careindiabtsp@gmail.com";
                         tbl.Subject = Subject + " ( " + SenderName + " )";
@@ -1779,6 +1815,8 @@ namespace Hunarmis.Manager
                         tbl.ReceiverName = ReceiverName;
                         tbl.SenderName = row["ParticipantId_fk"].ToString(); //SenderName;
                         tbl.IsSented = true;
+                        tbl.ExtraCol1 = maxdateExam;
+                        tbl.ExtraCol2 = maxdateExamTimeStartEnd;
                         tbl.CreatedBy = MvcApplication.CUser.UserId;
                         tbl.CreatedOn = DateTime.Now;
                         db_.tbl_SendMail.Add(tbl);
@@ -1800,13 +1838,22 @@ namespace Hunarmis.Manager
                 tbl_SendMail tbl = new tbl_SendMail();
                 tbl.Id = Guid.NewGuid();
                 tbl.MTo = To;
+                tbl.ToOtherMail = OtherEmailID;
+                tbl.AssessmentId = AssessmentScheduleId_pk;
+                tbl.AssessmentId = ParticipantId;
+                tbl.Batch_Id = Convert.ToInt32(BatchId);
                 //tbl.MFrom = "careindiabtsp@gmail.com";
                 tbl.MFrom = "kgbvjh4care@gmail.com";
                 tbl.Subject = Subject + " ( " + SenderName + " )";
                 tbl.Boby = bodyTemplate;
                 tbl.ReceiverName = ReceiverName;
-                tbl.SenderName = SenderName;
+                //tbl.ParticipantId = Guid.Parse(SenderName);
+                tbl.SenderName = ParticipantIds;
                 tbl.IsSented = false;
+                tbl.ExtraCol1 = maxdateExam;
+                tbl.ExtraCol2 = maxdateExamTimeStartEnd;
+                tbl.CreatedBy = MvcApplication.CUser.UserId;
+                tbl.CreatedOn = DateTime.Now;
                 db_.tbl_SendMail.Add(tbl);
                 db_.SaveChanges();
                 return -2;

@@ -210,15 +210,21 @@
                 <div class="panel">
                     @using (Html.BeginForm("Add", "Assessment", FormMethod.Post, new { @class = "panel-body form-horizontal form-padding loader", enctype = "multipart/form-data", @id = "FormSubmit" }))
                     {
+
                         @*<h3 id="Durationtime" class="text-warning text-center countdown"> </h3>*@
                         if (Session["StartTime"] != null && Session["EndTime"] != null)
                         {
-
+                            <h5 class="text-warning text-center">
+                                Name : <strong class="text-info">@Session["Name"].ToString() </strong>
+                            </h5>
                             <h5 id="DT" class="text-warning text-center">
+
                                 Duration Time : Start :   <strong class="text-info">@CommonModel.GetTimeSpanVal(Session["StartTime"].ToString())</strong>
                                 To End  : <strong class="text-info">@CommonModel.GetTimeSpanVal(Session["EndTime"].ToString())</strong>
-                            <span class="renaming-time"></span>
+                                <span class="renaming-time"></span>
+
                             </h5>
+
                         }
                         <div class="col-md-12">
                             @Html.Partial("_Alerts")
@@ -227,6 +233,7 @@
                         <div class="panel-bodys">
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(m => m.Id)
+                            @Html.HiddenFor(m => m.AssessmentId)
                             @Html.HiddenFor(m => m.FormId)
                             @Html.HiddenFor(m => m.BatchId)
                             @Html.HiddenFor(m => m.TrainingCenterId)
@@ -235,6 +242,11 @@
                             @Html.HiddenFor(m => m.EndTime)
                             @Html.HiddenFor(m => m.IsDraftMode)
                             @Html.HiddenFor(m => m.IsDraft)
+                            @Html.HiddenFor(m => m.Lat)
+                            @Html.HiddenFor(m => m.Long)
+                            @Html.HiddenFor(m => m.Address)
+                            @Html.HiddenFor(m => m.LeavePage)
+                            @Html.HiddenFor(m => m.ExtraCol)
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                             @*<p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>Leadership Pizza Self-Assessment</p>*@
@@ -301,13 +313,18 @@
         var PartTimeSumtxt = 0; var ST = "", ET = "";
         $(document).ready(function () {
 
+            //const element = document.getElementById('content-container');
+            //element.addEventListener('mouseout', function (event) {
+            //    alert('Mouse has left the element!');
+            //    return false;
+            //});
 
             if ('@Model' !='null') {
                 if ('@Model.RandomValue' != '') {
                     setTimeout(function () {
                         $('#BatchId').val('@Model.BatchId');
                         $('#BatchId').trigger('change');
-                        $('#TrainingCenterId').val('@Model.BatchId');
+                        $('#TrainingCenterId').val('@Model.TrainingCenterId');
                         $('#TrainingCenterId').trigger('change');
 
                         @*if ('@(Session["StartTime"] !=null)') {
@@ -334,7 +351,10 @@
                     }, 2000);
                 }
             }
-
+            getLocation().then(function (data) {
+            }, function e() {
+                toastr.error("Error", "Please Enable Geolocation Latitude and Longitude ");
+            });
             //CountTime();
             StartTimer($('#StartTime').val(), $('#EndTime').val());
 
@@ -375,56 +395,105 @@
             $("#btnDraft").click(function (e) {
                 e.preventDefault();
                 debugger;
-                $('span[data-valmsg-for="BatchId"]').hide();
-                $('span[data-valmsg-for="TrainingCenterId"]').hide();
-                if ($('#BatchId').val() == '' || $('#BatchId').val() == null) {
-                    if (!$('#BatchId').val()) {
-                        $('span[data-valmsg-for="BatchId"]').show();
-                        $('#BatchId').focus();
-                    }
-                    if (!$('#TrainingCenterId').val()) {
-                        $('span[data-valmsg-for="TrainingCenterId"]').show();
-                    }
-                    return false;
-                }
-                $('#IsDraft').val(true);
-                $('#IsDraftMode').val(1);
-                var valdata = $("#FormSubmit").serialize();
-                $.ajax({
-                    url: "/Assessment/Add",
-                    type: "POST",
-                    dataType: 'json',
-                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    data: valdata,
-                    success: function (resp) {
-                        if (resp.IsSuccess) {
-                            toastr.success('Success', resp.msg);
-                            var html = $(resp.htmlData);
-                            var hiddenList = $('input[type="hidden"]', html);
-                            $.each(hiddenList, function (i, item) {
-                                console.log(item);
-                                if (item.id) {
-                                    var hf = $('#' + item.id);
-                                    if (hf) {
-                                        $(hf).val($(item).val());
+                var onecountchecked = 0;
+                var Is_check = true;
+                getLocation().then(function () {
+
+                    if (lat != '' && lng != '' && lat != undefined && lng != undefined) {
+
+                        $("input:radio").each(function () {
+                            var name = $(this).attr('name');
+                            if ($("input[type='radio'][name='" + name + "']:checked").length > 0) {
+                                Is_check = true;
+                                onecountchecked++;
+                            }
+                            else {
+                                Is_check = false;
+                            }
+                        });
+
+                        if (onecountchecked == 0) {
+                            toastr.error('Danger', 'Please select at least one answer in each question.');
+                            //alert('Please select at least one answer in each question.');
+                            return false
+                        }
+                        $('span[data-valmsg-for="BatchId"]').hide();
+                        $('span[data-valmsg-for="TrainingCenterId"]').hide();
+                        if ($('#BatchId').val() == '' || $('#BatchId').val() == null) {
+                            if (!$('#BatchId').val()) {
+                                $('span[data-valmsg-for="BatchId"]').show();
+                                $('#BatchId').focus();
+                            }
+                            if (!$('#TrainingCenterId').val()) {
+                                $('span[data-valmsg-for="TrainingCenterId"]').show();
+                            }
+                            return false;
+                        }
+                      
+                        if (onecountchecked > 0) {
+                            debugger;
+                            $('#Lat').val(lat);
+                            $('#Long').val(lng);
+
+                            $('#IsDraft').val(true);
+                            $('#IsDraftMode').val(1);
+                            var valdata = $("#FormSubmit").serialize();
+                            $.ajax({
+                                url: "/Assessment/Add",
+                                type: "POST",
+                                dataType: 'json',
+                                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                                data: valdata,
+                                success: function (resp) {
+                                    if (resp.IsSuccess) {
+                                        toastr.success('Success', resp.msg);
+                                        var html = $(resp.htmlData);
+                                        var hiddenList = $('input[type="hidden"]', html);
+                                        $.each(hiddenList, function (i, item) {
+                                            console.log(item);
+                                            if (item.id) {
+                                                var hf = $('#' + item.id);
+                                                if (hf) {
+                                                    $(hf).val($(item).val());
+                                                }
+                                            }
+                                        });
                                     }
+                                    else {
+                                        if (resp.type == 1) {
+                                            var urlpath = "/ParticipantUser/AssessmentDone";
+                                            location.href = document.baseURI + urlpath;
+                                        }
+                                        toastr.error('Danger', resp.msg);
+                                    }
+                                    //console.log(resdata);
                                 }
                             });
                         }
                         else {
-                            toastr.error('Danger', resp.msg);
+                            toastr.error('Danger', 'Please select at least one answer in each question.');
+                            return false
                         }
-                        //console.log(resdata);
                     }
+                    else {
+                        toastr.error("Error", "Please Enable Geolocation Latitude and Longitude ");
+                        return false;
+                    }
+                }, function e() {
+                    toastr.error("Error", "Please Enable Geolocation Latitude and Longitude ");
                 });
+
+
             });
 
             //Final Submited
             $('#FormSubmit').submit(function (e) {
                // debugger;
                 e.preventDefault();
-                $("#panel-load").show();
-                setTimeout(function () {
+                getLocation().then(function () {
+                if (lat != '' && lng != '' && lat != undefined && lng != undefined) {
+                    $("#panel-load").show();
+                    setTimeout(function () {
                     $('span[id^=error_]').hide();
                     var valid = $('#FormSubmit').valid();
 
@@ -476,7 +545,9 @@
                         }
                     }
 
-                    if (valid) {
+                        if (valid) {
+                            $('#Lat').val(lat);
+                            $('#Long').val(lng);
                        // $('.msgerror').hide();
                         $('#IsDraft').val(false);
                         $('#IsDraftMode').val(0);
@@ -514,8 +585,13 @@
                                     });
                                 }
                                 else {
+                                    if (resp.type==1) {
+                                        var urlpath = "/ParticipantUser/AssessmentDone";
+                                        location.href = document.baseURI + urlpath;
+                                    }
                                     toastr.error('Danger', resp.msg);
                                 }
+
                                 $("#panel-load").hide();
                             }
                         });
@@ -530,9 +606,103 @@
                         return false;
                     }
                 }, 100);
+                }
+                else {
+                    toastr.error("Error", "Please Enable Geolocation Latitude and Longitude ");
+                    return false;
+                    }
+                }, function e() {
+                    toastr.error("Error", "Please Enable Geolocation Latitude and Longitude ");
+                });
+
             });//form end submited closed
 
         });
+
+        var lat, lng;
+        const getLocation = async () => {
+
+            const pos = await new Promise((resolve, reject) => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(resolve, reject);
+                } else {
+                    // Browser doesn't support Geolocation
+                    handleLocationError(false);
+                }
+            });
+                lat = pos.coords.latitude;
+                lng = pos.coords.longitude;
+            console.log('set');
+            $('#Lat').val(lat);
+            $('#Long').val(lng);
+                return {
+                    long: pos.coords.longitude,
+                    lat: pos.coords.latitude,
+                };
+
+        }
+        //function getLocation() {
+        //    //if (navigator.geolocation) {
+        //    //    navigator.geolocation.getCurrentPosition(showPosition, null,  { enableHighAccuracy: true } );
+        //    //}
+        //    //else {
+        //    //    alert('Geolocation is not supported by this browser.');
+        //    //}
+
+        //    if (navigator.geolocation) {
+        //        geolocation = new Promise((resolve, reject) => {
+        //            navigator.geolocation.getCurrentPosition(
+        //                (position) => {
+
+        //                    const pos = {
+        //                        lat: position.coords.latitude,
+        //                        lng: position.coords.longitude,
+        //                    };
+        //                    // $('#Latitude').val(lat);
+        //                    $//('#Longitude').val(lang);
+        //                    lat = pos.lat;
+        //                    lng = pos.lng;
+        //                    resolve(pos);
+        //                    console.log('set');
+        //                },
+        //                () => {
+        //                    handleLocationError(true);
+        //                }, {
+        //                enableHighAccuracy: true
+        //            },
+        //                error => { reject(error) }
+
+        //            );
+
+        //        }).catch(error => error)
+
+
+        //        } else {
+        //            // Browser doesn't support Geolocation
+        //            handleLocationError(false);
+        //        }
+
+
+
+        //}
+        function handleLocationError(browserHasGeolocation) {
+            //var error = browserHasGeolocation ? "Error: The Geolocation service failed." : "Error: Your browser doesn't support geolocation."
+           // console.log(error);
+            toastr.error("Error", "Please Enable Geolocation Latitude and Longitud. ");
+            return false;
+        }
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var lang = position.coords.longitude;
+            $('#Lat').val(lat);
+            $('#Long').val(lang);
+            //var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lang + "&sensor=true";
+            //$.getJSON(url, function (data) {
+            //    var address = data.results[0].formatted_address;
+            //    $('#Address').val(address);
+            //});
+
+        }
 
         function StartTimer(startDateTimeP, endDateTimeP) {
 

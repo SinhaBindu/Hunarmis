@@ -15,8 +15,12 @@ namespace Hunarmis.Models
     public partial class tbl_SendMail
     {
         public System.Guid Id { get; set; }
+        public Nullable<int> Batch_Id { get; set; }
+        public Nullable<System.Guid> AssessmentId { get; set; }
+        public Nullable<System.Guid> ParticipantId { get; set; }
         public string MFrom { get; set; }
         public string MTo { get; set; }
+        public string ToOtherMail { get; set; }
         public string Subject { get; set; }
         public string Boby { get; set; }
         public string ReceiverName { get; set; }

@@ -20,10 +20,10 @@ namespace Hunarmis.Controllers
         #region Mail send For Participant
         [AllowAnonymous]
         [HttpGet]
-        public JsonResult SendMailForParticipant(string BatchId = "")
+        public JsonResult SendMailForParticipant(string BatchId,string ParticipantIds)
         {
             var Ischeck = false;var Message = "";
-            var res = CommonModel.SendMailForParticipants(BatchId);
+            var res = CommonModel.SendMailForParticipants(BatchId, ParticipantIds);
             Ischeck = res==-1 || res==-2?false:true;
             Message = res==-1 || res==-2?"Not Mail":"Mail Send Successfully !! "+res;
             return Json(new { IsSuccess = Ischeck, resData = Message }, JsonRequestBehavior.AllowGet);

@@ -62,6 +62,7 @@ namespace Hunarmis.Controllers
                         Session["SurveyId"] = dt.Rows[0]["SurveyId"].ToString();
                         Session["AssessmentSendLinkPartId_pk"] = dt.Rows[0]["AssessmentSendLinkPartId_pk"].ToString();
                         Session["AssessmentScheduleId_fk"] = dt.Rows[0]["AssessmentScheduleId_fk"].ToString();
+                        Session["Name"] = dt.Rows[0]["Name"].ToString();
                         Session["PartUserId"] = dt.Rows[0]["PartUserId"].ToString();
                         Session["EmailID"] = dt.Rows[0]["EmailID"].ToString();
                         //Session["Password"] = dt.Rows[0]["Password"].ToString();
