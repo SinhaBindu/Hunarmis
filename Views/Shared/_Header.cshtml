@@ -2,74 +2,75 @@
     <div id="navbar-container" class="boxed">
         <div class="navbar-header">
             <a href="/" class="navbar-brand">
-                <img src="~/Content/images/pci.png" class="brand-icon" alt="" />
-                @*<img src="~/Content/images/pcilogo.png" class="brand-icon" alt="" />*@
-                <div class="brand-title">
+                @*<img src="~/Content/images/pci.png" class="brand-icon" alt="" />*@
+                <img src="~/Content/images/pcilogo.png" class="brand-icon" alt="" />
+                @*<div class="brand-title">
                     <span class="brand-text">Hunar</span>
-                </div>
+                </div>*@
             </a>
         </div>
         @*<a href="#"><img src="~/Content/images/jepc-logo.png" alt="Logo" class="logo-icon"></a>*@
-        <div class="navbar-content">
-            <ul class="nav navbar-top-links">
-                <li class="tgl-menu-btn">
-                    <a class="mainnav-toggle" href="#">
-                        <i class="demo-pli-list-view"></i>
-                    </a>
-                    
-                </li>
-                
-            </ul>
-            <ul class="nav navbar-top-links">
-                <li class="dropdown">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                        <i class="demo-pli-bell"></i>
-                        <span class="badge badge-header badge-danger"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                        <div class="nano scrollable">
-                            <div class="nano-content">
-                            </div>
+    <div class="navbar-content">
+        <ul class="nav navbar-top-links">
+            <li class="tgl-menu-btn">
+                <a class="mainnav-toggle" href="#">
+                    <i class="demo-pli-list-view"></i>
+                </a>
+
+            </li>
+
+        </ul>
+        <p class="dashboard-title">Dashboard</p>
+        <ul class="nav navbar-top-links">
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    <i class="demo-pli-bell"></i>
+                    <span class="badge badge-header badge-danger"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                    <div class="nano scrollable">
+                        <div class="nano-content">
                         </div>
                     </div>
-                </li>
-                <li id="dropdown-user" class="dropdown">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
-                        <span class="ic-user pull-right">
-                            <i class="demo-pli-male"></i>
-                        </span>
-                    </a>
+                </div>
+            </li>
+            <li id="dropdown-user" class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                    <span class="ic-user pull-right">
+                        <i class="demo-pli-male"></i>
+                    </span>
+                </a>
 
-                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right panel-default">
-                        <ul class="head-list">
+                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right panel-default">
+                    <ul class="head-list">
 
-                            @if (Request.IsAuthenticated)
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li>
+                                <a href="~/Employee/Profiles"><i class="demo-pli-male icon-lg icon-fw"></i> Profile</a>
+                            </li>
+                            <li>
+                                <a href="~/Manage/ChangePassword"><i class="demo-pli-gear icon-lg icon-fw"></i> Change Password</a>
+                            </li>
+                            if (User.IsInRole("Admin"))
                             {
                                 <li>
-                                    <a href="~/Employee/Profiles"><i class="demo-pli-male icon-lg icon-fw"></i> Profile</a>
+                                    <a href="~/Account/UserResetPassword"><i class="demo-pli-gear icon-lg icon-fw"></i> Reset Password</a>
                                 </li>
-                                <li>
-                                    <a href="~/Manage/ChangePassword"><i class="demo-pli-gear icon-lg icon-fw"></i> Change Password</a>
-                                </li>
-                                if (User.IsInRole("Admin"))
-                                {
-                                    <li>
-                                        <a href="~/Account/UserResetPassword"><i class="demo-pli-gear icon-lg icon-fw"></i> Reset Password</a>
-                                    </li>
-                                }
-                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="demo-pli-unlock icon-lg icon-fw"></i> Logout</a></li>
-
-                                }
                             }
+                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="demo-pli-unlock icon-lg icon-fw"></i> Logout</a></li>
 
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
     </div>
 </header>
 <style>

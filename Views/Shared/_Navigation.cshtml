@@ -27,6 +27,21 @@
     #mainnav-menu .active-sub .main-icon {
         color: #fff !important;
     }
+    .profile-wrap {
+        /*background: #ECEFF4 !important;*/
+        padding: 10px !important;
+        font-size: 19px;
+        color: #6A4566;
+        border-top: 1px solid #EDEDED;
+        border-bottom: 1px solid #EDEDED;
+        font-weight: bold;
+        line-height: 22px
+    }
+    .semi-titles {
+        font-size: 15px;
+        color: #F59678;
+        font-weight: normal
+    }
 </style>
 
 <nav id="mainnav-container">
@@ -36,16 +51,13 @@
                 <div class="nano-content">
                     <div id="mainnav-profile" class="mainnav-profile">
                         <div class="profile-wrap text-center">
-                            <div class="pad-btm">
-                                <img class="img-circle img-md" src="~/Content/images/reading-graphic.png" alt="Profile Picture">
-                            </div>
-                            <a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="false">
-                                @*<span class="pull-right dropdown-toggle">
-                                        <i class="dropdown-caret"></i>
-                                    </span>*@
-                                @*<p class="mnp-name">@(MvcApplication.GetCurrentUserName())</p>*@
-                                <span class="mnp-desc">@User.Identity.Name</span>
-                            </a>
+                            @*<div class="pad-btm">
+            <img class="img-circle img-md" src="~/Content/images/reading-graphic.png" alt="Profile Picture">
+        </div>*@
+                            @*<a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="false">
+            <span class="mnp-desc">@User.Identity.Name</span>
+        </a>*@
+                            Hunar<br /><span class="semi-titles">Pathways to Progress</span>
                         </div>
                     </div>
                     <ul id="mainnav-menu" class="list-group">
