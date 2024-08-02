@@ -209,31 +209,39 @@
     }
 </style>
 <div class="dashboard-box">
-    <div class="d-box">
-        <p class="bgr1"><i class="fa fa-globe"></i></p>
-        <h3 class="count">4537</h3>
-        <span>Website Visits</span>
-    </div>
-    <div class="d-box">
-        <p class="bgr2"><i class="fa fa-laptop"></i></p>
-        <h3 class="count">105</h3>
-        <span>Demos Scheduled</span>
-    </div>
-    <div class="d-box">
-        <p class="bgr3"><i class="fa fa-user"></i></p>
-        <h3 class="count">21</h3>
-        <span>New Sign Up</span>
-    </div>
-    <div class="d-box">
-        <p class="bgr4"><i class="fa fa-anchor"></i></p>
-        <h3 class="count">36</h3>
-        <span>Order Submitted</span>
-    </div>
-    <div class="d-box">
-        <p class="bgr5"><i class="fa fa-money"></i></p>
-        <h3 class="count">4580</h3>
-        <span>Profit is taken</span>
-    </div>
+    @if (dt != null && dt.Rows.Count > 0)
+    {
+        <div class="d-box">
+            <p class="bgr1"><i class="fa fa-globe"></i></p>
+            <h3 class="count">@dt.Rows[0]["Enrollments"]</h3>
+            <span>Enrollments</span>
+        </div>
+        <div class="d-box">
+            <p class="bgr2"><i class="fa fa-laptop"></i></p>
+            <h3 class="count">@dt.Rows[0]["TrainingCompletions"]</h3>
+            <span>Training Completions</span>
+        </div>
+        <div class="d-box">
+            <p class="bgr3"><i class="fa fa-user"></i></p>
+            <h3 class="count">@dt.Rows[0]["LearnersCertified"]</h3>
+            <span>Learners certified</span>
+        </div>
+        <div class="d-box">
+            <p class="bgr4"><i class="fa fa-anchor"></i></p>
+            <h3 class="count">@dt.Rows[0]["Placements"]</h3>
+            <span>Placements</span>
+        </div>
+        <div class="d-box">
+            <p class="bgr5"><i class="fa fa-money"></i></p>
+            <h3 class="count">@dt.Rows[0]["TrainingCenters"]</h3>/ <h3 class="count">@dt.Rows[0]["TrainersEngaged"]</h3>
+            <span>Centers</span>
+        </div>
+        @*<div class="d-box">
+                <p class="bgr6"><i class="fa fa-money"></i></p>
+                <h3 class="count">@dt.Rows[0]["TrainersEngaged"]</h3>
+                <span>Trainers</span>
+            </div>*@
+    }
 </div>
 
 <div class="data-box-2">
