@@ -1,13 +1,7 @@
-﻿using DocumentFormat.OpenXml.EMMA;
-using DocumentFormat.OpenXml.Office.CustomUI;
-using Hunarmis.Models;
+﻿using Hunarmis.Models;
 using SubSonic.Schema;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Hunarmis.Manager
@@ -53,7 +47,7 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SP_GetModuleWiseBatches(int ModuleType = 0,int CId=0, string TrainerId="", string TCIds="", int BatchId = 0)
+        public static DataTable SP_GetModuleWiseBatches(int ModuleType = 0, int CId = 0, string TrainerId = "", string TCIds = "", int BatchId = 0)
         {
             StoredProcedure sp = new StoredProcedure("SP_GetModuleWiseBatches");
             sp.Command.AddParameter("@TrainerId", TrainerId, DbType.String);
@@ -152,6 +146,13 @@ namespace Hunarmis.Manager
             var ds = sp.ExecuteDataSet().Tables[0];
             return ds;
         }
+        public static DataTable SP_Dashboard_Graphs()
+        {
+            StoredProcedure sp = new StoredProcedure("SP_Dashboard_Graphs");
+            var ds = sp.ExecuteDataSet().Tables[0];
+            return ds;
+        }
+
         public static DataSet Sp_DashboardPartCalling(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("Sp_PartCalling");

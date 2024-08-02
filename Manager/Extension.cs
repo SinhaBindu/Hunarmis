@@ -1,16 +1,13 @@
 ﻿//using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.WebPages;
-using System.Data;
-using System.Reflection;
 //using Microsoft.Owin.Security.DataHandler;
-using System.Web.Configuration;
 using System.Web.Script.Serialization;
-using Hunarmis.Models;
 
 namespace Hunarmis.Manager
 {
@@ -109,6 +106,21 @@ namespace Hunarmis.Manager
             }.Serialize(obj);
         }
 
+
+        public static string DataTableToJson(this DataTable dataTable)
+        {
+            if (dataTable == null)
+            {
+                return string.Empty;
+            }
+            return HttpUtility.HtmlDecode(Newtonsoft.Json.JsonConvert.SerializeObject(dataTable));
+        }
+        public static dynamic ParseToJson(this object obj)
+        {
+            return JsonConvert.DeserializeObject(obj?.ToString());
+        }
+
+
         public static SelectList ToSelectList<TEnum>(this TEnum enumObj)
      where TEnum : struct, IComparable, IFormattable, IConvertible
         {
@@ -134,7 +146,7 @@ namespace Hunarmis.Manager
             return list;
         }
 
-        
+
 
     }
 
