@@ -672,7 +672,9 @@
     <Content Include="Content\images\blue-angle-bg.png" />
     <Content Include="Content\images\blue-left.png" />
     <Content Include="Content\images\care-white-logo.png" />
+    <Content Include="Content\images\center.png" />
     <Content Include="Content\images\certificate-bg.PNG" />
+    <Content Include="Content\images\certified.png" />
     <Content Include="Content\images\change-password.png" />
     <Content Include="Content\images\child-labor.png" />
     <Content Include="Content\images\child-literacy.png" />
@@ -686,6 +688,7 @@
     <Content Include="Content\images\dummy-graph\graph5.png" />
     <Content Include="Content\images\empty-icon.png" />
     <Content Include="Content\images\empty-list-icon.png" />
+    <Content Include="Content\images\enrollment.png" />
     <Content Include="Content\images\error.jpg" />
     <Content Include="Content\images\female-graphic.png" />
     <Content Include="Content\images\female.png" />
@@ -719,6 +722,7 @@
     <Content Include="Content\images\pci.png" />
     <Content Include="Content\images\pcilogo.png" />
     <Content Include="Content\images\pi-logo.png" />
+    <Content Include="Content\images\placement.png" />
     <Content Include="Content\images\program-goals-bg.jpg" />
     <Content Include="Content\images\reading-graphic.png" />
     <Content Include="Content\images\reading.png" />
@@ -728,6 +732,7 @@
     <Content Include="Content\images\School-Management.png" />
     <Content Include="Content\images\success.png" />
     <Content Include="Content\images\title-bg.png" />
+    <Content Include="Content\images\trainign.png" />
     <Content Include="Content\images\User-Icon.jpg" />
     <Content Include="Content\images\user-icon.png" />
     <Content Include="Content\images\white-care-icon.png" />

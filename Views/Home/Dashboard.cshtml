@@ -15,7 +15,11 @@
         width: 100%;
         height: auto
     }
+    .bgr-icon {
+        width: 26px;
+        margin-top: -4px
 
+    }
     .dashboard-box {
         margin: 15px 15px 5px;
         display: flex;
@@ -207,40 +211,58 @@
     .navbar-header:before {
         background: #fff !important
     }
+    .count-box {
+        display: flex;
+        margin-left: 10px
+    }
+    .d-box .count-box h3 {
+        margin: 15px 2px 19px;
+    }
 </style>
 <div class="dashboard-box">
     @if (dt != null && dt.Rows.Count > 0)
     {
         <div class="d-box">
-            <p class="bgr1"><i class="fa fa-globe"></i></p>
+            <p class="bgr1">
+                <img src="~/Content/images/enrollment.png" alt="Enrollments" class="bgr-icon" />
+            </p>
             <h3 class="count">@dt.Rows[0]["Enrollments"]</h3>
             <span>Enrollments</span>
         </div>
         <div class="d-box">
-            <p class="bgr2"><i class="fa fa-laptop"></i></p>
+            <p class="bgr2">
+                <img src="~/Content/images/trainign.png" alt="Training Completions" class="bgr-icon" />
+            </p>
             <h3 class="count">@dt.Rows[0]["TrainingCompletions"]</h3>
             <span>Training Completions</span>
         </div>
         <div class="d-box">
-            <p class="bgr3"><i class="fa fa-user"></i></p>
+            <p class="bgr3">
+                <img src="~/Content/images/certified.png" alt="Learners certified" class="bgr-icon" />
+            </p>
             <h3 class="count">@dt.Rows[0]["LearnersCertified"]</h3>
             <span>Learners certified</span>
         </div>
         <div class="d-box">
-            <p class="bgr4"><i class="fa fa-anchor"></i></p>
+            <p class="bgr4">
+                <img src="~/Content/images/placement.png" alt="placement" class="bgr-icon" />
+            </p>
             <h3 class="count">@dt.Rows[0]["Placements"]</h3>
             <span>Placements</span>
         </div>
         <div class="d-box">
-            <p class="bgr5"><i class="fa fa-money"></i></p>
-            <h3 class="count">@dt.Rows[0]["TrainingCenters"]</h3>/ <h3 class="count">@dt.Rows[0]["TrainersEngaged"]</h3>
+            <p class="bgr5">
+                <img src="~/Content/images/center.png" alt="center" class="bgr-icon" />
+            </p>
+            <div class="count-box">
+                <h3 class="count">
+                    @dt.Rows[0]["TrainingCenters"]
+                </h3>
+                <h3>/</h3>
+                <h3 class="count">@dt.Rows[0]["TrainersEngaged"]</h3>
+            </div>
             <span>Centers</span>
         </div>
-        @*<div class="d-box">
-                <p class="bgr6"><i class="fa fa-money"></i></p>
-                <h3 class="count">@dt.Rows[0]["TrainersEngaged"]</h3>
-                <span>Trainers</span>
-            </div>*@
     }
 </div>
 
