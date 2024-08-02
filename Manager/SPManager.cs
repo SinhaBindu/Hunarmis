@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.EMMA;
+using DocumentFormat.OpenXml.Office.CustomUI;
 using Hunarmis.Models;
 using SubSonic.Schema;
 using System;
@@ -143,6 +144,12 @@ namespace Hunarmis.Manager
             //sp.Command.AddParameter("@BatchId", model.BatchId, DbType.Int32);
             //sp.Command.AddParameter("@ParticipantQuestionId", model.ParticipantQuestionId, DbType.String);
             DataSet ds = sp.ExecuteDataSet();
+            return ds;
+        }
+        public static DataTable SP_Dashboard_TopLegend()
+        {
+            StoredProcedure sp = new StoredProcedure("SP_Dashboard_TopLegend");
+            var ds = sp.ExecuteDataSet().Tables[0];
             return ds;
         }
         public static DataSet Sp_DashboardPartCalling(FilterModel model)
