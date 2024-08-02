@@ -224,6 +224,15 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SP_AttendancePartSummary(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_AttendanceParticipantSummary");
+            sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
+            sp.Command.AddParameter("@FD", model.FromDt, DbType.String);
+            sp.Command.AddParameter("@TD", model.ToDt, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
         public static DataTable SP_GetAssessmentScheduleList(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_GetAssessmentScheduleList");

@@ -104,7 +104,7 @@
         .title {
             text-align: center;
             position: relative;
-            font-size: 35px;
+            font-size: 23px;
             margin: 0 0 20px;
             color: #5B2C54;
             text-transform: uppercase;
@@ -122,11 +122,16 @@
 </head>
 <body>
     <div>
-        <h3 class="title">Hunar</h3>
+        <h4 class="title">
+            <img src="~/Content/images/pcilogo.png" alt="Login Icon" class="login-icon" />
+            <br />
+            <span class="semi-titles">Hunar : Pathways To Progress</span>
+        </h4>
         <div class="login-box">
             <div id="loginForm" class="login-field">
                 <div class="login-content">
                     <img src="~/Content/login/login-icon.png" alt="Login Icon" class="login-icon" />
+                  
                     <h2>@ViewBag.Title.</h2>
                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
                     {

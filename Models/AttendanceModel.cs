@@ -36,9 +36,9 @@ namespace Hunarmis.Models
         public Nullable<System.DateTime> StartDate { get; set; }
         //[DisplayName("End Date")]
         public Nullable<System.DateTime> EndDate { get; set; }
-        [DisplayName("Started Time")]
+        [DisplayName("Start Time")]
         public Nullable<System.TimeSpan> StartTime { get; set; }
-        [DisplayName("Started Time")]
+        [DisplayName("Start Time")]
         [Required]
         public string StrStartTime { get; set; }
         [DisplayName("End Time")]

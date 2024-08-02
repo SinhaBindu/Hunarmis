@@ -249,8 +249,8 @@ namespace Hunarmis.Controllers
             var tblhr = _db.tbl_Survey.Find(Id);
             var tblhrAns = _db.tbl_SurveyAnswer.Where(x => x.SId_fk == Id).ToList();
             var fid = Convert.ToInt32(FId);
-            var tbl = db.QuestionBooks.Where(x => x.IsActive == true && x.FormId_fk == fid && x.IsQuestionDisplay == true).OrderBy(x => x.QuestionCode).ToList();
-            var tbloptionlist = db.QuestionOptions.Where(x => x.IsActive == true && x.FormId_fk == fid).ToList();
+            var tbl = _db.QuestionBooks.Where(x => x.IsActive == true && x.FormId_fk == fid && x.IsQuestionDisplay == true).OrderBy(x => x.QuestionCode).ToList();
+            var tbloptionlist = _db.QuestionOptions.Where(x => x.IsActive == true && x.FormId_fk == fid).ToList();
             if (tbl != null)
             {
                 foreach (var item in tbl.ToList())
@@ -359,8 +359,8 @@ namespace Hunarmis.Controllers
         public ActionResult Add(QesRes model)
         {
 
-            var d = JsonConvert.SerializeObject(model);
-           System.IO.File.AppendAllText(Server.MapPath("~/log.txt") , $"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}: {d}{Environment.NewLine}");
+            var d = "Add Post Data :" + JsonConvert.SerializeObject(model);
+            System.IO.File.AppendAllText(Server.MapPath("~/log.txt"), $"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}: {d}{Environment.NewLine}");
 
             Hunar_DBEntities db_ = new Hunar_DBEntities();
             var result = 0; //var fid = Convert.ToInt32(2);
@@ -408,8 +408,8 @@ namespace Hunarmis.Controllers
                             tbl2nd.AssessmentSchedule = true;
                             tbl2nd.UpdatedOn = DateTime.Now;
                             db_.SaveChanges();
-                            return Json(new { IsSuccess = false, type=1, Redirect = "AssessmentDone",  Control= "ParticipantUser" }, JsonRequestBehavior.AllowGet);
-                           // return RedirectToAction("AssessmentDone", "ParticipantUser");
+                            return Json(new { IsSuccess = false, type = 1, Redirect = "AssessmentDone", Control = "ParticipantUser" }, JsonRequestBehavior.AllowGet);
+                            // return RedirectToAction("AssessmentDone", "ParticipantUser");
                         }
                     }
 
@@ -480,7 +480,7 @@ namespace Hunarmis.Controllers
                                     maintbl.ConLocalIP = localIP;
                                     maintbl.ConPublicIP = publicIP;
 
-                                    db.tbl_Survey.Add(maintbl);
+                                    db_.tbl_Survey.Add(maintbl);
                                 }
                             }
                         }
@@ -489,8 +489,8 @@ namespace Hunarmis.Controllers
                             maintbl.UpdatedBy = Session["PartUserId"].ToString();
                             maintbl.UpdatedOn = DateTime.Now;
                             maintbl.IsDraft = model.IsDraft;
-                            
-                            maintbl.ConLocalIP = maintbl.LocalIP == localIP ? localIP : maintbl.ConLocalIP+ "@/" + localIP;
+
+                            maintbl.ConLocalIP = maintbl.LocalIP == localIP ? localIP : maintbl.ConLocalIP + "@/" + localIP;
                             maintbl.ConPublicIP = maintbl.ConPublicIP == publicIP ? publicIP : maintbl.ConPublicIP + "@/" + publicIP;
                             maintbl.LocalIP = localIP;
                             maintbl.PublicIP = publicIP;
@@ -502,7 +502,7 @@ namespace Hunarmis.Controllers
                             //maintbl.Lat = model.Lat;
                             //maintbl.Long = model.Long;
                         }
-                        result += db.SaveChanges();
+                        result += db_.SaveChanges();
                         if (model.Qlist != null && maintbl.Id > 0)
                         {
                             var mid = maintbl.Id;
@@ -543,6 +543,7 @@ namespace Hunarmis.Controllers
                                                 Resptbl.ResponseCode = item.OptionList[i].AnswerValue;
                                                 //Resptbl.InputValue = item.OptionList[i].AnswerValue;
                                                 //Resptbl.InputValue1 = item.OptionList[i].AnswerValue;
+                                                Resptbl.InputValue = item.OptionList[i].InputText;
                                                 isSaveChild = true;
                                             }
                                             else if (!string.IsNullOrWhiteSpace(item.Answer) && item.ControlType.ToLower() == "radiobutton")
@@ -576,7 +577,8 @@ namespace Hunarmis.Controllers
                                                     var ans = asnlist.FirstOrDefault(x => x.QuestionCode == item.QuestionCode && x.QuestionOption_fk == item.OptionList[i].OptionId_Pk);
                                                     if (ans != null)
                                                     {
-                                                        db.tbl_SurveyAnswer.Remove(ans);
+                                                        db_.tbl_SurveyAnswer.Remove(ans);
+                                                        db_.SaveChanges();
                                                     }
                                                 }
                                             }
@@ -585,17 +587,24 @@ namespace Hunarmis.Controllers
                                                 var ans = asnlist.FirstOrDefault(x => x.QuestionCode == item.QuestionCode && x.QuestionOption_fk == item.OptionList[i].OptionId_Pk);
                                                 if (ans != null)
                                                 {
-                                                    db.tbl_SurveyAnswer.Remove(ans);
+                                                    db_.tbl_SurveyAnswer.Remove(ans);
+                                                    db_.SaveChanges();
                                                 }
                                             }
 
                                             if (Resptbl.Id == 0 && isSaveChild)
                                             {
-                                                Resptbl.CreatedBy = Session["PartUserId"].ToString();
-                                                Resptbl.CreatedOn = DateTime.Now;
-                                                Resptbl.IsActive = maintbl.IsActive;
-                                                db.tbl_SurveyAnswer.Add(Resptbl);
-                                                result += db.SaveChanges();
+                                                if (!tblHRAnsMain.Any(x => x.CreatedBy == Resptbl.CreatedBy
+                                                && x.IsActive == true && x.SId_fk == Resptbl.SId_fk
+                                                && x.QuestionId_fk == Resptbl.QuestionId_fk
+                                                && x.QuestionOption_fk == Resptbl.QuestionOption_fk))
+                                                {
+                                                    Resptbl.CreatedBy = Session["PartUserId"].ToString();
+                                                    Resptbl.CreatedOn = DateTime.Now;
+                                                    Resptbl.IsActive = maintbl.IsActive;
+                                                    db_.tbl_SurveyAnswer.Add(Resptbl);
+                                                    result += db_.SaveChanges();
+                                                }
                                             }
                                             else
                                             {
@@ -603,7 +612,6 @@ namespace Hunarmis.Controllers
                                                 Resptbl.UpdatedOn = DateTime.Now;
                                                 result += db_.SaveChanges();
                                             }
-
                                         }
                                     }
                                 }
@@ -709,19 +717,20 @@ namespace Hunarmis.Controllers
         }
         public ActionResult GetViewData(int? Id)
         {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
             var html = "";
             try
             {
-                var tblhr = db.tbl_Survey.Find(Id);
+                var tblhr = db_.tbl_Survey.Find(Id);
                 bool IsCheck = false;
                 if (tblhr != null && tblhr.Id > 0)
                 {
                     FormModel model;
                     List<FormModel> modellist = new List<FormModel>();
 
-                    var tblhrAns = db.tbl_SurveyAnswer.Where(x => x.SId_fk == Id).ToList();
+                    var tblhrAns = db_.tbl_SurveyAnswer.Where(x => x.SId_fk == Id).ToList();
                     var fid = Convert.ToInt32(1);
-                    var tbl = db.QuestionBooks.Where(x => x.IsActive == true && x.FormId_fk == fid).OrderBy(x => x.QuestionCode).ToList();
+                    var tbl = db_.QuestionBooks.Where(x => x.IsActive == true && x.FormId_fk == fid).OrderBy(x => x.QuestionCode).ToList();
                     if (tbl != null)
                     {
                         foreach (var item in tbl.ToList())
@@ -737,7 +746,7 @@ namespace Hunarmis.Controllers
                             model.ParentQuestionCode = item.ParentQuestionCode;
                             model.DependedAnswer = item.DependedAnswer;
                             model.SectionType = item.SectionType;
-                            var tbllist = db.QuestionOptions.Where(x => x.QuestionCode == item.QuestionCode).OrderBy(x => x.QuestionCode).ToList();
+                            var tbllist = db_.QuestionOptions.Where(x => x.QuestionCode == item.QuestionCode).OrderBy(x => x.QuestionCode).ToList();
                             if (tbllist != null)
                             {
                                 for (int i = 0; i < tbllist.Count; i++)

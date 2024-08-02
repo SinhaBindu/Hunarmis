@@ -1791,6 +1791,8 @@
     <Content Include="Views\Attendance\_AttendanceListParticipantData.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Attendance\_ParticipantSendData.cshtml" />
+    <Content Include="Views\Attendance\_AttendanceSummaryData.cshtml" />
+    <Content Include="Views\Attendance\AttendanceSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

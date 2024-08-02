@@ -1,7 +1,86 @@
-﻿<header id="navbar">
+﻿<style>
+    .navbar-top-links > li > a:not(.mainnav-toggle) > i {
+        color: #040404
+    }
+
+    #page-head {
+        display: none;
+    }
+
+    #navbar-container {
+        background-color: #fff;
+    }
+
+    .navbar-top-links > li > a {
+        color: #040404;
+        border-left: 1px solid #ECF0F5 !important;
+    }
+
+    .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
+        color: #040404;
+    }
+
+        .navbar-top-links .tgl-menu-btn > a:focus {
+            color: #040404;
+        }
+
+    .navbar-top-links:first-child {
+        margin-left: 0px !important;
+    }
+
+    .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
+        color: #040404;
+    }
+
+    #container .badge:not(.badge-default) {
+        color: #040404;
+    }
+
+    .navbar-top-links > .open > a, .navbar-top-links > .open > a:focus {
+        background: #8A77F4 !important
+    }
+
+    .navbar-top-links > li > a:hover {
+        background: #8A77F4 !important
+    }
+
+    .navbar-brand {
+        padding: 0 5px;
+    }
+
+    .dashboard-title {
+        font-size: 24px;
+        position: absolute;
+        top: 13px;
+        z-index: 999;
+        left: 55px;
+        color: #5A3653
+    }
+
+    .brand-text {
+        color: #454845;
+        margin-left: 10px;
+    }
+
+    .navbar-header:before {
+        background: #fff !important
+    }
+
+    .count-box {
+        display: flex;
+        margin-left: 10px
+    }
+
+    .d-box .count-box h3 {
+        margin: 15px 2px 19px;
+    }
+
+</style>
+
+<header id="navbar">
     <div id="navbar-container" class="boxed">
         <div class="navbar-header">
-            <a href="/" class="navbar-brand">
+            <a href="~/Home/Dashboard" class="navbar-brand">
                 @*<img src="~/Content/images/pci.png" class="brand-icon" alt="" />*@
                 <img src="~/Content/images/pcilogo.png" class="brand-icon" alt="" />
                 @*<div class="brand-title">

@@ -53,11 +53,15 @@ namespace Hunarmis.Controllers
             try
             {
                 RandomValue = (Session["RV"] != null && Session["RV"].ToString() != "") ? Session["RV"].ToString() : model.RandomValue;
+                var d = "RandomValue : " + JsonConvert.SerializeObject(RandomValue);
+                System.IO.File.AppendAllText(Server.MapPath("~/logLoginUser.txt"), $"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}: {d}{Environment.NewLine}");
                 if (model != null)
                 {
                     DataTable dt = SPManager.SP_LoginForParticipantCheck(model);
                     if (dt.Rows.Count > 0)
                     {
+                        var loginmsg = "Login Success : " + JsonConvert.SerializeObject(dt);
+                        System.IO.File.AppendAllText(Server.MapPath("~/logLoginUser.txt"), $"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}: {loginmsg}{Environment.NewLine}");
 
                         Session["SurveyId"] = dt.Rows[0]["SurveyId"].ToString();
                         Session["AssessmentSendLinkPartId_pk"] = dt.Rows[0]["AssessmentSendLinkPartId_pk"].ToString();
@@ -137,6 +141,8 @@ namespace Hunarmis.Controllers
 
                                 if (dt.Rows[0]["IsQuestionAvaiable"].ToString() == "1")
                                 {
+                                    var qpage = "Login Question Page : " + JsonConvert.SerializeObject(dt);
+                                    System.IO.File.AppendAllText(Server.MapPath("~/logLoginUser.txt"), $"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}: {qpage}{Environment.NewLine}");
                                     return RedirectToAction("Add", "Assessment", new { Id = 0, FId = dt.Rows[0]["CourseId"].ToString(), Rdmkeyno = RandomValue });
                                 }
                                 else

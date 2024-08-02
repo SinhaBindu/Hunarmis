@@ -26,8 +26,8 @@
                     <th class="text-center tblth">Center Name</th>
                     <th class="text-center tblth">Phone No<br /> <strong class="vw">Call</strong></th>
                     <th class="text-center tblth">Name</th>
-                    <th class="text-center tblth">Registration ID <br /></th>
-                    <th class="text-center tblth">Email ID</th>
+                    @*<th class="text-center tblth">Registration ID <br /></th>
+                    <th class="text-center tblth">Email ID</th>*@
                     @*<th class="text-center tblth">Aadhar <br />Card No.</th>*@
                     <th class="text-center tblth">Batch Name</th>
                     <th class="text-center tblth">Batch Start Date</th>
@@ -84,8 +84,8 @@
                                         </a>*@
                                 </td>
                                 <td class="text-left">@dr["FullName"]</td>
-                                <td class="text-center" style="background: #604ccf !important; color: #fff !important; "><strong>@dr["RegID"]</strong></td>
-                                <td class="text-left">@dr["EmailID"]</td>
+                                @*<td class="text-center" style="background: #604ccf !important; color: #fff !important; "><strong>@dr["RegID"]</strong></td>
+                                <td class="text-left">@dr["EmailID"]</td>*@
                                 @*<td class="text-center">&times;&times;&times;&times;&times;&times;&times;&times;&times;@Regex.Match(dr["AadharCardNo"].ToString(), @"(.{3})\s*$")</td>*@
                                 <td class="text-left">@dr["BatchName"]</td>
                                 <td class="text-center">@dr["BatchStartDate"]</td>

@@ -40,15 +40,12 @@
                 <tr>
                     <th><input type="checkbox" class="@tbldisable" name="selectAll" id="selectAll" onchange="CheckUnchecked(this)" style="display:none;"></th>
                     <th class="text-center tblth">Srno.</th>
-                    <th class="text-center tblth">Center Name</th>
-                    <th class="text-center tblth">Phone No</th>
-                    <th class="text-center tblth">Name</th>
                     <th class="text-center tblth">Registration ID</th>
+                    <th class="text-center tblth">Name</th>
+                    <th class="text-center tblth">Phone No</th>
                     <th class="text-center tblth">Email ID</th>
-                    @*<th class="text-center tblth">Aadhar <br />Card No.</th>*@
                     <th class="text-center tblth">Batch Name</th>
-                    @*<th class="text-center tblth">Batch Start Date</th>
-                        <th class="text-center tblth">Batch End Date</th>*@
+                    <th class="text-center tblth">Center Name</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,24 +56,19 @@
                         foreach (DataRow dr in dt.Rows)
                         {
                             tdcolor = dr["AtttendanceColor"].ToString();
-                            <tr class="@tbldisable" style="@tdcolor">
-                                <td class="">
-                                    <input type="checkbox" class="check" name="chcksinglsel@(index)" id="chcksinglsel@(index)"
-                                           data-participantid="@dr["ID"]" data-batchid="@dr["BatchId"]" onchange="CheckUnchecked(this)">
-                                </td>
-                                <td class="text-center">@(srno++)</td>
-                                <td class="text-left">@dr["TrainingCenter"]</td>
-                                <td class="" width="20%">
-                                    @dr["PhoneNo"]
-                                </td>
-                                <td class="text-left">@dr["Name"]</td>
-                                <td class="text-center text-white"><span style="background: #604ccf !important; display: block; color: #fff !important; padding: 7px; margin-top: 6px; border-radius: 4px; font-weight: bold">@dr["RegID"]</span></td>
-                                <td class="text-left">@dr["EmailID"]</td>
-                                @*<td class="text-center">&times;&times;&times;&times;&times;&times;&times;&times;&times;@Regex.Match(dr["AadharCardNo"].ToString(), @"(.{3})\s*$")</td>*@
-                                <td class="text-left">@dr["BatchName"]</td>
-                                @*<td class="text-center">@CommonModel.FormateDtDMY(dr["BatchStartDate"].ToString()) </td>
-                                    <td class="text-center">@CommonModel.FormateDtDMY(dr["BatchEndDate"].ToString())</td>*@
-                            </tr>
+                                <tr class="@tbldisable" style="@tdcolor">
+                                    <td class="">
+                                        <input type="checkbox" class="check" name="chcksinglsel@(index)" id="chcksinglsel@(index)"
+                                               data-participantid="@dr["ID"]" data-batchid="@dr["BatchId"]" onchange="CheckUnchecked(this)">
+                                    </td>
+                                    <td class="text-center">@(srno++)</td>
+                                    <td class="text-center text-white"><span class="btnregidcal">@dr["RegID"]</span></td>
+                                    <td class="text-left">@dr["Name"]</td>
+                                    <td class="text-center">@dr["PhoneNo"]</td>
+                                    <td class="text-left">@dr["EmailID"]</td>
+                                    <td class="text-left">@dr["BatchName"]</td>
+                                    <td class="text-left">@dr["TrainingCenter"]</td>
+                                </tr>
                             index++;
                         }
                     }

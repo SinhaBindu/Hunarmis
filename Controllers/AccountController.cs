@@ -92,7 +92,7 @@ namespace Hunarmis.Controllers
                     _db.tbl_UserLogin.Add(tbl);
                     _db.SaveChanges();
                     //var user = MvcApplication.CUser.UserId;
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Dashboard", "Home");
                 //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -483,7 +483,7 @@ namespace Hunarmis.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
@@ -540,7 +540,7 @@ namespace Hunarmis.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Dashboard", "Home");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

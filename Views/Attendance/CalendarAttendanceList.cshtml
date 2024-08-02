@@ -32,32 +32,6 @@
         height: 20px
     }
 
-    .multiselect {
-        width: 100% !important;
-    }
-
-    .multiselect-container {
-        width: 350px !important;
-        height: 200px !important;
-        overflow-y: scroll
-    }
-
-        .multiselect-container > li > a > label {
-            padding: 3px 20px 3px 20px !important;
-        }
-
-    .dropdown-menu {
-        font-size: 12px !important;
-    }
-
-    .multiselect-selected-text {
-        display: block;
-        width: 350px;
-        white-space: pre-wrap;
-        height: 20px;
-        overflow-y: scroll;
-    }
-
     .search-box {
         padding: 20px;
         background: #F9F8FF;
@@ -84,12 +58,16 @@
             <div class="col-lg-12">
                 <div class="panel">
                     <div class="panel-spacer">
-                        <p class="bord-btm pad-ver text-main text-bold">
-                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title
-                        </p>
+                        <div class="col-md-2">
+                            <p class="bord-btm pad-ver text-main text-bold">
+                                <i class="fa fa-list spacerright2"></i>@ViewBag.Title
+                            </p>
+                        </div>
+                        <div class="col-md-2" style="margin-top:5px !important;">
+                            <span id="div-download"></span>
+                        </div>
                     </div>
                     <div class="content-manage">
-                        <div id="div-download"></div>
                         @using (Html.BeginForm("GetCalendarAttendanceList", "Attendance", FormMethod.Post, new { id = "submission-form" }))
                         {
                             <div class="col-md-12">@Html.Partial("_Alerts")</div>
@@ -127,6 +105,8 @@
     @Scripts.Render("~/bundles/jqueryval")
     @*<script src="~/Scripts/CustomValidator.js"></script>*@
     <script src="~/Scripts/Custom/Master.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAw2rgDsJqTKA8ern_oI6heqv-xgSLuu1U"></script>
+
 
     <script>
         $(document).ready(function () {

@@ -303,6 +303,40 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, Data = "There was a communication error.." }, JsonRequestBehavior.AllowGet); throw;
             }
         }
+        public ActionResult AttendanceSummary()
+        {
+            FilterModel model = new FilterModel();
+            return View(model);
+        }
+        public ActionResult GetAttendanceSummary(FilterModel model)
+        {
+            DataTable tbllist = new DataTable();
+            var html = "";
+            try
+            {
+                tbllist = SPManager.SP_AttendancePartSummary(model);
+                bool IsCheck = false;
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                    html = ConvertViewToString("_AttendanceSummaryData", tbllist);
+                    var res = Json(new { IsSuccess = IsCheck, Data = html}, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+                else
+                {
+                    var res = Json(new { IsSuccess = IsCheck, Data = "Record Not Found !!" }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "There was a communication error.." }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
 
 
         #endregion
