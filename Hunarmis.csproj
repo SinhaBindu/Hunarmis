@@ -719,6 +719,7 @@
     <Content Include="Content\images\not-found.png" />
     <Content Include="Content\images\no_image.JPG" />
     <Content Include="Content\images\orange-angle-bg.png" />
+    <Content Include="Content\images\pci-trans-logo.png" />
     <Content Include="Content\images\pci.png" />
     <Content Include="Content\images\pcilogo.png" />
     <Content Include="Content\images\pi-logo.png" />
