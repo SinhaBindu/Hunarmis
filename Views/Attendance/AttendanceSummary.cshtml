@@ -65,6 +65,9 @@
         border: 1px solid #D38167 !important;
         margin-bottom: 12px;
     }
+    .btn-downs {
+        float: right;
+    }
 </style>
 
 
@@ -74,6 +77,12 @@
             <div class="col-lg-12">
                 <div class="panel">
                     <div class="panel-spacer">
+                        <p class="bord-btm pad-ver text-main text-bold">
+                            @ViewBag.Title
+                            <span id="div-download" class="btn-downs"></span>
+                        </p>
+                    </div>
+                    @*<div class="panel-spacer">
                         <div class="col-md-3">
                             <p class="bord-btm pad-ver text-main text-bold">
                                 <i class="fa fa-list spacerright2"></i>@ViewBag.Title
@@ -82,7 +91,7 @@
                         <div class="col-md-2" style="margin-top:5px !important;">
                             <span id="div-download"></span>
                         </div>
-                    </div>
+                    </div>*@
                     <div class="content-manage">
                         @using (Html.BeginForm("GetAttendanceList", "Attendance", FormMethod.Post, new { id = "submission-form" }))
                         {
@@ -103,40 +112,40 @@
                                                     </div>
                                                 </div>
                                                 @*<div class="form-group mrtop">
-                                                        @Html.LabelFor(model => model.FromDt, htmlAttributes: new { @class = "control-label col-lg-1" })
-                                                        <div class="col-lg-5">
-                                                            @Html.EditorFor(m => m.FromDt, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "datepicker form-control col-md-4 required", @required = "required" } })
-                                                            @Html.ValidationMessageFor(model => model.FromDt, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group mrtop">
-                                                        @Html.LabelFor(model => model.ToDt, htmlAttributes: new { @class = "control-label col-lg-1" })
-                                                        <div class="col-lg-5">
-                                                            @Html.EditorFor(m => m.ToDt, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "datepicker form-control col-md-4 required", @required = "required" } })
-                                                            @Html.ValidationMessageFor(model => model.ToDt, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>*@
+                                        @Html.LabelFor(model => model.FromDt, htmlAttributes: new { @class = "control-label col-lg-1" })
+                                        <div class="col-lg-5">
+                                            @Html.EditorFor(m => m.FromDt, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "datepicker form-control col-md-4 required", @required = "required" } })
+                                            @Html.ValidationMessageFor(model => model.FromDt, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group mrtop">
+                                        @Html.LabelFor(model => model.ToDt, htmlAttributes: new { @class = "control-label col-lg-1" })
+                                        <div class="col-lg-5">
+                                            @Html.EditorFor(m => m.ToDt, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "datepicker form-control col-md-4 required", @required = "required" } })
+                                            @Html.ValidationMessageFor(model => model.ToDt, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>*@
                                             </div>
                                             @*<div class="break"></div>*@
                                             @*<div class="row">
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(model => model.CourseIds, htmlAttributes: new { @class = "col-lg-1" })
-                                                        <div class="col-lg-5">
-                                                            @Html.DropDownListFor(model => model.CourseIds, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control", multiple = "multiple", @required = "required" })
-                                                            @Html.ValidationMessageFor(model => model.CourseIds, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CourseIds, htmlAttributes: new { @class = "col-lg-1" })
+                                        <div class="col-lg-5">
+                                            @Html.DropDownListFor(model => model.CourseIds, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control", multiple = "multiple", @required = "required" })
+                                            @Html.ValidationMessageFor(model => model.CourseIds, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
 
-                                                </div>
-                                                <div class="break"></div>*@
+                                </div>
+                                <div class="break"></div>*@
 
                                         </div>
 
                                         @*<div class="form-group">
-                                                <div class="col-md-3">
-                                                    <input type="submit" name="btnsubmit" value="Attendance Submit" id="btnsubmit" class="btn-lg btn-primary" />
-                                                </div>
-                                            </div>*@
+                                <div class="col-md-3">
+                                    <input type="submit" name="btnsubmit" value="Attendance Submit" id="btnsubmit" class="btn-lg btn-primary" />
+                                </div>
+                            </div>*@
                                     </div>
                                 </div>
 

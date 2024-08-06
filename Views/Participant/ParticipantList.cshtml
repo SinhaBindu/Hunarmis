@@ -42,6 +42,12 @@
     .panel {
         min-height: 500px;
     }
+    div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
+        color: #fff !important
+    }
+    .downs-btn {
+        float: right
+    }
 </style>
 
 <div id="page-content">
@@ -49,7 +55,13 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel">
-                    <div id="div-download"></div>
+                    <div class="panel-spacer">
+                        <p class="bord-btm pad-ver text-main text-bold">
+                            @ViewBag.Title
+                            <span id="div-download" class="downs-btn"></span>
+                        </p>
+                    </div>
+                    
                     <fieldset class="border rounded-3 p-3">
                         @*<legend class="float-none w-auto px-2">Search By</legend>*@
                         @using (Html.BeginForm("GetPartList", "Participant", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))

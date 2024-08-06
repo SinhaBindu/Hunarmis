@@ -38,82 +38,88 @@
     .panel {
         min-height: 500px;
     }
+    div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
+        color: #fff !important
+    }
 </style>
 
-<div class="genral-form">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel">
-                <fieldset class="border rounded-3 p-3">
-                    <legend class="float-none w-auto px-2">Search By  </legend>
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <fieldset class="border rounded-3 p-3">
+                        <legend class="float-none w-auto px-2">Search By  </legend>
 
-                    @using (Html.BeginForm("GetCallStatus", "Home", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
-                    {
-                        <div class="col-md-12">@Html.Partial("_Alerts")</div>
-                        <div class="panel-bodys">
-                            <div class="bg-light rounded h-100 p-4">
-                                <div class="basic-search">
-                                    <div class="col-sm-2">
-                                        @Html.LabelFor(model => model.FromDt, htmlAttributes: new { @class = "control-label" })
-                                        <div class="position-relative form-group">
-                                            @Html.EditorFor(m => m.FromDt, null, new { @class = "form-control col-sm-12 datepickermonth" })
-                                            @Html.ValidationMessageFor(model => model.FromDt, "", new { @class = "text-danger" })
+                        @using (Html.BeginForm("GetCallStatus", "Home", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+                        {
+                            <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                            <div class="panel-bodys">
+                                <div class="bg-light rounded h-100 p-4">
+                                    <div class="basic-search">
+                                        <div class="col-sm-2">
+                                            @Html.LabelFor(model => model.FromDt, htmlAttributes: new { @class = "control-label" })
+                                            <div class="position-relative form-group">
+                                                @Html.EditorFor(m => m.FromDt, null, new { @class = "form-control col-sm-12 datepickermonth" })
+                                                @Html.ValidationMessageFor(model => model.FromDt, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        @Html.LabelFor(model => model.ToDt, htmlAttributes: new { @class = "control-label" })
-                                        <div class="position-relative form-group">
-                                            @Html.EditorFor(m => m.ToDt, null, new { @class = "form-control col-sm-12 datepickermonth" })
-                                            @Html.ValidationMessageFor(model => model.ToDt, "", new { @class = "text-danger" })
+                                        <div class="col-sm-2">
+                                            @Html.LabelFor(model => model.ToDt, htmlAttributes: new { @class = "control-label" })
+                                            <div class="position-relative form-group">
+                                                @Html.EditorFor(m => m.ToDt, null, new { @class = "form-control col-sm-12 datepickermonth" })
+                                                @Html.ValidationMessageFor(model => model.ToDt, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label" })
-                                        <div class="position-relative form-group">
-                                            @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), null, new { @class = "form-select col-sm-12 select2" })
-                                            @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                        <div class="col-sm-3">
+                                            @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label" })
+                                            <div class="position-relative form-group">
+                                                @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), null, new { @class = "form-select col-sm-12 select2" })
+                                                @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label" })
-                                        <div class="position-relative form-group">
-                                            @Html.DropDownListFor(m => m.UserId, Hunarmis.Manager.CommonModel.GetUserList(), null, new { @class = "form-select col-sm-12 select2" })
-                                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                                        <div class="col-sm-2">
+                                            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label" })
+                                            <div class="position-relative form-group">
+                                                @Html.DropDownListFor(m => m.UserId, Hunarmis.Manager.CommonModel.GetUserList(), null, new { @class = "form-select col-sm-12 select2" })
+                                                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="position-relative form-group" style="margin-top:8%;">
-                                            <span class="check-spacer">
-                                                <input type="submit" name="btnsubmit" id="btnsubmit" class="btn-register" value="Filter" />
-                                            </span>
-                                            <span class="check-spacer">
-                                                <a href="~/Home/CallStatus" class="btn-reset"><i class="fa fa-refresh"></i></a>
-                                            </span>
-                                          
+                                        <div class="col-sm-3">
+                                            <div class="position-relative form-group" style="margin-top:8%;">
+                                                <span class="check-spacer">
+                                                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn-register" value="Filter" />
+                                                </span>
+                                                <span class="check-spacer">
+                                                    <a href="~/Home/CallStatus" class="btn-reset"><i class="fa fa-refresh"></i></a>
+                                                </span>
+
+                                            </div>
                                         </div>
+                                        <div class="breaker"></div>
                                     </div>
-                                    <div class="breaker"></div>
+                                </div>
+                            </div>
+                        }
+                    </fieldset>
+
+                    <div class="card-body">
+                        <div class="content-manage">
+                            <div class="row">
+                                <div id="div-download"></div>
+                                <div class="col-md-12">
+                                    <div id="subdata"></div>
                                 </div>
                             </div>
                         </div>
-                    }
-                </fieldset>
-
-                <div class="card-body">
-                    <div class="content-manage">
-                        <div class="row">
-                            <div id="div-download"></div>
-                            <div class="col-md-12">
-                                <div id="subdata"></div>
-                            </div>
-                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
