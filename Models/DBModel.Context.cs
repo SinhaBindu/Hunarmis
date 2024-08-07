@@ -48,9 +48,7 @@ namespace Hunarmis.Models
         public virtual DbSet<FormMaster> FormMasters { get; set; }
         public virtual DbSet<tbl_Mapped> tbl_Mapped { get; set; }
         public virtual DbSet<tbl_MappedTrainCenter> tbl_MappedTrainCenter { get; set; }
-        public virtual DbSet<tbl_SurveyAnswer> tbl_SurveyAnswer { get; set; }
         public virtual DbSet<tbl_ParticipantRemarks_History> tbl_ParticipantRemarks_History { get; set; }
-        public virtual DbSet<tbl_AssessmentSendLinkEmail> tbl_AssessmentSendLinkEmail { get; set; }
         public virtual DbSet<tbl_FileUpload> tbl_FileUpload { get; set; }
         public virtual DbSet<Tbl_ExceptionHandle> Tbl_ExceptionHandle { get; set; }
         public virtual DbSet<Batch_Master> Batch_Master { get; set; }
@@ -63,6 +61,8 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_AttendPartTopic> tbl_AttendPartTopic { get; set; }
         public virtual DbSet<tbl_AssessmentSchedule> tbl_AssessmentSchedule { get; set; }
         public virtual DbSet<tbl_SendMail> tbl_SendMail { get; set; }
+        public virtual DbSet<tbl_AssessmentSendLinkEmail> tbl_AssessmentSendLinkEmail { get; set; }
         public virtual DbSet<tbl_Survey> tbl_Survey { get; set; }
+        public virtual DbSet<tbl_SurveyAnswer> tbl_SurveyAnswer { get; set; }
     }
 }

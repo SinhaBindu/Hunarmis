@@ -45,11 +45,11 @@
     <div class="genral-form">
         <div class="row">
             <div class="col-lg-12">
-                <div id="div-download"></div>
+               
                 <div class="panel">
                     <div class="panel-spacer">
                         <p class="bord-btm pad-ver text-main text-bold">
-                            @ViewBag.Title
+                            @ViewBag.Title 
                         </p>
                     </div>
                     @using (Html.BeginForm("AssessmentSchedule", "Attendance", FormMethod.Post, new { @class = "panel-body form-horizontal form-padding loader", @id = "formid" }))
@@ -109,6 +109,7 @@
                 </div>
             </div>
             <div class="col-sm-12">
+                <div id="div-download"></div>
                 <div id="participantdata"></div>
             </div>
 
@@ -395,7 +396,7 @@
                             }],
                         });
                         $('.dataTables_filter input[type="search"]').css(
-                            { 'width': '500px', 'display': 'inline-block' }
+                            { 'width': '300px', 'display': 'inline-block' }
                         );
                         $('#div-download').empty();
                         table.buttons().container().appendTo($('#div-download'));

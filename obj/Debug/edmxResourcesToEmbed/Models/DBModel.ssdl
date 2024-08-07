@@ -261,6 +261,10 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="ParticipantId_fk" Type="uniqueidentifier" />
     <Property Name="RandomValue" Type="uniqueidentifier" />
     <Property Name="AssessmentLink" Type="nvarchar(max)" />
+    <Property Name="BatchId" Type="int" />
+    <Property Name="ExamDate" Type="date" />
+    <Property Name="ExamStartTime" Type="time" Precision="7" />
+    <Property Name="ExamEndTime" Type="time" Precision="7" />
     <Property Name="Password" Type="nvarchar" MaxLength="50" />
     <Property Name="AssessmentSchedule" Type="bit" />
     <Property Name="IsEmailSend" Type="int" />
@@ -603,9 +607,12 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AssessmentId" Type="uniqueidentifier" />
+    <Property Name="ParticipantId" Type="uniqueidentifier" />
     <Property Name="FormId" Type="int" />
     <Property Name="BatchId" Type="int" />
     <Property Name="TrainingCenterId" Type="int" />
+    <Property Name="SurveyStartTime" Type="time" Precision="7" />
+    <Property Name="SurveyEndTime" Type="time" Precision="7" />
     <Property Name="Date" Type="date" />
     <Property Name="YearId" Type="int" />
     <Property Name="FrequencyId" Type="int" />
@@ -618,6 +625,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="ExtraCol" Type="nvarchar" MaxLength="500" />
     <Property Name="IsDraft" Type="bit" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="IsTimeOut" Type="bit" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
@@ -626,12 +634,15 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="PublicIP" Type="nvarchar" MaxLength="200" />
     <Property Name="ConLocalIP" Type="nvarchar(max)" />
     <Property Name="ConPublicIP" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="DeletedOn" Type="datetime" />
   </EntityType>
   <EntityType Name="tbl_SurveyAnswer">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PartId_fk" Type="uniqueidentifier" />
     <Property Name="SId_fk" Type="int" />
     <Property Name="QuestionId_fk" Type="int" />
     <Property Name="QuestionCode" Type="nvarchar" MaxLength="50" />
@@ -644,6 +655,8 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
     <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="DeletedOn" Type="datetime" />
   </EntityType>
   <EntityType Name="tbl_UserLogin">
     <Key>

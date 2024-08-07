@@ -235,8 +235,8 @@
                             @Html.HiddenFor(m => m.Id)
                             @Html.HiddenFor(m => m.AssessmentId)
                             @Html.HiddenFor(m => m.FormId)
-                            @Html.HiddenFor(m => m.BatchId)
-                            @Html.HiddenFor(m => m.TrainingCenterId)
+                            @*@Html.HiddenFor(m => m.BatchId)
+                            @Html.HiddenFor(m => m.TrainingCenterId)*@
                             @Html.HiddenFor(m => m.RandomValue)
                             @Html.HiddenFor(m => m.StartTime)
                             @Html.HiddenFor(m => m.EndTime)
@@ -261,7 +261,7 @@
                                 <label class="control-label col-md-2">Training Center</label>
                                 <div class="col-md-4" @idreadyonlyTC>
                                     @Html.DropDownListFor(m => m.TrainingCenterId, CommonModel.GetDistTrainingAyCentersList(), "Select One", htmlAttributes: new { @id = "TrainingCenterId", @class = "form-control select2", @required = "required" })<br />
-                                    <span class="field-validation-error" data-valmsg-for="TrainingCenterId" data-valmsg-replace="true" style="display:none;"><span id="SchoolId-error" class="">The TrainingCenterId field is required.</span></span>
+                                    <span class="field-validation-error" data-valmsg-for="TrainingCenterId" data-valmsg-replace="true" style="display:none;"><span id="TrainingCenterId-error" class="">The TrainingCenterId field is required.</span></span>
                                 </div>
                             </div>
                             @{
@@ -395,95 +395,7 @@
             $("#btnDraft").click(function (e) {
                 e.preventDefault();
                 debugger;
-                var onecountchecked = 0;
-                var Is_check = true;
-                getLocation().then(function () {
-
-                    if (lat != '' && lng != '' && lat != undefined && lng != undefined) {
-
-                        $("input:radio").each(function () {
-                            var name = $(this).attr('name');
-                            if ($("input[type='radio'][name='" + name + "']:checked").length > 0) {
-                                Is_check = true;
-                                onecountchecked++;
-                            }
-                            else {
-                                Is_check = false;
-                            }
-                        });
-
-                        if (onecountchecked == 0) {
-                            toastr.error('Danger', 'Please select at least one answer in each question.');
-                            //alert('Please select at least one answer in each question.');
-                            return false
-                        }
-                        $('span[data-valmsg-for="BatchId"]').hide();
-                        $('span[data-valmsg-for="TrainingCenterId"]').hide();
-                        if ($('#BatchId').val() == '' || $('#BatchId').val() == null) {
-                            if (!$('#BatchId').val()) {
-                                $('span[data-valmsg-for="BatchId"]').show();
-                                $('#BatchId').focus();
-                            }
-                            if (!$('#TrainingCenterId').val()) {
-                                $('span[data-valmsg-for="TrainingCenterId"]').show();
-                            }
-                            return false;
-                        }
-                      
-                        if (onecountchecked > 0) {
-                            debugger;
-                            $('#Lat').val(lat);
-                            $('#Long').val(lng);
-
-                            $('#IsDraft').val(true);
-                            $('#IsDraftMode').val(1);
-                            var valdata = $("#FormSubmit").serialize();
-                            $.ajax({
-                                url: "/Assessment/Add",
-                                type: "POST",
-                                dataType: 'json',
-                                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                                data: valdata,
-                                success: function (resp) {
-                                    if (resp.IsSuccess) {
-                                        toastr.success('Success', resp.msg);
-                                        var html = $(resp.htmlData);
-                                        var hiddenList = $('input[type="hidden"]', html);
-                                        $.each(hiddenList, function (i, item) {
-                                            console.log(item);
-                                            if (item.id) {
-                                                var hf = $('#' + item.id);
-                                                if (hf) {
-                                                    $(hf).val($(item).val());
-                                                }
-                                            }
-                                        });
-                                    }
-                                    else {
-                                        if (resp.type == 1) {
-                                            var urlpath = "/ParticipantUser/AssessmentDone";
-                                            location.href = document.baseURI + urlpath;
-                                        }
-                                        toastr.error('Danger', resp.msg);
-                                    }
-                                    //console.log(resdata);
-                                }
-                            });
-                        }
-                        else {
-                            toastr.error('Danger', 'Please select at least one answer in each question.');
-                            return false
-                        }
-                    }
-                    else {
-                        toastr.error("Error", "Please Enable Geolocation Latitude and Longitude ");
-                        return false;
-                    }
-                }, function e() {
-                    toastr.error("Error", "Please Enable Geolocation Latitude and Longitude ");
-                });
-
-
+                 DraftMode(0);
             });
 
             //Final Submited
@@ -618,6 +530,97 @@
             });//form end submited closed
 
         });
+
+        function DraftMode(TimeOut) {
+            var onecountchecked = 0;
+            var Is_check = true;
+            getLocation().then(function () {
+                if (lat != '' && lng != '' && lat != undefined && lng != undefined) {
+
+                    $("input:radio").each(function () {
+                        var name = $(this).attr('name');
+                        if ($("input[type='radio'][name='" + name + "']:checked").length > 0) {
+                            Is_check = true;
+                            onecountchecked++;
+                        }
+                        else {
+                            Is_check = false;
+                        }
+                    });
+
+                    if (onecountchecked == 0) {
+                        toastr.error('Danger', 'Please select at least one answer in each question.');
+                        //alert('Please select at least one answer in each question.');
+                        return false
+                    }
+                    $('span[data-valmsg-for="BatchId"]').hide();
+                    $('span[data-valmsg-for="TrainingCenterId"]').hide();
+                    if ($('#BatchId').val() == '' || $('#BatchId').val() == null) {
+                        if (!$('#BatchId').val()) {
+                            $('span[data-valmsg-for="BatchId"]').show();
+                            $('#BatchId').focus();
+                        }
+                        if (!$('#TrainingCenterId').val()) {
+                            $('span[data-valmsg-for="TrainingCenterId"]').show();
+                        }
+                        return false;
+                    }
+
+                    if (onecountchecked > 0) {
+                        debugger;
+                        $('#Lat').val(lat);
+                        $('#Long').val(lng);
+
+                        $('#IsDraft').val(true);
+                        $('#IsDraftMode').val(1);
+                        $('#TimeOut').val(TimeOut);
+                        var valdata = $("#FormSubmit").serialize();
+                        $.ajax({
+                            url: "/Assessment/Add",
+                            type: "POST",
+                            dataType: 'json',
+                            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                            data: valdata,
+                            success: function (resp) {
+                                if (resp.IsSuccess) {
+                                    toastr.success('Success', resp.msg);
+                                    var html = $(resp.htmlData);
+                                    var hiddenList = $('input[type="hidden"]', html);
+                                    $.each(hiddenList, function (i, item) {
+                                        console.log(item);
+                                        if (item.id) {
+                                            var hf = $('#' + item.id);
+                                            if (hf) {
+                                                $(hf).val($(item).val());
+                                            }
+                                        }
+                                    });
+                                }
+                                else {
+                                    if (resp.type == 1) {
+                                        var urlpath = "/ParticipantUser/AssessmentDone";
+                                        location.href = document.baseURI + urlpath;
+                                    }
+                                    toastr.error('Danger', resp.msg);
+                                }
+                                //console.log(resdata);
+                            }
+                        });
+                    }
+                    else {
+                        toastr.error('Danger', 'Please select at least one answer in each question.');
+                        return false
+                    }
+                }
+                else {
+                    toastr.error("Error", "Please Enable Geolocation Latitude and Longitude ");
+                    return false;
+                }
+            }, function e() {
+                toastr.error("Error", "Please Enable Geolocation Latitude and Longitude ");
+
+            });
+        }
 
         var lat, lng;
         const getLocation = async () => {
@@ -1006,7 +1009,8 @@
             // Show overtime output
             if (t < 1) {
                 clearInterval(x);
-                $('#btnDraft').click();
+                //$('#btnDraft').click();
+                DraftMode(1);
                 location.href = document.baseURI + '/ParticipantUser/Login';
                 //document.getElementById(
                 //    "demo"

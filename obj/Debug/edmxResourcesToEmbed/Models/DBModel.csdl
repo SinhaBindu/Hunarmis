@@ -36,9 +36,7 @@
     <EntitySet Name="FormMasters" EntityType="Hunar_DBModel.FormMaster" />
     <EntitySet Name="tbl_Mapped" EntityType="Hunar_DBModel.tbl_Mapped" />
     <EntitySet Name="tbl_MappedTrainCenter" EntityType="Hunar_DBModel.tbl_MappedTrainCenter" />
-    <EntitySet Name="tbl_SurveyAnswer" EntityType="Hunar_DBModel.tbl_SurveyAnswer" />
     <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Hunar_DBModel.tbl_ParticipantRemarks_History" />
-    <EntitySet Name="tbl_AssessmentSendLinkEmail" EntityType="Hunar_DBModel.tbl_AssessmentSendLinkEmail" />
     <EntitySet Name="tbl_FileUpload" EntityType="Hunar_DBModel.tbl_FileUpload" />
     <EntitySet Name="Tbl_ExceptionHandle" EntityType="Hunar_DBModel.Tbl_ExceptionHandle" />
     <EntitySet Name="Batch_Master" EntityType="Hunar_DBModel.Batch_Master" />
@@ -51,7 +49,9 @@
     <EntitySet Name="tbl_AttendPartTopic" EntityType="Hunar_DBModel.tbl_AttendPartTopic" />
     <EntitySet Name="tbl_AssessmentSchedule" EntityType="Hunar_DBModel.tbl_AssessmentSchedule" />
     <EntitySet Name="tbl_SendMail" EntityType="Hunar_DBModel.tbl_SendMail" />
+    <EntitySet Name="tbl_AssessmentSendLinkEmail" EntityType="Hunar_DBModel.tbl_AssessmentSendLinkEmail" />
     <EntitySet Name="tbl_Survey" EntityType="Hunar_DBModel.tbl_Survey" />
+    <EntitySet Name="tbl_SurveyAnswer" EntityType="Hunar_DBModel.tbl_SurveyAnswer" />
     <AssociationSet Name="FK_tbl_SurveyAnswer_tbl_Survey" Association="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey">
       <End Role="tbl_Survey" EntitySet="tbl_Survey" />
       <End Role="tbl_SurveyAnswer" EntitySet="tbl_SurveyAnswer" />
@@ -405,25 +405,6 @@
     <Property Name="TrainingAgencyId" Type="Int32" />
     <Property Name="TrainingCenterId" Type="Int32" />
   </EntityType>
-  <EntityType Name="tbl_SurveyAnswer">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="SId_fk" Type="Int32" />
-    <Property Name="QuestionId_fk" Type="Int32" />
-    <Property Name="QuestionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="QuestionOption_fk" Type="Int32" />
-    <Property Name="ResponseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="InputValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="InputValue1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="tbl_Survey" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_SurveyAnswer" ToRole="tbl_Survey" />
-  </EntityType>
   <EntityType Name="tbl_ParticipantRemarks_History">
     <Key>
       <PropertyRef Name="RemarkHistoryID" />
@@ -473,26 +454,6 @@
     <Property Name="RemarkReportedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="RemarksHistoryDate" Type="DateTime" Precision="3" />
     <Property Name="TrainerId" Type="Guid" />
-  </EntityType>
-  <EntityType Name="tbl_AssessmentSendLinkEmail">
-    <Key>
-      <PropertyRef Name="AssessmentSendLinkPartId_pk" />
-    </Key>
-    <Property Name="AssessmentSendLinkPartId_pk" Type="Guid" Nullable="false" />
-    <Property Name="AssessmentScheduleId_fk" Type="Guid" />
-    <Property Name="ParticipantId_fk" Type="Guid" />
-    <Property Name="RandomValue" Type="Guid" />
-    <Property Name="AssessmentLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="AssessmentSchedule" Type="Boolean" />
-    <Property Name="IsEmailSend" Type="Int32" />
-    <Property Name="NoofAttempt" Type="Int32" />
-    <Property Name="AttemptDt" Type="DateTime" Precision="3" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="tbl_FileUpload">
     <Key>
@@ -745,15 +706,42 @@
     <Property Name="ExtraCol1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="ExtraCol2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="tbl_AssessmentSendLinkEmail">
+    <Key>
+      <PropertyRef Name="AssessmentSendLinkPartId_pk" />
+    </Key>
+    <Property Name="AssessmentSendLinkPartId_pk" Type="Guid" Nullable="false" />
+    <Property Name="AssessmentScheduleId_fk" Type="Guid" />
+    <Property Name="ParticipantId_fk" Type="Guid" />
+    <Property Name="RandomValue" Type="Guid" />
+    <Property Name="AssessmentLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="BatchId" Type="Int32" />
+    <Property Name="ExamDate" Type="DateTime" Precision="0" />
+    <Property Name="ExamStartTime" Type="Time" Precision="7" />
+    <Property Name="ExamEndTime" Type="Time" Precision="7" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AssessmentSchedule" Type="Boolean" />
+    <Property Name="IsEmailSend" Type="Int32" />
+    <Property Name="NoofAttempt" Type="Int32" />
+    <Property Name="AttemptDt" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
   <EntityType Name="tbl_Survey">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="AssessmentId" Type="Guid" />
+    <Property Name="ParticipantId" Type="Guid" />
     <Property Name="FormId" Type="Int32" />
     <Property Name="BatchId" Type="Int32" />
     <Property Name="TrainingCenterId" Type="Int32" />
+    <Property Name="SurveyStartTime" Type="Time" Precision="7" />
+    <Property Name="SurveyEndTime" Type="Time" Precision="7" />
     <Property Name="Date" Type="DateTime" Precision="0" />
     <Property Name="YearId" Type="Int32" />
     <Property Name="FrequencyId" Type="Int32" />
@@ -766,6 +754,7 @@
     <Property Name="ExtraCol" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="IsDraft" Type="Boolean" />
     <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsTimeOut" Type="Boolean" />
     <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />
     <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
@@ -774,7 +763,31 @@
     <Property Name="PublicIP" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="ConLocalIP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ConPublicIP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="DeletedOn" Type="DateTime" Precision="3" />
     <NavigationProperty Name="tbl_SurveyAnswer" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_Survey" ToRole="tbl_SurveyAnswer" />
+  </EntityType>
+  <EntityType Name="tbl_SurveyAnswer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PartId_fk" Type="Guid" />
+    <Property Name="SId_fk" Type="Int32" />
+    <Property Name="QuestionId_fk" Type="Int32" />
+    <Property Name="QuestionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="QuestionOption_fk" Type="Int32" />
+    <Property Name="ResponseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="InputValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InputValue1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tbl_Survey" Relationship="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" FromRole="tbl_SurveyAnswer" ToRole="tbl_Survey" />
   </EntityType>
   <Association Name="FK_tbl_SurveyAnswer_tbl_Survey">
     <End Type="Hunar_DBModel.tbl_Survey" Role="tbl_Survey" Multiplicity="0..1" />

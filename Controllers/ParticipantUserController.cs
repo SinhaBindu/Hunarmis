@@ -60,7 +60,7 @@ namespace Hunarmis.Controllers
                     DataTable dt = SPManager.SP_LoginForParticipantCheck(model);
                     if (dt.Rows.Count > 0)
                     {
-                        var loginmsg = "Login Success : " + JsonConvert.SerializeObject(dt);
+                        var loginmsg = "Login Success : AssessmentScheduleId_fk :" + dt.Rows[0]["AssessmentScheduleId_fk"].ToString() + " PartUserId :" + dt.Rows[0]["PartUserId"].ToString() + " IsAssessmentExpired :" + dt.Rows[0]["IsAssessmentExpired"].ToString();
                         System.IO.File.AppendAllText(Server.MapPath("~/logLoginUser.txt"), $"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}: {loginmsg}{Environment.NewLine}");
 
                         Session["SurveyId"] = dt.Rows[0]["SurveyId"].ToString();

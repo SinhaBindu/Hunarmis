@@ -31,9 +31,7 @@
         <EntityTypeShape EntityType="Hunar_DBModel.FormMaster" Width="1.5" PointX="9.875" PointY="8.125" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_Mapped" Width="1.5" PointX="8" PointY="9.875" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_MappedTrainCenter" Width="1.5" PointX="10.875" PointY="9.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_SurveyAnswer" Width="1.5" PointX="18" PointY="3" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_ParticipantRemarks_History" Width="1.5" PointX="7.625" PointY="13" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_AssessmentSendLinkEmail" Width="1.5" PointX="4.625" PointY="14" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_FileUpload" Width="1.5" PointX="8.875" PointY="6.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.Tbl_ExceptionHandle" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.Batch_Master" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="false" />
@@ -46,7 +44,9 @@
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_AttendPartTopic" Width="1.5" PointX="6.375" PointY="15.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_AssessmentSchedule" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_SendMail" Width="1.5" PointX="15.75" PointY="10.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Survey" Width="1.5" PointX="15.75" PointY="12" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_AssessmentSendLinkEmail" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Survey" Width="1.5" PointX="16.125" PointY="12.125" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_SurveyAnswer" Width="1.5" PointX="18.375" PointY="13.625" />
         <AssociationConnector Association="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" />
         </Diagram>
     </edmx:Diagrams>

@@ -604,6 +604,7 @@ namespace Hunarmis.Controllers
         {
             Hunar_DBEntities db_ = new Hunar_DBEntities();
             var strmobile = "";
+            var strAadharNo = "";
             if (model != null)
             {
                 try
@@ -674,12 +675,113 @@ namespace Hunarmis.Controllers
                                 if (!string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString()))
                                 {
                                     var moblie = dr["PhoneNo"].ToString();
+                                    var AadharCardNo = dr["AadharCardNo"].ToString();
                                     if (db_.tbl_Participant.Any(x => x.PhoneNo == moblie))
                                     {
                                         strmobile += ", " + dr["PhoneNo"].ToString();
+                                       var tblu= db_.tbl_Participant.Where(x => x.PhoneNo == moblie)?.FirstOrDefault();
+
+                                        tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
+
+                                        tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
+                                        tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
+                                        tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
+                                        // tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
+                                        tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
+                                        tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
+
+                                        var dobirth = !(string.IsNullOrWhiteSpace(dr["DateofBirth"].ToString())) ?
+                                         dr["DOBDD"].ToString() + "-" + dr["DOBMM"].ToString() + "-" + dr["DOBYYYY"].ToString() : null;
+                                        tblu.DateOfBirth = dobirth;
+                                        tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
+                                        tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
+                                        tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
+                                        // tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
+                                        tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
+                                        tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
+                                        tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
+
+                                        var bName = Convert.ToString(dr["BatchName"]);
+                                        var GetBatchdata = !(string.IsNullOrWhiteSpace(bName)) ? db.Batch_Master.Where(x => x.BatchName == bName).FirstOrDefault() : null;
+                                        // tblu.BatchId = GetBatchdata.Id;
+                                        tblu.TrainerId = GetBatchdata.TrainerId;
+
+                                        var qName = Convert.ToString(dr["QualificationName"]);
+                                        var EducationId = !(string.IsNullOrWhiteSpace(qName)) ? db.Educational_Master.Where(x => x.QualificationName == qName).FirstOrDefault()?.Id : null;
+                                        tblu.EduQualificationID = EducationId;
+                                        //tblpart.EduQualOther = EducationId == 4 && !(string.IsNullOrWhiteSpace(dr["EduQualOther"].ToString())) ? dr["EduQualOther"].ToString().Trim() : "NA";
+                                        tblu.EduQualOther = dr["EduQualOther"].ToString();
+                                        var cName = Convert.ToString(dr["CourseName"]);
+                                        var CourseEnrolledId = !(string.IsNullOrWhiteSpace(cName)) ? db.Courses_Master.Where(x => x.CourseName == cName).FirstOrDefault()?.Id : null;
+                                        tblu.CourseEnrolledID = CourseEnrolledId;
+
+                                        var trainingAgencyName = Convert.ToString(dr["TrainingAgencyName"]);
+                                        var TrainingAgencyId = !(string.IsNullOrWhiteSpace(trainingAgencyName)) ? db.TrainingAgency_Master.Where(x => x.TrainingAgencyName == trainingAgencyName).FirstOrDefault()?.Id : null;
+                                        tblu.TrainingAgencyID = TrainingAgencyId;
+                                        var trainingCenter = Convert.ToString(dr["TrainingCenter"]);
+                                        var TrainingCenterId = !(string.IsNullOrWhiteSpace(trainingCenter)) ? db.TrainingCenter_Master.Where(x => x.TrainingCenter == trainingCenter).FirstOrDefault()?.Id : null;
+                                        tblu.TrainingCenterID = TrainingCenterId;
+                                        tblu.TrainerName = !(string.IsNullOrWhiteSpace(dr["TrainerName"].ToString())) ? dr["TrainerName"].ToString().Trim() : null;
+                                        tblu.TrainerMobileNo = !(string.IsNullOrWhiteSpace(dr["TrainerMobileNo"].ToString())) ? dr["TrainerMobileNo"].ToString().Trim() : null;
+
+
+                                        results +=db_.SaveChanges();
                                     }
                                     else
                                     {
+                                        if (!string.IsNullOrWhiteSpace(AadharCardNo))
+                                        {
+                                            if (db_.tbl_Participant.Any(x => x.AadharCardNo == AadharCardNo))
+                                            {
+                                                strAadharNo += ", " + dr["AadharCardNo"].ToString();
+                                                var tblu = db_.tbl_Participant.Where(x => x.AadharCardNo == AadharCardNo)?.FirstOrDefault();
+                                                tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
+
+                                                tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
+                                                tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
+                                                tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
+                                                // tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
+                                                tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
+                                                tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
+
+                                                var dobirth = !(string.IsNullOrWhiteSpace(dr["DateofBirth"].ToString())) ?
+                                                 dr["DOBDD"].ToString() + "-" + dr["DOBMM"].ToString() + "-" + dr["DOBYYYY"].ToString() : null;
+                                                tblu.DateOfBirth = dobirth;
+                                                tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
+                                                tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
+                                                tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
+                                                // tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
+                                                tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
+                                                tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
+                                                tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
+
+                                                var bName = Convert.ToString(dr["BatchName"]);
+                                                var GetBatchdata = !(string.IsNullOrWhiteSpace(bName)) ? db.Batch_Master.Where(x => x.BatchName == bName).FirstOrDefault() : null;
+                                                // tblu.BatchId = GetBatchdata.Id;
+                                                tblu.TrainerId = GetBatchdata.TrainerId;
+
+                                                var qName = Convert.ToString(dr["QualificationName"]);
+                                                var EducationId = !(string.IsNullOrWhiteSpace(qName)) ? db.Educational_Master.Where(x => x.QualificationName == qName).FirstOrDefault()?.Id : null;
+                                                tblu.EduQualificationID = EducationId;
+                                                //tblpart.EduQualOther = EducationId == 4 && !(string.IsNullOrWhiteSpace(dr["EduQualOther"].ToString())) ? dr["EduQualOther"].ToString().Trim() : "NA";
+                                                tblu.EduQualOther = dr["EduQualOther"].ToString();
+                                                var cName = Convert.ToString(dr["CourseName"]);
+                                                var CourseEnrolledId = !(string.IsNullOrWhiteSpace(cName)) ? db.Courses_Master.Where(x => x.CourseName == cName).FirstOrDefault()?.Id : null;
+                                                tblu.CourseEnrolledID = CourseEnrolledId;
+
+                                                var trainingAgencyName = Convert.ToString(dr["TrainingAgencyName"]);
+                                                var TrainingAgencyId = !(string.IsNullOrWhiteSpace(trainingAgencyName)) ? db.TrainingAgency_Master.Where(x => x.TrainingAgencyName == trainingAgencyName).FirstOrDefault()?.Id : null;
+                                                tblu.TrainingAgencyID = TrainingAgencyId;
+                                                var trainingCenter = Convert.ToString(dr["TrainingCenter"]);
+                                                var TrainingCenterId = !(string.IsNullOrWhiteSpace(trainingCenter)) ? db.TrainingCenter_Master.Where(x => x.TrainingCenter == trainingCenter).FirstOrDefault()?.Id : null;
+                                                tblu.TrainingCenterID = TrainingCenterId;
+                                                tblu.TrainerName = !(string.IsNullOrWhiteSpace(dr["TrainerName"].ToString())) ? dr["TrainerName"].ToString().Trim() : null;
+                                                tblu.TrainerMobileNo = !(string.IsNullOrWhiteSpace(dr["TrainerMobileNo"].ToString())) ? dr["TrainerMobileNo"].ToString().Trim() : null;
+
+                                                results += db_.SaveChanges();
+                                            }
+                                        }
+
                                         var tblpart = new tbl_Participant();
                                         if (tblpart != null)
                                         {

@@ -15,6 +15,7 @@ namespace Hunarmis.Models
     public partial class tbl_SurveyAnswer
     {
         public int Id { get; set; }
+        public Nullable<System.Guid> PartId_fk { get; set; }
         public Nullable<int> SId_fk { get; set; }
         public Nullable<int> QuestionId_fk { get; set; }
         public string QuestionCode { get; set; }
@@ -27,6 +28,8 @@ namespace Hunarmis.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
+        public Nullable<System.DateTime> DeletedOn { get; set; }
     
         public virtual tbl_Survey tbl_Survey { get; set; }
     }

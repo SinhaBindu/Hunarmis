@@ -105,6 +105,9 @@ namespace Hunarmis.Models
         public string RandomValue { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
+        public DateTime? ExamDate { get; set; }
+        public string ExamStartTime { get; set; }
+        public string ExamEndTime { get; set; }
         public int DistrictId { get; set; }
         public int BlockId { get; set; }
         public string DISECODE { get; set; }
@@ -118,7 +121,7 @@ namespace Hunarmis.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public string UpdatedOn { get; set; }
-
+        public int TimeOut { get; set; }
 
     }
     public class HRLable

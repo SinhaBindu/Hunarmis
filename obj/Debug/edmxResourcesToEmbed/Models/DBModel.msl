@@ -340,25 +340,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_SurveyAnswer">
-      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_SurveyAnswer">
-        <MappingFragment StoreEntitySet="tbl_SurveyAnswer">
-          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="InputValue1" ColumnName="InputValue1" />
-          <ScalarProperty Name="InputValue" ColumnName="InputValue" />
-          <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
-          <ScalarProperty Name="QuestionOption_fk" ColumnName="QuestionOption_fk" />
-          <ScalarProperty Name="QuestionCode" ColumnName="QuestionCode" />
-          <ScalarProperty Name="QuestionId_fk" ColumnName="QuestionId_fk" />
-          <ScalarProperty Name="SId_fk" ColumnName="SId_fk" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_ParticipantRemarks_History">
       <EntityTypeMapping TypeName="Hunar_DBModel.tbl_ParticipantRemarks_History">
         <MappingFragment StoreEntitySet="tbl_ParticipantRemarks_History">
@@ -407,27 +388,6 @@
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
           <ScalarProperty Name="RemarkHistoryID" ColumnName="RemarkHistoryID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbl_AssessmentSendLinkEmail">
-      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_AssessmentSendLinkEmail">
-        <MappingFragment StoreEntitySet="tbl_AssessmentSendLinkEmail">
-          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="AttemptDt" ColumnName="AttemptDt" />
-          <ScalarProperty Name="NoofAttempt" ColumnName="NoofAttempt" />
-          <ScalarProperty Name="IsEmailSend" ColumnName="IsEmailSend" />
-          <ScalarProperty Name="AssessmentSchedule" ColumnName="AssessmentSchedule" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="AssessmentLink" ColumnName="AssessmentLink" />
-          <ScalarProperty Name="RandomValue" ColumnName="RandomValue" />
-          <ScalarProperty Name="ParticipantId_fk" ColumnName="ParticipantId_fk" />
-          <ScalarProperty Name="AssessmentScheduleId_fk" ColumnName="AssessmentScheduleId_fk" />
-          <ScalarProperty Name="AssessmentSendLinkPartId_pk" ColumnName="AssessmentSendLinkPartId_pk" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -694,9 +654,36 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tbl_AssessmentSendLinkEmail">
+      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_AssessmentSendLinkEmail">
+        <MappingFragment StoreEntitySet="tbl_AssessmentSendLinkEmail">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="AttemptDt" ColumnName="AttemptDt" />
+          <ScalarProperty Name="NoofAttempt" ColumnName="NoofAttempt" />
+          <ScalarProperty Name="IsEmailSend" ColumnName="IsEmailSend" />
+          <ScalarProperty Name="AssessmentSchedule" ColumnName="AssessmentSchedule" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="ExamEndTime" ColumnName="ExamEndTime" />
+          <ScalarProperty Name="ExamStartTime" ColumnName="ExamStartTime" />
+          <ScalarProperty Name="ExamDate" ColumnName="ExamDate" />
+          <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+          <ScalarProperty Name="AssessmentLink" ColumnName="AssessmentLink" />
+          <ScalarProperty Name="RandomValue" ColumnName="RandomValue" />
+          <ScalarProperty Name="ParticipantId_fk" ColumnName="ParticipantId_fk" />
+          <ScalarProperty Name="AssessmentScheduleId_fk" ColumnName="AssessmentScheduleId_fk" />
+          <ScalarProperty Name="AssessmentSendLinkPartId_pk" ColumnName="AssessmentSendLinkPartId_pk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="tbl_Survey">
       <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Survey">
         <MappingFragment StoreEntitySet="tbl_Survey">
+          <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="ConPublicIP" ColumnName="ConPublicIP" />
           <ScalarProperty Name="ConLocalIP" ColumnName="ConLocalIP" />
           <ScalarProperty Name="PublicIP" ColumnName="PublicIP" />
@@ -705,6 +692,7 @@
           <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
           <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsTimeOut" ColumnName="IsTimeOut" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
           <ScalarProperty Name="ExtraCol" ColumnName="ExtraCol" />
@@ -717,10 +705,35 @@
           <ScalarProperty Name="FrequencyId" ColumnName="FrequencyId" />
           <ScalarProperty Name="YearId" ColumnName="YearId" />
           <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="SurveyEndTime" ColumnName="SurveyEndTime" />
+          <ScalarProperty Name="SurveyStartTime" ColumnName="SurveyStartTime" />
           <ScalarProperty Name="TrainingCenterId" ColumnName="TrainingCenterId" />
           <ScalarProperty Name="BatchId" ColumnName="BatchId" />
           <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
           <ScalarProperty Name="AssessmentId" ColumnName="AssessmentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_SurveyAnswer">
+      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_SurveyAnswer">
+        <MappingFragment StoreEntitySet="tbl_SurveyAnswer">
+          <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="InputValue1" ColumnName="InputValue1" />
+          <ScalarProperty Name="InputValue" ColumnName="InputValue" />
+          <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
+          <ScalarProperty Name="QuestionOption_fk" ColumnName="QuestionOption_fk" />
+          <ScalarProperty Name="QuestionCode" ColumnName="QuestionCode" />
+          <ScalarProperty Name="QuestionId_fk" ColumnName="QuestionId_fk" />
+          <ScalarProperty Name="SId_fk" ColumnName="SId_fk" />
+          <ScalarProperty Name="PartId_fk" ColumnName="PartId_fk" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

@@ -22,9 +22,12 @@ namespace Hunarmis.Models
     
         public int Id { get; set; }
         public Nullable<System.Guid> AssessmentId { get; set; }
+        public Nullable<System.Guid> ParticipantId { get; set; }
         public Nullable<int> FormId { get; set; }
         public Nullable<int> BatchId { get; set; }
         public Nullable<int> TrainingCenterId { get; set; }
+        public Nullable<System.TimeSpan> SurveyStartTime { get; set; }
+        public Nullable<System.TimeSpan> SurveyEndTime { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> YearId { get; set; }
         public Nullable<int> FrequencyId { get; set; }
@@ -37,6 +40,7 @@ namespace Hunarmis.Models
         public string ExtraCol { get; set; }
         public Nullable<bool> IsDraft { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public Nullable<bool> IsTimeOut { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
@@ -45,6 +49,8 @@ namespace Hunarmis.Models
         public string PublicIP { get; set; }
         public string ConLocalIP { get; set; }
         public string ConPublicIP { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
+        public Nullable<System.DateTime> DeletedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_SurveyAnswer> tbl_SurveyAnswer { get; set; }
