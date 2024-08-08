@@ -27,16 +27,17 @@
                     <th class="text-center tblth">Phone No<br /> <strong class="vw">Call</strong></th>
                     <th class="text-center tblth">Name</th>
                     @*<th class="text-center tblth">Registration ID <br /></th>
-                    <th class="text-center tblth">Email ID</th>*@
+        <th class="text-center tblth">Email ID</th>*@
                     @*<th class="text-center tblth">Aadhar <br />Card No.</th>*@
                     <th class="text-center tblth">Batch Name</th>
                     <th class="text-center tblth">Batch Start Date</th>
                     <th class="text-center tblth">Batch End Date</th>
-                    <th class="text-center tblth">Remark Status</th>
-                    <th class="text-center tblth">Remark Date</th>
+                    <th class="text-center tblth">Last Remark Date</th>
+                    <th class="text-center tblth">Last Remark Status</th>
+                    <th class="text-center tblth">Last Remark<br /> Reported By</th>
+                    <th class="text-center tblth">Last Call Done<br /> Reported Date</th>
+                    <th class="text-center tblth">Last Call Done <br />Reported By</th>
                     <th class="text-center tblth">Course</th>
-                    <th class="text-center tblth">Reported Date</th>
-                    <th class="text-center tblth">Reported By</th>
                     <th class="text-center tblth">Assessment<br /> Score</th>
                 </tr>
             </thead>
@@ -60,43 +61,46 @@
                             var callstatus = Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallOnProgress
                                 ? "pointer-events: none;" : Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallDone ?
                                 "pointer-events: none;" : Convert.ToInt32(dr["CallTempStatus"].ToString()) == (int)Enums.eTempCallStatus.CallNotPick ? "" : "";
-                           
-                            <tr data-tempcalls="@dr["CallTempStatus"].ToString()"
-                                data-partid="@dr["ID"].ToString()" style="@csstemp">
-                                <td class="text-center">@calltempst</td>
-                                <td class="text-center">@(srno++)</td>
-                                <td class="text-left">@dr["TrainingCenter"]</td>
-                                @*<a href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank" style="float: left; width: 95px !important">*@
-                                <td class="" width="20%">
 
-                                    <a id="hrfphoneno-@dr["ID"]" href="javascript:void(0);" onclick="QuestionBind('@dr["ID"]',' @dr["PhoneNo"]')">
-                                        <strong class="" style="color:#3131d3;">
-                                            <img style="float: left; margin-right: 6px; margin-top: 2px" src="~/Content/images/Phone_icon.png" alt="Alternate Text" width="14" height="14" />
-                                            @dr["PhoneNo"]
-                                        </strong>
-                                    </a>
+                                <tr data-tempcalls="@dr["CallTempStatus"].ToString()"
+                                    data-partid="@dr["ID"].ToString()" style="@csstemp">
+                                    <td class="text-center">@calltempst</td>
+                                    <td class="text-center">@(srno++)</td>
+                                    <td class="text-left">@dr["TrainingCenter"]</td>
+                                    @*<a href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank" style="float: left; width: 95px !important">*@
+                                    <td class="" width="20%">
 
-                                    @*<a id="hrfphoneno-@dr["ID"]" href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank">
+                                        <a id="hrfphoneno-@dr["ID"]" href="javascript:void(0);" onclick="QuestionBind('@dr["ID"]',' @dr["PhoneNo"]')">
                                             <strong class="" style="color:#3131d3;">
                                                 <img style="float: left; margin-right: 6px; margin-top: 2px" src="~/Content/images/Phone_icon.png" alt="Alternate Text" width="14" height="14" />
                                                 @dr["PhoneNo"]
                                             </strong>
-                                        </a>*@
-                                </td>
-                                <td class="text-left">@dr["FullName"]</td>
-                                @*<td class="text-center" style="background: #604ccf !important; color: #fff !important; "><strong>@dr["RegID"]</strong></td>
-                                <td class="text-left">@dr["EmailID"]</td>*@
-                                @*<td class="text-center">&times;&times;&times;&times;&times;&times;&times;&times;&times;@Regex.Match(dr["AadharCardNo"].ToString(), @"(.{3})\s*$")</td>*@
-                                <td class="text-left">@dr["BatchName"]</td>
-                                <td class="text-center">@dr["BatchStartDate"]</td>
-                                <td class="text-center">@dr["BatchEndDate"]</td>
-                                <td class="text-center">@dr["RemarkStatus"]</td>
-                                <td class="text-center">@dr["RemarkDT"]</td>
-                                <td class="text-center">@dr["CourseName"]</td>
-                                <td class="text-center">@dr["CallTempStatusDT"] </td>
-                                <td class="text-center" style="word-break:break-word !important;">@dr["CallStatusReportedBy"]</td>
-                                <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
-                            </tr>
+                                        </a>
+
+                                        @*<a id="hrfphoneno-@dr["ID"]" href="~/Participant/AddPartCalling?PartId=@dr["ID"]" target="_blank">
+                <strong class="" style="color:#3131d3;">
+                    <img style="float: left; margin-right: 6px; margin-top: 2px" src="~/Content/images/Phone_icon.png" alt="Alternate Text" width="14" height="14" />
+                    @dr["PhoneNo"]
+                </strong>
+            </a>*@
+                                    </td>
+                                    <td class="text-left">@dr["FullName"]</td>
+                                    @*<td class="text-center" style="background: #604ccf !important; color: #fff !important; "><strong>@dr["RegID"]</strong></td>
+        <td class="text-left">@dr["EmailID"]</td>*@
+                                    @*<td class="text-center">&times;&times;&times;&times;&times;&times;&times;&times;&times;@Regex.Match(dr["AadharCardNo"].ToString(), @"(.{3})\s*$")</td>*@
+                                    <td class="text-left">@dr["BatchName"]</td>
+                                    <td class="text-center">@dr["BatchStartDate"]</td>
+                                    <td class="text-center">@dr["BatchEndDate"]</td>
+                                    <td class="text-center">@(CommonModel.FormateDtDMY(dr["maxRemarkDate"].ToString()))</td>
+                                    <td class="text-center">@dr["RemarkStatusCall"]</td>
+
+                                    <td class="text-center" style="word-break:break-word !important;">@dr["CallStatusReportedBy"]</td>
+
+                                    <td class="text-center">@(CommonModel.FormateDtDMY(dr["maxRemarkDateCallDone"].ToString())) </td>
+                                    <td class="text-center" style="word-break:break-word !important;">@dr["LastCallSTReportedBy"]</td>
+                                    <td class="text-center">@dr["CourseName"]</td>
+                                    <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
+                                </tr>
                         }
                     }
                     else

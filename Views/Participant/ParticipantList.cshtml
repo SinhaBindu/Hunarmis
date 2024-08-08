@@ -42,9 +42,11 @@
     .panel {
         min-height: 500px;
     }
+
     div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
         color: #fff !important
     }
+
     .downs-btn {
         float: right
     }
@@ -61,7 +63,7 @@
                             <span id="div-download" class="downs-btn"></span>
                         </p>
                     </div>
-                    
+
                     <fieldset class="border rounded-3 p-3">
                         @*<legend class="float-none w-auto px-2">Search By</legend>*@
                         @using (Html.BeginForm("GetPartList", "Participant", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
@@ -80,7 +82,8 @@
                                         <div class="position-relative">
                                             @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label col-md-1" })
                                             <div class="col-md-4">
-                                                @Html.DropDownListFor(m => m.BatchId, CommonModel.GetBatch(true), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                                @*@Html.DropDownListFor(m => m.BatchId, CommonModel.GetBatch(true), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })*@
+                                                @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                                 @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -108,14 +111,7 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @*<script src="~/Scripts/JS/Master.js"></script>*@
-
-    @*<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
-        <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
-        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
+    <script src="~/Scripts/Custom/Master.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -133,6 +129,17 @@
             //    });
             //    /* Role Wise */
             //    BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
+
+            $('#BatchId').change(function (e) {
+                e.preventDefault();
+                BindData();
+            });
+            $('#CourseId').change(function (e) {
+                e.preventDefault();
+                debugger;
+                BindModuleWiseBatches("BatchId", "", 2, '0', $(this).val(), 0)
+                BindData();
+            });
             setTimeout(function () {
                 $('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
                 //$('select[name="BatchId"]').find('option[value="21"]').attr("selected", true).change();
@@ -142,14 +149,14 @@
                 e.preventDefault();
                 BindData();
             });
-            $("#BatchId").change(function (e) {
-                e.preventDefault();
-                BindData();
-            });
-            $("#CourseId").change(function (e) {
-                e.preventDefault();
-                BindData();
-            });
+            //$("#BatchId").change(function (e) {
+            //    e.preventDefault();
+            //    BindData();
+            //});
+            //$("#CourseId").change(function (e) {
+            //    e.preventDefault();
+            //    BindData();
+            //});
 
         });
 
@@ -168,6 +175,7 @@
                 url: document.baseURI + "/Participant/GetPartList",
                 data: filtermodel,//JSON.stringify({ 'Roles': '' }),
                 //cache: false,
+                async: false,
                 success: function (res) {
                     if (res.IsSuccess) {
                         $("#subdata").html(res.Data);

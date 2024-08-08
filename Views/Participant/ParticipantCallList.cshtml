@@ -32,7 +32,7 @@
     }
 
     .box-gap {
-        padding: 0 10px !important
+        padding: 10px 10px !important
     }
 
     .dt-input {
@@ -78,7 +78,7 @@
     .call-option {
         display: flex;
         gap: 20px;
-        padding: 20px 0 15px 20px;
+        /*padding: 20px 0 15px 20px;*/
     }
 
         .call-option li {
@@ -109,9 +109,11 @@
     .call-no {
         background: #FFB300;
     }
+
     .downs-btn {
         float: right
     }
+
     div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
         color: #fff !important
     }
@@ -135,7 +137,7 @@
                             <div class="col-md-12">@Html.Partial("_Alerts")</div>
                             <div class="panel-bodys">
                                 <div class="bg-light rounded h-100 p-4">
-                                    <div class="row mb-3s">
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
                                             <ul class="call-option">
                                                 <li><span class="d-call"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallNot))</li>
@@ -148,7 +150,7 @@
                                     </div>
                                     <div class="row mb-4">
                                         <div class="position-relative">
-                                            @Html.LabelFor(model => model.CallStatus, htmlAttributes: new { @class = "control-label col-md-1 " })
+                                            @Html.LabelFor(model => model.CallStatus, htmlAttributes: new { @class = "control-label col-md-2 " })
                                             <div class="col-md-2">
                                                 @Html.DropDownListFor(m => m.CallStatus, CommonModel.GetEnumCallStatusList(true), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                                 @Html.ValidationMessageFor(model => model.CallStatus, "", new { @class = "text-danger" })
@@ -163,18 +165,19 @@
                                         </div>
                                         <div class="position-relative">
                                             @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label col-md-1" })
-                                            <div class="col-md-2">
-                                                @Html.DropDownListFor(m => m.BatchId, CommonModel.GetBatch(true), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                            <div class="col-md-3">
+                                                @*@Html.DropDownListFor(m => m.BatchId, CommonModel.GetBatch(true), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })*@
+                                                @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                                 @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                         @*<div class="position-relative">
-                                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-1" })
-                                <div class="col-md-2">
-                                    @Html.DropDownListFor(m => m.UserId, CommonModel.GetUserList(), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
-                                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>*@
+                                                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-1" })
+                                                <div class="col-md-2">
+                                                    @Html.DropDownListFor(m => m.UserId, CommonModel.GetUserList(), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -182,7 +185,7 @@
                     </fieldset>
                     <div class="box-gap">
                         <div class="row">
-                            
+
                             <div class="col=md-6"></div>
                             <div class="col=md-6"></div>
                             <div class="col=md-6"></div>
@@ -200,14 +203,7 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @*<script src="~/Scripts/JS/Master.js"></script>*@
-
-    @*<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
-        <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
-        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>*@
+    <script src="~/Scripts/Custom/Master.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -225,6 +221,7 @@
             //    });
             //    /* Role Wise */
             //    BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
+           
             setTimeout(function () {
                 $('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
                 //$('select[name="CallStatus"]').find('option[value="0"]').attr("selected", true).change();
@@ -237,6 +234,12 @@
             $('#BatchId').change(function () {
                 BindData();
             });
+            $('#CourseId').change(function () {
+                debugger;
+                BindModuleWiseBatches("BatchId", "", 2, '0', $(this).val(), 0)
+                BindData();
+            });
+
             $("#formid").submit(function (e) {
                 e.preventDefault();
                 BindData();
@@ -316,6 +319,7 @@
                 url: document.baseURI + "/Participant/GetPartCallList",
                 data: filtermodel,//JSON.stringify({ 'Roles': '' }),
                 //cache: false,
+                async: false,
                 success: function (res) {
                     if (res.IsSuccess) {
                         $("#subdata").html(res.Data);

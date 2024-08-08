@@ -83,6 +83,7 @@ namespace Hunarmis.Models
         public Nullable<int> TrainingCenterID { get; set; }
         [Required]
         [Display(Name = DplyPartName.TrainerName)]
+        public Guid? TrainerId { get; set; }
         public string TrainerName { get; set; }
        
         [Display(Name = DplyPartName.IsPlaced)]
