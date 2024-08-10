@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Hunarmis.Models;
 using NLog.LayoutRenderers;
+using Hunarmis.Manager;
 
 namespace Hunarmis.Controllers
 {
@@ -91,8 +92,20 @@ namespace Hunarmis.Controllers
                     tbl.IsActive = true;
                     _db.tbl_UserLogin.Add(tbl);
                     _db.SaveChanges();
-                    //var user = MvcApplication.CUser.UserId;
-                    return RedirectToAction("Dashboard", "Home");
+                    var gteroles = await UserManager.GetRolesAsync(asptblID);
+                    // If you just want the first role (assuming the user has only one role)
+                    var roleName = gteroles?.FirstOrDefault();
+
+
+                    if (CommonModel.RoleNameCont.Trainer == roleName)
+                    {
+                        return RedirectToAction("CreatedAttend", "Attendance");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Dashboard", "Home");
+                    }
+
                 //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

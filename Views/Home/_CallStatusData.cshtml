@@ -16,8 +16,8 @@
                 <tr>
                     <th class="text-center tblth">Srno.</th>
                     @*<th class="text-center tblth">Month/Year</th>*@
-                    <th class="text-center tblth">Calling Date</th>
                     <th class="text-center tblth">Reported By</th>
+                    <th class="text-center tblth">Calling Date</th>
                     <th class="text-center tblth">Available</th>
                     <th class="text-center tblth">Not Available</th>
                 </tr>
@@ -32,15 +32,15 @@
                             <tr>
                                 <td class="text-center">@(srno++)</td>
                                 @*<td class="text-center bg-warning text-white"><strong>@(dr["Ques_Month"] + "/" +dr["Ques_Year"])</strong></td>*@
-                                <td class="text-left"><strong>@CommonModel.FormateDtDMY(dr["callingdate"].ToString())</strong></td>
-                                <td class="text-left">@dr["caller"]</td>
+                                <td class="text-left">@dr["ReportedNameBy"]</td>
+                                <td class="text-left"><strong>@CommonModel.FormateDtDMY(dr["maxcallingdate"].ToString())</strong></td>
                                 <td class="text-center  bg-success text-white">
                                     @*<a href="javascript:void(0);" onclick="CallStatusDisplay('@dr["callerid"]','@dr["callingdate"]','@dr["month"]','@dr["year"]')" target="_blank"><strong style="text-decoration:underline !important;">@dr["available_yes"]</strong></a>*@
-                                    <strong style="text-decoration:underline !important;">@dr["available_yes"]</strong>
+                                    <strong style="text-decoration:underline !important;">@dr["Available"]</strong>
                                 </td>
                                 <td class="text-center  bg-warning text-white">
                                     @*<a href="javascript:void(0);" onclick="CallStatusDisplay('@dr["callerid"]','@dr["callingdate"]','@dr["month"]','@dr["year"]')" target="_blank"><strong style="text-decoration:underline !important;">@dr["available_no"]</strong></a>*@
-                                    <strong style="text-decoration:underline !important;">@dr["available_no"]</strong>
+                                    <strong style="text-decoration:underline !important;">@dr["NotAvailable"]</strong>
                                 </td>
                             </tr>
                         }
@@ -53,7 +53,18 @@
                     }
                 }
             </tbody>
-
+            @if (dt.Rows.Count > 0)
+            {
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="text-center"><strong>Grand Total : </strong></td>
+                        <td class="text-center" style="text-align:center;"><strong class="text-center">@dt.Compute("sum(Available)", string.Empty)</strong></td>
+                        <td class="text-center" style="text-align:center;"><strong class="text-center">@dt.Compute("sum(NotAvailable)", string.Empty)</strong></td>
+                    </tr>
+                </tfoot>
+            }
         </table>
     </div>
 

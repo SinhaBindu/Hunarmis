@@ -65,7 +65,10 @@
                     <ul id="mainnav-menu" class="list-group">
                         @if (!IsViewer && Session["AssessmentSendLinkPartId_pk"] == null)
                         {
-                            @Html.ActionLinkMenu("<i class='fa fa-home main-icon'></i> <span class=\"menu-title\">Dashboard</span>", "Dashboard", "Home")
+                            if (User.IsInRole("Admin") || User.IsInRole("State") || User.IsInRole("Verifier") || User.IsInRole("Viewer") || User.IsInRole("District"))
+                            {
+                                @Html.ActionLinkMenu("<i class='fa fa-home main-icon'></i> <span class=\"menu-title\">Dashboard</span>", "Dashboard", "Home")
+                            }
                             if (User.IsInRole("Admin") || User.IsInRole("State") || User.IsInRole("Verifier") || User.IsInRole("Viewer") || User.IsInRole("District"))
                             {
 
@@ -182,7 +185,7 @@
                                         <i class="arrow"></i>
                                     </a>
                                     <ul class="collapse treeview-menu">
-                                        <li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Assessment Schedule</span>", "AssessmentSchedule", "Attendance")</li>
+                                        @*<li>@Html.ActionLinkMenu("<i class='fa fa-plus'></i> <span>Assessment Schedule</span>", "AssessmentSchedule", "Attendance")</li>*@
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-bar-chart'></i><span>Course Wise</span>", "Summary", "Assessment", new { FId = 1 })</li>
                                         <li>@Html.ActionLinkMenu("<i class='fa fa-list'></i> <span>Score Summary </span>", "ScorerSummary", "Assessment", new { FId = 1 })</li>
                                     </ul>

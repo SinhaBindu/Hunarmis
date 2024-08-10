@@ -44,7 +44,7 @@ namespace Hunarmis.Controllers
             var html = "";
             try
             {
-                tbllist = SPManager.SP_ParticipantList(model);
+                tbllist = SPManager.SP_RawParticipantList(model);
                 bool IsCheck = false;
                 if (tbllist.Rows.Count > 0)
                 {

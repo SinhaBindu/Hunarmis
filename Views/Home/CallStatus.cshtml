@@ -1,6 +1,6 @@
 ﻿@model Hunarmis.Models.FilterModel
 @{
-    ViewBag.Title = "Participant Call Details";
+    ViewBag.Title = "Participant Call Status";
     ViewBag.TitleIcon = "fa fa-user";
     ViewBag.SemiTitle = "Participant Call Details";
     ViewBag.SemiTitleLink = "/Home/CallStatus";
@@ -48,8 +48,16 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel">
+                    <div class="panel-spacer">
+                        <p class="bord-btm pad-ver text-main text-bold">
+                            @ViewBag.Title
+                            <span class="downs-btn" id="div-download"></span>
+                        </p>
+                    </div>
+
                     <fieldset class="border rounded-3 p-3">
                         <legend class="float-none w-auto px-2">Search By  </legend>
+
 
                         @using (Html.BeginForm("GetCallStatus", "Home", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
                         {
@@ -60,14 +68,14 @@
                                         <div class="col-sm-2">
                                             @Html.LabelFor(model => model.FromDt, htmlAttributes: new { @class = "control-label" })
                                             <div class="position-relative form-group">
-                                                @Html.EditorFor(m => m.FromDt, null, new { @class = "form-control col-sm-12 datepickermonth" })
+                                                @Html.EditorFor(m => m.FromDt, null, new { htmlAttributes = new { @class = "form-control col-sm-12 datepickermonth" } })
                                                 @Html.ValidationMessageFor(model => model.FromDt, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             @Html.LabelFor(model => model.ToDt, htmlAttributes: new { @class = "control-label" })
                                             <div class="position-relative form-group">
-                                                @Html.EditorFor(m => m.ToDt, null, new { @class = "form-control col-sm-12 datepickermonth" })
+                                                @Html.EditorFor(m => m.ToDt, null, new { htmlAttributes = new { @class = "form-control col-sm-12 datepickermonth" } })
                                                 @Html.ValidationMessageFor(model => model.ToDt, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -106,7 +114,6 @@
                     <div class="card-body">
                         <div class="content-manage">
                             <div class="row">
-                                <div id="div-download"></div>
                                 <div class="col-md-12">
                                     <div id="subdata"></div>
                                 </div>
@@ -145,7 +152,8 @@
                 }
             });
 
-            BindBatchList("BatchId", 0, true);
+            //BindBatchList("BatchId", 0, true);
+            BindModuleWiseBatches("BatchId", "", 1, '0', 0, 0)
 
             $("#formid").submit(function (e) {
                 e.preventDefault();
@@ -183,26 +191,27 @@
                             //scrollX: true,
                             //scrollCollapse: true,
                             //paging: false,
+                            "dom": '<"pull-left"f><"pull-right"l>tip',
                             pageLength: 100,
                             fixedColumns: {
                                 leftColumns: 1,
                                 rightColumns: 1
                             },
                             buttons: [{
-                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Call Status Lists',//$('#IDDistrict option:selected').text() +
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Download</span>', title: 'Call Status Lists',//$('#IDDistrict option:selected').text() +
                                 className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
                                 filename: 'Call Status Lists',
                                 exportOptions: { modifier: { page: 'all' } }
                             }],
                         });
                         $('.dataTables_filter input[type="search"]').css(
-                            { 'width': '500px', 'display': 'inline-block' }
+                            { 'width': '300px', 'display': 'inline-block' }
                         );
                         $('#div-download').empty();
                         table.buttons().container().appendTo($('#div-download'));
                     }
                     else {
-                        $("#subdata").html(res.Data);
+                        $("#subdata").html('<h6 class="text-danger">' + res.Data+'</ h6>');
                     }
                 },
                 error: function (req, error) {

@@ -183,7 +183,7 @@ namespace Hunarmis.Controllers
             catch (Exception ex)
             {
                 string er = ex.Message;
-                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+                return Json(new { IsSuccess = false, Data = "These exceptions are caused by the programmer." }, JsonRequestBehavior.AllowGet); throw;
             }
         }
         public ActionResult QuesResponse(string PartQuestId, string PartId, int M, int Y)

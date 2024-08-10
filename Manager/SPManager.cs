@@ -116,6 +116,21 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SP_RawParticipantList(FilterModel model)
+        {
+            //model.CallStatus = !string.IsNullOrEmpty(model.CallStatus) ? model.CallStatus :"";
+            model.UserId = string.IsNullOrEmpty(model.UserId) || model.UserId == "-1" || model.UserId == "0" ? "" : model.UserId;
+            model.CallStatus = string.IsNullOrEmpty(model.CallStatus) || model.CallStatus == "-1" ? "" : model.CallStatus;
+            StoredProcedure sp = new StoredProcedure("SP_RawDataParticipantList");
+            sp.Command.AddParameter("@Type", model.Type, DbType.Int32);
+            sp.Command.AddParameter("@Search", model.Search, DbType.String);
+            sp.Command.AddParameter("@CallStatus", model.CallStatus, DbType.String);
+            sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
+            sp.Command.AddParameter("@CourseId", model.CourseId, DbType.String);
+            sp.Command.AddParameter("@UserId", model.UserId, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
         public static DataTable SP_PartQuesList(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_PartQuesList");
@@ -279,7 +294,7 @@ namespace Hunarmis.Manager
         public static DataTable sp_callstatus(FilterModel model)
         {
             //FromDt = !string.IsNullOrWhiteSpace(FromDt) ? FromDt:"";
-            StoredProcedure sp = new StoredProcedure("sp_callstatus");
+            StoredProcedure sp = new StoredProcedure("SP_CallStatusUserWiseList");
             sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
             sp.Command.AddParameter("@ReportedBy", model.UserId, DbType.String);
             sp.Command.AddParameter("@SD", model.FromDt, DbType.String);

@@ -188,6 +188,7 @@
                             //scrollX: true,
                             //scrollCollapse: true,
                             //paging: false,
+                            "dom": '<"pull-left"f><"pull-right"l>tip',
                             pageLength: 100,
                             fixedColumns: {
                                 leftColumns: 1,
@@ -202,7 +203,7 @@
                             }],
                         });
                         $('.dataTables_filter input[type="search"]').css(
-                            { 'width': '500px', 'display': 'inline-block' }
+                            { 'width': '300px', 'display': 'inline-block' }
                         );
                         $('#div-download').empty();
                         table.buttons().container().appendTo($('#div-download'));
