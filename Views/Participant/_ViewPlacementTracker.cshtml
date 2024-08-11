@@ -46,8 +46,8 @@
                                                     <div class=""><p>Phone No  <span>: @dr["PhoneNo"]</span></p></div>
                                                     <div class=""><p>CourseName  <span>: @dr["CourseName"]</span></p></div>
                                                     <div class=""><p>Batch Name <span> : @dr["BatchName"]</span></p></div>
-                                                    <div class=""><p>Start Batch Name  <span>: @dr["BatchStartDate"]</span></p></div>
-                                                    <div class=""><p>End Batch Name  <span> : @dr["BatchEndDate"]</span></p></div>
+                                                    <div class=""><p>Start Batch Name  <span>: @CommonModel.FormateDtDMY(dr["BatchStartDate"].ToString())</span></p></div>
+                                                    <div class=""><p>End Batch Name  <span> : @CommonModel.FormateDtDMY(dr["BatchEndDate"].ToString())</span></p></div>
                                                     <div class=""><p>Training Agency Name  <span> : @dr["TrainingAgencyName"]</span></p></div>
                                                     <div class=""><p>Training Center  <span> : @dr["TrainingCenter"]</span></p></div>
                                                 </div>
