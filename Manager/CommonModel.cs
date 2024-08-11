@@ -2,6 +2,7 @@
 //using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
 //using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.EMMA;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Hunarmis.Helpers;
 using Hunarmis.Models;
 using Irony.Parsing.Construction;
@@ -29,6 +30,7 @@ using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using System.Windows.Interop;
 
 namespace Hunarmis.Manager
@@ -573,6 +575,47 @@ namespace Hunarmis.Manager
             public bool IsStatus { get; set; }
         }
 
+        #endregion
+
+        #region PlacementTracker
+        public static List<SelectListItem> GetMaritalStatus(int IsSelect=0)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            if (IsSelect==0)
+                list.Add(new SelectListItem { Value = "", Text = "Select" });
+            if (IsSelect == 1)
+                list.Add(new SelectListItem { Value = "", Text = "All" });
+            else
+            {
+                list.Add(new SelectListItem { Value = "Unmarried", Text = "Unmarried" });
+                list.Add(new SelectListItem { Value = "Married", Text = "Married" });
+            }
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
+        public static List<SelectListItem> GetEmployeeType(int IsSelect = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List<SelectListItem> list = new List<SelectListItem>();
+            if (IsSelect == 2)
+                list = _db.EmployeeType_Master.Select(course => new SelectListItem{Value = course.EmployeeTypeId_pk.ToString(), Text = course.EmployeeTypeName }).OrderBy(x => x.Text).ToList();
+            else if (IsSelect == 0)
+                list.Add(new SelectListItem { Value = "", Text = "Select" });
+            else if (IsSelect == 1)
+                list.Add(new SelectListItem { Value = "", Text = "All" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
+        public static List<SelectListItem> GetIndustry(int IsSelect = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List<SelectListItem> list = new List<SelectListItem>();
+            if (IsSelect == 2)
+                list = _db.Industry_Master.Select(course => new SelectListItem { Value = course.IndustryId_pk.ToString(), Text = course.IndustryName }).OrderBy(x => x.Text).ToList();
+            else if (IsSelect == 0)
+                list.Add(new SelectListItem { Value = "", Text = "Select" });
+            else if (IsSelect == 1)
+                list.Add(new SelectListItem { Value = "", Text = "All" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
         #endregion
 
         #region Master 
@@ -1355,7 +1398,7 @@ namespace Hunarmis.Manager
             try
             {
                 //Read an image from the stream...
-                var i = Image.FromStream(stream);
+                var i = System.Drawing.Image.FromStream(stream);
                 //Move the pointer back to the beginning of the stream
                 stream.Seek(0, SeekOrigin.Begin);
 

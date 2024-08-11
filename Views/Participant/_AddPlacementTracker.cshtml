@@ -1,0 +1,323 @@
+﻿@model Hunarmis.Models.PlacementTracker_Model
+@using Hunarmis.Manager;
+
+@{
+    ViewBag.BasicTitle = "Basic Information";
+    ViewBag.Title = "Placement Tracker";
+    ViewBag.Industry = "Industry Information";
+    ViewBag.TitleIcon = "fa fa-user";
+    ViewBag.SemiTitle = "Participant List";
+    ViewBag.SemiTitleLink = "/Participant/ParticipantList";
+    string IsSadmin = string.Empty;
+}
+
+<!-- Modal Structure -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">@ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("Post_PlacementTracker", "Participant", FormMethod.Post, new { @class = "panel-body form-horizontal form-padding loader", enctype = "multipart/form-data", @id = "formidpop" }))
+            {
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel">
+
+                                <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                                <div class="panel-bodys">
+                                    @Html.AntiForgeryToken()
+                                    @Html.HiddenFor(m => m.modelbasicpart.RegID)
+                                    @Html.HiddenFor(m => m.PlacementTrackerId_pk)
+                                    @Html.HiddenFor(m => m.ParticipantId_fk)
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>@ViewBag.BasicTitle</p>
+                                    <div class="manage-input">
+                                        <div class="card1">
+                                            <h4 class="semi-title">Basic Details</h4>
+                                            <div class="basic-info">
+                                                <div class=""><p>Reg ID  <span> :@Model.modelbasicpart.RegID</span></p></div>
+                                                <div class=""><p>Name  <span>: @Model.modelbasicpart.FullName</span></p></div>
+                                                <div class=""><p>Phone No  <span>: @Model.modelbasicpart.PhoneNo</span></p></div>
+                                                <div class=""><p>Batch Name <span> : @Model.modelbasicpart.BatchName</span></p></div>
+                                                <div class=""><p>Start Batch Name  <span>: @Model.modelbasicpart.SBatchDt</span></p></div>
+                                                <div class=""><p>End Batch Name  <span> : @Model.modelbasicpart.EBatchDt</span></p></div>
+                                                <div class=""><p>Training Agency Name  <span> : @Model.modelbasicpart.TrainingAgencyName</span></p></div>
+                                                <div class=""><p>Training Center  <span> : @Model.modelbasicpart.TrainingCenter</span></p></div>
+                                                <div class=""><p>Reported By  <span> : @Model.modelbasicpart.ReportedBy</span></p></div>
+                                                <div class=""><p>Reported On  <span> : @Model.modelbasicpart.ReportedOn</span></p></div>
+                                            </div>
+                                            <p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i> @ViewBag.Title</p>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                <div class="col-lg-12">
+                                                    <div class="checkbox">
+                                                        @foreach (var item in CommonModel.GetMaritalStatus(2))
+                                                        {
+                                                            <div class="check-box">
+                                                                @Html.RadioButtonFor(model => model.MaritalStatus, item.Value, new { id = "MaritalStatus" + item.Value, @required = "required" }) @item.Text
+                                                            </div>
+                                                        }
+                                                        @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.NoofFamilyMembers, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                <div class="col-lg-12">
+                                                    @Html.EditorFor(model => model.NoofFamilyMembers, new { htmlAttributes = new { @type = "number", @class = "required form-control", @required = "required", min = "0", maxlength = "2", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
+                                                    @Html.ValidationMessageFor(model => model.NoofFamilyMembers, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.AnnualHouseholdincome, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                <div class="col-lg-12">
+                                                    @Html.EditorFor(model => model.AnnualHouseholdincome, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal", min = "0", maxlength = "5", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
+                                                    @Html.ValidationMessageFor(model => model.AnnualHouseholdincome, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PreTrainingStatus, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                <div class="checkbox">
+                                                    @foreach (var item in CommonModel.GetBoolYesNo())
+                                                    {
+                                                        <div class="check-box">
+                                                            @Html.RadioButtonFor(model => model.PreTrainingStatus, item.Value, new { id = "PreTrainingStatus" + item.Value, @required = "required" }) @item.Text
+                                                        </div>
+                                                    }
+                                                    @Html.ValidationMessageFor(model => model.PreTrainingStatus, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.TargetGroup, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                <div class="checkbox">
+                                                    @foreach (var item in CommonModel.GetBoolYesNo())
+                                                    {
+                                                        <div class="check-box">
+                                                            @Html.RadioButtonFor(model => model.TargetGroup, item.Value, new { id = "TargetGroup" + item.Value, @required = "required" }) @item.Text
+                                                        </div>
+                                                    }
+                                                    @Html.ValidationMessageFor(model => model.TargetGroup, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+
+                                            <p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i> @ViewBag.Industry</p>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.EmployeeTypeId, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                <div class="col-lg-12">
+                                                    @Html.DropDownListFor(model => model.EmployeeTypeId, CommonModel.GetEmployeeType(2), new { @class = "form-control", @required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.EmployeeTypeId, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.IndustryId, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                <div class="col-lg-8">
+                                                    @Html.DropDownListFor(model => model.IndustryId, CommonModel.GetIndustry(2), new { @class = "form-control", @required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.IndustryId, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                <div class="col-lg-12">
+                                                    @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "required form-control", @required = "required" } })
+                                                    @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                <div class="col-lg-12">
+                                                    @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "required form-control", @required = "required" } })
+                                                    @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                <div class="col-lg-12">
+                                                    @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal", min = "0", maxlength = "8", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
+                                                    @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.StateId, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                <div class="col-lg-8">
+                                                    @Html.DropDownListFor(model => model.StateId, CommonModel.GetState(), "Select", new { @class = "form-control", @required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                <div class="col-lg-8">
+                                                    @Html.DropDownListFor(model => model.DistrictId, new List<SelectListItem>(), new { @class = "form-control", @required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PinCode, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                <div class="col-lg-12">
+                                                    @Html.EditorFor(model => model.PinCode, new { htmlAttributes = new { @type = "number", @class = "required form-control", @required = "required", min = "6", maxlength = "6", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
+                                                    @Html.ValidationMessageFor(model => model.PinCode, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group ">
+                                                @Html.LabelFor(model => model.DateofOffer, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                <div class="col-lg-8">
+                                                    @Html.EditorFor(model => model.DateofOffer, new { htmlAttributes = new { @class = "form-control datepickermonth", @required = "required", @maxlength = "11", @placeholder = "dd-mmm-yyyy" } })
+                                                    @Html.ValidationMessageFor(model => model.DateofOffer, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.DOJStartDate, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                <div class="col-lg-8">
+                                                    @Html.EditorFor(model => model.DOJStartDate, new { htmlAttributes = new { @class = "form-control datepickermonth", @required = "required", @maxlength = "11", @placeholder = "dd-mmm-yyyy" } })
+                                                    @Html.ValidationMessageFor(model => model.DOJStartDate, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group ">
+                                                @Html.LabelFor(model => model.DOJEndDate, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                <div class="col-lg-8">
+                                                    @Html.EditorFor(model => model.DOJEndDate, new { htmlAttributes = new { @class = "form-control datepickermonth", @required = "required", @maxlength = "11", @placeholder = "dd-mmm-yyyy" } })
+                                                    @Html.ValidationMessageFor(model => model.DOJEndDate, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group ">
+                                                @Html.LabelFor(model => model.UploadOfferLetter, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                <div class="col-lg-8">
+                                                    <input type="file" class="UploadCheckFile" name="UploadOfferLetter" id="UploadOfferLetter" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
+                                                    @Html.ValidationMessageFor(model => model.UploadOfferLetter, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+                                            <div class="form-group ">
+                                                @Html.LabelFor(model => model.UploadAppointmentLetter, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                <div class="col-lg-8">
+                                                    <input type="file" class="UploadCheckFile" name="UploadAppointmentLetter" id="UploadAppointmentLetter" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
+                                                    @Html.ValidationMessageFor(model => model.UploadAppointmentLetter, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="mark-devide"></div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                    @*<div class="form-group">
+                                            <div class="col-md-12">
+                                                <input type="submit" name="btnsubmit" value="Submit" id="btnsubmit" class="btn-register" />
+                                            </div>
+                                        </div>*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> &nbsp; &nbsp;
+                    <input type="submit" name="btnsubmitpop" id="btnsubmitpop" value="Submit" class="btn btn-primary" />
+                    @*<button type="button" class="btn btn-primary" id="btnsubmitpop">Submit</button>*@
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Content/plugins/multiple-email/jquery.email.multiple.js"></script>
+    <script src="~/Scripts/CustomValidator.js"></script>
+    <script src="~/Scripts/Custom/Master.js"></script>
+    <script>
+        $(document).ready(function () {
+
+
+
+              if ('@Model' != 'null') {
+                  if ('@Model.PlacementTrackerId_pk' != '@Guid.Empty') {
+                      /*    setTimeout(() => {*/
+                      //BindStateList("StateId", '', "1");
+                      BindDistrict("DistrictId", '@Model.DistrictId', "1", '@Model.StateId');
+                      // $("#DistrictID").trigger("change").select2();
+                      if ('@Model.PreTrainingStatus' != 'true') {
+                          $("input[name=PreTrainingStatus]").prop('checked', true);
+                      }
+                       if ('@Model.TargetGroup' != 'true') {
+                           $("input[name=TargetGroup]").prop('checked', true);
+                      }
+                      if ('@Model.MaritalStatus' != 'true') {
+                        $("input[name=MaritalStatus]").prop('checked', true);
+                      }
+
+
+                      /* }, "3000");*/
+                  }
+                  else {
+                     // $('#StateId').val('');
+                      $('#DistrictId').val('');
+                     // BindStateList("StateId", '', "1");
+                      BindDistrict("DistrictId", '@Model.DistrictId', "1", '@Model.StateId');
+                  }
+              }
+              else {
+                 $('#StateId').val(''); $('#DistrictId').val('');
+                 // BindStateList("StateId", '', "1");
+                  BindDistrict("DistrictId", '@Model.DistrictId', "1", '@Model.StateId');
+            }
+
+            $(".UploadCheckFile").change(function (e) {
+
+                var fileInput = document.getElementsByClassName('UploadCheckFile');
+                let allowedExtension = ['image/jpeg', 'image/jpg', 'image/png'];
+                //Iterating through each files selected in fileInput
+                if (fileInput.files.length > 0) {
+                    for (i = 0; i < fileInput.files.length; i++) {
+                        if (fileInput.files[i]) {
+                            var sfilename = fileInput.files[i].name;
+                            // formData.append(sfilename, fileInput.files[i]);
+                            var file = fileInput.files[i], img;
+                            if (allowedExtension.indexOf(file.type) > -1) {
+                                if (Math.round(file.size / (1024 * 1024)) > 1) { // make it in MB so divide by 1024*1024  = 2 MB
+                                    toastr.error("Error", 'Please select image size less than 2 MB');
+                                    return false;
+                                }
+                            }
+                            else {
+                                toastr.error("Error", 'Please select valid image.');
+                                $(this).val('');
+                                return false;
+                            }
+                        }
+                    }
+                }
+
+            });
+
+
+
+        });
+    </script>
+}

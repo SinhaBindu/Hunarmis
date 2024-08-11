@@ -109,6 +109,8 @@
     </div>
 </div>
 
+<div id="div-popmodel"></div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/Custom/Master.js"></script>
@@ -130,6 +132,7 @@
             //    /* Role Wise */
             //    BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
 
+            $('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
             $('#BatchId').change(function (e) {
                 e.preventDefault();
                 BindData();
@@ -140,25 +143,166 @@
                 BindModuleWiseBatches("BatchId", "", 2, '0', $(this).val(), 0)
                 BindData();
             });
-            setTimeout(function () {
-                $('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
-                //$('select[name="BatchId"]').find('option[value="21"]').attr("selected", true).change();
-                BindData();
-            }, 200);
+            BindData();
+            //setTimeout(function () {
+
+            //    //$('select[name="BatchId"]').find('option[value="21"]').attr("selected", true).change();
+            //    BindData();
+            //}, 200);
             $("#formid").submit(function (e) {
                 e.preventDefault();
                 BindData();
             });
-            //$("#BatchId").change(function (e) {
-            //    e.preventDefault();
-            //    BindData();
-            //});
-            //$("#CourseId").change(function (e) {
-            //    e.preventDefault();
-            //    BindData();
-            //});
+
+             //model pop call
+            $(document).on('change', '#StateId', function (e) {
+                e.preventDefault();
+                BindDistrict("DistrictId", '', "1", $(this).val());
+            });
+            $(document).on('click', '.btnpop', function (e) {
+                $('#div-popmodel').html('');
+                debugger;
+                var button = $(e.relatedTarget); // Button that triggered the modal
+                var id = button.data('id'); // Extract the id from data-* attributes
+                var datapartid = $(this).attr('data-id'); // Extract the id from data-* attributes
+
+                var modal = $(this);
+
+                // Load content via AJAX
+                $.ajax({
+                    url: '@Url.Action("AddPlacementTracker", "Participant")',
+                    data: { PartId: datapartid, Id: '@Guid.Empty' },
+                    success: function (result) {
+                        $('#div-popmodel').html(result);
+                        $("#myModal").modal({ backdrop: "static" });
+                        $("#DateofOffer").datepicker({
+                            beforeShow: customRangeEndComplt,
+                            //dateFormat: 'mm-dd-yy',
+                            dateFormat: 'dd-M-yy',
+                            // changeMonth: true,
+                            //changeYear: true,
+                            maxDate: new Date(),
+                            onSelect: function (d, i) {
+                                if (d !== i.lastVal) {
+                                    $(this).change();
+                                }
+                            }
+                        });
+
+                        $("#DOJStartDate").datepicker({
+                            //defaultDate: "+1w",
+                            changeMonth: true,
+                            numberOfMonths: 1,
+                            dateFormat: 'dd-M-yy',
+                            maxDate: new Date(),
+                            onClose: function (selectedDate) {
+                                $("#DOJEndDate").datepicker("option", "minDate", selectedDate);
+                            }
+                        });
+                        $("#DOJEndDate").datepicker({
+                            //defaultDate: "+1w",
+                            changeMonth: true,
+                            numberOfMonths: 1,
+                            dateFormat: 'dd-M-yy',
+                            maxDate: new Date(),
+                            onClose: function (selectedDate) {
+                                $("#DOJStartDate").datepicker("option", "maxDate", selectedDate);
+                            }
+                        });
+
+                        $('#StateId').val('0'); $('#DistrictId').val('');
+                        BindDistrict("DistrictId", '', "1", $('#DistrictId').val());
+
+                    }
+                });
+            });
+
+           // $(document).on('click', "#btnsubmitpop #formidpop ", function (event) {
+            $(document).on('submit', "#formidpop", function (event) {
+                //button[type='submit']
+                event.preventDefault();
+                //jQuery.event.trigger("ajaxStart");
+                debugger;
+                //var formDataJson = $('#formid').serialize();//formData.append('tax_file', $('input[type=file]')[0].files[0]);
+
+                //var vl = $("#formid").validate();
+                ////var formData = new FormData($('#formid')[0]);
+
+                var formData = new FormData();
+                var isvalid = $("#formidpop").valid(); //$('#formid').validate();
+                //var formData = $(this).serialize();
+                var formDataSerialized = $("#formidpop").serialize();
+
+                var pts = $('input[name="PreTrainingStatus"]:checked').val();
+                var tg = $('input[name="TargetGroup"]:checked').val();
+                
+                formDataSerialized.split('&').forEach(function (item) {
+                    var parts = item.split('=');
+                    formData.append(decodeURIComponent(parts[0]), decodeURIComponent(parts[1]));
+                });
+
+                 if ($('#UploadOfferLetter').get(0).files.length != 0) {
+                      formData.append('UploadOfferLetter', $('#UploadOfferLetter')[0].files[0]);
+                  }
+                  if ($('#UploadAppointmentLetter').get(0).files.length != 0) {
+                      formData.append('UploadAppointmentLetter', $('#UploadAppointmentLetter')[0].files[0]);
+                }
+                formData.append('PreTrainingStatus', pts);
+                formData.append('TargetGroup', tg);
+
+            if (isvalid) {
+                $('#btnsubmitpop').attr('disabled', true);
+                $.ajax({
+                    type: "POST",
+                    url: document.baseURI + "/Participant/PostPlacementTracker/",
+                    data: formData,
+                    //use contentType, processData for sure.
+                    contentType: false,
+                     processData: false,
+                    dataType: 'json',
+                    //contentType: "application/json; charset=utf-8",
+                    success: function (resp) {
+                        if (resp.StatusType == "success") {
+                            toastr.success("Success", resp.Message);
+                            BindData();
+                            //jQuery.event.trigger("ajaxStop");
+                            //$('#btnsubmitpop').attr('disabled', true);
+                            if ($('#PlacementTrackerId_pk').val() == '@Guid.Empty') {
+                                $("#formidpop")[0].reset();
+                               // BindStateList("StateId", '', "1");
+                                BindDistrict("DistrictId", '', "1" ,0);
+                            }
+                        }
+                        else {
+                            $('#btnsubmitpop').attr('disabled', false);
+                            toastr.error("Error", resp.Message);
+                        }
+                    },
+                    error: function (req, error) {
+                        $('#btnsubmitpop').attr('disabled', false);
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        toastr.error("Error", errormsg);
+                        //jQuery.event.trigger("ajaxStop");
+                        return false;
+                    }
+                });
+            }
+            else {
+                //CreateToasterMessage("Error", "All Record Validate !!", "error");
+                toastr.error("Error", "All Record Validate !!");
+                // jQuery.event.trigger("ajaxStop");
+                return false;
+            }
+        });
 
         });
+
+        function customRangeEndComplt(input) {
+            return {
+                minDate: (input.id == "DateofOffer" ? $("#DOJStartDate").datepicker("getDate") : new Date((currentYear - 1), 12, 1))
+            };
+        }
 
         function BindData() {
             $("#subdata").html('');
@@ -169,7 +313,7 @@
             filtermodel.CourseId = $('#CourseId').val() == '' ? "0" : $('#CourseId').val();
             //filtermodel.BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
             var formData = $('#formid').serialize();
-
+            $('#global-loader').css('background', 'transparent').css('display', 'block');
             $.ajax({
                 type: "Get",
                 url: document.baseURI + "/Participant/GetPartList",
@@ -178,6 +322,7 @@
                 async: false,
                 success: function (res) {
                     if (res.IsSuccess) {
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
                         $("#subdata").html(res.Data);
 
                         if ($.fn.dataTable.isDataTable('#tbl')) {
@@ -210,15 +355,58 @@
                     }
                     else {
                         $("#subdata").html(res.Data);
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
                     }
                 },
                 error: function (req, error) {
                     if (error === 'error') { error = req.statusText; }
                     var errormsg = 'There was a communication error: ' + error;
+                    //$('#subdata').html("<h4 class='text-center text-danger'>" + errormsg +"!</h4>");
+                    $('#global-loader').css('background', 'transparent').css('display', 'none');
                     //Do To Message display
                 }
             });
         }
+
+        function BindPlacementDetailData(ParticipantId, PlacementTrackerId) {
+            $("#div-popmodel").html('');
+            var filtermodel = new Object();
+            filtermodel.ParticipantId = ParticipantId;
+            filtermodel.PlacementTrackerId = PlacementTrackerId;
+            $('#global-loader').css('background', 'transparent').css('display', 'block');
+            if (PlacementTrackerId != '' && PlacementTrackerId != undefined && PlacementTrackerId != null) {
+                $.ajax({
+                    type: "Get",
+                    url: document.baseURI + "/Participant/PlacementTrackerDetail",
+                    data: filtermodel,
+                    //cache: false,
+                    async: false,
+                    success: function (res) {
+                        if (res) {
+                            $('#global-loader').css('background', 'transparent').css('display', 'none');
+                            $('#div-popmodel').html(res);
+                            $("#myModal").modal({ backdrop: "static" });
+                        }
+                        else {
+                            $("#div-popmodel").html("<h4 class='text-center text-danger'>" + res + "!</h4>");
+                            $('#global-loader').css('background', 'transparent').css('display', 'none');
+                        }
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        $('#div-popmodel').html("<h4 class='text-center text-danger'>" + errormsg + "!</h4>");
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
+                        //Do To Message display
+                    }
+                });
+            }
+            else {
+                $('#div-popmodel').html("<h4 class='text-center text-danger'> Placement Tracker Details Not Found !</h4>");
+            }
+          
+        }
+
     </script>
 }
 

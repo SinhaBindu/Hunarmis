@@ -410,12 +410,18 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EducationalModel.cs" />
+    <Compile Include="Models\EmployeeType_Master.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FileExcelModel.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\FormMaster.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FormModel.cs" />
+    <Compile Include="Models\Industry_Master.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\JobEmployed_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -471,6 +477,7 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PlacementTracker_Model.cs" />
     <Compile Include="Models\QuestionBook.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -526,6 +533,9 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Participant_Calling.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_PlacementTracker.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_SendMail.cs">
@@ -1794,6 +1804,8 @@
     <Content Include="Views\Attendance\_ParticipantSendData.cshtml" />
     <Content Include="Views\Attendance\_AttendanceSummaryData.cshtml" />
     <Content Include="Views\Attendance\AttendanceSummary.cshtml" />
+    <Content Include="Views\Participant\_AddPlacementTracker.cshtml" />
+    <Content Include="Views\Participant\_ViewPlacementTracker.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

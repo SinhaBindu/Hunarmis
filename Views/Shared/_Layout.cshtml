@@ -135,6 +135,10 @@
         function ClearResults() {
             $("#DivDetails").empty();
         }
+        function setTwoNumberDecimal(event) {
+            this.value = parseFloat(this.value).toFixed(2);
+        }
+
     </script>
     @{
         if (Session["CUser"] == null && Session["PartUserId"] != null)
@@ -161,7 +165,10 @@
             <script>
    $(document).ready(function () {
    var url = '@Url.Action("Login", "Account")';
-      location.href = url;});
+       location.href = url;
+   });
+
+               
             </script>
         }
 

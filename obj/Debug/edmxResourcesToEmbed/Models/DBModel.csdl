@@ -56,6 +56,13 @@
       <End Role="tbl_Survey" EntitySet="tbl_Survey" />
       <End Role="tbl_SurveyAnswer" EntitySet="tbl_SurveyAnswer" />
     </AssociationSet>
+    <EntitySet Name="EmployeeType_Master" EntityType="Hunar_DBModel.EmployeeType_Master" />
+    <EntitySet Name="Industry_Master" EntityType="Hunar_DBModel.Industry_Master" />
+    <EntitySet Name="tbl_PlacementTracker" EntityType="Hunar_DBModel.tbl_PlacementTracker" />
+    <AssociationSet Name="FK_tbl_PlacementTracker_tbl_Participant" Association="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant">
+      <End Role="tbl_Participant" EntitySet="tbl_Participant" />
+      <End Role="tbl_PlacementTracker" EntitySet="tbl_PlacementTracker" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="AspNetRole">
     <Key>
@@ -604,6 +611,7 @@
     <Property Name="RemarksID_fk" Type="Guid" />
     <Property Name="CallingID_fk" Type="Guid" />
     <Property Name="IsAssessmentDone" Type="Boolean" />
+    <NavigationProperty Name="tbl_PlacementTracker" Relationship="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" FromRole="tbl_Participant" ToRole="tbl_PlacementTracker" />
   </EntityType>
   <EntityType Name="tbl_AttendanceParticipant">
     <Key>
@@ -798,6 +806,77 @@
       </Principal>
       <Dependent Role="tbl_SurveyAnswer">
         <PropertyRef Name="SId_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="EmployeeType_Master">
+    <Key>
+      <PropertyRef Name="EmployeeTypeId_pk" />
+    </Key>
+    <Property Name="EmployeeTypeId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeTypeName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsDeletedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Industry_Master">
+    <Key>
+      <PropertyRef Name="IndustryId_pk" />
+    </Key>
+    <Property Name="IndustryId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IndustryName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsDeletedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbl_PlacementTracker">
+    <Key>
+      <PropertyRef Name="PlacementTrackerId_pk" />
+    </Key>
+    <Property Name="PlacementTrackerId_pk" Type="Guid" Nullable="false" />
+    <Property Name="ParticipantId_fk" Type="Guid" />
+    <Property Name="MaritalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NoofFamilyMembers" Type="Int32" />
+    <Property Name="AnnualHouseholdincome" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="EmployeeTypeId" Type="Int32" />
+    <Property Name="IndustryId" Type="Int32" />
+    <Property Name="PreTrainingStatus" Type="Boolean" />
+    <Property Name="TargetGroup" Type="Boolean" />
+    <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Designation" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
+    <Property Name="Salary" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="StateId" Type="Int32" />
+    <Property Name="DistrictId" Type="Int32" />
+    <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DateofOffer" Type="DateTime" Precision="0" />
+    <Property Name="DateofJoining" Type="DateTime" Precision="0" />
+    <Property Name="DOJStartDate" Type="DateTime" Precision="0" />
+    <Property Name="DOJEndDate" Type="DateTime" Precision="0" />
+    <Property Name="UploadOfferLetterPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UploadAppointmentLetterPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsDeletedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tbl_Participant" Relationship="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" FromRole="tbl_PlacementTracker" ToRole="tbl_Participant" />
+  </EntityType>
+  <Association Name="FK_tbl_PlacementTracker_tbl_Participant">
+    <End Type="Hunar_DBModel.tbl_Participant" Role="tbl_Participant" Multiplicity="0..1" />
+    <End Type="Hunar_DBModel.tbl_PlacementTracker" Role="tbl_PlacementTracker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Participant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_PlacementTracker">
+        <PropertyRef Name="ParticipantId_fk" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

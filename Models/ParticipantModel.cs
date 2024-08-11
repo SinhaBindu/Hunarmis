@@ -123,4 +123,30 @@ namespace Hunarmis.Models
         public const string IsOffered = "Offered";
         public const string IsPlaced = "Placed";
     }
+
+    public class BasicDetailsForPartModel
+    {
+        [Display(Name = DplyPartCalName.RegID)]
+        public string RegID { get; set; }
+        [Display(Name = DplyPartCalName.FullName)]
+        public string FullName { get; set; }
+        [Display(Name = DplyPartCalName.BatchName)]
+        public string BatchId { get; set; }
+        [Display(Name = DplyPartCalName.BatchName)]
+        public string BatchName { get; set; }
+        [Display(Name = DplyPartCalName.SBatchDt)]
+        public string SBatchDt { get; set; }
+        [Display(Name = DplyPartCalName.EBatchDt)]
+        public string EBatchDt { get; set; }
+        [Display(Name = DplyPartCalName.PhoneNo)]
+        public string PhoneNo { get; set; }
+        [Display(Name = DplyPartCalName.TrainingAgencyName)]
+        public string TrainingAgencyName { get; set; }
+        [Display(Name = DplyPartCalName.TrainingCenter)]
+        public string TrainingCenter { get; set; }
+        [Display(Name = DplyPartCalName.ReportedBy)]
+        public string ReportedBy { get; set; }
+        [Display(Name = DplyPartCalName.ReportedOn)]
+        public string ReportedOn { get; set; }
+    }
 }

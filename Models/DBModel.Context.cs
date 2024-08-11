@@ -64,5 +64,8 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_AssessmentSendLinkEmail> tbl_AssessmentSendLinkEmail { get; set; }
         public virtual DbSet<tbl_Survey> tbl_Survey { get; set; }
         public virtual DbSet<tbl_SurveyAnswer> tbl_SurveyAnswer { get; set; }
+        public virtual DbSet<EmployeeType_Master> EmployeeType_Master { get; set; }
+        public virtual DbSet<Industry_Master> Industry_Master { get; set; }
+        public virtual DbSet<tbl_PlacementTracker> tbl_PlacementTracker { get; set; }
     }
 }

@@ -113,7 +113,7 @@ namespace Hunarmis.Controllers
             JsonResponseData response = new JsonResponseData();
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && MvcApplication.CUser != null)
                 {
                     var getdt = db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
                     if (getdt.Any(x => x.PhoneNo == model.PhoneNo.Trim() && x.BatchId == model.BatchId && model.ID == Guid.Empty))
@@ -147,7 +147,7 @@ namespace Hunarmis.Controllers
                         tbl.TrainingAgencyID = model.TrainingAgencyID;
                         tbl.TrainingCenterID = model.TrainingCenterID;
                         tbl.TrainerName = !(string.IsNullOrWhiteSpace(model.TrainerName)) ? model.TrainerName.Trim() : model.TrainerName;
-                        tbl.TrainerId =  model.TrainerId!=Guid.Empty ? model.TrainerId:null;
+                        tbl.TrainerId = model.TrainerId != Guid.Empty ? model.TrainerId : null;
                         tbl.IsActive = true;
                         tbl.IsPlaced = model.Is_Placed == "1" ? true : false;
                         tbl.IsOffered = model.Is_Offered == "1" ? true : false;
@@ -198,8 +198,9 @@ namespace Hunarmis.Controllers
                     return resResponse1;
                 };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                CommonModel.ExpSubmit("tbl_Participant", "Participant", "AddParticipant", "AddParticipant", ex.Message);
                 response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error.", Data = null };
                 var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                 resResponse1.MaxJsonLength = int.MaxValue;
@@ -207,6 +208,127 @@ namespace Hunarmis.Controllers
             }
             return View();
         }
+
+        #region PlacementTracker 
+        public ActionResult AddPlacementTracker(Guid PartId, Guid? Id)
+        {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            PlacementTracker_Model model = new PlacementTracker_Model();
+            if (PartId != Guid.Empty && PartId != null)
+            {
+                var tbl = db.tbl_Participant.Find(PartId);
+                if (tbl != null)
+                {
+                    model.ParticipantId_fk = tbl.ID;
+                    model.modelbasicpart.RegID = tbl.RegID;
+                    model.modelbasicpart.FullName = tbl.FullName;
+                    model.modelbasicpart.PhoneNo = tbl.PhoneNo;
+                    var batch = db_.Batch_Master.Where(x => x.Id == tbl.BatchId)?.FirstOrDefault();
+                    model.modelbasicpart.BatchName = batch != null ? batch.BatchName : null;
+                    model.modelbasicpart.SBatchDt = batch != null ? CommonModel.FormateDtDMY(batch.BatchStartDate.ToString()) : null;
+                    model.modelbasicpart.EBatchDt = batch != null ? CommonModel.FormateDtDMY(batch.BatchEndDate.ToString()) : null;
+                    var TrainAcy = db_.TrainingAgency_Master.Where(x => x.Id == tbl.TrainingAgencyID)?.FirstOrDefault();
+                    var TrainCen = db_.TrainingCenter_Master.Where(x => x.Id == tbl.TrainingCenterID
+                    && x.TrainingAgencyID_fk == tbl.TrainingAgencyID && x.DistrictID_fk == tbl.DistrictID)?.FirstOrDefault();
+                    model.modelbasicpart.TrainingAgencyName = TrainAcy != null ? TrainAcy.TrainingAgencyName : null;
+                    model.modelbasicpart.TrainingCenter = TrainCen != null ? TrainCen.TrainingCenter : null;
+                }
+            }
+            return PartialView("_AddPlacementTracker", model);
+        }
+        public ActionResult PlacementTrackerDetail(FilterModel filtermodel)
+        {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            DataTable dt = new DataTable();
+            if (!string.IsNullOrWhiteSpace(filtermodel.ParticipantId) && !string.IsNullOrWhiteSpace(filtermodel.PlacementTrackerId))
+            {
+                dt = SPManager.SP_PlacementTrackerDetail(filtermodel);
+            }
+            return PartialView("_ViewPlacementTracker", dt);
+        }
+        [HttpPost]
+        public ActionResult PostPlacementTracker(PlacementTracker_Model model)
+        {
+            JsonResponseData response = new JsonResponseData();
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            try
+            {
+                if (model.DateofOffer > model.DOJStartDate)
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Date of offer greater than date of joining.", Data = null };
+                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse3.MaxJsonLength = int.MaxValue;
+                    return resResponse3;
+                }
+                var tbl = (model.ParticipantId_fk != Guid.Empty && model.PlacementTrackerId_pk != Guid.Empty) ? db_.tbl_PlacementTracker.Find(model.PlacementTrackerId_pk) : new tbl_PlacementTracker();
+                if (tbl != null && MvcApplication.CUser != null)
+                {
+                    if (model.ParticipantId_fk != Guid.Empty)
+                    {
+                        tbl.MaritalStatus = model.MaritalStatus;
+                        tbl.NoofFamilyMembers = model.NoofFamilyMembers;
+                        tbl.AnnualHouseholdincome = model.AnnualHouseholdincome;
+                        tbl.PreTrainingStatus = model.PreTrainingStatus == 1 ? true : false;
+                        tbl.TargetGroup = model.TargetGroup == 1 ? true : false;
+                        tbl.EmployeeTypeId = model.EmployeeTypeId;
+                        tbl.IndustryId = model.IndustryId;
+                        tbl.CompanyName = model.CompanyName;
+                        tbl.Designation = model.Designation;
+                        tbl.Salary = model.Salary;
+                        tbl.StateId = model.StateId;
+                        tbl.DistrictId = model.DistrictId;
+                        tbl.PinCode = model.PinCode;
+                        tbl.DateofOffer = model.DateofOffer;
+                        tbl.DOJStartDate = model.DOJStartDate;
+                        tbl.DOJEndDate = model.DOJEndDate;
+
+                        tbl.PlacementTrackerId_pk = Guid.NewGuid();
+                        if (model.UploadOfferLetter != null)
+                        {
+                            var filePathUOL = CommonModel.SaveSingleFile(model.UploadOfferLetter, tbl.PlacementTrackerId_pk.ToString(), "UploadOfferLetter");
+                            var physicalFilePathhUOL = Server.MapPath(filePathUOL);
+                            tbl.UploadOfferLetterPath = filePathUOL;
+                        }
+                        if (model.UploadAppointmentLetter != null)
+                        {
+                            var filePathUAL = CommonModel.SaveSingleFile(model.UploadAppointmentLetter, tbl.PlacementTrackerId_pk.ToString(), "UploadAppointmentLetter");
+                            var physicalFilePathhUAL = Server.MapPath(filePathUAL);
+                            tbl.UploadAppointmentLetterPath = filePathUAL;
+                        }
+
+                        if (model.PlacementTrackerId_pk == Guid.Empty)
+                        {
+                            tbl.ParticipantId_fk = model.ParticipantId_fk;
+                            tbl.IsActive = true;
+                            tbl.CreatedBy = MvcApplication.CUser.UserId;
+                            tbl.CreatedOn = DateTime.Now;
+                            db_.tbl_PlacementTracker.Add(tbl);
+                        }
+                        results = db_.SaveChanges();
+                        if (results > 0)
+                        {
+                            response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been Submit successfully ! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + model.modelbasicpart.RegID + " </strong> </span>", Data = null };
+                            var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                            resResponse3.MaxJsonLength = int.MaxValue;
+                            return resResponse3;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                CommonModel.ExpSubmit("tbl_PlacementTracker", "Participant", "AddPlacementTracker", "AddPlacementTracker", ex.Message);
+                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError), Data = null };
+                var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                resResponse3.MaxJsonLength = int.MaxValue;
+                return resResponse3;
+            }
+            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.AllFieldsRequired), Data = null };
+            var resResponsejs = Json(response, JsonRequestBehavior.AllowGet);
+            resResponsejs.MaxJsonLength = int.MaxValue;
+            return resResponsejs;
+        }
+        #endregion
 
         #region Calling Method Post Data
         public ActionResult GetTempStatus()
@@ -261,7 +383,7 @@ namespace Hunarmis.Controllers
             catch (Exception ex)
             {
                 string er = ex.Message;
-                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+                return Json(new { IsSuccess = false, Data = "There are communication error." }, JsonRequestBehavior.AllowGet); throw;
             }
         }
         public ActionResult AddPartCalling(Guid? Id, Guid? PartId)
@@ -381,63 +503,13 @@ namespace Hunarmis.Controllers
             JsonResponseData response = new JsonResponseData();
             try
             {
-                if (model != null)
+                if (MvcApplication.CUser != null)
                 {
-                    var getdt = db_.tbl_Participant.Where(x => x.IsActive == true && x.ID == model.ParticipantId_fk)?.FirstOrDefault();
-                    if (model.CallType == Enums.GetEnumDescription(Enums.eTypeCall.No)
-                        && !string.IsNullOrWhiteSpace(model.Remark))
+                    if (model != null)
                     {
-                        if (db_.tbl_Participant_Calling.Any(x => x.ParticipantId_fk == model.ParticipantId_fk && model.ID == Guid.Empty && (x.QuesMonth == model.QuesMonth && x.QuesYear == model.QuesYear)))
-                        {
-                            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "This Participant Is Already Exists.<br /> <span> Reg ID : <strong>" + getdt.RegID + " </strong>  </span>", Data = null };
-                            var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
-                            resResponse1.MaxJsonLength = int.MaxValue;
-                            return resResponse1;
-                        }
-                        //var tbl = new tbl_Participant_Calling();
-                        if (model.ID == Guid.Empty)
-                        {
-                            //tbl.ID = Guid.NewGuid();
-                            //tbl.QuesMonth = model.QuesMonth;
-                            //tbl.QuesYear = model.QuesYear;
-                            //tbl.IsCalling = model.CallType;
-                            //tbl.Remark = model.Remark.Trim();
-                            //tbl.IsActive = true;
-                            //tbl.CreatedBy = MvcApplication.CUser.UserId;
-                            //tbl.CreatedOn = DateTime.Now;
-                            //db_.tbl_Participant_Calling.Add(tbl);
-
-                            var tblpart = db_.tbl_Participant.Find(model.ParticipantId_fk);
-                            tblpart.CallTempStatus = (int)Enums.eTempCallStatus.CallNotPick;
-                            tblpart.CallTempReportedBy = MvcApplication.CUser.UserId;
-                            tblpart.CallTempStatusDate = DateTime.Now;
-                            tblpart.CallYear = model.QuesYear;
-                            tblpart.CallMonth = model.QuesMonth;
-                            tblpart.CallRemark = model.Remark.Trim();
-                            tblpart.RemarkStatus = model.RemarkStatus;
-                            tblpart.RemarkDate = DateTime.Now;
-                            tblpart.RemarkReportedBy = MvcApplication.CUser.UserId;
-
-                            results = db_.SaveChanges();
-
-                            if (tblpart != null && results > 0)
-                            {
-                                var gudidremarks = Guid.NewGuid();
-                                results = GetUpdateRemarks(tblpart, gudidremarks);
-                                tblpart.RemarksID_fk = gudidremarks;
-                                results = db_.SaveChanges();
-                            }
-
-                            response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Congratulations, you have been Submitted successfully Reg ID : <strong>" + getdt.RegID + " </strong>  </span>", Data = null };
-                            var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
-                            resResponse1.MaxJsonLength = int.MaxValue;
-                            return resResponse1;
-
-                        }
-                    }
-                    else if (model.CallType == Enums.GetEnumDescription(Enums.eTypeCall.Yes))
-                    {
-                        if (ModelState.IsValid)
+                        var getdt = db_.tbl_Participant.Where(x => x.IsActive == true && x.ID == model.ParticipantId_fk)?.FirstOrDefault();
+                        if (model.CallType == Enums.GetEnumDescription(Enums.eTypeCall.No)
+                            && !string.IsNullOrWhiteSpace(model.Remark))
                         {
                             if (db_.tbl_Participant_Calling.Any(x => x.ParticipantId_fk == model.ParticipantId_fk && model.ID == Guid.Empty && (x.QuesMonth == model.QuesMonth && x.QuesYear == model.QuesYear)))
                             {
@@ -446,100 +518,155 @@ namespace Hunarmis.Controllers
                                 resResponse1.MaxJsonLength = int.MaxValue;
                                 return resResponse1;
                             }
-                            var tbl = model.ID != Guid.Empty ? db.tbl_Participant_Calling.Find(model.ID) : new tbl_Participant_Calling();
-                            if (tbl != null)
+                            //var tbl = new tbl_Participant_Calling();
+                            if (model.ID == Guid.Empty)
                             {
-                                tbl.IsAssessmentCert = model.IsAssessmentCert;
-                                tbl.IsPresent = model.IsPresent;
-                                model.PlacedStatus = model.IsPresent;
-                                //tbl.IsPresent = model.IsPresent.ToString() == Enums.GetEnumDescription(Enums.eTypeCall.Yes) ? model.IsPresent : model.IsPresent;
-                                if (model.IsPresent == Enums.GetEnumDescription(Enums.eTypeCall.Yes))
+                                //tbl.ID = Guid.NewGuid();
+                                //tbl.QuesMonth = model.QuesMonth;
+                                //tbl.QuesYear = model.QuesYear;
+                                //tbl.IsCalling = model.CallType;
+                                //tbl.Remark = model.Remark.Trim();
+                                //tbl.IsActive = true;
+                                //tbl.CreatedBy = MvcApplication.CUser.UserId;
+                                //tbl.CreatedOn = DateTime.Now;
+                                //db_.tbl_Participant_Calling.Add(tbl);
+
+                                var tblpart = db_.tbl_Participant.Find(model.ParticipantId_fk);
+                                tblpart.CallTempStatus = (int)Enums.eTempCallStatus.CallNotPick;
+                                tblpart.CallTempReportedBy = MvcApplication.CUser.UserId;
+                                tblpart.CallTempStatusDate = DateTime.Now;
+                                tblpart.CallYear = model.QuesYear;
+                                tblpart.CallMonth = model.QuesMonth;
+                                tblpart.CallRemark = model.Remark.Trim();
+                                tblpart.RemarkStatus = model.RemarkStatus;
+                                tblpart.RemarkDate = DateTime.Now;
+                                tblpart.RemarkReportedBy = MvcApplication.CUser.UserId;
+
+                                results = db_.SaveChanges();
+
+                                if (tblpart != null && results > 0)
                                 {
-                                    tbl.IsComfortable = model.IsComfortable;
-                                    tbl.EmpCompany = model.EmpCompany;
-                                    tbl.FirstJobTraining = model.FirstJobTraining;
-                                    tbl.DOJ = model.DOJ;
-                                    tbl.CurrentEmployer = model.CurrentEmployer;
-                                    tbl.Designation = model.Designation;
-                                    tbl.SalaryPackage = model.SalaryPackage;
-                                    tbl.CurrentlyWorking = model.CurrentlyWorking;
-                                    tbl.WorkingKM = model.WorkingKM;
-                                    tbl.WorkingKMOther = model.WorkingKMOther;
-                                    tbl.Traininghelp = model.Traininghelp;
-                                    tbl.SalaryWages = model.SalaryWages;
-                                    tbl.ExpectationJobRole = model.ExpectationJobRole;
-                                    tbl.WorkPlaceSafe = model.WorkPlaceSafe;
-                                    tbl.IsMSBenefit = model.IsMSBenefit;
-                                    tbl.MSBenefitId = model.MSBenefitId;
-                                    tbl.MSOther = model.MSOther;
-                                    tbl.AnyChallenges = model.AnyChallenges;
-                                    tbl.AreaSupport = model.AreaSupport;
+                                    var gudidremarks = Guid.NewGuid();
+                                    results = GetUpdateRemarks(tblpart, gudidremarks);
+                                    tblpart.RemarksID_fk = gudidremarks;
+                                    results = db_.SaveChanges();
                                 }
-                                tbl.EmployedId = model.IsPresent.ToString() == Enums.GetEnumDescription(Enums.eTypeCall.Yes) ? model.EmployedId : null;
-                                tbl.EmployedOther = model.EmployedId == 3 ? model.EmployedOther : null;
-                                tbl.IsGettingjob = model.IsGettingjob;
-                                tbl.PlacedStatus = model.PlacedStatus;
-                                tbl.IsActive = true;
-                                if (model.ID == Guid.Empty)
+
+                                response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Congratulations, you have been Submitted successfully Reg ID : <strong>" + getdt.RegID + " </strong>  </span>", Data = null };
+                                var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                                resResponse1.MaxJsonLength = int.MaxValue;
+                                return resResponse1;
+
+                            }
+                        }
+                        else if (model.CallType == Enums.GetEnumDescription(Enums.eTypeCall.Yes))
+                        {
+                            if (ModelState.IsValid)
+                            {
+                                if (db_.tbl_Participant_Calling.Any(x => x.ParticipantId_fk == model.ParticipantId_fk && model.ID == Guid.Empty && (x.QuesMonth == model.QuesMonth && x.QuesYear == model.QuesYear)))
                                 {
-                                    tbl.ID = Guid.NewGuid();
-                                    tbl.QuesMonth = model.QuesMonth;
-                                    tbl.QuesYear = model.QuesYear;
-                                    tbl.CallingDate = DateTime.Now.Date;
-                                    tbl.IsCalling = Enums.GetEnumDescription(Enums.eTypeCall.Yes);
-                                    tbl.ParticipantId_fk = model.ParticipantId_fk;
-                                    tbl.CreatedBy = MvcApplication.CUser.UserId;
-                                    tbl.CreatedOn = DateTime.Now;
-                                    db_.tbl_Participant_Calling.Add(tbl);
-                                    results += db_.SaveChanges();
-                                    var tblpart = db_.tbl_Participant.Find(model.ParticipantId_fk);
-                                    var tblcal = db_.tbl_Participant_Calling.Where(x => x.ParticipantId_fk == model.ParticipantId_fk);
-                                    var noofcall = tblcal != null ? tblcal.Count() + 1 : 0;
-                                    tblpart.CallTempStatus = (int)Enums.eTempCallStatus.CallDone;
-                                    tblpart.CallTempReportedBy = MvcApplication.CUser.UserId;
-                                    tblpart.CallTempStatusDate = tbl.CreatedOn;
-                                    tblpart.IsPlaced = model.PlacedStatus == Enums.GetEnumDescription(Enums.ePlaced.Yes) ? true : false;
-                                    tblpart.CallMonth = model.QuesMonth;
-                                    tblpart.CallYear = model.QuesYear;
-                                    tblpart.AtPresentCallStatus = noofcall;
-                                    tblpart.CallingID_fk = tbl.ID;
-                                    results += db_.SaveChanges();
-                                }
-                                else if (model.ID != Guid.Empty)
-                                {
-                                    tbl.UpdatedBy = MvcApplication.CUser.UserId;
-                                    tbl.UpdatedOn = DateTime.Now;
-                                    results += db_.SaveChanges();
-                                }
-                                if (results > 0)
-                                {
-                                    var reg_id = db_.tbl_Participant.Where(x => x.ID == model.ParticipantId_fk)?.FirstOrDefault().RegID; //if (case_id != null) { }
-                                    if (model.ID != Guid.Empty)
-                                    {
-                                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been Updated successfully ! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + reg_id + " </strong> </span>", Data = null };
-                                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
-                                        resResponse3.MaxJsonLength = int.MaxValue;
-                                        return resResponse3;
-                                    }
-                                    response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been successfully Questionnaire! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + reg_id + " </strong> </span>", Data = null };
+                                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "This Participant Is Already Exists.<br /> <span> Reg ID : <strong>" + getdt.RegID + " </strong>  </span>", Data = null };
                                     var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                                     resResponse1.MaxJsonLength = int.MaxValue;
                                     return resResponse1;
                                 }
+                                var tbl = model.ID != Guid.Empty ? db.tbl_Participant_Calling.Find(model.ID) : new tbl_Participant_Calling();
+                                if (tbl != null)
+                                {
+                                    tbl.IsAssessmentCert = model.IsAssessmentCert;
+                                    tbl.IsPresent = model.IsPresent;
+                                    model.PlacedStatus = model.IsPresent;
+                                    //tbl.IsPresent = model.IsPresent.ToString() == Enums.GetEnumDescription(Enums.eTypeCall.Yes) ? model.IsPresent : model.IsPresent;
+                                    if (model.IsPresent == Enums.GetEnumDescription(Enums.eTypeCall.Yes))
+                                    {
+                                        tbl.IsComfortable = model.IsComfortable;
+                                        tbl.EmpCompany = model.EmpCompany;
+                                        tbl.FirstJobTraining = model.FirstJobTraining;
+                                        tbl.DOJ = model.DOJ;
+                                        tbl.CurrentEmployer = model.CurrentEmployer;
+                                        tbl.Designation = model.Designation;
+                                        tbl.SalaryPackage = model.SalaryPackage;
+                                        tbl.CurrentlyWorking = model.CurrentlyWorking;
+                                        tbl.WorkingKM = model.WorkingKM;
+                                        tbl.WorkingKMOther = model.WorkingKMOther;
+                                        tbl.Traininghelp = model.Traininghelp;
+                                        tbl.SalaryWages = model.SalaryWages;
+                                        tbl.ExpectationJobRole = model.ExpectationJobRole;
+                                        tbl.WorkPlaceSafe = model.WorkPlaceSafe;
+                                        tbl.IsMSBenefit = model.IsMSBenefit;
+                                        tbl.MSBenefitId = model.MSBenefitId;
+                                        tbl.MSOther = model.MSOther;
+                                        tbl.AnyChallenges = model.AnyChallenges;
+                                        tbl.AreaSupport = model.AreaSupport;
+                                    }
+                                    tbl.EmployedId = model.IsPresent.ToString() == Enums.GetEnumDescription(Enums.eTypeCall.Yes) ? model.EmployedId : null;
+                                    tbl.EmployedOther = model.EmployedId == 3 ? model.EmployedOther : null;
+                                    tbl.IsGettingjob = model.IsGettingjob;
+                                    tbl.PlacedStatus = model.PlacedStatus;
+                                    tbl.IsActive = true;
+                                    if (model.ID == Guid.Empty)
+                                    {
+                                        tbl.ID = Guid.NewGuid();
+                                        tbl.QuesMonth = model.QuesMonth;
+                                        tbl.QuesYear = model.QuesYear;
+                                        tbl.CallingDate = DateTime.Now.Date;
+                                        tbl.IsCalling = Enums.GetEnumDescription(Enums.eTypeCall.Yes);
+                                        tbl.ParticipantId_fk = model.ParticipantId_fk;
+                                        tbl.CreatedBy = MvcApplication.CUser.UserId;
+                                        tbl.CreatedOn = DateTime.Now;
+                                        db_.tbl_Participant_Calling.Add(tbl);
+                                        results += db_.SaveChanges();
+                                        var tblpart = db_.tbl_Participant.Find(model.ParticipantId_fk);
+                                        var tblcal = db_.tbl_Participant_Calling.Where(x => x.ParticipantId_fk == model.ParticipantId_fk);
+                                        var noofcall = tblcal != null ? tblcal.Count() + 1 : 0;
+                                        tblpart.CallTempStatus = (int)Enums.eTempCallStatus.CallDone;
+                                        tblpart.CallTempReportedBy = MvcApplication.CUser.UserId;
+                                        tblpart.CallTempStatusDate = tbl.CreatedOn;
+                                        tblpart.IsPlaced = model.PlacedStatus == Enums.GetEnumDescription(Enums.ePlaced.Yes) ? true : false;
+                                        tblpart.CallMonth = model.QuesMonth;
+                                        tblpart.CallYear = model.QuesYear;
+                                        tblpart.AtPresentCallStatus = noofcall;
+                                        tblpart.CallingID_fk = tbl.ID;
+                                        results += db_.SaveChanges();
+                                    }
+                                    else if (model.ID != Guid.Empty)
+                                    {
+                                        tbl.UpdatedBy = MvcApplication.CUser.UserId;
+                                        tbl.UpdatedOn = DateTime.Now;
+                                        results += db_.SaveChanges();
+                                    }
+                                    if (results > 0)
+                                    {
+                                        var reg_id = db_.tbl_Participant.Where(x => x.ID == model.ParticipantId_fk)?.FirstOrDefault().RegID; //if (case_id != null) { }
+                                        if (model.ID != Guid.Empty)
+                                        {
+                                            response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been Updated successfully ! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + reg_id + " </strong> </span>", Data = null };
+                                            var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                                            resResponse3.MaxJsonLength = int.MaxValue;
+                                            return resResponse3;
+                                        }
+                                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been successfully Questionnaire! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + reg_id + " </strong> </span>", Data = null };
+                                        var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                                        resResponse1.MaxJsonLength = int.MaxValue;
+                                        return resResponse1;
+                                    }
+                                }
                             }
-                        }
-                        else
-                        {
-                            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "All Record Required !!", Data = null };
-                            var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
-                            resResponse1.MaxJsonLength = int.MaxValue;
-                            return resResponse1;
+                            else
+                            {
+                                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "All Record Required !!", Data = null };
+                                var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                                resResponse1.MaxJsonLength = int.MaxValue;
+                                return resResponse1;
+                            };
                         };
-                    };
+                    }
                 }
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                CommonModel.ExpSubmit("tbl_Participant_Calling", "Participant", "AddPartCalling", "AddPartCalling", ex.Message);
                 response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error.", Data = null };
                 var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                 resResponse1.MaxJsonLength = int.MaxValue;
@@ -681,8 +808,29 @@ namespace Hunarmis.Controllers
                                     var AadharCardNo = dr["AadharCardNo"].ToString();
                                     if (db_.tbl_Participant.Any(x => x.PhoneNo == moblie))
                                     {
+
                                         strmobile += ", " + dr["PhoneNo"].ToString();
                                         var tblu = db_.tbl_Participant.Where(x => x.PhoneNo == moblie)?.FirstOrDefault();
+                                        var fulllist = dr["Name"].ToString().Split(' ');
+                                        if (fulllist != null || fulllist.Length != 0)
+                                        {
+                                            if (fulllist.Length >= 1)
+                                            {
+                                                tblu.FirstName = !(string.IsNullOrWhiteSpace(fulllist[0])) ? fulllist[0].Trim().ToUpper() : null;
+                                            }
+                                            if (fulllist.Length >= 2)
+                                            {
+                                                tblu.FirstName = !(string.IsNullOrWhiteSpace(fulllist[0])) ? fulllist[0].Trim().ToUpper() : null;
+                                                tblu.LastName = !(string.IsNullOrWhiteSpace(fulllist[1])) ? fulllist[1].Trim().ToUpper() : null;
+                                            }
+                                            else if (fulllist.Length >= 3)
+                                            {
+                                                tblu.FirstName = !(string.IsNullOrWhiteSpace(fulllist[0])) ? fulllist[0].Trim().ToUpper() : null;
+                                                tblu.MiddleName = !(string.IsNullOrWhiteSpace(fulllist[1])) ? fulllist[1].Trim().ToUpper() : null;
+                                                tblu.LastName = !(string.IsNullOrWhiteSpace(fulllist[2])) ? fulllist[2].Trim().ToUpper() : null;
+                                            }
+                                            tblu.FullName = !(string.IsNullOrWhiteSpace(dr["Name"].ToString())) ? dr["Name"].ToString().Trim() : null;
+                                        }
 
                                         tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
 
@@ -706,7 +854,7 @@ namespace Hunarmis.Controllers
 
                                         var bName = Convert.ToString(dr["BatchName"]);
                                         var GetBatchdata = !(string.IsNullOrWhiteSpace(bName)) ? db.Batch_Master.Where(x => x.BatchName == bName).FirstOrDefault() : null;
-                                         tblu.BatchId = GetBatchdata.Id;
+                                        tblu.BatchId = GetBatchdata.Id;
                                         tblu.TrainerId = GetBatchdata.TrainerId;
 
                                         var qName = Convert.ToString(dr["QualificationName"]);
@@ -726,7 +874,7 @@ namespace Hunarmis.Controllers
                                         tblu.TrainingCenterID = TrainingCenterId;
                                         tblu.TrainerName = !(string.IsNullOrWhiteSpace(dr["TrainerName"].ToString())) ? dr["TrainerName"].ToString().Trim() : null;
                                         tblu.TrainerMobileNo = !(string.IsNullOrWhiteSpace(dr["TrainerMobileNo"].ToString())) ? dr["TrainerMobileNo"].ToString().Trim() : null;
-
+                                        tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
 
                                         results += db_.SaveChanges();
                                     }
@@ -736,8 +884,30 @@ namespace Hunarmis.Controllers
                                         {
                                             if (db_.tbl_Participant.Any(x => x.AadharCardNo == AadharCardNo))
                                             {
+
                                                 strAadharNo += ", " + dr["AadharCardNo"].ToString();
                                                 var tblu = db_.tbl_Participant.Where(x => x.AadharCardNo == AadharCardNo)?.FirstOrDefault();
+                                                var fulllist = dr["Name"].ToString().Split(' ');
+                                                if (fulllist != null || fulllist.Length != 0)
+                                                {
+                                                    if (fulllist.Length >= 1)
+                                                    {
+                                                        tblu.FirstName = !(string.IsNullOrWhiteSpace(fulllist[0])) ? fulllist[0].Trim().ToUpper() : null;
+                                                    }
+                                                    if (fulllist.Length >= 2)
+                                                    {
+                                                        tblu.FirstName = !(string.IsNullOrWhiteSpace(fulllist[0])) ? fulllist[0].Trim().ToUpper() : null;
+                                                        tblu.LastName = !(string.IsNullOrWhiteSpace(fulllist[1])) ? fulllist[1].Trim().ToUpper() : null;
+                                                    }
+                                                    else if (fulllist.Length >= 3)
+                                                    {
+                                                        tblu.FirstName = !(string.IsNullOrWhiteSpace(fulllist[0])) ? fulllist[0].Trim().ToUpper() : null;
+                                                        tblu.MiddleName = !(string.IsNullOrWhiteSpace(fulllist[1])) ? fulllist[1].Trim().ToUpper() : null;
+                                                        tblu.LastName = !(string.IsNullOrWhiteSpace(fulllist[2])) ? fulllist[2].Trim().ToUpper() : null;
+                                                    }
+                                                    tblu.FullName = !(string.IsNullOrWhiteSpace(dr["Name"].ToString())) ? dr["Name"].ToString().Trim() : null;
+                                                }
+
                                                 tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
 
                                                 tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
@@ -760,7 +930,7 @@ namespace Hunarmis.Controllers
 
                                                 var bName = Convert.ToString(dr["BatchName"]);
                                                 var GetBatchdata = !(string.IsNullOrWhiteSpace(bName)) ? db.Batch_Master.Where(x => x.BatchName == bName).FirstOrDefault() : null;
-                                                 tblu.BatchId = GetBatchdata.Id;
+                                                tblu.BatchId = GetBatchdata.Id;
                                                 tblu.TrainerId = GetBatchdata.TrainerId;
 
                                                 var qName = Convert.ToString(dr["QualificationName"]);
@@ -781,6 +951,7 @@ namespace Hunarmis.Controllers
                                                 tblu.TrainerName = !(string.IsNullOrWhiteSpace(dr["TrainerName"].ToString())) ? dr["TrainerName"].ToString().Trim() : null;
                                                 tblu.TrainerMobileNo = !(string.IsNullOrWhiteSpace(dr["TrainerMobileNo"].ToString())) ? dr["TrainerMobileNo"].ToString().Trim() : null;
 
+                                                tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
                                                 results += db_.SaveChanges();
                                             }
                                         }

@@ -23,6 +23,7 @@
                 <tr>
                     <th class="text-center tblth">Srno.</th>
                     <th class="text-center tblth">Edit</th>
+                    <th class="text-center tblth">Placement<br /> Tracker</th>
                     <th class="text-center tblth">Center Name<br />/Location</th>
                     <th class="text-center tblth">Phone No</th>
                     <th class="text-center tblth">Name</th>
@@ -45,32 +46,52 @@
                         int srno = 1;
                         foreach (DataRow dr in dt.Rows)
                         {
-                            <tr>
-                                <td class="text-center">@(srno++)</td>
-                                <td class="text-center">
-                                    <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                </td>
-                                <td class="text-left">
-                                    @dr["TrainingCenter"]
-                                    /<br />@dr["DistrictName"]
-                                </td>
-                                <td class="" width="20%">
-                                    @dr["PhoneNo"]
-                                </td>
-                                <td class="text-left">@dr["FullName"]</td>
-                                <td class="text-center text-white" style="background: #604ccf !important; color: #fff !important;"><strong>@dr["RegID"]</strong></td>
-                                <td class="text-left">@dr["EmailID"]</td>
-                                @*<td class="text-center">&times;&times;&times;&times;&times;&times;&times;&times;&times;@Regex.Match(dr["AadharCardNo"].ToString(), @"(.{3})\s*$")</td>*@
-                                <td class="text-left">@dr["BatchName"]</td>
-                                <td class="text-center">@dr["BatchStartDate"]</td>
-                                <td class="text-center">@dr["BatchEndDate"]</td>
-                                <td class="text-center">@dr["CourseName"]</td>
-                                <td class="text-center">@dr["CurrentStatus"]/<br />@dr["CurrentReportedDate"] </td>
-                                <td class="text-center" style="word-break:break-word !important;">@dr["CurrentReportedByName"]</td>
-                                <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
-                            </tr>
+                                <tr>
+                                    <td class="text-center">@(srno++)</td>
+                                    <td class="text-center">
+                                        <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        @if (!string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString()))
+                                        {
+                                            if (!string.IsNullOrWhiteSpace(dr["IsPlacementTracker"].ToString()))
+                                            {
+                                                if (dr["IsPlacementTracker"].ToString() == "1")
+                                                {
+                                                    <button type="button" class="btn btn-primary btnpopplacetview" onclick="BindPlacementDetailData('@dr["ID"].ToString()','@dr["maxPlaceTrackerID"].ToString()')">
+                                                        Placement Tracker View
+                                                    </button>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-primary btnpop" data-id="@dr["ID"]">
+                                                    Placement Tracker
+                                                </button>
+                                            }
+                                        }
+                                    </td>
+                                    <td class="text-left">
+                                        @dr["TrainingCenter"]
+                                        /<br />@dr["DistrictName"]
+                                    </td>
+                                    <td class="" width="20%">
+                                        @dr["PhoneNo"]
+                                    </td>
+                                    <td class="text-left">@dr["FullName"]</td>
+                                    <td class="text-center text-white" style="background: #604ccf !important; color: #fff !important;"><strong>@dr["RegID"]</strong></td>
+                                    <td class="text-left">@dr["EmailID"]</td>
+                                    @*<td class="text-center">&times;&times;&times;&times;&times;&times;&times;&times;&times;@Regex.Match(dr["AadharCardNo"].ToString(), @"(.{3})\s*$")</td>*@
+                                    <td class="text-left">@dr["BatchName"]</td>
+                                    <td class="text-center">@dr["BatchStartDate"]</td>
+                                    <td class="text-center">@dr["BatchEndDate"]</td>
+                                    <td class="text-center">@dr["CourseName"]</td>
+                                    <td class="text-center">@dr["CurrentStatus"]/<br />@dr["CurrentReportedDate"] </td>
+                                    <td class="text-center" style="word-break:break-word !important;">@dr["CurrentReportedByName"]</td>
+                                    <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
+                                </tr>
                         }
                     }
                     else

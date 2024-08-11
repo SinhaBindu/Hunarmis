@@ -738,5 +738,66 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeType_Master">
+      <EntityTypeMapping TypeName="Hunar_DBModel.EmployeeType_Master">
+        <MappingFragment StoreEntitySet="EmployeeType_Master">
+          <ScalarProperty Name="IsDeletedOn" ColumnName="IsDeletedOn" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="EmployeeTypeName" ColumnName="EmployeeTypeName" />
+          <ScalarProperty Name="EmployeeTypeId_pk" ColumnName="EmployeeTypeId_pk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Industry_Master">
+      <EntityTypeMapping TypeName="Hunar_DBModel.Industry_Master">
+        <MappingFragment StoreEntitySet="Industry_Master">
+          <ScalarProperty Name="IsDeletedOn" ColumnName="IsDeletedOn" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IndustryName" ColumnName="IndustryName" />
+          <ScalarProperty Name="IndustryId_pk" ColumnName="IndustryId_pk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_PlacementTracker">
+      <EntityTypeMapping TypeName="Hunar_DBModel.tbl_PlacementTracker">
+        <MappingFragment StoreEntitySet="tbl_PlacementTracker">
+          <ScalarProperty Name="IsDeletedOn" ColumnName="IsDeletedOn" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UploadAppointmentLetterPath" ColumnName="UploadAppointmentLetterPath" />
+          <ScalarProperty Name="UploadOfferLetterPath" ColumnName="UploadOfferLetterPath" />
+          <ScalarProperty Name="DOJEndDate" ColumnName="DOJEndDate" />
+          <ScalarProperty Name="DOJStartDate" ColumnName="DOJStartDate" />
+          <ScalarProperty Name="DateofJoining" ColumnName="DateofJoining" />
+          <ScalarProperty Name="DateofOffer" ColumnName="DateofOffer" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="TargetGroup" ColumnName="TargetGroup" />
+          <ScalarProperty Name="PreTrainingStatus" ColumnName="PreTrainingStatus" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+          <ScalarProperty Name="EmployeeTypeId" ColumnName="EmployeeTypeId" />
+          <ScalarProperty Name="AnnualHouseholdincome" ColumnName="AnnualHouseholdincome" />
+          <ScalarProperty Name="NoofFamilyMembers" ColumnName="NoofFamilyMembers" />
+          <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+          <ScalarProperty Name="ParticipantId_fk" ColumnName="ParticipantId_fk" />
+          <ScalarProperty Name="PlacementTrackerId_pk" ColumnName="PlacementTrackerId_pk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

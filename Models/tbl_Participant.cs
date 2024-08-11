@@ -14,6 +14,12 @@ namespace Hunarmis.Models
     
     public partial class tbl_Participant
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbl_Participant()
+        {
+            this.tbl_PlacementTracker = new HashSet<tbl_PlacementTracker>();
+        }
+    
         public System.Guid ID { get; set; }
         public string RegID { get; set; }
         public string FirstName { get; set; }
@@ -61,5 +67,8 @@ namespace Hunarmis.Models
         public Nullable<System.Guid> RemarksID_fk { get; set; }
         public Nullable<System.Guid> CallingID_fk { get; set; }
         public Nullable<bool> IsAssessmentDone { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_PlacementTracker> tbl_PlacementTracker { get; set; }
     }
 }

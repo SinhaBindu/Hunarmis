@@ -11,6 +11,8 @@ namespace Hunarmis.Models
     {
         [Display(Name = "Candidate")]
         public string ParticipantId { get; set; }
+        [Display(Name = "Placement Tracker")]
+        public string PlacementTrackerId { get; set; }
         [Display(Name = "Candidate")]
         public string ParticipantQuestionId { get; set; }
         [Display(Name = "Candidate Reg No")]

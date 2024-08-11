@@ -318,5 +318,15 @@ namespace Hunarmis.Manager
         }
         #endregion
 
+        #region Placement Tracker 
+        public static DataTable SP_PlacementTrackerDetail(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_PlacementDetails");
+            sp.Command.AddParameter("@PlacementTrackerId", model.PlacementTrackerId, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        #endregion
+
     }
 }

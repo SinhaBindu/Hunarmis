@@ -118,12 +118,38 @@
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
   </EntityType>
+  <EntityType Name="EmployeeType_Master">
+    <Key>
+      <PropertyRef Name="EmployeeTypeId_pk" />
+    </Key>
+    <Property Name="EmployeeTypeId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeTypeName" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="IsDeletedOn" Type="datetime" />
+  </EntityType>
   <EntityType Name="FormMaster">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Industry_Master">
+    <Key>
+      <PropertyRef Name="IndustryId_pk" />
+    </Key>
+    <Property Name="IndustryId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IndustryName" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="IsDeletedOn" Type="datetime" />
   </EntityType>
   <EntityType Name="JobEmployed_Master">
     <Key>
@@ -580,6 +606,38 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="RemarksHistoryDate" Type="datetime" />
     <Property Name="RemarkReportedBy" Type="nvarchar" MaxLength="200" />
   </EntityType>
+  <EntityType Name="tbl_PlacementTracker">
+    <Key>
+      <PropertyRef Name="PlacementTrackerId_pk" />
+    </Key>
+    <Property Name="PlacementTrackerId_pk" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ParticipantId_fk" Type="uniqueidentifier" />
+    <Property Name="MaritalStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="NoofFamilyMembers" Type="int" />
+    <Property Name="AnnualHouseholdincome" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="EmployeeTypeId" Type="int" />
+    <Property Name="IndustryId" Type="int" />
+    <Property Name="PreTrainingStatus" Type="bit" />
+    <Property Name="TargetGroup" Type="bit" />
+    <Property Name="CompanyName" Type="nvarchar(max)" />
+    <Property Name="Designation" Type="nvarchar" MaxLength="1200" />
+    <Property Name="Salary" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="StateId" Type="int" />
+    <Property Name="DistrictId" Type="int" />
+    <Property Name="PinCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="DateofOffer" Type="date" />
+    <Property Name="DateofJoining" Type="date" />
+    <Property Name="DOJStartDate" Type="date" />
+    <Property Name="DOJEndDate" Type="date" />
+    <Property Name="UploadOfferLetterPath" Type="nvarchar(max)" />
+    <Property Name="UploadAppointmentLetterPath" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="IsDeletedOn" Type="datetime" />
+  </EntityType>
   <EntityType Name="tbl_SendMail">
     <Key>
       <PropertyRef Name="Id" />
@@ -758,6 +816,18 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_tbl_PlacementTracker_tbl_Participant">
+    <End Role="tbl_Participant" Type="Self.tbl_Participant" Multiplicity="0..1" />
+    <End Role="tbl_PlacementTracker" Type="Self.tbl_PlacementTracker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Participant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_PlacementTracker">
+        <PropertyRef Name="ParticipantId_fk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_tbl_SurveyAnswer_tbl_Survey">
     <End Role="tbl_Survey" Type="Self.tbl_Survey" Multiplicity="0..1" />
     <End Role="tbl_SurveyAnswer" Type="Self.tbl_SurveyAnswer" Multiplicity="*" />
@@ -781,7 +851,9 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <EntitySet Name="Courses_Master" EntityType="Self.Courses_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="District_Master" EntityType="Self.District_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Educational_Master" EntityType="Self.Educational_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeType_Master" EntityType="Self.EmployeeType_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FormMaster" EntityType="Self.FormMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Industry_Master" EntityType="Self.Industry_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="JobEmployed_Master" EntityType="Self.JobEmployed_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LocatedKM_Master" EntityType="Self.LocatedKM_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Month_Master" EntityType="Self.Month_Master" Schema="dbo" store:Type="Tables" />
@@ -803,6 +875,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <EntitySet Name="tbl_Participant" EntityType="Self.tbl_Participant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Participant_Calling" EntityType="Self.tbl_Participant_Calling" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Self.tbl_ParticipantRemarks_History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_PlacementTracker" EntityType="Self.tbl_PlacementTracker" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_SendMail" EntityType="Self.tbl_SendMail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Survey" EntityType="Self.tbl_Survey" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_SurveyAnswer" EntityType="Self.tbl_SurveyAnswer" Schema="dbo" store:Type="Tables" />
@@ -842,6 +915,10 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_PlacementTracker_tbl_Participant" Association="Self.FK_tbl_PlacementTracker_tbl_Participant">
+      <End Role="tbl_Participant" EntitySet="tbl_Participant" />
+      <End Role="tbl_PlacementTracker" EntitySet="tbl_PlacementTracker" />
     </AssociationSet>
     <AssociationSet Name="FK_tbl_SurveyAnswer_tbl_Survey" Association="Self.FK_tbl_SurveyAnswer_tbl_Survey">
       <End Role="tbl_Survey" EntitySet="tbl_Survey" />
