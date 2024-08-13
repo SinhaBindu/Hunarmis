@@ -30,16 +30,17 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">@ViewBag.Title</h5>
-                <button type="button" class="clos-btn" data-dismiss="modal" aria-label="Close">
-                    <i class="fa fa-times"></i>
-                </button>
-            </div>
+
             @if (dt.Rows.Count > 0)
             {
                 foreach (DataRow dr in dt.Rows)
                 {
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">@ViewBag.Title: <span class="regis">@dr["RegID"]</span></h5>
+                        <button type="button" class="clos-btn" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
@@ -53,7 +54,7 @@
                                                 </h4>
                                                 <div class="accord">
                                                     <div class="basic-info">
-                                                        <div class=""><p>Reg ID:  <span> @dr["RegID"]</span></p></div>
+                                                        @*<div class=""><p>Reg ID:  <span> @dr["RegID"]</span></p></div>*@
                                                         <div class=""><p>Name:  <span> @dr["Name"]</span></p></div>
                                                         <div class=""><p>Phone No:  <span> @dr["PhoneNo"]</span></p></div>
                                                         <div class=""><p>Course Name:  <span> @dr["CourseName"]</span></p></div>
@@ -64,11 +65,10 @@
                                                         <div class=""><p>Training Center:  <span> @dr["TrainingCenter"]</span></p></div>
                                                     </div>
                                                 </div>
-                                                <h4 class="semi-title accordions">
+                                                <h4 class="semi-title">
                                                     @ViewBag.Title
-                                                    <span class="arrows"><i class="fa fa-arrow-circle-down"></i></span>
                                                 </h4>
-                                                <div class="accord">
+                                                <div class="accords">
                                                     <div class="basic-info">
                                                         <div class=""><p>Marital Status:  <span> @dr["MaritalStatus"]</span></p></div>
                                                         <div class=""><p>No of Family Members:  <span> @dr["NoofFamilyMembers"]</span></p></div>
@@ -104,8 +104,8 @@
                                                             <div class=""><p>Upload Appointment Letter:   <span> <a href="@(CommonModel.GetBaseUrl() + dr["UALPath"])" target="_blank" class="down-btn"><i class="fa fa-download"></i></a></span></p></div>
                                                         }
                                                     </div>
-                                                </div>                                                
-                                                
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
