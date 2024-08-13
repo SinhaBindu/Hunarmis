@@ -15,7 +15,17 @@
         dt = Model;
     }
 }
-
+<style>
+    .accord {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+        overflow: hidden;
+    }
+    .arrows {
+         float: right;
+    }
+</style>
 <!-- Modal Structure -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -35,53 +45,67 @@
                             <div class="col-lg-12">
                                 <div class="panel">
                                     <div class="panel-bodys">
-                                        @*<p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>@ViewBag.BasicTitle</p>*@
                                         <div class="manage-input">
                                             <div class="card1">
-                                                <h4 class="semi-title">Basic Details</h4>
-                                                <div class="basic-info">
-                                                    <div class=""><p>Reg ID:  <span> @dr["RegID"]</span></p></div>
-                                                    <div class=""><p>Name:  <span> @dr["Name"]</span></p></div>
-                                                    <div class=""><p>Phone No:  <span> @dr["PhoneNo"]</span></p></div>
-                                                    <div class=""><p>Course Name:  <span> @dr["CourseName"]</span></p></div>
-                                                    <div class=""><p>Batch Name: <span> @dr["BatchName"]</span></p></div>
-                                                    <div class=""><p>Start Batch Name:  <span> @CommonModel.FormateDtDMY(dr["BatchStartDate"].ToString())</span></p></div>
-                                                    <div class=""><p>End Batch Name:  <span> @CommonModel.FormateDtDMY(dr["BatchEndDate"].ToString())</span></p></div>
-                                                    <div class=""><p>Training Agency Name:  <span> @dr["TrainingAgencyName"]</span></p></div>
-                                                    <div class=""><p>Training Center:  <span> @dr["TrainingCenter"]</span></p></div>
+                                                <h4 class="semi-title accordions">
+                                                    Basic Details
+                                                    <span class="arrows"><i class="fa fa-arrow-circle-down"></i></span>
+                                                </h4>
+                                                <div class="accord">
+                                                    <div class="basic-info">
+                                                        <div class=""><p>Reg ID:  <span> @dr["RegID"]</span></p></div>
+                                                        <div class=""><p>Name:  <span> @dr["Name"]</span></p></div>
+                                                        <div class=""><p>Phone No:  <span> @dr["PhoneNo"]</span></p></div>
+                                                        <div class=""><p>Course Name:  <span> @dr["CourseName"]</span></p></div>
+                                                        <div class=""><p>Batch Name: <span> @dr["BatchName"]</span></p></div>
+                                                        <div class=""><p>Start Batch Name:  <span> @CommonModel.FormateDtDMY(dr["BatchStartDate"].ToString())</span></p></div>
+                                                        <div class=""><p>End Batch Name:  <span> @CommonModel.FormateDtDMY(dr["BatchEndDate"].ToString())</span></p></div>
+                                                        <div class=""><p>Training Agency Name:  <span> @dr["TrainingAgencyName"]</span></p></div>
+                                                        <div class=""><p>Training Center:  <span> @dr["TrainingCenter"]</span></p></div>
+                                                    </div>
                                                 </div>
-                                                <h4 class="semi-title">@ViewBag.Title</h4>
-                                                <div class="basic-info">
-                                                    <div class=""><p>Marital Status:  <span> @dr["MaritalStatus"]</span></p></div>
-                                                    <div class=""><p>No of Family Members:  <span> @dr["NoofFamilyMembers"]</span></p></div>
-                                                    <div class=""><p>Annual Household Income:  <span> @dr["AnnualHouseholdincome"]</span></p></div>
-                                                    <div class=""><p>Employee Type:  <span>  @dr["EmployeeTypeName"]</span></p></div>
-                                                    <div class=""><p>Industry:  <span> @dr["IndustryName"]</span></p></div>
-                                                    <div class=""><p>Pre-Training Status:  <span>  @dr["PreTrainingStatusText"]</span></p></div>
-                                                    <div class=""><p>Target Group:  <span>  @dr["TargetGroupText"]</span></p></div>
-                                                    <div class=""><p>Company Name:  <span>  @dr["CompanyName"]</span></p></div>
-                                                    <div class=""><p>Designation:  <span>  @dr["Designation"]</span></p></div>
-                                                </div>
-                                                <h5>Work Location</h5>
-                                                <div class="basic-info">
-                                                    <div class=""><p>State:  <span> @dr["PlaceStateName"]</span></p></div>
-                                                    <div class=""><p>District:  <span> @dr["PlaceDistrictName"]</span></p></div>
-                                                    <div class=""><p>Pin Code:  <span> @dr["PinCode"]</span></p></div>
-                                                    <div class=""><p>Date of Offer:  <span> @CommonModel.FormateDtDMY(dr["DateofOffer"].ToString())</span></p></div>
-                                                </div>
-                                                <h5>Date Of Joining</h5>
-                                                <div class="basic-info">
-                                                    <div class=""><p>Start Date: <span> @CommonModel.FormateDtDMY(dr["DOJStartDate"].ToString())</span></p></div>
-                                                    <div class=""><p>End Date:  <span> @CommonModel.FormateDtDMY(dr["DOJEndDate"].ToString())</span></p></div>
-                                                    @if (!string.IsNullOrWhiteSpace(dr["UOLPath"].ToString()))
-                                                    {
-                                                        <div class=""><p>Upload Offer Letter:  <span> <a href="@(CommonModel.GetBaseUrl() + dr["UOLPath"])" target="_blank" class="down-btn"><i class="fa fa-download"></i></a></span></p></div>
-                                                    }
-                                                    @if (!string.IsNullOrWhiteSpace(dr["UOLPath"].ToString()))
-                                                    {
-                                                        <div class=""><p>Upload Appointment Letter:   <span> <a href="@(CommonModel.GetBaseUrl() + dr["UALPath"])" target="_blank" class="down-btn"><i class="fa fa-download"></i></a></span></p></div>
-                                                    }
-                                                </div>
+                                                <h4 class="semi-title accordions">
+                                                    @ViewBag.Title
+                                                    <span class="arrows"><i class="fa fa-arrow-circle-down"></i></span>
+                                                </h4>
+                                                <div class="accord">
+                                                    <div class="basic-info">
+                                                        <div class=""><p>Marital Status:  <span> @dr["MaritalStatus"]</span></p></div>
+                                                        <div class=""><p>No of Family Members:  <span> @dr["NoofFamilyMembers"]</span></p></div>
+                                                        <div class=""><p>Annual Household Income:  <span> @dr["AnnualHouseholdincome"]</span></p></div>
+                                                        <div class=""><p>Employee Type:  <span>  @dr["EmployeeTypeName"]</span></p></div>
+                                                        <div class=""><p>Industry:  <span> @dr["IndustryName"]</span></p></div>
+                                                        <div class=""><p>Pre-Training Status:  <span>  @dr["PreTrainingStatusText"]</span></p></div>
+                                                        <div class=""><p>Target Group:  <span>  @dr["TargetGroupText"]</span></p></div>
+                                                        <div class=""><p>Company Name:  <span>  @dr["CompanyName"]</span></p></div>
+                                                        <div class=""><p>Designation:  <span>  @dr["Designation"]</span></p></div>
+                                                    </div>
+                                                    <h5>
+                                                        Work Location
+                                                    </h5>
+                                                    <div class="basic-info">
+                                                        <div class=""><p>State:  <span> @dr["PlaceStateName"]</span></p></div>
+                                                        <div class=""><p>District:  <span> @dr["PlaceDistrictName"]</span></p></div>
+                                                        <div class=""><p>Pin Code:  <span> @dr["PinCode"]</span></p></div>
+                                                        <div class=""><p>Date of Offer:  <span> @CommonModel.FormateDtDMY(dr["DateofOffer"].ToString())</span></p></div>
+                                                    </div>
+                                                    <h5>
+                                                        Date Of Joining
+                                                    </h5>
+                                                    <div class="basic-info">
+                                                        <div class=""><p>Start Date: <span> @CommonModel.FormateDtDMY(dr["DOJStartDate"].ToString())</span></p></div>
+                                                        <div class=""><p>End Date:  <span> @CommonModel.FormateDtDMY(dr["DOJEndDate"].ToString())</span></p></div>
+                                                        @if (!string.IsNullOrWhiteSpace(dr["UOLPath"].ToString()))
+                                                        {
+                                                            <div class=""><p>Upload Offer Letter:  <span> <a href="@(CommonModel.GetBaseUrl() + dr["UOLPath"])" target="_blank" class="down-btn"><i class="fa fa-download"></i></a></span></p></div>
+                                                        }
+                                                        @if (!string.IsNullOrWhiteSpace(dr["UOLPath"].ToString()))
+                                                        {
+                                                            <div class=""><p>Upload Appointment Letter:   <span> <a href="@(CommonModel.GetBaseUrl() + dr["UALPath"])" target="_blank" class="down-btn"><i class="fa fa-download"></i></a></span></p></div>
+                                                        }
+                                                    </div>
+                                                </div>                                                
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -102,3 +126,19 @@
     </div>
 </div>
 
+<script>
+    let acc = document.getElementsByClassName("accordions");
+    let i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            let accord = this.nextElementSibling;
+            if (accord.style.display === "block") {
+                accord.style.display = "none";
+            } else {
+                accord.style.display = "block";
+            }
+        });
+    }
+</script>

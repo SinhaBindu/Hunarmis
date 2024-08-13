@@ -10,7 +10,18 @@
     ViewBag.SemiTitleLink = "/Participant/ParticipantList";
     string IsSadmin = string.Empty;
 }
+<style>
+    .accord {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+        overflow: hidden;
+    }
 
+    .arrows {
+        float: right;
+    }
+</style>
 <!-- Modal Structure -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -27,7 +38,6 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="panel">
-
                                 <div class="col-md-12">@Html.Partial("_Alerts")</div>
                                 <div class="panel-bodys">
                                     @Html.AntiForgeryToken()
@@ -38,191 +48,205 @@
                                     @*<p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>@ViewBag.BasicTitle</p>*@
                                     <div class="manage-input">
                                         <div class="card1">
-                                            <h4 class="semi-title">Basic Details</h4>
-                                            <div class="basic-info">
-                                                <div class=""><p>Reg ID  <span> :@Model.modelbasicpart.RegID</span></p></div>
-                                                <div class=""><p>Name  <span>: @Model.modelbasicpart.FullName</span></p></div>
-                                                <div class=""><p>Phone No  <span>: @Model.modelbasicpart.PhoneNo</span></p></div>
-                                                <div class=""><p>Batch Name <span> : @Model.modelbasicpart.BatchName</span></p></div>
-                                                <div class=""><p>Start Batch Name  <span>: @Model.modelbasicpart.SBatchDt</span></p></div>
-                                                <div class=""><p>End Batch Name  <span> : @Model.modelbasicpart.EBatchDt</span></p></div>
-                                                <div class=""><p>Training Agency Name  <span> : @Model.modelbasicpart.TrainingAgencyName</span></p></div>
-                                                <div class=""><p>Training Center  <span> : @Model.modelbasicpart.TrainingCenter</span></p></div>
-                                                <div class=""><p>Reported By  <span> : @Model.modelbasicpart.ReportedBy</span></p></div>
-                                                <div class=""><p>Reported On  <span> : @Model.modelbasicpart.ReportedOn</span></p></div>
-                                            </div>
-                                            <h4 class="semi-title"> @ViewBag.Title</h4>
-                                            <div class="box-bg">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label col-lg-12" })
-                                                    <div class="col-lg-12">
-                                                        <div class="checkbox">
-                                                            @foreach (var item in CommonModel.GetMaritalStatus(2))
-                                                            {
-                                                                <div class="check-box">
-                                                                    @Html.RadioButtonFor(model => model.MaritalStatus, item.Value, new { id = "MaritalStatus" + item.Value, @required = "required" }) @item.Text
-                                                                </div>
-                                                            }
-                                                            @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
+                                            <h4 class="semi-title accordions">
+                                                Basic Details
+                                                <span class="arrows"><i class="fa fa-arrow-circle-down"></i></span>
+                                            </h4>
+                                            <div class="accord">
+                                                <div class="basic-info">
+                                                    <div class=""><p>Reg ID  <span> :@Model.modelbasicpart.RegID</span></p></div>
+                                                    <div class=""><p>Name  <span>: @Model.modelbasicpart.FullName</span></p></div>
+                                                    <div class=""><p>Phone No  <span>: @Model.modelbasicpart.PhoneNo</span></p></div>
+                                                    <div class=""><p>Batch Name <span> : @Model.modelbasicpart.BatchName</span></p></div>
+                                                    <div class=""><p>Start Batch Name  <span>: @Model.modelbasicpart.SBatchDt</span></p></div>
+                                                    <div class=""><p>End Batch Name  <span> : @Model.modelbasicpart.EBatchDt</span></p></div>
+                                                    <div class=""><p>Training Agency Name  <span> : @Model.modelbasicpart.TrainingAgencyName</span></p></div>
+                                                    <div class=""><p>Training Center  <span> : @Model.modelbasicpart.TrainingCenter</span></p></div>
+                                                    <div class=""><p>Reported By  <span> : @Model.modelbasicpart.ReportedBy</span></p></div>
+                                                    <div class=""><p>Reported On  <span> : @Model.modelbasicpart.ReportedOn</span></p></div>
+                                                </div>
+                                            </div>                                            
+                                            <h4 class="semi-title accordions">
+                                                @ViewBag.Title
+                                                <span class="arrows"><i class="fa fa-arrow-circle-down"></i></span>
+                                            </h4>
+                                            <div class="accord">
+                                                <div class="box-bg">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                        <div class="col-lg-12">
+                                                            <div class="checkbox">
+                                                                @foreach (var item in CommonModel.GetMaritalStatus(2))
+                                                                {
+                                                                    <div class="check-box">
+                                                                        @Html.RadioButtonFor(model => model.MaritalStatus, item.Value, new { id = "MaritalStatus" + item.Value, @required = "required" }) @item.Text
+                                                                    </div>
+                                                                }
+                                                                @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
+                                                            </div>
                                                         </div>
+                                                        <div class="mark-devide"></div>
                                                     </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.NoofFamilyMembers, htmlAttributes: new { @class = "control-label col-lg-12" })
-                                                    <div class="col-lg-12">
-                                                        @Html.EditorFor(model => model.NoofFamilyMembers, new { htmlAttributes = new { @type = "number", @class = "required form-control", @required = "required", min = "0", maxlength = "2", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
-                                                        @Html.ValidationMessageFor(model => model.NoofFamilyMembers, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.AnnualHouseholdincome, htmlAttributes: new { @class = "control-label col-lg-12" })
-                                                    <div class="col-lg-12">
-                                                        @Html.EditorFor(model => model.AnnualHouseholdincome, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal", min = "0", maxlength = "5", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
-                                                        @Html.ValidationMessageFor(model => model.AnnualHouseholdincome, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.PreTrainingStatus, htmlAttributes: new { @class = "control-label col-lg-12" })
-                                                    <div class="col-lg-12">
-                                                        <div class="checkbox">
-                                                            @foreach (var item in CommonModel.GetBoolYesNo())
-                                                            {
-                                                                <div class="check-box">
-                                                                    @Html.RadioButtonFor(model => model.PreTrainingStatus, item.Value, new { id = "PreTrainingStatus" + item.Value, @required = "required" }) @item.Text
-                                                                </div>
-                                                            }
-                                                            @Html.ValidationMessageFor(model => model.PreTrainingStatus, "", new { @class = "text-danger" })
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.NoofFamilyMembers, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                        <div class="col-lg-12">
+                                                            @Html.EditorFor(model => model.NoofFamilyMembers, new { htmlAttributes = new { @type = "number", @class = "required form-control", @required = "required", min = "0", maxlength = "2", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
+                                                            @Html.ValidationMessageFor(model => model.NoofFamilyMembers, "", new { @class = "text-danger" })
                                                         </div>
+                                                        <div class="mark-devide"></div>
                                                     </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.TargetGroup, htmlAttributes: new { @class = "control-label col-lg-12" })
-                                                    <div class="col-lg-12">
-                                                        <div class="checkbox">
-                                                            @foreach (var item in CommonModel.GetBoolYesNo())
-                                                            {
-                                                                <div class="check-box">
-                                                                    @Html.RadioButtonFor(model => model.TargetGroup, item.Value, new { id = "TargetGroup" + item.Value, @required = "required" }) @item.Text
-                                                                </div>
-                                                            }
-                                                            @Html.ValidationMessageFor(model => model.TargetGroup, "", new { @class = "text-danger" })
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.AnnualHouseholdincome, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                        <div class="col-lg-12">
+                                                            @Html.EditorFor(model => model.AnnualHouseholdincome, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal", min = "0", maxlength = "5", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
+                                                            @Html.ValidationMessageFor(model => model.AnnualHouseholdincome, "", new { @class = "text-danger" })
                                                         </div>
-                                                    </div>                                                    
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                            </div>
-                                            <h4 class="semi-title">@ViewBag.Industry</h4>
-                                            <div class="box-bg">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.EmployeeTypeId, htmlAttributes: new { @class = "control-label col-lg-12" })
-                                                    <div class="col-lg-12">
-                                                        @Html.DropDownListFor(model => model.EmployeeTypeId, CommonModel.GetEmployeeType(2), new { @class = "form-control", @required = "required" })
-                                                        @Html.ValidationMessageFor(model => model.EmployeeTypeId, "", new { @class = "text-danger" })
+                                                        <div class="mark-devide"></div>
                                                     </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.IndustryId, htmlAttributes: new { @class = "control-label col-lg-12" })
-                                                    <div class="col-lg-8">
-                                                        @Html.DropDownListFor(model => model.IndustryId, CommonModel.GetIndustry(2), new { @class = "form-control", @required = "required" })
-                                                        @Html.ValidationMessageFor(model => model.IndustryId, "", new { @class = "text-danger" })
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.PreTrainingStatus, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                        <div class="col-lg-12">
+                                                            <div class="checkbox">
+                                                                @foreach (var item in CommonModel.GetBoolYesNo())
+                                                                {
+                                                                    <div class="check-box">
+                                                                        @Html.RadioButtonFor(model => model.PreTrainingStatus, item.Value, new { id = "PreTrainingStatus" + item.Value, @required = "required" }) @item.Text
+                                                                    </div>
+                                                                }
+                                                                @Html.ValidationMessageFor(model => model.PreTrainingStatus, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="mark-devide"></div>
                                                     </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "control-label col-lg-12" })
-                                                    <div class="col-lg-12">
-                                                        @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "required form-control", @required = "required" } })
-                                                        @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.TargetGroup, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                        <div class="col-lg-12">
+                                                            <div class="checkbox">
+                                                                @foreach (var item in CommonModel.GetBoolYesNo())
+                                                                {
+                                                                    <div class="check-box">
+                                                                        @Html.RadioButtonFor(model => model.TargetGroup, item.Value, new { id = "TargetGroup" + item.Value, @required = "required" }) @item.Text
+                                                                    </div>
+                                                                }
+                                                                @Html.ValidationMessageFor(model => model.TargetGroup, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="mark-devide"></div>
                                                     </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-lg-12" })
-                                                    <div class="col-lg-12">
-                                                        @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "required form-control", @required = "required" } })
-                                                        @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label col-lg-12" })
-                                                    <div class="col-lg-12">
-                                                        @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal", min = "0", maxlength = "8", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
-                                                        @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.StateId, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                                    <div class="col-lg-8">
-                                                        @Html.DropDownListFor(model => model.StateId, CommonModel.GetState(), "Select", new { @class = "form-control", @required = "required" })
-                                                        @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                                    <div class="col-lg-8">
-                                                        @Html.DropDownListFor(model => model.DistrictId, new List<SelectListItem>(), new { @class = "form-control", @required = "required" })
-                                                        @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.PinCode, htmlAttributes: new { @class = "control-label col-lg-12" })
-                                                    <div class="col-lg-12">
-                                                        @Html.EditorFor(model => model.PinCode, new { htmlAttributes = new { @type = "number", @class = "required form-control", @required = "required", min = "6", maxlength = "6", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
-                                                        @Html.ValidationMessageFor(model => model.PinCode, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group ">
-                                                    @Html.LabelFor(model => model.DateofOffer, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                                    <div class="col-lg-8">
-                                                        @Html.EditorFor(model => model.DateofOffer, new { htmlAttributes = new { @class = "form-control datepickermonth", @required = "required", @maxlength = "11", @placeholder = "dd-mmm-yyyy" } })
-                                                        @Html.ValidationMessageFor(model => model.DateofOffer, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.DOJStartDate, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                                    <div class="col-lg-8">
-                                                        @Html.EditorFor(model => model.DOJStartDate, new { htmlAttributes = new { @class = "form-control datepickermonth", @required = "required", @maxlength = "11", @placeholder = "dd-mmm-yyyy" } })
-                                                        @Html.ValidationMessageFor(model => model.DOJStartDate, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group ">
-                                                    @Html.LabelFor(model => model.DOJEndDate, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                                    <div class="col-lg-8">
-                                                        @Html.EditorFor(model => model.DOJEndDate, new { htmlAttributes = new { @class = "form-control datepickermonth", @required = "required", @maxlength = "11", @placeholder = "dd-mmm-yyyy" } })
-                                                        @Html.ValidationMessageFor(model => model.DOJEndDate, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group ">
-                                                    @Html.LabelFor(model => model.UploadOfferLetter, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                                    <div class="col-lg-8">
-                                                        <input type="file" class="UploadCheckFile" name="UploadOfferLetter" id="UploadOfferLetter" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
-                                                        @Html.ValidationMessageFor(model => model.UploadOfferLetter, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                                <div class="form-group ">
-                                                    @Html.LabelFor(model => model.UploadAppointmentLetter, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                                    <div class="col-lg-8">
-                                                        <input type="file" class="UploadCheckFile" name="UploadAppointmentLetter" id="UploadAppointmentLetter" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
-                                                        @Html.ValidationMessageFor(model => model.UploadAppointmentLetter, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="mark-devide"></div>
                                                 </div>
                                             </div>
-
+                                            <h4 class="semi-title accordions">
+                                                @ViewBag.Industry
+                                                <span class="arrows"><i class="fa fa-arrow-circle-down"></i></span>
+                                            </h4>
+                                            <div class="accord">
+                                                <div class="box-bg">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.EmployeeTypeId, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                        <div class="col-lg-12">
+                                                            @Html.DropDownListFor(model => model.EmployeeTypeId, CommonModel.GetEmployeeType(2), new { @class = "form-control", @required = "required" })
+                                                            @Html.ValidationMessageFor(model => model.EmployeeTypeId, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.IndustryId, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                        <div class="col-lg-8">
+                                                            @Html.DropDownListFor(model => model.IndustryId, CommonModel.GetIndustry(2), new { @class = "form-control", @required = "required" })
+                                                            @Html.ValidationMessageFor(model => model.IndustryId, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                        <div class="col-lg-12">
+                                                            @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "required form-control", @required = "required" } })
+                                                            @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                        <div class="col-lg-12">
+                                                            @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "required form-control", @required = "required" } })
+                                                            @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                        <div class="col-lg-12">
+                                                            @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal", min = "0", maxlength = "8", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
+                                                            @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.StateId, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                        <div class="col-lg-8">
+                                                            @Html.DropDownListFor(model => model.StateId, CommonModel.GetState(), "Select", new { @class = "form-control", @required = "required" })
+                                                            @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                        <div class="col-lg-8">
+                                                            @Html.DropDownListFor(model => model.DistrictId, new List<SelectListItem>(), new { @class = "form-control", @required = "required" })
+                                                            @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.PinCode, htmlAttributes: new { @class = "control-label col-lg-12" })
+                                                        <div class="col-lg-12">
+                                                            @Html.EditorFor(model => model.PinCode, new { htmlAttributes = new { @type = "number", @class = "required form-control", @required = "required", min = "6", maxlength = "6", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
+                                                            @Html.ValidationMessageFor(model => model.PinCode, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        @Html.LabelFor(model => model.DateofOffer, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                        <div class="col-lg-8">
+                                                            @Html.EditorFor(model => model.DateofOffer, new { htmlAttributes = new { @class = "form-control datepickermonth", @required = "required", @maxlength = "11", @placeholder = "dd-mmm-yyyy" } })
+                                                            @Html.ValidationMessageFor(model => model.DateofOffer, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.DOJStartDate, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                        <div class="col-lg-8">
+                                                            @Html.EditorFor(model => model.DOJStartDate, new { htmlAttributes = new { @class = "form-control datepickermonth", @required = "required", @maxlength = "11", @placeholder = "dd-mmm-yyyy" } })
+                                                            @Html.ValidationMessageFor(model => model.DOJStartDate, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        @Html.LabelFor(model => model.DOJEndDate, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                        <div class="col-lg-8">
+                                                            @Html.EditorFor(model => model.DOJEndDate, new { htmlAttributes = new { @class = "form-control datepickermonth", @required = "required", @maxlength = "11", @placeholder = "dd-mmm-yyyy" } })
+                                                            @Html.ValidationMessageFor(model => model.DOJEndDate, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        @Html.LabelFor(model => model.UploadOfferLetter, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                        <div class="col-lg-8">
+                                                            <input type="file" class="UploadCheckFile" name="UploadOfferLetter" id="UploadOfferLetter" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
+                                                            @Html.ValidationMessageFor(model => model.UploadOfferLetter, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        @Html.LabelFor(model => model.UploadAppointmentLetter, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                                        <div class="col-lg-8">
+                                                            <input type="file" class="UploadCheckFile" name="UploadAppointmentLetter" id="UploadAppointmentLetter" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
+                                                            @Html.ValidationMessageFor(model => model.UploadAppointmentLetter, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -249,9 +273,25 @@
     </div>
 </div>
 
+<script>
+    let acc = document.getElementsByClassName("accordions");
+    let i;
 
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            let accord = this.nextElementSibling;
+            if (accord.style.display === "block") {
+                accord.style.display = "none";
+            } else {
+                accord.style.display = "block";
+            }
+        });
+    }
+</script>
 @section Scripts
 {
+    
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Content/plugins/multiple-email/jquery.email.multiple.js"></script>
     <script src="~/Scripts/CustomValidator.js"></script>
