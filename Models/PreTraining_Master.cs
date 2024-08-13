@@ -12,16 +12,14 @@ namespace Hunarmis.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Industry_Master
+    public partial class PreTraining_Master
     {
-        public int IndustryId_pk { get; set; }
-        public string IndustryName { get; set; }
+        public int PreTrainingId_pk { get; set; }
+        public string PreTrainingName { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
-        public Nullable<System.DateTime> IsDeletedOn { get; set; }
-        public Nullable<int> OrderBy { get; set; }
     }
 }

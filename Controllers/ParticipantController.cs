@@ -87,7 +87,7 @@ namespace Hunarmis.Controllers
                     model.EmailID = tbl.EmailID;
                     model.PhoneNo = tbl.PhoneNo;
                     model.AlternatePhoneNo = tbl.AlternatePhoneNo;
-                    model.AssessmentScore = tbl.AssessmentScore;
+                    model.AssessmentScore = !string.IsNullOrWhiteSpace(tbl.AssessmentScore) ? ((int)(Math.Round(Convert.ToDecimal(tbl.AssessmentScore), 2))).ToString() : null;
                     model.BatchId = tbl.BatchId;
                     model.EduQualificationID = tbl.EduQualificationID;
                     model.EduQualOther = tbl.EduQualOther;
@@ -100,6 +100,12 @@ namespace Hunarmis.Controllers
                     model.TrainerId = tbl.TrainerId;
                     model.Is_Placed = tbl.IsPlaced == true ? "1" : "0";
                     model.Is_Offered = tbl.IsOffered == true ? "1" : "0";
+
+                    model.MaritalStatus = tbl.MaritalStatus;
+                    model.NoofFamilyMembers = tbl.NoofFamilyMembers;
+                    model.AnnualHouseholdincome = tbl.AnnualHouseholdincome;
+                    model.PreTrainingStatus = tbl.PreTrainingStatus;
+                    model.TargetGroup = tbl.TargetGroup;
 
                 }
             }
@@ -116,7 +122,14 @@ namespace Hunarmis.Controllers
                 if (ModelState.IsValid && MvcApplication.CUser != null)
                 {
                     var getdt = db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
-                    if (getdt.Any(x => x.PhoneNo == model.PhoneNo.Trim() && x.BatchId == model.BatchId && model.ID == Guid.Empty))
+                    if (getdt.Any(x => x.PhoneNo == model.PhoneNo.Trim() && model.ID == Guid.Empty))//&& x.BatchId == model.BatchId
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Registration.<br /> <span> Reg ID : <strong> " + getdt?.FirstOrDefault().RegID + " </strong>  </span>", Data = null };
+                        var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse1.MaxJsonLength = int.MaxValue;
+                        return resResponse1;
+                    }
+                    if (getdt.Any(x => x.PhoneNo == model.PhoneNo.Trim() && x.ID != model.ID))
                     {
                         response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Registration.<br /> <span> Reg ID : <strong> " + getdt?.FirstOrDefault().RegID + " </strong>  </span>", Data = null };
                         var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
@@ -151,6 +164,13 @@ namespace Hunarmis.Controllers
                         tbl.IsActive = true;
                         tbl.IsPlaced = model.Is_Placed == "1" ? true : false;
                         tbl.IsOffered = model.Is_Offered == "1" ? true : false;
+
+                        tbl.MaritalStatus = model.MaritalStatus;
+                        tbl.NoofFamilyMembers = model.NoofFamilyMembers;
+                        tbl.AnnualHouseholdincome = model.AnnualHouseholdincome;
+                        tbl.PreTrainingStatus = model.PreTrainingStatus;
+                        tbl.TargetGroup = model.TargetGroup;
+
                         if (model.ID == Guid.Empty)
                         {
                             tbl.CreatedBy = MvcApplication.CUser.UserId;
@@ -265,11 +285,7 @@ namespace Hunarmis.Controllers
                 {
                     if (model.ParticipantId_fk != Guid.Empty)
                     {
-                        tbl.MaritalStatus = model.MaritalStatus;
-                        tbl.NoofFamilyMembers = model.NoofFamilyMembers;
-                        tbl.AnnualHouseholdincome = model.AnnualHouseholdincome;
-                        tbl.PreTrainingStatus = model.PreTrainingStatus == 1 ? true : false;
-                        tbl.TargetGroup = model.TargetGroup == 1 ? true : false;
+
                         tbl.EmployeeTypeId = model.EmployeeTypeId;
                         tbl.IndustryId = model.IndustryId;
                         tbl.CompanyName = model.CompanyName;
@@ -795,6 +811,13 @@ namespace Hunarmis.Controllers
                                     CreatedBy = MvcApplication.CUser.UserId,
                                     CreatedOn = DateTime.Now,
                                     IsActive = true,
+
+                                    MaritalStatus = Convert.ToString(x["MaritalStatus"]),
+                                    NoofFamilyMembers = Convert.ToString(x["NoofFamilyMembers"]),
+                                    AnnualHouseholdincome = !string.IsNullOrWhiteSpace(Convert.ToString(x["AnnualHouseholdincome"])) ? Convert.ToDecimal(x["AnnualHouseholdincome"]) : 0,
+                                    PreTrainingStatus = Convert.ToString(x["PreTrainingStatus"]),
+                                    TargetGroup = Convert.ToString(x["TargetGroup"]),
+
                                 }).ToList();
                             db_.tbl_ExcelParticipantData.AddRange(listexcepart);
                             db_.SaveChanges();
@@ -876,6 +899,18 @@ namespace Hunarmis.Controllers
                                         tblu.TrainerMobileNo = !(string.IsNullOrWhiteSpace(dr["TrainerMobileNo"].ToString())) ? dr["TrainerMobileNo"].ToString().Trim() : null;
                                         tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
 
+                                        var MaritalStatus = Convert.ToString(dr["MaritalStatus"]);
+                                        var MaritalStatusId = !(string.IsNullOrWhiteSpace(MaritalStatus)) ? CommonModel.GetMaritalStatus().Where(x => x.Value == MaritalStatus).FirstOrDefault()?.Value : null;
+                                        tblu.MaritalStatus = MaritalStatusId;
+                                        tblu.NoofFamilyMembers = !(string.IsNullOrWhiteSpace(dr["NoofFamilyMembers"].ToString())) ? Convert.ToInt32(dr["NoofFamilyMembers"]) : 0;
+                                        tblu.AnnualHouseholdincome = !(string.IsNullOrWhiteSpace(dr["AnnualHouseholdincome"].ToString())) ? Convert.ToDecimal(dr["AnnualHouseholdincome"]) : 0;
+                                        var PreTrainingStatus = Convert.ToString(dr["PreTrainingStatus"]);
+                                        var PreTrainingStatusId = !(string.IsNullOrWhiteSpace(PreTrainingStatus)) ?db_.PreTraining_Master.Where(x => x.PreTrainingName == PreTrainingStatus).FirstOrDefault()?.PreTrainingId_pk : null;
+                                        tblu.PreTrainingStatus = PreTrainingStatusId;
+                                        var TargetGroup = Convert.ToString(dr["TargetGroup"]);
+                                        var TargetGroupId = !(string.IsNullOrWhiteSpace(TargetGroup)) ? db_.TargetGroup_Master.Where(x => x.TargetGroupName == TargetGroup).FirstOrDefault()?.TargetGroupId_pk : null;
+                                        tblu.TargetGroup = TargetGroupId;
+
                                         results += db_.SaveChanges();
                                     }
                                     else
@@ -951,6 +986,18 @@ namespace Hunarmis.Controllers
                                                 tblu.TrainerName = !(string.IsNullOrWhiteSpace(dr["TrainerName"].ToString())) ? dr["TrainerName"].ToString().Trim() : null;
                                                 tblu.TrainerMobileNo = !(string.IsNullOrWhiteSpace(dr["TrainerMobileNo"].ToString())) ? dr["TrainerMobileNo"].ToString().Trim() : null;
 
+                                                var MaritalStatus = Convert.ToString(dr["MaritalStatus"]);
+                                                var MaritalStatusId = !(string.IsNullOrWhiteSpace(MaritalStatus)) ? CommonModel.GetMaritalStatus().Where(x => x.Value == MaritalStatus).FirstOrDefault()?.Value : null;
+                                                tblu.MaritalStatus = MaritalStatusId;
+                                                tblu.NoofFamilyMembers = !(string.IsNullOrWhiteSpace(dr["NoofFamilyMembers"].ToString())) ? Convert.ToInt32(dr["NoofFamilyMembers"]) : 0;
+                                                tblu.AnnualHouseholdincome = !(string.IsNullOrWhiteSpace(dr["AnnualHouseholdincome"].ToString())) ? Convert.ToDecimal(dr["AnnualHouseholdincome"]) : 0;
+                                                var PreTrainingStatus = Convert.ToString(dr["PreTrainingStatus"]);
+                                                var PreTrainingStatusId = !(string.IsNullOrWhiteSpace(PreTrainingStatus)) ? db_.PreTraining_Master.Where(x => x.PreTrainingName == PreTrainingStatus).FirstOrDefault()?.PreTrainingId_pk : null;
+                                                tblu.PreTrainingStatus = PreTrainingStatusId;
+                                                var TargetGroup = Convert.ToString(dr["TargetGroup"]);
+                                                var TargetGroupId = !(string.IsNullOrWhiteSpace(TargetGroup)) ? db_.TargetGroup_Master.Where(x => x.TargetGroupName == TargetGroup).FirstOrDefault()?.TargetGroupId_pk : null;
+                                                tblu.TargetGroup = TargetGroupId;
+
                                                 tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
                                                 results += db_.SaveChanges();
                                             }
@@ -1024,6 +1071,18 @@ namespace Hunarmis.Controllers
                                                 tblpart.TrainingCenterID = TrainingCenterId;
                                                 tblpart.TrainerName = !(string.IsNullOrWhiteSpace(dr["TrainerName"].ToString())) ? dr["TrainerName"].ToString().Trim() : null;
                                                 tblpart.TrainerMobileNo = !(string.IsNullOrWhiteSpace(dr["TrainerMobileNo"].ToString())) ? dr["TrainerMobileNo"].ToString().Trim() : null;
+
+                                                var MaritalStatus = Convert.ToString(dr["MaritalStatus"]);
+                                                var MaritalStatusId = !(string.IsNullOrWhiteSpace(MaritalStatus)) ? CommonModel.GetMaritalStatus().Where(x => x.Value == MaritalStatus).FirstOrDefault()?.Value : null;
+                                                tblpart.MaritalStatus = MaritalStatusId;
+                                                tblpart.NoofFamilyMembers = !(string.IsNullOrWhiteSpace(dr["NoofFamilyMembers"].ToString())) ? Convert.ToInt32(dr["NoofFamilyMembers"]) : 0;
+                                                tblpart.AnnualHouseholdincome = !(string.IsNullOrWhiteSpace(dr["AnnualHouseholdincome"].ToString())) ? Convert.ToDecimal(dr["AnnualHouseholdincome"]) : 0;
+                                                var PreTrainingStatus = Convert.ToString(dr["PreTrainingStatus"]);
+                                                var PreTrainingStatusId = !(string.IsNullOrWhiteSpace(PreTrainingStatus)) ? db_.PreTraining_Master.Where(x => x.PreTrainingName == PreTrainingStatus).FirstOrDefault()?.PreTrainingId_pk : null;
+                                                tblpart.PreTrainingStatus = PreTrainingStatusId;
+                                                var TargetGroup = Convert.ToString(dr["TargetGroup"]);
+                                                var TargetGroupId = !(string.IsNullOrWhiteSpace(TargetGroup)) ? db_.TargetGroup_Master.Where(x => x.TargetGroupName == TargetGroup).FirstOrDefault()?.TargetGroupId_pk : null;
+                                                tblpart.TargetGroup = TargetGroupId;
                                                 //if (!string.IsNullOrEmpty(dr["DateofBirth"].ToString()))
                                                 //{
                                                 //    tblpart.DOB = Convert.ToDateTime(dr["DateofBirth"].ToString());

@@ -1,5 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Hunar_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AnnualHousehold_Master">
+    <Key>
+      <PropertyRef Name="AnnualHouseholdId_pk" />
+    </Key>
+    <Property Name="AnnualHouseholdId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AnnualHouseholdName" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Orderby" Type="int" />
+  </EntityType>
   <EntityType Name="AspNetRoles">
     <Key>
       <PropertyRef Name="Id" />
@@ -125,11 +138,25 @@
     <Property Name="EmployeeTypeId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="EmployeeTypeName" Type="nvarchar" MaxLength="200" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="OrderBy" Type="int" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="UpdatedOn" Type="datetime" />
     <Property Name="IsDeletedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FamilyMember_Master">
+    <Key>
+      <PropertyRef Name="NoofFamilyMembersId_pk" />
+    </Key>
+    <Property Name="NoofFamilyMembersId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NoofFamilyMembersName" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Orderby" Type="int" />
   </EntityType>
   <EntityType Name="FormMaster">
     <Key>
@@ -138,6 +165,19 @@
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="500" />
   </EntityType>
+  <EntityType Name="IDType_Master">
+    <Key>
+      <PropertyRef Name="IDTypeId_pk" />
+    </Key>
+    <Property Name="IDTypeId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDTypeName" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Orderby" Type="int" />
+  </EntityType>
   <EntityType Name="Industry_Master">
     <Key>
       <PropertyRef Name="IndustryId_pk" />
@@ -145,6 +185,7 @@
     <Property Name="IndustryId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IndustryName" Type="nvarchar" MaxLength="200" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="OrderBy" Type="int" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
@@ -157,6 +198,32 @@
     </Key>
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="JobInterest" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="KnowledgeEnglish_Master">
+    <Key>
+      <PropertyRef Name="KnowledgeEnglishId_pk" />
+    </Key>
+    <Property Name="KnowledgeEnglishId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KnowledgeEnglishName" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Orderby" Type="int" />
+  </EntityType>
+  <EntityType Name="Languages_Master">
+    <Key>
+      <PropertyRef Name="LanguagesId_pk" />
+    </Key>
+    <Property Name="LanguagesId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LanguagesName" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Orderby" Type="int" />
   </EntityType>
   <EntityType Name="LocatedKM_Master">
     <Key>
@@ -171,6 +238,18 @@
     </Key>
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="MonthName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PreTraining_Master">
+    <Key>
+      <PropertyRef Name="PreTrainingId_pk" />
+    </Key>
+    <Property Name="PreTrainingId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PreTrainingName" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
   </EntityType>
   <EntityType Name="QuestionBook">
     <Key>
@@ -259,6 +338,18 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TargetGroup_Master">
+    <Key>
+      <PropertyRef Name="TargetGroupId_pk" />
+    </Key>
+    <Property Name="TargetGroupId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TargetGroupName" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
   </EntityType>
   <EntityType Name="tbl_AssessmentSchedule">
     <Key>
@@ -379,6 +470,11 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="MaritalStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="NoofFamilyMembers" Type="nvarchar" MaxLength="50" />
+    <Property Name="AnnualHouseholdincome" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="PreTrainingStatus" Type="nvarchar" MaxLength="500" />
+    <Property Name="TargetGroup" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="Tbl_ExceptionHandle">
     <Key>
@@ -512,6 +608,11 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="RemarksID_fk" Type="uniqueidentifier" />
     <Property Name="CallingID_fk" Type="uniqueidentifier" />
     <Property Name="IsAssessmentDone" Type="bit" />
+    <Property Name="MaritalStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="NoofFamilyMembers" Type="int" />
+    <Property Name="AnnualHouseholdincome" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="PreTrainingStatus" Type="int" />
+    <Property Name="TargetGroup" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Participant_Calling">
     <Key>
@@ -612,13 +713,8 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     </Key>
     <Property Name="PlacementTrackerId_pk" Type="uniqueidentifier" Nullable="false" />
     <Property Name="ParticipantId_fk" Type="uniqueidentifier" />
-    <Property Name="MaritalStatus" Type="nvarchar" MaxLength="50" />
-    <Property Name="NoofFamilyMembers" Type="int" />
-    <Property Name="AnnualHouseholdincome" Type="decimal" Precision="10" Scale="2" />
     <Property Name="EmployeeTypeId" Type="int" />
     <Property Name="IndustryId" Type="int" />
-    <Property Name="PreTrainingStatus" Type="bit" />
-    <Property Name="TargetGroup" Type="bit" />
     <Property Name="CompanyName" Type="nvarchar(max)" />
     <Property Name="Designation" Type="nvarchar" MaxLength="1200" />
     <Property Name="Salary" Type="decimal" Precision="5" Scale="2" />
@@ -753,6 +849,19 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
   </EntityType>
+  <EntityType Name="WorkExperience_Master">
+    <Key>
+      <PropertyRef Name="WorkExperienceId_pk" />
+    </Key>
+    <Property Name="WorkExperienceId_pk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WorkExperienceName" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Orderby" Type="int" />
+  </EntityType>
   <EntityType Name="Year_Master">
     <Key>
       <PropertyRef Name="ID" />
@@ -841,6 +950,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="Hunar_DBModelStoreContainer">
+    <EntitySet Name="AnnualHousehold_Master" EntityType="Self.AnnualHousehold_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -852,14 +962,20 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <EntitySet Name="District_Master" EntityType="Self.District_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Educational_Master" EntityType="Self.Educational_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmployeeType_Master" EntityType="Self.EmployeeType_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FamilyMember_Master" EntityType="Self.FamilyMember_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FormMaster" EntityType="Self.FormMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IDType_Master" EntityType="Self.IDType_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Industry_Master" EntityType="Self.Industry_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="JobEmployed_Master" EntityType="Self.JobEmployed_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KnowledgeEnglish_Master" EntityType="Self.KnowledgeEnglish_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Languages_Master" EntityType="Self.Languages_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LocatedKM_Master" EntityType="Self.LocatedKM_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Month_Master" EntityType="Self.Month_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PreTraining_Master" EntityType="Self.PreTraining_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QuestionBook" EntityType="Self.QuestionBook" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QuestionOption" EntityType="Self.QuestionOption" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="State_Master" EntityType="Self.State_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TargetGroup_Master" EntityType="Self.TargetGroup_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_AssessmentSchedule" EntityType="Self.tbl_AssessmentSchedule" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_AssessmentSendLinkEmail" EntityType="Self.tbl_AssessmentSendLinkEmail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_AttendanceParticipant" EntityType="Self.tbl_AttendanceParticipant" Schema="dbo" store:Type="Tables" />
@@ -882,6 +998,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <EntitySet Name="tbl_UserLogin" EntityType="Self.tbl_UserLogin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrainingAgency_Master" EntityType="Self.TrainingAgency_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrainingCenter_Master" EntityType="Self.TrainingCenter_Master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WorkExperience_Master" EntityType="Self.WorkExperience_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Year_Master" EntityType="Self.Year_Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SessionPlanTopic_Master" EntityType="Self.SessionPlanTopic_Master" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 

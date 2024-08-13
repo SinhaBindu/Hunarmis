@@ -67,6 +67,11 @@ namespace Hunarmis.Models
         public Nullable<System.Guid> RemarksID_fk { get; set; }
         public Nullable<System.Guid> CallingID_fk { get; set; }
         public Nullable<bool> IsAssessmentDone { get; set; }
+        public string MaritalStatus { get; set; }
+        public Nullable<int> NoofFamilyMembers { get; set; }
+        public Nullable<decimal> AnnualHouseholdincome { get; set; }
+        public Nullable<int> PreTrainingStatus { get; set; }
+        public Nullable<int> TargetGroup { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_PlacementTracker> tbl_PlacementTracker { get; set; }

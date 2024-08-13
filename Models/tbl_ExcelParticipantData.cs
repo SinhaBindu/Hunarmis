@@ -43,5 +43,10 @@ namespace Hunarmis.Models
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string MaritalStatus { get; set; }
+        public string NoofFamilyMembers { get; set; }
+        public Nullable<decimal> AnnualHouseholdincome { get; set; }
+        public string PreTrainingStatus { get; set; }
+        public string TargetGroup { get; set; }
     }
 }

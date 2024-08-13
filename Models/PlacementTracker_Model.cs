@@ -16,26 +16,12 @@ namespace Hunarmis.Models
         public System.Guid PlacementTrackerId_pk { get; set; }
         public Nullable<System.Guid> ParticipantId_fk { get; set; }
         [Required]
-        [Display(Name = "Marital Status")]
-        public string MaritalStatus { get; set; }
-        [Required]
-        [Display(Name = "No of Family Members")]
-        public Nullable<int> NoofFamilyMembers { get; set; }
-        [Required]
-        [Display(Name = "Annual Household Income")]
-        public Nullable<decimal> AnnualHouseholdincome { get; set; }
-        [Required]
         [Display(Name = "Employee Type")]
         public Nullable<int> EmployeeTypeId { get; set; }
         [Required]
         [Display(Name = "Industry")]
         public Nullable<int> IndustryId { get; set; }
-        [Required]
-        [Display(Name = "Pre-Training Status")]
-        public int PreTrainingStatus { get; set; }
-        [Required]
-        [Display(Name = "Target Group")]
-        public int TargetGroup { get; set; }
+       
         [Required]
         [Display(Name = "Company Name")]
         public string CompanyName { get; set; }

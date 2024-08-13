@@ -22,5 +22,6 @@ namespace Hunarmis.Models
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<System.DateTime> IsDeletedOn { get; set; }
+        public Nullable<int> OrderBy { get; set; }
     }
 }

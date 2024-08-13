@@ -96,6 +96,22 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = DplyPartName.IsOffered)]
         public string Is_Offered { get; set; }
+
+        [Required]
+        [Display(Name = "Marital Status")]
+        public string MaritalStatus { get; set; }
+        [Required]
+        [Display(Name = "No of Family Members")]
+        public Nullable<int> NoofFamilyMembers { get; set; }
+        [Required]
+        [Display(Name = "Annual Household Income")]
+        public Nullable<decimal> AnnualHouseholdincome { get; set; }
+        [Required]
+        [Display(Name = "Pre-Training Status")]
+        public int? PreTrainingStatus { get; set; }
+        [Required]
+        [Display(Name = "Target Group")]
+        public int? TargetGroup { get; set; }
     }
     public static class DplyPartName
     {

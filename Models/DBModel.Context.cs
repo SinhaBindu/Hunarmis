@@ -53,8 +53,6 @@ namespace Hunarmis.Models
         public virtual DbSet<Tbl_ExceptionHandle> Tbl_ExceptionHandle { get; set; }
         public virtual DbSet<Batch_Master> Batch_Master { get; set; }
         public virtual DbSet<tbl_LogBatchTrainer> tbl_LogBatchTrainer { get; set; }
-        public virtual DbSet<tbl_ExcelParticipantData> tbl_ExcelParticipantData { get; set; }
-        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<tbl_AttendanceParticipant> tbl_AttendanceParticipant { get; set; }
         public virtual DbSet<tbl_AttendParticipant> tbl_AttendParticipant { get; set; }
         public virtual DbSet<SessionPlanTopic_Master> SessionPlanTopic_Master { get; set; }
@@ -66,6 +64,16 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_SurveyAnswer> tbl_SurveyAnswer { get; set; }
         public virtual DbSet<EmployeeType_Master> EmployeeType_Master { get; set; }
         public virtual DbSet<Industry_Master> Industry_Master { get; set; }
+        public virtual DbSet<tbl_ExcelParticipantData> tbl_ExcelParticipantData { get; set; }
+        public virtual DbSet<AnnualHousehold_Master> AnnualHousehold_Master { get; set; }
+        public virtual DbSet<FamilyMember_Master> FamilyMember_Master { get; set; }
+        public virtual DbSet<IDType_Master> IDType_Master { get; set; }
+        public virtual DbSet<KnowledgeEnglish_Master> KnowledgeEnglish_Master { get; set; }
+        public virtual DbSet<Languages_Master> Languages_Master { get; set; }
+        public virtual DbSet<PreTraining_Master> PreTraining_Master { get; set; }
+        public virtual DbSet<TargetGroup_Master> TargetGroup_Master { get; set; }
+        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<tbl_PlacementTracker> tbl_PlacementTracker { get; set; }
+        public virtual DbSet<WorkExperience_Master> WorkExperience_Master { get; set; }
     }
 }

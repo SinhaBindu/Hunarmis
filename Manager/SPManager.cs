@@ -321,7 +321,7 @@ namespace Hunarmis.Manager
         #region Placement Tracker 
         public static DataTable SP_PlacementTrackerDetail(FilterModel model)
         {
-            StoredProcedure sp = new StoredProcedure("SP_PlacementDetails");
+            StoredProcedure sp = new StoredProcedure("SP_PlacementTrackerDetails");
             sp.Command.AddParameter("@PlacementTrackerId", model.PlacementTrackerId, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;

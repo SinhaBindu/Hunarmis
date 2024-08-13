@@ -36,7 +36,7 @@
                 foreach (DataRow dr in dt.Rows)
                 {
                     <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">@ViewBag.Title: <span class="regis">@dr["RegID"]</span></h5>
+                        <h5 class="modal-title" id="myModalLabel">@ViewBag.Title: <span class="regis"> Reg ID : @dr["RegID"]</span></h5>
                         <button type="button" class="clos-btn" data-dismiss="modal" aria-label="Close">
                             <i class="fa fa-times"></i>
                         </button>
@@ -44,7 +44,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="panel">
+                                <div class="">
                                     <div class="panel-bodys">
                                         <div class="manage-input">
                                             <div class="card1">
@@ -70,13 +70,8 @@
                                                 </h4>
                                                 <div class="accords">
                                                     <div class="basic-info">
-                                                        <div class=""><p>Marital Status:  <span> @dr["MaritalStatus"]</span></p></div>
-                                                        <div class=""><p>No of Family Members:  <span> @dr["NoofFamilyMembers"]</span></p></div>
-                                                        <div class=""><p>Annual Household Income:  <span> @dr["AnnualHouseholdincome"]</span></p></div>
                                                         <div class=""><p>Employee Type:  <span>  @dr["EmployeeTypeName"]</span></p></div>
                                                         <div class=""><p>Industry:  <span> @dr["IndustryName"]</span></p></div>
-                                                        <div class=""><p>Pre-Training Status:  <span>  @dr["PreTrainingStatusText"]</span></p></div>
-                                                        <div class=""><p>Target Group:  <span>  @dr["TargetGroupText"]</span></p></div>
                                                         <div class=""><p>Company Name:  <span>  @dr["CompanyName"]</span></p></div>
                                                         <div class=""><p>Designation:  <span>  @dr["Designation"]</span></p></div>
                                                     </div>
@@ -87,12 +82,13 @@
                                                         <div class=""><p>State:  <span> @dr["PlaceStateName"]</span></p></div>
                                                         <div class=""><p>District:  <span> @dr["PlaceDistrictName"]</span></p></div>
                                                         <div class=""><p>Pin Code:  <span> @dr["PinCode"]</span></p></div>
-                                                        <div class=""><p>Date of Offer:  <span> @CommonModel.FormateDtDMY(dr["DateofOffer"].ToString())</span></p></div>
+                                                       
                                                     </div>
                                                     <h5>
                                                         Date Of Joining
                                                     </h5>
                                                     <div class="basic-info">
+                                                        <div class=""><p>Date of Offer:  <span> @CommonModel.FormateDtDMY(dr["DateofOffer"].ToString())</span></p></div>
                                                         <div class=""><p>Start Date: <span> @CommonModel.FormateDtDMY(dr["DOJStartDate"].ToString())</span></p></div>
                                                         <div class=""><p>End Date:  <span> @CommonModel.FormateDtDMY(dr["DOJEndDate"].ToString())</span></p></div>
                                                         @if (!string.IsNullOrWhiteSpace(dr["UOLPath"].ToString()))

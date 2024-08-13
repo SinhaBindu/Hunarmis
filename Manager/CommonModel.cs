@@ -50,7 +50,7 @@ namespace Hunarmis.Manager
                     return ip.ToString();
                 }
             }
-           // throw new Exception("No network adapters with an IPv4 address in the system!");
+            // throw new Exception("No network adapters with an IPv4 address in the system!");
             return "Error";
         }
         public static string GetPublicIPAddress()
@@ -578,29 +578,51 @@ namespace Hunarmis.Manager
         #endregion
 
         #region PlacementTracker
-        public static List<SelectListItem> GetMaritalStatus(int IsSelect=0)
+        public static List<SelectListItem> GetMaritalStatus(int IsSelect = 0)
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            if (IsSelect==0)
+            if (IsSelect == 0)
                 list.Add(new SelectListItem { Value = "", Text = "Select" });
-            if (IsSelect == 1)
-                list.Add(new SelectListItem { Value = "", Text = "All" });
-            else
+           else if (IsSelect == 1)
             {
-                list.Add(new SelectListItem { Value = "Unmarried", Text = "Unmarried" });
-                list.Add(new SelectListItem { Value = "Married", Text = "Married" });
+                list.Add(new SelectListItem { Value = "All", Text = "Select" });
             }
+            list.Add(new SelectListItem { Value = "Unmarried", Text = "Unmarried" });
+            list.Add(new SelectListItem { Value = "Married", Text = "Married" });
+            list.Add(new SelectListItem { Value = "Other", Text = "Other" });
+
+            return list.OrderBy(x => x.Value).ToList();
+        }
+        public static List<SelectListItem> GetPre_Training(int IsSelect = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List<SelectListItem> list = new List<SelectListItem>();
+            list = _db.PreTraining_Master.Select(course => new SelectListItem { Value = course.PreTrainingId_pk.ToString(), Text = course.PreTrainingName }).OrderBy(x => x.Text).ToList();
+            if (IsSelect == 0)
+                list.Add(new SelectListItem { Value = "", Text = "Select" });
+            else if (IsSelect == 1)
+                list.Add(new SelectListItem { Value = "", Text = "All" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
+        public static List<SelectListItem> GetTargetGroup(int IsSelect = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            List<SelectListItem> list = new List<SelectListItem>();
+            list = _db.TargetGroup_Master.Select(course => new SelectListItem { Value = course.TargetGroupId_pk.ToString(), Text = course.TargetGroupName }).OrderBy(x => x.Text).ToList();
+            if (IsSelect == 0)
+                list.Add(new SelectListItem { Value = "", Text = "Select" });
+            else if (IsSelect == 1)
+                list.Add(new SelectListItem { Value = "", Text = "All" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
         public static List<SelectListItem> GetEmployeeType(int IsSelect = 0)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
-            if (IsSelect == 2)
-                list = _db.EmployeeType_Master.Select(course => new SelectListItem{Value = course.EmployeeTypeId_pk.ToString(), Text = course.EmployeeTypeName }).OrderBy(x => x.Text).ToList();
-            else if (IsSelect == 0)
+            list = _db.EmployeeType_Master.Select(course => new SelectListItem { Value = course.EmployeeTypeId_pk.ToString(), Text = course.EmployeeTypeName }).OrderBy(x => x.Text).ToList();
+            if (IsSelect == 0)
                 list.Add(new SelectListItem { Value = "", Text = "Select" });
-            else if (IsSelect == 1)
+           else if (IsSelect == 1)
                 list.Add(new SelectListItem { Value = "", Text = "All" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
@@ -608,9 +630,8 @@ namespace Hunarmis.Manager
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
-            if (IsSelect == 2)
                 list = _db.Industry_Master.Select(course => new SelectListItem { Value = course.IndustryId_pk.ToString(), Text = course.IndustryName }).OrderBy(x => x.Text).ToList();
-            else if (IsSelect == 0)
+            if (IsSelect == 0)
                 list.Add(new SelectListItem { Value = "", Text = "Select" });
             else if (IsSelect == 1)
                 list.Add(new SelectListItem { Value = "", Text = "All" });
@@ -1787,7 +1808,7 @@ namespace Hunarmis.Manager
                     foreach (DataRow row in dt.Rows)
                     {
                         maxdateExam = row["ExamDt"].ToString();
-                        maxdateExamTimeStartEnd = row["StartTime"].ToString()+"/" + row["EndTime"].ToString();
+                        maxdateExamTimeStartEnd = row["StartTime"].ToString() + "/" + row["EndTime"].ToString();
                         To = row["EmailID"].ToString();
                         ParticipantId = Guid.Parse(row["ParticipantId_fk"].ToString());
                         OtherEmailID = row["OtherEmailID"].ToString();

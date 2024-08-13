@@ -255,7 +255,7 @@
                         $('#div-popmodel').html(result);
                         $("#myModal").modal({ backdrop: "static" });
                         $("#DateofOffer").datepicker({
-                            beforeShow: customRangeEndComplt,
+                            //beforeShow: customRangeEndComplt,
                             //dateFormat: 'mm-dd-yy',
                             dateFormat: 'dd-M-yy',
                             // changeMonth: true,
@@ -312,9 +312,6 @@
                 //var formData = $(this).serialize();
                 var formDataSerialized = $("#formidpop").serialize();
 
-                var pts = $('input[name="PreTrainingStatus"]:checked').val();
-                var tg = $('input[name="TargetGroup"]:checked').val();
-                
                 formDataSerialized.split('&').forEach(function (item) {
                     var parts = item.split('=');
                     formData.append(decodeURIComponent(parts[0]), decodeURIComponent(parts[1]));
@@ -326,8 +323,6 @@
                   if ($('#UploadAppointmentLetter').get(0).files.length != 0) {
                       formData.append('UploadAppointmentLetter', $('#UploadAppointmentLetter')[0].files[0]);
                 }
-                formData.append('PreTrainingStatus', pts);
-                formData.append('TargetGroup', tg);
 
             if (isvalid) {
                 $('#btnsubmitpop').attr('disabled', true);
