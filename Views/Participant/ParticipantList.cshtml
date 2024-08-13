@@ -50,6 +50,63 @@
     .downs-btn {
         float: right
     }
+    .modal {
+        padding: 20px !important
+    }
+    .modal-dialog {
+        width: 100%;
+        border: 2px solid #F5F5F5
+    }
+    .modal-title {
+        text-align: center;
+        font-size: 24px;
+        color: #000
+    }
+    .clos-btn {
+        float: right;
+        padding: 3px 7px;
+        background: #D34829;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 14px;
+        border: none;
+        margin-top: -20px
+    }
+    .down-btn {
+        padding: 2px 7px;
+        border-radius: 4px;
+        background: #e17c0f;
+        color: #fff;
+    }
+    .basic-info div {
+        flex-basis: 48%
+    }
+    .panel-bodys {
+        margin-bottom: 10px;
+    }
+    .btn-mat {
+        background: #009CFF;
+        padding: 2px 8px;
+        border-radius: 4px;
+        color: #fff;
+        border: none
+    }
+    .semi-title {
+        background: #2F17B5;
+    }
+    .panel-bodys h5 {
+        color: #e17c0f;
+    }
+    .box-bg {
+        padding: 15px;
+        background: #F5F5F5;
+        border-radius: 5px;
+    }
+    .box-bg label {
+        text-align: left !important;
+        font-weight: bold;
+        color: #000;
+    }
 </style>
 
 <div id="page-content">
@@ -65,7 +122,6 @@
                     </div>
 
                     <fieldset class="border rounded-3 p-3">
-                        @*<legend class="float-none w-auto px-2">Search By</legend>*@
                         @using (Html.BeginForm("GetPartList", "Participant", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
                         {
                             <div class="col-md-12">@Html.Partial("_Alerts")</div>
@@ -82,7 +138,6 @@
                                         <div class="position-relative">
                                             @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label col-md-1" })
                                             <div class="col-md-4">
-                                                @*@Html.DropDownListFor(m => m.BatchId, CommonModel.GetBatch(true), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })*@
                                                 @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                                 @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
                                             </div>
