@@ -4,23 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="12f0fe8778d24a76b3f05eadbe39ab8d" Name="Diagram1" ZoomLevel="55" >
+      <Diagram DiagramId="12f0fe8778d24a76b3f05eadbe39ab8d" Name="Diagram1" ZoomLevel="46" >
         <EntityTypeShape EntityType="Hunar_DBModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.Courses_Master" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.District_Master" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.State_Master" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.TrainingAgency_Master" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.Educational_Master" Width="1.5" PointX="10.5" PointY="6.875" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.AspNetUser" Width="1.5" PointX="3" PointY="0.875" IsExpanded="false" />
         <AssociationConnector Association="Hunar_DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="Hunar_DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="Hunar_DBModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_UserLogin" Width="1.5" PointX="10.375" PointY="0.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.TrainingCenter_Master" Width="1.5" PointX="9.375" PointY="4.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.Month_Master" Width="1.5" PointX="4.875" PointY="8.125" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.Year_Master" Width="1.5" PointX="7.5" PointY="8" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.Benefit_Master" Width="1.5" PointX="12.375" PointY="0.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.JobEmployed_Master" Width="1.5" PointX="5" PointY="9.875" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.LocatedKM_Master" Width="1.5" PointX="13.375" PointY="3.75" IsExpanded="false" />
@@ -34,7 +26,6 @@
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_ParticipantRemarks_History" Width="1.5" PointX="7.625" PointY="13" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_FileUpload" Width="1.5" PointX="8.875" PointY="6.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.Tbl_ExceptionHandle" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.Batch_Master" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_LogBatchTrainer" Width="1.5" PointX="13.75" PointY="8.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_AttendanceParticipant" Width="1.5" PointX="12.75" PointY="14.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_AttendParticipant" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="false" />
@@ -46,19 +37,28 @@
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_Survey" Width="1.5" PointX="16.125" PointY="12.125" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_SurveyAnswer" Width="1.5" PointX="18.375" PointY="13.625" IsExpanded="false" />
         <AssociationConnector Association="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" />
-        <EntityTypeShape EntityType="Hunar_DBModel.EmployeeType_Master" Width="1.5" PointX="15.375" PointY="2.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.Industry_Master" Width="1.5" PointX="16.375" PointY="6.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_ExcelParticipantData" Width="1.5" PointX="8.375" PointY="15.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.AnnualHousehold_Master" Width="1.5" PointX="10.75" PointY="16.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.FamilyMember_Master" Width="1.5" PointX="12.75" PointY="16.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.IDType_Master" Width="1.5" PointX="17.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.KnowledgeEnglish_Master" Width="1.5" PointX="3.75" PointY="17.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.Languages_Master" Width="1.5" PointX="5.75" PointY="17.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.PreTraining_Master" Width="1.5" PointX="7.75" PointY="17.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.TargetGroup_Master" Width="1.5" PointX="17.75" PointY="15.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant" Width="1.5" PointX="15.75" PointY="16.375" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_PlacementTracker" Width="1.5" PointX="18" PointY="19.25" />
-        <EntityTypeShape EntityType="Hunar_DBModel.WorkExperience_Master" Width="1.5" PointX="0.75" PointY="18.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant" Width="1.5" PointX="15.75" PointY="16.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="Hunar_DBModel.AnnualHousehold_Master" Width="1.5" PointX="3.75" PointY="5.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.Batch_Master" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.Courses_Master" Width="1.5" PointX="5.75" PointY="5.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.District_Master" Width="1.5" PointX="9.75" PointY="2.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.Educational_Master" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.EmployeeType_Master" Width="1.5" PointX="15.75" PointY="2.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.FamilyMember_Master" Width="1.5" PointX="16.75" PointY="6.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.IDType_Master" Width="1.5" PointX="10.75" PointY="16.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.Industry_Master" Width="1.5" PointX="12.75" PointY="16.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.KnowledgeEnglish_Master" Width="1.5" PointX="17.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.Languages_Master" Width="1.5" PointX="3.75" PointY="17.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.Month_Master" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.PreTraining_Master" Width="1.5" PointX="5.75" PointY="17.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.State_Master" Width="1.5" PointX="7.75" PointY="17.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.TargetGroup_Master" Width="1.5" PointX="14.75" PointY="17.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_PlacementTracker" Width="1.5" PointX="18.375" PointY="15.625" />
+        <EntityTypeShape EntityType="Hunar_DBModel.TrainingAgency_Master" Width="1.5" PointX="0.75" PointY="18.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.TrainingCenter_Master" Width="1.5" PointX="18.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.WorkExperience_Master" Width="1.5" PointX="18.75" PointY="8.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.Year_Master" Width="1.5" PointX="10.75" PointY="11.75" />
         <AssociationConnector Association="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" />
         </Diagram>
     </edmx:Diagrams>

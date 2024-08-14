@@ -16,5 +16,9 @@ namespace Hunarmis.Models
     {
         public int ID { get; set; }
         public string Year { get; set; }
+        public Nullable<int> OrderBy { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
     }
 }

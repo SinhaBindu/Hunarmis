@@ -28,16 +28,8 @@ namespace Hunarmis.Models
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<Courses_Master> Courses_Master { get; set; }
-        public virtual DbSet<District_Master> District_Master { get; set; }
-        public virtual DbSet<State_Master> State_Master { get; set; }
-        public virtual DbSet<TrainingAgency_Master> TrainingAgency_Master { get; set; }
-        public virtual DbSet<Educational_Master> Educational_Master { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<tbl_UserLogin> tbl_UserLogin { get; set; }
-        public virtual DbSet<TrainingCenter_Master> TrainingCenter_Master { get; set; }
-        public virtual DbSet<Month_Master> Month_Master { get; set; }
-        public virtual DbSet<Year_Master> Year_Master { get; set; }
         public virtual DbSet<Benefit_Master> Benefit_Master { get; set; }
         public virtual DbSet<JobEmployed_Master> JobEmployed_Master { get; set; }
         public virtual DbSet<LocatedKM_Master> LocatedKM_Master { get; set; }
@@ -51,7 +43,6 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_ParticipantRemarks_History> tbl_ParticipantRemarks_History { get; set; }
         public virtual DbSet<tbl_FileUpload> tbl_FileUpload { get; set; }
         public virtual DbSet<Tbl_ExceptionHandle> Tbl_ExceptionHandle { get; set; }
-        public virtual DbSet<Batch_Master> Batch_Master { get; set; }
         public virtual DbSet<tbl_LogBatchTrainer> tbl_LogBatchTrainer { get; set; }
         public virtual DbSet<tbl_AttendanceParticipant> tbl_AttendanceParticipant { get; set; }
         public virtual DbSet<tbl_AttendParticipant> tbl_AttendParticipant { get; set; }
@@ -62,18 +53,27 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_AssessmentSendLinkEmail> tbl_AssessmentSendLinkEmail { get; set; }
         public virtual DbSet<tbl_Survey> tbl_Survey { get; set; }
         public virtual DbSet<tbl_SurveyAnswer> tbl_SurveyAnswer { get; set; }
-        public virtual DbSet<EmployeeType_Master> EmployeeType_Master { get; set; }
-        public virtual DbSet<Industry_Master> Industry_Master { get; set; }
         public virtual DbSet<tbl_ExcelParticipantData> tbl_ExcelParticipantData { get; set; }
+        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<AnnualHousehold_Master> AnnualHousehold_Master { get; set; }
+        public virtual DbSet<Batch_Master> Batch_Master { get; set; }
+        public virtual DbSet<Courses_Master> Courses_Master { get; set; }
+        public virtual DbSet<District_Master> District_Master { get; set; }
+        public virtual DbSet<Educational_Master> Educational_Master { get; set; }
+        public virtual DbSet<EmployeeType_Master> EmployeeType_Master { get; set; }
         public virtual DbSet<FamilyMember_Master> FamilyMember_Master { get; set; }
         public virtual DbSet<IDType_Master> IDType_Master { get; set; }
+        public virtual DbSet<Industry_Master> Industry_Master { get; set; }
         public virtual DbSet<KnowledgeEnglish_Master> KnowledgeEnglish_Master { get; set; }
         public virtual DbSet<Languages_Master> Languages_Master { get; set; }
+        public virtual DbSet<Month_Master> Month_Master { get; set; }
         public virtual DbSet<PreTraining_Master> PreTraining_Master { get; set; }
+        public virtual DbSet<State_Master> State_Master { get; set; }
         public virtual DbSet<TargetGroup_Master> TargetGroup_Master { get; set; }
-        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<tbl_PlacementTracker> tbl_PlacementTracker { get; set; }
+        public virtual DbSet<TrainingAgency_Master> TrainingAgency_Master { get; set; }
+        public virtual DbSet<TrainingCenter_Master> TrainingCenter_Master { get; set; }
         public virtual DbSet<WorkExperience_Master> WorkExperience_Master { get; set; }
+        public virtual DbSet<Year_Master> Year_Master { get; set; }
     }
 }

@@ -229,14 +229,14 @@ namespace Hunarmis.Controllers
             return View();
         }
 
-        #region PlacementTracker 
+        #region Placement Tracker 
         public ActionResult AddPlacementTracker(Guid PartId, Guid? Id)
         {
             Hunar_DBEntities db_ = new Hunar_DBEntities();
             PlacementTracker_Model model = new PlacementTracker_Model();
             if (PartId != Guid.Empty && PartId != null)
             {
-                var tbl = db.tbl_Participant.Find(PartId);
+                var tbl = db_.tbl_Participant.Find(PartId);
                 if (tbl != null)
                 {
                     model.ParticipantId_fk = tbl.ID;
@@ -252,6 +252,28 @@ namespace Hunarmis.Controllers
                     && x.TrainingAgencyID_fk == tbl.TrainingAgencyID && x.DistrictID_fk == tbl.DistrictID)?.FirstOrDefault();
                     model.modelbasicpart.TrainingAgencyName = TrainAcy != null ? TrainAcy.TrainingAgencyName : null;
                     model.modelbasicpart.TrainingCenter = TrainCen != null ? TrainCen.TrainingCenter : null;
+
+                    var tblPlaceTrackerId = db_.tbl_PlacementTracker.Find(Id);
+                    if (tblPlaceTrackerId != null && Id != Guid.Empty)
+                    {
+                        model.ParticipantId_fk = tblPlaceTrackerId.ParticipantId_fk;
+                        model.PlacementTrackerId_pk = tblPlaceTrackerId.PlacementTrackerId_pk;
+
+                        model.EmployeeTypeId = tblPlaceTrackerId.EmployeeTypeId;
+                        model.IndustryId = tblPlaceTrackerId.IndustryId;
+                        model.CompanyName = tblPlaceTrackerId.CompanyName;
+                        model.Designation = tblPlaceTrackerId.Designation;
+                        model.Salary = tblPlaceTrackerId.Salary;
+                        model.StateId = tblPlaceTrackerId.StateId;
+                        model.DistrictId = tblPlaceTrackerId.DistrictId;
+                        model.PinCode = tblPlaceTrackerId.PinCode;
+                        model.DateofOffer = tblPlaceTrackerId.DateofOffer;
+                        model.DOJStartDate = tblPlaceTrackerId.DOJStartDate;
+                        model.DOJEndDate = tblPlaceTrackerId.DOJEndDate;
+
+                        model.FilterModel.DistrictId = tblPlaceTrackerId.DistrictId.ToString();
+                    }
+
                 }
             }
             return PartialView("_AddPlacementTracker", model);
@@ -280,12 +302,22 @@ namespace Hunarmis.Controllers
                     resResponse3.MaxJsonLength = int.MaxValue;
                     return resResponse3;
                 }
+                if (model.DOJEndDate!=null)
+                {
+                    if (model.DateofOffer > model.DOJEndDate)
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Date of offer greater than date of joining end date.", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+
+                }
                 var tbl = (model.ParticipantId_fk != Guid.Empty && model.PlacementTrackerId_pk != Guid.Empty) ? db_.tbl_PlacementTracker.Find(model.PlacementTrackerId_pk) : new tbl_PlacementTracker();
                 if (tbl != null && MvcApplication.CUser != null)
                 {
                     if (model.ParticipantId_fk != Guid.Empty)
                     {
-
                         tbl.EmployeeTypeId = model.EmployeeTypeId;
                         tbl.IndustryId = model.IndustryId;
                         tbl.CompanyName = model.CompanyName;
@@ -298,7 +330,10 @@ namespace Hunarmis.Controllers
                         tbl.DOJStartDate = model.DOJStartDate;
                         tbl.DOJEndDate = model.DOJEndDate;
 
-                        tbl.PlacementTrackerId_pk = Guid.NewGuid();
+                        if (model.PlacementTrackerId_pk == Guid.Empty)
+                        {
+                            tbl.PlacementTrackerId_pk = Guid.NewGuid();
+                        }
                         if (model.UploadOfferLetter != null)
                         {
                             var filePathUOL = CommonModel.SaveSingleFile(model.UploadOfferLetter, tbl.PlacementTrackerId_pk.ToString(), "UploadOfferLetter");
@@ -319,6 +354,11 @@ namespace Hunarmis.Controllers
                             tbl.CreatedBy = MvcApplication.CUser.UserId;
                             tbl.CreatedOn = DateTime.Now;
                             db_.tbl_PlacementTracker.Add(tbl);
+                        }
+                        else
+                        {
+                            tbl.UpdatedBy = MvcApplication.CUser.UserId;
+                            tbl.UpdatedOn = DateTime.Now;
                         }
                         results = db_.SaveChanges();
                         if (results > 0)
@@ -905,7 +945,7 @@ namespace Hunarmis.Controllers
                                         tblu.NoofFamilyMembers = !(string.IsNullOrWhiteSpace(dr["NoofFamilyMembers"].ToString())) ? Convert.ToInt32(dr["NoofFamilyMembers"]) : 0;
                                         tblu.AnnualHouseholdincome = !(string.IsNullOrWhiteSpace(dr["AnnualHouseholdincome"].ToString())) ? Convert.ToDecimal(dr["AnnualHouseholdincome"]) : 0;
                                         var PreTrainingStatus = Convert.ToString(dr["PreTrainingStatus"]);
-                                        var PreTrainingStatusId = !(string.IsNullOrWhiteSpace(PreTrainingStatus)) ?db_.PreTraining_Master.Where(x => x.PreTrainingName == PreTrainingStatus).FirstOrDefault()?.PreTrainingId_pk : null;
+                                        var PreTrainingStatusId = !(string.IsNullOrWhiteSpace(PreTrainingStatus)) ? db_.PreTraining_Master.Where(x => x.PreTrainingName == PreTrainingStatus).FirstOrDefault()?.PreTrainingId_pk : null;
                                         tblu.PreTrainingStatus = PreTrainingStatusId;
                                         var TargetGroup = Convert.ToString(dr["TargetGroup"]);
                                         var TargetGroupId = !(string.IsNullOrWhiteSpace(TargetGroup)) ? db_.TargetGroup_Master.Where(x => x.TargetGroupName == TargetGroup).FirstOrDefault()?.TargetGroupId_pk : null;

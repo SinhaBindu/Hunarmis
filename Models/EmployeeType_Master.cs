@@ -17,11 +17,11 @@ namespace Hunarmis.Models
         public int EmployeeTypeId_pk { get; set; }
         public string EmployeeTypeName { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public Nullable<int> OrderBy { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<System.DateTime> IsDeletedOn { get; set; }
-        public Nullable<int> OrderBy { get; set; }
     }
 }

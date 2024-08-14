@@ -17,10 +17,13 @@ namespace Hunarmis.Models
         public int Id { get; set; }
         public Nullable<int> StateId { get; set; }
         public string DistrictName { get; set; }
+        public Nullable<int> Type { get; set; }
+        public string TypeText { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> Updated { get; set; }
+        public Nullable<int> OrderBy { get; set; }
     }
 }

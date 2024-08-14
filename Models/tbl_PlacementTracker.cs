@@ -18,6 +18,7 @@ namespace Hunarmis.Models
         public Nullable<System.Guid> ParticipantId_fk { get; set; }
         public Nullable<int> EmployeeTypeId { get; set; }
         public Nullable<int> IndustryId { get; set; }
+        public string IndustryOther { get; set; }
         public string CompanyName { get; set; }
         public string Designation { get; set; }
         public Nullable<decimal> Salary { get; set; }
@@ -36,6 +37,7 @@ namespace Hunarmis.Models
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<System.DateTime> IsDeletedOn { get; set; }
+        public Nullable<int> OrderBy { get; set; }
     
         public virtual tbl_Participant tbl_Participant { get; set; }
     }

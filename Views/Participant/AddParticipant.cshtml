@@ -264,7 +264,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label col-lg-12" })
                                     <div class="col-lg-12">
-                                        @Html.DropDownListFor(model => model.MaritalStatus, CommonModel.GetMaritalStatus(0), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                        @Html.DropDownListFor(model => model.MaritalStatus, CommonModel.GetMaritalStatus(0), "Select One", htmlAttributes: new { @class = "required form-control select2", @required = "required" })
                                         @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
@@ -273,7 +273,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.NoofFamilyMembers, htmlAttributes: new { @class = "control-label col-lg-12" })
                                         <div class="col-lg-12">
-                                            @Html.EditorFor(model => model.NoofFamilyMembers, new { htmlAttributes = new { @type = "number", @class = "required form-control", @required = "required", min = "0", maxlength = "2", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
+                                            @Html.EditorFor(model => model.NoofFamilyMembers, new { htmlAttributes = new { @type = "number", @class = "form-control", min = "0", maxlength = "2", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
                                             @Html.ValidationMessageFor(model => model.NoofFamilyMembers, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="mark-devide"></div>
@@ -281,7 +281,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.AnnualHouseholdincome, htmlAttributes: new { @class = "control-label col-lg-12" })
                                         <div class="col-lg-12">
-                                            @Html.EditorFor(model => model.AnnualHouseholdincome, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal", min = "0", maxlength = "5", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
+                                            @Html.EditorFor(model => model.AnnualHouseholdincome, new { htmlAttributes = new { @type = "text", @class = "form-control", onchange = "setTwoNumberDecimal()", min = "0", maxlength = "5", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
                                             @Html.ValidationMessageFor(model => model.AnnualHouseholdincome, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="mark-devide"></div>
@@ -291,7 +291,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.PreTrainingStatus, htmlAttributes: new { @class = "control-label col-lg-12" })
                                         <div class="col-lg-12">
-                                            @Html.DropDownListFor(model => model.PreTrainingStatus, CommonModel.GetPre_Training(0), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                            @Html.DropDownListFor(model => model.PreTrainingStatus, CommonModel.GetPre_Training(0), "Select One", htmlAttributes: new { @class = "form-control select2" })
                                             @Html.ValidationMessageFor(model => model.PreTrainingStatus, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -300,7 +300,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.TargetGroup, htmlAttributes: new { @class = "control-label col-lg-12" })
                                     <div class="col-lg-12">
-                                        @Html.DropDownListFor(model => model.TargetGroup, CommonModel.GetTargetGroup(0), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                        @Html.DropDownListFor(model => model.TargetGroup, CommonModel.GetTargetGroup(0), "Select One", htmlAttributes: new { @class = "form-control select2" })
                                         @Html.ValidationMessageFor(model => model.TargetGroup, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
@@ -360,6 +360,16 @@
        @* $('#DesignationId').val('@Model.DesignationId').select2();*@
         $(document).ready(function () {
             //GetYearList("Year", 0);  //GetMonthList("Month", 0);
+            $('#AnnualHouseholdincome').on('input', function () {
+                var value = $(this).val();
+                var validValue = value.replace(/[^0-9.]/g, '');
+                var decimalMatch = validValue.match(/^\d*(\.\d{0,2})?$/);
+                if (decimalMatch) {
+                    $(this).val(validValue);
+                } else {
+                    $(this).val(value.slice(0, -1));
+                }
+            });
 
               if ('@Model' != 'null') {
                   if ('@Model.ID' != '@Guid.Empty') {
@@ -481,5 +491,14 @@
 
 
         });
+
+
+        function setTwoNumberDecimal(event) {
+            if (this.value != null) {
+                this.value = parseFloat(this.value).toFixed(2);
+            }
+        }
+
+
     </script>
 }

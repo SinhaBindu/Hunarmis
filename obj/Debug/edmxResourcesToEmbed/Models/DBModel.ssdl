@@ -86,6 +86,7 @@
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
+    <Property Name="orderBy" Type="int" />
   </EntityType>
   <EntityType Name="Benefit_Master">
     <Key>
@@ -105,19 +106,23 @@
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
+    <Property Name="OrderBy" Type="int" />
   </EntityType>
   <EntityType Name="District_Master">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="StateId" Type="int" />
     <Property Name="DistrictName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Type" Type="int" />
+    <Property Name="TypeText" Type="nvarchar" MaxLength="50" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
+    <Property Name="OrderBy" Type="int" />
   </EntityType>
   <EntityType Name="Educational_Master">
     <Key>
@@ -130,6 +135,7 @@
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
+    <Property Name="OrderBy" Type="int" />
   </EntityType>
   <EntityType Name="EmployeeType_Master">
     <Key>
@@ -238,6 +244,7 @@
     </Key>
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="MonthName" Type="nvarchar" MaxLength="50" />
+    <Property Name="OrderBy" Type="int" />
   </EntityType>
   <EntityType Name="PreTraining_Master">
     <Key>
@@ -250,6 +257,7 @@
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="OrderBy" Type="int" />
   </EntityType>
   <EntityType Name="QuestionBook">
     <Key>
@@ -334,10 +342,13 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="StateName" Type="nvarchar" MaxLength="200" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="StateType" Type="int" />
+    <Property Name="StateTypeText" Type="nvarchar" MaxLength="50" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
+    <Property Name="OrderBy" Type="int" />
   </EntityType>
   <EntityType Name="TargetGroup_Master">
     <Key>
@@ -350,6 +361,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="OrderBy" Type="int" />
   </EntityType>
   <EntityType Name="tbl_AssessmentSchedule">
     <Key>
@@ -715,6 +727,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="ParticipantId_fk" Type="uniqueidentifier" />
     <Property Name="EmployeeTypeId" Type="int" />
     <Property Name="IndustryId" Type="int" />
+    <Property Name="IndustryOther" Type="nvarchar" MaxLength="1200" />
     <Property Name="CompanyName" Type="nvarchar(max)" />
     <Property Name="Designation" Type="nvarchar" MaxLength="1200" />
     <Property Name="Salary" Type="decimal" Precision="5" Scale="2" />
@@ -733,6 +746,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="UpdatedOn" Type="datetime" />
     <Property Name="IsDeletedOn" Type="datetime" />
+    <Property Name="OrderBy" Type="int" />
   </EntityType>
   <EntityType Name="tbl_SendMail">
     <Key>
@@ -833,6 +847,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
+    <Property Name="OrderBy" Type="int" />
   </EntityType>
   <EntityType Name="TrainingCenter_Master">
     <Key>
@@ -848,6 +863,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
     <Property Name="Updated" Type="datetime" />
+    <Property Name="OrderBy" Type="int" />
   </EntityType>
   <EntityType Name="WorkExperience_Master">
     <Key>
@@ -868,6 +884,10 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
     </Key>
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="Year" Type="nvarchar" MaxLength="50" />
+    <Property Name="OrderBy" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">

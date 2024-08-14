@@ -213,11 +213,11 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetDistrictList(string SelectAll, int StateId)
+        public ActionResult GetDistrictList(string SelectAll, int StateId, int Type = 1)
         {
             try
             {
-                var items = CommonModel.GetDistrict(SelectAll, StateId);
+                var items = CommonModel.GetDistrict(SelectAll, StateId, Type);
                 if (items != null)
                 {
                     if (items.Count > 0)
@@ -333,11 +333,11 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetCourses(bool SelectAll,int DistrictId=0)
+        public ActionResult GetCourses(bool SelectAll, int DistrictId = 0)
         {
             try
             {
-                var items = CommonModel.GetCourses(SelectAll,DistrictId);
+                var items = CommonModel.GetCourses(SelectAll, DistrictId);
                 if (items != null)
                 {
                     if (items.Count > 0)
@@ -353,7 +353,7 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetModuleWiseBatches(int SelectAll,int ModuleType=0, int CourseId=0,int BatchId=0)
+        public ActionResult GetModuleWiseBatches(int SelectAll, int ModuleType = 0, int CourseId = 0, int BatchId = 0)
         {
             try
             {
@@ -442,8 +442,8 @@ namespace Hunarmis.Controllers
                 {
                     if (items.Count > 0)
                     {
-                            var data = JsonConvert.SerializeObject(items);
-                            return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
                     }
                 }
                 return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);

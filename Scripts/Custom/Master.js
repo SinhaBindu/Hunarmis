@@ -261,7 +261,7 @@ function BindStateList(ElementId, SelectedValue, SelectAll) {
     //console.log('select value-'+SelectedValue);
     $('#' + ElementId).trigger("chosen:updated");
 }
-function BindDistrict(ElementId, SelectedValue, SelectAll, Para) {
+function BindDistrict(ElementId, SelectedValue, SelectAll, Para, Type=1) {
     $('#' + ElementId).empty();
     $('#' + ElementId).prop("disabled", false);
     //$('#' + ElementId).append($("<option>").val('').text('Select'));
@@ -269,7 +269,7 @@ function BindDistrict(ElementId, SelectedValue, SelectAll, Para) {
         //url: document.baseURI + "/Master/GetHSCDistrict",
         url: document.baseURI + "Master/GetDistrictList",
         type: "Post",
-        data: JSON.stringify({ 'SelectAll': SelectAll, 'StateId': Para }),
+        data: JSON.stringify({ 'SelectAll': SelectAll, 'StateId': Para, 'Type': Type }),
         contentType: "application/json; charset=utf-8",
         //global: false,
         async: false,

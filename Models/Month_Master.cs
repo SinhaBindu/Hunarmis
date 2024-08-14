@@ -16,5 +16,6 @@ namespace Hunarmis.Models
     {
         public int ID { get; set; }
         public string MonthName { get; set; }
+        public Nullable<int> OrderBy { get; set; }
     }
 }

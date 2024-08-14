@@ -199,7 +199,7 @@
                                 <div class="form-group Iscomftable">
                                     @Html.LabelFor(model => model.SalaryPackage, htmlAttributes: new { @class = "control-label col-lg-4" })
                                     <div class="col-lg-8">
-                                        @Html.EditorFor(model => model.SalaryPackage, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal", min = "0"} })
+                                        @Html.EditorFor(model => model.SalaryPackage, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal(this)", min = "0"} })
                                         @Html.ValidationMessageFor(model => model.SalaryPackage, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
@@ -386,6 +386,17 @@
     <script>
        @* $('#DesignationId').val('@Model.DesignationId').select2();*@
         $(document).ready(function () {
+
+            $('#SalaryPackage').on('input', function () {
+                var value = $(this).val();
+                var validValue = value.replace(/[^0-9.]/g, '');
+                var decimalMatch = validValue.match(/^\d*(\.\d{0,2})?$/);
+                if (decimalMatch) {
+                    $(this).val(validValue);
+                } else {
+                    $(this).val(value.slice(0, -1));
+                }
+            });
             //datepickermonth
             $("#DOJ").datepicker({
                 //dateFormat: 'mm-dd-yy',
@@ -421,6 +432,7 @@
                     $('#RemarkStatus').attr('required','required');
                 }
             });
+           
 
             $('input[type=radio][name=IsPresent]').change(function () {
                 $("input[name=IsComfortable]").prop('checked', false);
@@ -593,6 +605,11 @@
             $("input[name=EmployedId]").prop('checked', false);
             $("input[name=IsGettingjob]").prop('checked', false);
             $("input[name=PlacedStatus]").prop('checked', false);
+        }
+        function setTwoNumberDecimal(event) {
+            if (this.value != null) {
+                this.value = parseFloat(this.value).toFixed(2);
+            }
         }
 
 

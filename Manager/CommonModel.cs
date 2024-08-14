@@ -582,14 +582,14 @@ namespace Hunarmis.Manager
         {
             List<SelectListItem> list = new List<SelectListItem>();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "", Text = "Select" });
-           else if (IsSelect == 1)
+                list.Add(new SelectListItem { Value = "0", Text = "Select" });
+            else if (IsSelect == 1)
             {
                 list.Add(new SelectListItem { Value = "All", Text = "Select" });
             }
-            list.Add(new SelectListItem { Value = "Unmarried", Text = "Unmarried" });
-            list.Add(new SelectListItem { Value = "Married", Text = "Married" });
-            list.Add(new SelectListItem { Value = "Other", Text = "Other" });
+            list.Add(new SelectListItem { Value = "1", Text = "Unmarried" });
+            list.Add(new SelectListItem { Value = "2", Text = "Married" });
+            list.Add(new SelectListItem { Value = "3", Text = "Other" });
 
             return list.OrderBy(x => x.Value).ToList();
         }
@@ -599,10 +599,10 @@ namespace Hunarmis.Manager
             List<SelectListItem> list = new List<SelectListItem>();
             list = _db.PreTraining_Master.Select(course => new SelectListItem { Value = course.PreTrainingId_pk.ToString(), Text = course.PreTrainingName }).OrderBy(x => x.Text).ToList();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "", Text = "Select" });
+                list.Add(new SelectListItem { Value = "0", Text = "Select" });
             else if (IsSelect == 1)
                 list.Add(new SelectListItem { Value = "", Text = "All" });
-            return list.OrderByDescending(x => x.Text).ToList();
+            return list.OrderBy(x => x.Text).ToList();
         }
         public static List<SelectListItem> GetTargetGroup(int IsSelect = 0)
         {
@@ -610,32 +610,32 @@ namespace Hunarmis.Manager
             List<SelectListItem> list = new List<SelectListItem>();
             list = _db.TargetGroup_Master.Select(course => new SelectListItem { Value = course.TargetGroupId_pk.ToString(), Text = course.TargetGroupName }).OrderBy(x => x.Text).ToList();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "", Text = "Select" });
+                list.Add(new SelectListItem { Value = "0", Text = "Select" });
             else if (IsSelect == 1)
                 list.Add(new SelectListItem { Value = "", Text = "All" });
-            return list.OrderByDescending(x => x.Text).ToList();
+            return list.OrderBy(x => x.Text).ToList();
         }
         public static List<SelectListItem> GetEmployeeType(int IsSelect = 0)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
-            list = _db.EmployeeType_Master.Select(course => new SelectListItem { Value = course.EmployeeTypeId_pk.ToString(), Text = course.EmployeeTypeName }).OrderBy(x => x.Text).ToList();
+            list = _db.EmployeeType_Master.OrderBy(x => x.OrderBy).Select(course => new SelectListItem { Value = course.EmployeeTypeId_pk.ToString(), Text = course.EmployeeTypeName }).OrderBy(x => x.Text).ToList();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "", Text = "Select" });
-           else if (IsSelect == 1)
+                list.Add(new SelectListItem { Value = "-1", Text = "Select" });
+            else if (IsSelect == 1)
                 list.Add(new SelectListItem { Value = "", Text = "All" });
-            return list.OrderByDescending(x => x.Text).ToList();
+            return list.ToList();
         }
         public static List<SelectListItem> GetIndustry(int IsSelect = 0)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
-                list = _db.Industry_Master.Select(course => new SelectListItem { Value = course.IndustryId_pk.ToString(), Text = course.IndustryName }).OrderBy(x => x.Text).ToList();
+            list = _db.Industry_Master.OrderBy(x=>x.OrderBy).Select(course => new SelectListItem { Value = course.IndustryId_pk.ToString(), Text = course.IndustryName }).OrderBy(x => x.Text).ToList();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "", Text = "Select" });
+                list.Add(new SelectListItem { Value = "-1", Text = "Select" });
             else if (IsSelect == 1)
                 list.Add(new SelectListItem { Value = "", Text = "All" });
-            return list.OrderByDescending(x => x.Text).ToList();
+            return list.OrderBy(x => x.Text).ToList();
         }
         #endregion
 
@@ -778,7 +778,7 @@ namespace Hunarmis.Manager
                 throw;
             }
         }
-        public static List<SelectListItem> GetDistrict(string IsSelectAll = "0", int StateId = 1)
+        public static List<SelectListItem> GetDistrict(string IsSelectAll = "0", int StateId = 1, int Type = 1)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
 
@@ -786,8 +786,16 @@ namespace Hunarmis.Manager
             {
                 //DataTable dt = new DataTable();
                 //dt = SP_Model.SPDistrict();
-                //var listitem = ConvertDataTable<SelectListItem>(dt);
-                var listitem = new SelectList(_db.District_Master.Where(x => x.IsActive == true && x.StateId == StateId), "ID", "DistrictName").OrderBy(x => x.Text).ToList();
+                // var listitem = ConvertDataTable<SelectListItem>(dt);
+                var listitem = new List<SelectListItem>();
+                if (Type == 1)
+                {
+                    listitem = new SelectList(_db.District_Master.Where(x => x.IsActive == true && x.StateId == StateId && x.Type == Type), "ID", "DistrictName").OrderBy(x => x.Text).ToList();
+                }
+                else if (Type == 2)
+                {
+                    listitem = new SelectList(_db.District_Master.Where(x => x.IsActive == true && x.StateId == StateId), "ID", "DistrictName").OrderBy(x => x.Text).ToList();
+                }
                 listitem = new SelectList(listitem, "Value", "Text").OrderBy(x => x.Text).ToList();
                 if (IsSelectAll == "0")
                 {

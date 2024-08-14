@@ -4,11 +4,6 @@
     <EntitySet Name="AspNetRoles" EntityType="Hunar_DBModel.AspNetRole" />
     <EntitySet Name="AspNetUserClaims" EntityType="Hunar_DBModel.AspNetUserClaim" />
     <EntitySet Name="AspNetUserLogins" EntityType="Hunar_DBModel.AspNetUserLogin" />
-    <EntitySet Name="Courses_Master" EntityType="Hunar_DBModel.Courses_Master" />
-    <EntitySet Name="District_Master" EntityType="Hunar_DBModel.District_Master" />
-    <EntitySet Name="State_Master" EntityType="Hunar_DBModel.State_Master" />
-    <EntitySet Name="TrainingAgency_Master" EntityType="Hunar_DBModel.TrainingAgency_Master" />
-    <EntitySet Name="Educational_Master" EntityType="Hunar_DBModel.Educational_Master" />
     <EntitySet Name="AspNetUsers" EntityType="Hunar_DBModel.AspNetUser" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Hunar_DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -23,9 +18,6 @@
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
     <EntitySet Name="tbl_UserLogin" EntityType="Hunar_DBModel.tbl_UserLogin" />
-    <EntitySet Name="TrainingCenter_Master" EntityType="Hunar_DBModel.TrainingCenter_Master" />
-    <EntitySet Name="Month_Master" EntityType="Hunar_DBModel.Month_Master" />
-    <EntitySet Name="Year_Master" EntityType="Hunar_DBModel.Year_Master" />
     <EntitySet Name="Benefit_Master" EntityType="Hunar_DBModel.Benefit_Master" />
     <EntitySet Name="JobEmployed_Master" EntityType="Hunar_DBModel.JobEmployed_Master" />
     <EntitySet Name="LocatedKM_Master" EntityType="Hunar_DBModel.LocatedKM_Master" />
@@ -39,7 +31,6 @@
     <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Hunar_DBModel.tbl_ParticipantRemarks_History" />
     <EntitySet Name="tbl_FileUpload" EntityType="Hunar_DBModel.tbl_FileUpload" />
     <EntitySet Name="Tbl_ExceptionHandle" EntityType="Hunar_DBModel.Tbl_ExceptionHandle" />
-    <EntitySet Name="Batch_Master" EntityType="Hunar_DBModel.Batch_Master" />
     <EntitySet Name="tbl_LogBatchTrainer" EntityType="Hunar_DBModel.tbl_LogBatchTrainer" />
     <EntitySet Name="tbl_AttendanceParticipant" EntityType="Hunar_DBModel.tbl_AttendanceParticipant" />
     <EntitySet Name="tbl_AttendParticipant" EntityType="Hunar_DBModel.tbl_AttendParticipant" />
@@ -54,19 +45,28 @@
       <End Role="tbl_Survey" EntitySet="tbl_Survey" />
       <End Role="tbl_SurveyAnswer" EntitySet="tbl_SurveyAnswer" />
     </AssociationSet>
-    <EntitySet Name="EmployeeType_Master" EntityType="Hunar_DBModel.EmployeeType_Master" />
-    <EntitySet Name="Industry_Master" EntityType="Hunar_DBModel.Industry_Master" />
     <EntitySet Name="tbl_ExcelParticipantData" EntityType="Hunar_DBModel.tbl_ExcelParticipantData" />
+    <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
     <EntitySet Name="AnnualHousehold_Master" EntityType="Hunar_DBModel.AnnualHousehold_Master" />
+    <EntitySet Name="Batch_Master" EntityType="Hunar_DBModel.Batch_Master" />
+    <EntitySet Name="Courses_Master" EntityType="Hunar_DBModel.Courses_Master" />
+    <EntitySet Name="District_Master" EntityType="Hunar_DBModel.District_Master" />
+    <EntitySet Name="Educational_Master" EntityType="Hunar_DBModel.Educational_Master" />
+    <EntitySet Name="EmployeeType_Master" EntityType="Hunar_DBModel.EmployeeType_Master" />
     <EntitySet Name="FamilyMember_Master" EntityType="Hunar_DBModel.FamilyMember_Master" />
     <EntitySet Name="IDType_Master" EntityType="Hunar_DBModel.IDType_Master" />
+    <EntitySet Name="Industry_Master" EntityType="Hunar_DBModel.Industry_Master" />
     <EntitySet Name="KnowledgeEnglish_Master" EntityType="Hunar_DBModel.KnowledgeEnglish_Master" />
     <EntitySet Name="Languages_Master" EntityType="Hunar_DBModel.Languages_Master" />
+    <EntitySet Name="Month_Master" EntityType="Hunar_DBModel.Month_Master" />
     <EntitySet Name="PreTraining_Master" EntityType="Hunar_DBModel.PreTraining_Master" />
+    <EntitySet Name="State_Master" EntityType="Hunar_DBModel.State_Master" />
     <EntitySet Name="TargetGroup_Master" EntityType="Hunar_DBModel.TargetGroup_Master" />
-    <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
     <EntitySet Name="tbl_PlacementTracker" EntityType="Hunar_DBModel.tbl_PlacementTracker" />
+    <EntitySet Name="TrainingAgency_Master" EntityType="Hunar_DBModel.TrainingAgency_Master" />
+    <EntitySet Name="TrainingCenter_Master" EntityType="Hunar_DBModel.TrainingCenter_Master" />
     <EntitySet Name="WorkExperience_Master" EntityType="Hunar_DBModel.WorkExperience_Master" />
+    <EntitySet Name="Year_Master" EntityType="Hunar_DBModel.Year_Master" />
     <AssociationSet Name="FK_tbl_PlacementTracker_tbl_Participant" Association="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant">
       <End Role="tbl_Participant" EntitySet="tbl_Participant" />
       <End Role="tbl_PlacementTracker" EntitySet="tbl_PlacementTracker" />
@@ -100,67 +100,6 @@
     <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AspNetUser" Relationship="Hunar_DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
-  </EntityType>
-  <EntityType Name="Courses_Master">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="CourseName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Updated" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="District_Master">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="StateId" Type="Int32" />
-    <Property Name="DistrictName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Updated" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="State_Master">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="StateName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Updated" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="TrainingAgency_Master">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="TrainingAgencyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Updated" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="Educational_Master">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="QualificationName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Updated" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="AspNetUser">
     <Key>
@@ -228,35 +167,6 @@
     <Property Name="InDate" Type="DateTime" Precision="3" />
     <Property Name="OutDate" Type="DateTime" Precision="3" />
     <Property Name="IsActive" Type="Boolean" />
-  </EntityType>
-  <EntityType Name="TrainingCenter_Master">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="DistrictID_fk" Type="Int32" />
-    <Property Name="TrainingAgencyID_fk" Type="Int32" />
-    <Property Name="TrainingCenter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Updated" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="Month_Master">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
-    <Property Name="MonthName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="Year_Master">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
-    <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Benefit_Master">
     <Key>
@@ -503,24 +413,6 @@
     <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityType Name="Batch_Master">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="BatchName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="BatchStartDate" Type="DateTime" Precision="3" />
-    <Property Name="BatchEndDate" Type="DateTime" Precision="3" />
-    <Property Name="TrainerId" Type="Guid" />
-    <Property Name="CourseId" Type="Int32" />
-    <Property Name="TrainingCenterId" Type="Int32" />
-    <Property Name="IsAssessmentDone" Type="Boolean" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Updated" Type="DateTime" Precision="3" />
-  </EntityType>
   <EntityType Name="tbl_LogBatchTrainer">
     <Key>
       <PropertyRef Name="ID" />
@@ -730,34 +622,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="EmployeeType_Master">
-    <Key>
-      <PropertyRef Name="EmployeeTypeId_pk" />
-    </Key>
-    <Property Name="EmployeeTypeId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="EmployeeTypeName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <Property Name="IsDeletedOn" Type="DateTime" Precision="3" />
-    <Property Name="OrderBy" Type="Int32" />
-  </EntityType>
-  <EntityType Name="Industry_Master">
-    <Key>
-      <PropertyRef Name="IndustryId_pk" />
-    </Key>
-    <Property Name="IndustryId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IndustryName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <Property Name="IsDeletedOn" Type="DateTime" Precision="3" />
-    <Property Name="OrderBy" Type="Int32" />
-  </EntityType>
   <EntityType Name="tbl_ExcelParticipantData">
     <Key>
       <PropertyRef Name="ID" />
@@ -796,95 +660,6 @@
     <Property Name="AnnualHouseholdincome" Type="Decimal" Precision="10" Scale="2" />
     <Property Name="PreTrainingStatus" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="TargetGroup" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="AnnualHousehold_Master">
-    <Key>
-      <PropertyRef Name="AnnualHouseholdId_pk" />
-    </Key>
-    <Property Name="AnnualHouseholdId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="AnnualHouseholdName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <Property Name="Orderby" Type="Int32" />
-  </EntityType>
-  <EntityType Name="FamilyMember_Master">
-    <Key>
-      <PropertyRef Name="NoofFamilyMembersId_pk" />
-    </Key>
-    <Property Name="NoofFamilyMembersId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="NoofFamilyMembersName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <Property Name="Orderby" Type="Int32" />
-  </EntityType>
-  <EntityType Name="IDType_Master">
-    <Key>
-      <PropertyRef Name="IDTypeId_pk" />
-    </Key>
-    <Property Name="IDTypeId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IDTypeName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <Property Name="Orderby" Type="Int32" />
-  </EntityType>
-  <EntityType Name="KnowledgeEnglish_Master">
-    <Key>
-      <PropertyRef Name="KnowledgeEnglishId_pk" />
-    </Key>
-    <Property Name="KnowledgeEnglishId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="KnowledgeEnglishName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <Property Name="Orderby" Type="Int32" />
-  </EntityType>
-  <EntityType Name="Languages_Master">
-    <Key>
-      <PropertyRef Name="LanguagesId_pk" />
-    </Key>
-    <Property Name="LanguagesId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="LanguagesName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <Property Name="Orderby" Type="Int32" />
-  </EntityType>
-  <EntityType Name="PreTraining_Master">
-    <Key>
-      <PropertyRef Name="PreTrainingId_pk" />
-    </Key>
-    <Property Name="PreTrainingId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PreTrainingName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="TargetGroup_Master">
-    <Key>
-      <PropertyRef Name="TargetGroupId_pk" />
-    </Key>
-    <Property Name="TargetGroupId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TargetGroupName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="tbl_Participant">
     <Key>
@@ -944,6 +719,209 @@
     <Property Name="TargetGroup" Type="Int32" />
     <NavigationProperty Name="tbl_PlacementTracker" Relationship="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" FromRole="tbl_Participant" ToRole="tbl_PlacementTracker" />
   </EntityType>
+  <EntityType Name="AnnualHousehold_Master">
+    <Key>
+      <PropertyRef Name="AnnualHouseholdId_pk" />
+    </Key>
+    <Property Name="AnnualHouseholdId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AnnualHouseholdName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Orderby" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Batch_Master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BatchName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="BatchStartDate" Type="DateTime" Precision="3" />
+    <Property Name="BatchEndDate" Type="DateTime" Precision="3" />
+    <Property Name="TrainerId" Type="Guid" />
+    <Property Name="CourseId" Type="Int32" />
+    <Property Name="TrainingCenterId" Type="Int32" />
+    <Property Name="IsAssessmentDone" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Updated" Type="DateTime" Precision="3" />
+    <Property Name="orderBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Courses_Master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Updated" Type="DateTime" Precision="3" />
+    <Property Name="OrderBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="District_Master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StateId" Type="Int32" />
+    <Property Name="DistrictName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="Int32" />
+    <Property Name="TypeText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Updated" Type="DateTime" Precision="3" />
+    <Property Name="OrderBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Educational_Master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QualificationName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Updated" Type="DateTime" Precision="3" />
+    <Property Name="OrderBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="EmployeeType_Master">
+    <Key>
+      <PropertyRef Name="EmployeeTypeId_pk" />
+    </Key>
+    <Property Name="EmployeeTypeId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeTypeName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="OrderBy" Type="Int32" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsDeletedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="FamilyMember_Master">
+    <Key>
+      <PropertyRef Name="NoofFamilyMembersId_pk" />
+    </Key>
+    <Property Name="NoofFamilyMembersId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NoofFamilyMembersName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Orderby" Type="Int32" />
+  </EntityType>
+  <EntityType Name="IDType_Master">
+    <Key>
+      <PropertyRef Name="IDTypeId_pk" />
+    </Key>
+    <Property Name="IDTypeId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDTypeName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Orderby" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Industry_Master">
+    <Key>
+      <PropertyRef Name="IndustryId_pk" />
+    </Key>
+    <Property Name="IndustryId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IndustryName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="OrderBy" Type="Int32" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsDeletedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="KnowledgeEnglish_Master">
+    <Key>
+      <PropertyRef Name="KnowledgeEnglishId_pk" />
+    </Key>
+    <Property Name="KnowledgeEnglishId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KnowledgeEnglishName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Orderby" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Languages_Master">
+    <Key>
+      <PropertyRef Name="LanguagesId_pk" />
+    </Key>
+    <Property Name="LanguagesId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LanguagesName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Orderby" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Month_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="MonthName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OrderBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="PreTraining_Master">
+    <Key>
+      <PropertyRef Name="PreTrainingId_pk" />
+    </Key>
+    <Property Name="PreTrainingId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PreTrainingName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="OrderBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="State_Master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="StateName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="StateType" Type="Int32" />
+    <Property Name="StateTypeText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Updated" Type="DateTime" Precision="3" />
+    <Property Name="OrderBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TargetGroup_Master">
+    <Key>
+      <PropertyRef Name="TargetGroupId_pk" />
+    </Key>
+    <Property Name="TargetGroupId_pk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TargetGroupName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="OrderBy" Type="Int32" />
+  </EntityType>
   <EntityType Name="tbl_PlacementTracker">
     <Key>
       <PropertyRef Name="PlacementTrackerId_pk" />
@@ -952,6 +930,7 @@
     <Property Name="ParticipantId_fk" Type="Guid" />
     <Property Name="EmployeeTypeId" Type="Int32" />
     <Property Name="IndustryId" Type="Int32" />
+    <Property Name="IndustryOther" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
     <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Designation" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
     <Property Name="Salary" Type="Decimal" Precision="5" Scale="2" />
@@ -970,7 +949,37 @@
     <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
     <Property Name="IsDeletedOn" Type="DateTime" Precision="3" />
+    <Property Name="OrderBy" Type="Int32" />
     <NavigationProperty Name="tbl_Participant" Relationship="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" FromRole="tbl_PlacementTracker" ToRole="tbl_Participant" />
+  </EntityType>
+  <EntityType Name="TrainingAgency_Master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TrainingAgencyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Updated" Type="DateTime" Precision="3" />
+    <Property Name="OrderBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TrainingCenter_Master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DistrictID_fk" Type="Int32" />
+    <Property Name="TrainingAgencyID_fk" Type="Int32" />
+    <Property Name="TrainingCenter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Updated" Type="DateTime" Precision="3" />
+    <Property Name="OrderBy" Type="Int32" />
   </EntityType>
   <EntityType Name="WorkExperience_Master">
     <Key>
@@ -984,6 +993,17 @@
     <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
     <Property Name="Orderby" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Year_Master">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OrderBy" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
   </EntityType>
   <Association Name="FK_tbl_PlacementTracker_tbl_Participant">
     <End Type="Hunar_DBModel.tbl_Participant" Role="tbl_Participant" Multiplicity="0..1" />

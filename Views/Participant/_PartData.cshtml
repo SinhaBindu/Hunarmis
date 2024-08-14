@@ -56,7 +56,7 @@
                                     <td class="text-center">
                                         @if (!string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString()))
                                         {
-                                            if (!string.IsNullOrWhiteSpace(dr["IsPlacementTracker"].ToString()))
+                                            @*if (!string.IsNullOrWhiteSpace(dr["IsPlacementTracker"].ToString()))
                                             {
                                                 if (dr["IsPlacementTracker"].ToString() == "1")
                                                 {
@@ -66,11 +66,11 @@
                                                 }
                                             }
                                             else
-                                            {
-                                                <button type="button" class="btn btn-primary btnpop" data-id="@dr["ID"]">
-                                                    Placement Tracker
-                                                </button>
-                                            }
+                                            {*@
+                                        <button type="button" style="@dr["PlaceTrackerEditColor"]" class="btn btnpop" data-id="@dr["ID"]" data-placementrackerid="@dr["maxPlaceTrackerID"]" data-placetrackerdistrictId="@dr["PlaceTrackerDistrictId"]">
+                                            Placement Tracker
+                                        </button>
+                                            //}
                                         }
                                     </td>
                                     <td class="text-left">

@@ -100,16 +100,16 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = "Marital Status")]
         public string MaritalStatus { get; set; }
-        [Required]
+        //[Required]
         [Display(Name = "No of Family Members")]
         public Nullable<int> NoofFamilyMembers { get; set; }
-        [Required]
-        [Display(Name = "Annual Household Income")]
+       // [Required]
+        [Display(Name = "Annual Household Income (INR)")]
         public Nullable<decimal> AnnualHouseholdincome { get; set; }
-        [Required]
+       // [Required]
         [Display(Name = "Pre-Training Status")]
         public int? PreTrainingStatus { get; set; }
-        [Required]
+       // [Required]
         [Display(Name = "Target Group")]
         public int? TargetGroup { get; set; }
     }

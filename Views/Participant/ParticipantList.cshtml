@@ -50,18 +50,22 @@
     .downs-btn {
         float: right
     }
+
     .modal {
         padding: 20px !important
     }
+
     .modal-dialog {
         width: 100%;
         border: 2px solid #F5F5F5
     }
+
     .modal-title {
         text-align: center;
         font-size: 24px;
         color: #000
     }
+
     .clos-btn {
         float: right;
         padding: 3px 7px;
@@ -72,6 +76,7 @@
         border: none;
         margin-top: -20px
     }
+
     .down-btn {
         padding: 2px 7px;
         border-radius: 4px;
@@ -84,6 +89,7 @@
     .panel-bodys {
         margin-bottom: 10px;
     }
+
     .btn-mat {
         background: #009CFF;
         padding: 2px 8px;
@@ -91,38 +97,48 @@
         color: #fff;
         border: none
     }
+
     .down-btn a:hover, .down-btn:hover {
         color: #fff !important
     }
-        .semi-title {
-            background: #2F17B5;
-        }
+
+    .semi-title {
+        background: #2F17B5;
+    }
+
     .panel-bodys h5 {
         color: #e17c0f;
     }
+
     .box-bg {
         padding: 15px;
         background: #F5F5F5;
         border-radius: 5px;
     }
-    .box-bg label {
-        text-align: left !important;
-        font-weight: bold;
-        color: #000;
-    }
+
+        .box-bg label {
+            text-align: left !important;
+            font-weight: bold;
+            color: #000;
+        }
+
     .modal-header {
         padding: 10px 15px 0;
     }
+
     .regis {
         color: #2F17B5
     }
+
     .form-flex {
         display: flex;
         gap: 30px
     }
+
         .form-flex div {
             flex: 1;
         }
+
     .UploadCheckFile {
         background: #fff;
         width: 100%;
@@ -189,9 +205,6 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
-
-
     <script src="~/Scripts/Custom/Master.js"></script>
 
     <script>
@@ -232,11 +245,20 @@
                 e.preventDefault();
                 BindData();
             });
-
+            $(document).on('change', '#Salary', function (e) {
+                var value = $(this).val();
+                var validValue = value.replace(/[^0-9.]/g, '');
+                var decimalMatch = validValue.match(/^\d*(\.\d{0,2})?$/);
+                if (decimalMatch) {
+                    $(this).val(validValue);
+                } else {
+                    $(this).val(value.slice(0, -1));
+                }
+            });
              //model pop call
             $(document).on('change', '#StateId', function (e) {
                 e.preventDefault();
-                BindDistrict("DistrictId", '', "1", $(this).val());
+                BindDistrict("DistrictId", '', "1", $(this).val(),2);
             });
             $(document).on('click', '.btnpop', function (e) {
                 $('#div-popmodel').html('');
@@ -244,16 +266,38 @@
                 var button = $(e.relatedTarget); // Button that triggered the modal
                 var id = button.data('id'); // Extract the id from data-* attributes
                 var datapartid = $(this).attr('data-id'); // Extract the id from data-* attributes
+                var dataplacementrackerid = $(this).attr('data-placementrackerid') != '@Guid.Empty' ? $(this).attr('data-placementrackerid') : '@Guid.Empty'; // Extract the id from data-* attributes
+                var placetrackerdistrictId = $(this).attr('data-placetrackerdistrictId') != '' ? $(this).attr('data-placetrackerdistrictId') : null; // Extract the id from data-* attributes
 
                 var modal = $(this);
 
                 // Load content via AJAX
                 $.ajax({
                     url: '@Url.Action("AddPlacementTracker", "Participant")',
-                    data: { PartId: datapartid, Id: '@Guid.Empty' },
+                    data: { PartId: datapartid, Id: dataplacementrackerid },
+                    async: false,
                     success: function (result) {
                         $('#div-popmodel').html(result);
                         $("#myModal").modal({ backdrop: "static" });
+                       
+
+                        BindDistrict("DistrictId", '', "1", $('#StateId').val(),2);
+                        if (dataplacementrackerid != '@Guid.Empty') {
+                            BindPlacementDetailData(datapartid, dataplacementrackerid);
+                            if (placetrackerdistrictId != null) {
+                                $("#DistrictId").val(placetrackerdistrictId);
+                            }
+                            //moment($("#DateofOffer").val()).format("DD-MMM-YYYY");
+                            //moment($("#DOJStartDate").val()).format("DD-MMM-YYYY");
+                            //if ($("#DOJEndDate").val()!='') {
+                            //    moment($("#DOJEndDate").val()).format("DD-MMM-YYYY");
+                            //}
+                        }
+                        else {
+                            $("#formidpop")[0].reset();
+                            $('#StateId').val('0'); $('#DistrictId').val('');
+                        }
+
                         $("#DateofOffer").datepicker({
                             //beforeShow: customRangeEndComplt,
                             //dateFormat: 'mm-dd-yy',
@@ -289,8 +333,7 @@
                             }
                         });
 
-                        $('#StateId').val('0'); $('#DistrictId').val('');
-                        BindDistrict("DistrictId", '', "1", $('#DistrictId').val());
+
 
                     }
                 });
@@ -344,7 +387,7 @@
                             if ($('#PlacementTrackerId_pk').val() == '@Guid.Empty') {
                                 $("#formidpop")[0].reset();
                                // BindStateList("StateId", '', "1");
-                                BindDistrict("DistrictId", '', "1" ,0);
+                                BindDistrict("DistrictId", '', "1" ,0,2);
                             }
                         }
                         else {
@@ -443,7 +486,7 @@
         }
 
         function BindPlacementDetailData(ParticipantId, PlacementTrackerId) {
-            $("#div-popmodel").html('');
+            $("#div-viewpopmodel").html('');
             var filtermodel = new Object();
             filtermodel.ParticipantId = ParticipantId;
             filtermodel.PlacementTrackerId = PlacementTrackerId;
@@ -458,18 +501,18 @@
                     success: function (res) {
                         if (res) {
                             $('#global-loader').css('background', 'transparent').css('display', 'none');
-                            $('#div-popmodel').html(res);
+                            $('#div-viewpopmodel').html(res);
                             $("#myModal").modal({ backdrop: "static" });
                         }
                         else {
-                            $("#div-popmodel").html("<h4 class='text-center text-danger'>" + res + "!</h4>");
+                            $("#div-viewpopmodel").html("<h4 class='text-center text-danger'>" + res + "!</h4>");
                             $('#global-loader').css('background', 'transparent').css('display', 'none');
                         }
                     },
                     error: function (req, error) {
                         if (error === 'error') { error = req.statusText; }
                         var errormsg = 'There was a communication error: ' + error;
-                        $('#div-popmodel').html("<h4 class='text-center text-danger'>" + errormsg + "!</h4>");
+                        $('#div-viewpopmodel').html("<h4 class='text-center text-danger'>" + errormsg + "!</h4>");
                         $('#global-loader').css('background', 'transparent').css('display', 'none');
                         //Do To Message display
                     }
@@ -478,8 +521,16 @@
             else {
                 $('#div-popmodel').html("<h4 class='text-center text-danger'> Placement Tracker Details Not Found !</h4>");
             }
-          
+
         }
+
+
+        function setTwoNumberDecimal(event) {
+            if (this.value != null) {
+                this.value = parseFloat(this.value).toFixed(2);
+            }
+        }
+
 
     </script>
 }

@@ -12,6 +12,7 @@ namespace Hunarmis.Models
         {
             PlacementTrackerId_pk = Guid.Empty;
             modelbasicpart = new BasicDetailsForPartModel();
+            FilterModel=new FilterModel();
         }
         public System.Guid PlacementTrackerId_pk { get; set; }
         public Nullable<System.Guid> ParticipantId_fk { get; set; }
@@ -29,7 +30,7 @@ namespace Hunarmis.Models
         [Display(Name = "Designation")]
         public string Designation { get; set; }
         [Required]
-        [Display(Name = "Salary")]
+        [Display(Name = "Salary (Monthly INR)")]
         public Nullable<decimal> Salary { get; set; }
         [Required]
         [Display(Name = "State")]
@@ -47,12 +48,12 @@ namespace Hunarmis.Models
         [Display(Name = "Date of Joining")]
         public Nullable<System.DateTime> DateofJoining { get; set; }
         [Required]
-        [Display(Name = "DOJ Start Date")]
+        [Display(Name = "Start Date")]
         public Nullable<System.DateTime> DOJStartDate { get; set; }
-        [Required]
-        [Display(Name = "DOJ End Date")]
-        public Nullable<System.DateTime> DOJEndDate { get; set; }
         //[Required]
+        [Display(Name = "End Date")]
+        public Nullable<System.DateTime> DOJEndDate { get; set; }
+        [Required]
         [Display(Name = "Upload Offer Letter")]
         public HttpPostedFileBase UploadOfferLetter { get; set; }
         public string UploadOfferLetterPath { get; set; }
@@ -70,5 +71,6 @@ namespace Hunarmis.Models
         public virtual tbl_Participant tbl_Participant { get; set; }
 
         public BasicDetailsForPartModel modelbasicpart { get; set; }
+        public FilterModel FilterModel { get; set; }
     }
 }
