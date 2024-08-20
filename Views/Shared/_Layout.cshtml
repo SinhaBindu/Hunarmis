@@ -79,31 +79,33 @@
             color: #fff !important
         }
     </style>
+    <link href="~/Content/css/style.blk.css" rel="stylesheet" />
 </head>
-<body>
-    <div id="container" class="effect aside-float aside-bright mainnav-lg">
-        @Html.Partial("_Header")
-        <div class="boxed">
-            <div id="content-container">
-                @Html.Partial("_BreadCrumb")
-                @RenderBody()
+<body class="theam-black">
+    <div class="main-wrapper">
+        <div id="container" class="effect aside-float aside-bright mainnav-lg">
+            @Html.Partial("_Header")
+            <div class="boxed">
+                <div id="content-container">
+                    @Html.Partial("_BreadCrumb")
+                    @RenderBody()
 
-                <div id="panel-load" class="panel-overlay" style="display:none;">
-                    <div class="panel-overlay-content pad-all unselectable">
-                        <span class="panel-overlay-icon text-main">
-                            <i class="demo-psi-repeat-2 spin-anim icon-2x"></i>
-                        </span>
-                        <h4 class="panel-overlay-title"></h4>
-                        <p></p>
+                    <div id="panel-load" class="panel-overlay" style="display:none;">
+                        <div class="panel-overlay-content pad-all unselectable">
+                            <span class="panel-overlay-icon text-main">
+                                <i class="demo-psi-repeat-2 spin-anim icon-2x"></i>
+                            </span>
+                            <h4 class="panel-overlay-title"></h4>
+                            <p></p>
+                        </div>
                     </div>
                 </div>
+                @Html.Partial("_Navigation")
+
             </div>
-            @Html.Partial("_Navigation")
-
+            @Html.Partial("_Footer")
         </div>
-        @Html.Partial("_Footer")
     </div>
-
     @Scripts.Render("~/bundles/AdminScript")
     @*@Scripts.Render("~/bundles/jquery")*@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

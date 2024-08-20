@@ -6,356 +6,154 @@
 
 }
 @using Hunarmis.Helpers
-<style>
-    body {
-        background: #F5F5F5 !important;
-        height: 100vh;
-    }
 
-    img {
-        width: 100%;
-        height: auto
-    }
-
-    .bgr-icon {
-        width: 26px;
-        margin-top: -4px
-    }
-
-    .dashboard-box {
-        margin: 15px 15px 5px;
-        display: flex;
-        gap: 2%;
-        flex-wrap: wrap;
-    }
-
-    .d-box {
-        flex-basis: 18.3%;
-        border-radius: 6px;
-        background: #fff;
-        padding-bottom: 12px;
-        margin-bottom: 10px;
-        box-shadow: 0rem 0.3125rem 0.3125rem 0rem rgba(82, 63, 105, 0.05);
-    }
-
-        .d-box p, .txt-white p {
-            float: right;
-            margin: 13px 10px 0 0;
-            font-size: 22px;
-            padding: 6px 10px;
-            color: #242424;
-            width: 45px;
-            text-align: center;
-            border-radius: 6px;
-        }
-
-        .d-box h3 {
-            margin: 15px 10px 19px;
-            font-size: 30px;
-            color: #495057;
-        }
-
-        .d-box span {
-            padding-left: 10px;
-            font-size: 14px;
-            color: #9E9AA3;
-            text-transform: uppercase;
-        }
-
-    .dbg1 {
-        background: #8673F6
-    }
-
-    .dbg2 {
-        background: #6A4566
-    }
-
-    .dbg3 {
-        background: #4397C7
-    }
-
-    .dbg4 {
-        background: #D89428
-    }
-
-    .dbg5 {
-        background: #4765CA
-    }
-
-    .bgr1 {
-        background: #E5E2F6;
-        color: #8A77F4 !important
-    }
-
-    .bgr2 {
-        background: #D6F0ED;
-        color: #3EB7A1 !important
-    }
-
-    .bgr3 {
-        background: #DAECFA;
-        color: #299CDB !important;
-    }
-
-    .bgr4 {
-        background: #FFF2DB;
-        color: #F7B84B !important;
-    }
-
-    .bgr5 {
-        background: #DBE0EF;
-        color: #405189 !important;
-    }
-
-    .data-box-1, .data-box-2, .data-box-3 {
-        display: flex;
-        gap: 25px;
-        margin: 0 15px 15px;
-    }
-
-    .boxe {
-        background: #fff;
-        border-radius: 10px;
-        flex: 1;
-        box-shadow: 0rem 0.3125rem 0.3125rem 0rem rgba(82, 63, 105, 0.05);
-    }
-
-    .data-box-1 h2, .data-box-2 h2, .data-box-3 h2 {
-        font-size: 19px;
-        font-weight: bold;
-        text-transform: capitalize;
-        color: #6A4566;
-        padding: 0 15px
-    }
-
-    .data-box-1 p, .data-box-2 p, .data-box-3 p {
-        padding: 0 15px;
-    }
-
-    .flx2 {
-        flex: 2
-    }
-
-    .flx1 {
-        flex: 1
-    }
-
-    .tabber {
-        float: right;
-        background: #F4F4F4;
-        border-radius: 20px;
-        margin-top: -6px;
-    }
-
-        .tabber a {
-            display: inline-block;
-            padding: 12px 14px;
-            color: #000000;
-            font-weight: normal;
-            font-size: 14px;
-        }
-
-    .act {
-        background: #8A77F4;
-        color: #fff !important;
-        border-radius: 20px;
-    }
-
-    .navbar-top-links > li > a:not(.mainnav-toggle) > i {
-        color: #040404
-    }
-
-    #page-head {
-        display: none;
-    }
-
-    #navbar-container {
-        background-color: #fff;
-    }
-
-    .navbar-top-links > li > a {
-        color: #040404;
-        border-left: 1px solid #ECF0F5 !important;
-    }
-
-    .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
-        color: #040404;
-    }
-
-        .navbar-top-links .tgl-menu-btn > a:focus {
-            color: #040404;
-        }
-
-    .navbar-top-links:first-child {
-        margin-left: 0px !important;
-    }
-
-    .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
-        color: #040404;
-    }
-
-    #container .badge:not(.badge-default) {
-        color: #040404;
-    }
-
-    .navbar-top-links > .open > a, .navbar-top-links > .open > a:focus {
-        background: #8A77F4 !important
-    }
-
-    .navbar-top-links > li > a:hover {
-        background: #8A77F4 !important
-    }
-
-    .navbar-brand {
-        padding: 0 5px;
-    }
-
-    .dashboard-title {
-        font-size: 24px;
-        position: absolute;
-        top: 13px;
-        z-index: 999;
-        left: 55px;
-        color: #5A3653
-    }
-
-    .brand-text {
-        color: #454845;
-        margin-left: 10px;
-    }
-
-    .navbar-header:before {
-        background: #fff !important
-    }
-
-    .count-box {
-        display: flex;
-        margin-left: 10px
-    }
-
-    .d-box .count-box h3 {
-        margin: 15px 2px 19px;
-    }
-</style>
-
-<!--Section 1 Start-->
-<div class="data-box-2">
-    <div class="boxe flx2">
-        <div>
-            <h2>Course</h2>
-            @Html.DropDownList("ddlCourse", CommonModel.GetCourses(), "All", htmlAttributes: new { @class = "form-control" })
-            @*<select id="ddlCourse" name="ddlCourse" class="form-control"></select>*@
-        </div>
-        <div>
-            <figure class="highcharts-figure">
-                <div id="parent-container">
-                    <div id="containerCourse_Course"></div>
+<div class="body-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="font-weight-medium shadow-none position-relative overflow-hidden mb-7">
+                    <div class="card-body px-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 class="font-weight-medium fs-14 mb-0">Section1 </h4>
+                            </div>
+                            <div>
+                                <div class="d-sm-flex d-none gap-3 no-block justify-content-end align-items-center">
+                                    <div class="d-flex gap-2">
+                                        @Html.DropDownList("ddlCourse", CommonModel.GetCourses(), "All", htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </figure>
+            </div>
         </div>
-    </div>
-
-    <div class="boxe flx2">
-        <h2>
-            Location
-        </h2>
-        <div>
-            <figure class="highcharts-figure">
-                <div id="parent-container">
-                    <div id="containerCourse_Location"></div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Course</h4>
+                        <figure class="highcharts-figure m-0">
+                            <div id="parent-container">
+                                <div id="containerCourse_Course"></div>
+                            </div>
+                        </figure>
+                    </div>
                 </div>
-            </figure>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Location</h4>
+                        <figure class="highcharts-figure">
+                            <div id="parent-container">
+                                <div id="containerCourse_Location"></div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Gender</h4>
+                        <figure class="highcharts-figure">
+                            <div id="parent-container">
+                                <div id="containerCourse_Gender"></div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Industry</h4>
+                        <figure class="highcharts-figure">
+                            <div id="parent-container">
+                                <div id="containerCourse_Industry"></div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="font-weight-medium shadow-none position-relative overflow-hidden mb-7">
+                    <div class="card-body px-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 class="font-weight-medium fs-14 mb-0">Industry</h4>
+                            </div>
+                            <div>
+                                <div class="d-sm-flex d-none gap-3 no-block justify-content-end align-items-center">
+                                    <div class="d-flex gap-2">
+                                        @Html.DropDownList("ddlIndustry", CommonModel.GetIndustry(1), "All", htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Industry</h4>
+                        <figure class="highcharts-figure">
+                            <div id="parent-container">
+                                <div id="containerIndustry_Industry"></div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Course</h4>
+                        <figure class="highcharts-figure">
+                            <div id="parent-container">
+                                <div id="containerIndustry_Course"></div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Industry</h4>
+                        <figure class="highcharts-figure">
+                            <div id="parent-container">
+                                <div id="containerIndustry_Location"></div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Location</h4>
+                        <figure class="highcharts-figure">
+                            <div id="parent-container">
+                                <div id="containerIndustry_Gender"></div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-<div class="data-box-2">
-    <div class="boxe flx2">
-        <h2>Gender</h2>
-        <div>
-            <figure class="highcharts-figure">
-                <div id="parent-container">
-                    <div id="containerCourse_Gender"></div>
-                </div>
-            </figure>
-        </div>
-    </div>
-
-    <div class="boxe flx2">
-        <h2>Industry</h2>
-        <div>
-            <figure class="highcharts-figure">
-                <div id="parent-container">
-                    <div id="containerCourse_Industry"></div>
-                </div>
-            </figure>
-        </div>
-    </div>
-</div>
-<!--Section 1 End-->
-<!--Section 2 Start-->
-<div class="data-box-2">
-    <div class="boxe flx2">
-        <div>
-            <h2>Industry</h2>
-            @Html.DropDownList("ddlIndustry", CommonModel.GetIndustry(1), "All", htmlAttributes: new { @class = "form-control" })
-        </div>
-
-        <div>
-            <figure class="highcharts-figure">
-                <div id="parent-container">
-                    <div id="containerIndustry_Industry"></div>
-                </div>
-            </figure>
-        </div>
-    </div>
-
-    <div class="boxe flx2">
-        <h2>
-            Course
-        </h2>
-        <div>
-            <figure class="highcharts-figure">
-                <div id="parent-container">
-                    <div id="containerIndustry_Course"></div>
-                </div>
-            </figure>
-        </div>
-    </div>
-</div>
-
-<div class="data-box-2">
-    <div class="boxe flx2">
-        <h2>
-            Location
-        </h2>
-        <div>
-            <figure class="highcharts-figure">
-                <div id="parent-container">
-                    <div id="containerIndustry_Location"></div>
-                </div>
-            </figure>
-        </div>
-    </div>
-
-    <div class="boxe flx2">
-        <h2>
-            Gender
-        </h2>
-        <div>
-            <figure class="highcharts-figure">
-                <div id="parent-container">
-                    <div id="containerIndustry_Gender"></div>
-                </div>
-            </figure>
-        </div>
-    </div>
-</div>
-<!--Section 2 End-->
-
-
 <script src="https://code.highcharts.com/highcharts.js"></script>
-
 <script>
     $('.count').each(function () {
         $(this).prop('Counter', 0).animate({
@@ -449,15 +247,15 @@
     },
     {
         linearGradient: linearGradient,
-        stops: [[0, '#f03399'], [1, '#bada55']]
+        stops: [[0, '#FFD86F'], [1, '#FC6262']]
     },
     {
         linearGradient: linearGradient,
-        stops: [[0, '#f03399'], [1, '#bada55']]
+        stops: [[0, '#ff6ec4'], [1, '#7873f5']]
     },
     {
         linearGradient: linearGradient,
-        stops: [[0, '#f03399'], [1, '#bada55']]
+        stops: [[0, '#45cafc'], [1, '#303f9f']]
         }];
 
     function courseGraph(jsonData, selector) {
@@ -578,7 +376,7 @@
             },
             credits: {
                 enabled: false
-            },            
+            },
             legend: {
                 enabled: false
             },
@@ -727,7 +525,7 @@
             },
             credits: {
                 enabled: false
-            },           
+            },
             legend: {
                 enabled: false
             },

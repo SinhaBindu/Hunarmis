@@ -243,11 +243,15 @@
     @if (dt != null && dt.Rows.Count > 0)
     {
         <div class="d-box">
-            <p class="bgr1">
-                <img src="~/Content/images/enrollment.png" alt="Enrollments" class="bgr-icon" />
-            </p>
-            <h3 class="count">@dt.Rows[0]["Enrollments"]</h3>
-            <span>Enrollments</span>
+            <div class="hstack">
+                <div class="round-56 rounded-circle text-white d-flex align-items-center justify-content-center text-bg-warning">
+                    <img src="~/Content/images/enrollment.png" alt="Enrollments" class="bgr-icon" />
+                </div>
+                <div class="align-self-center">
+                    <h3 class="count">@dt.Rows[0]["Enrollments"]</h3>
+                    <span>Enrollments</span>
+                </div>
+            </div>
         </div>
         <div class="d-box">
             <p class="bgr2">
@@ -382,7 +386,7 @@
         </div>
     </div>
 
-    
+
 </div>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>

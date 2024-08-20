@@ -5880,16 +5880,6 @@ hr {
     margin: 150px 0;
     min-height: 1px;
 }
-
-.row {
-    margin: 0 -10px;
-}
-
-[class^="col-"]:not(.pad-no) {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
 .media-block .media-left {
     display: block;
     float: left;
