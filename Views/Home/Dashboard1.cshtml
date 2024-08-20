@@ -15,7 +15,7 @@
                     <div class="card-body px-0">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h4 class="font-weight-medium fs-14 mb-0">Section1 </h4>
+                                <h4 class="font-weight-medium fs-14 mb-0">Course </h4>
                             </div>
                             <div>
                                 <div class="d-sm-flex d-none gap-3 no-block justify-content-end align-items-center">
@@ -129,7 +129,7 @@
             <div class="col-lg-6 col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Industry</h4>
+                        <h4 class="card-title">Location</h4>
                         <figure class="highcharts-figure">
                             <div id="parent-container">
                                 <div id="containerIndustry_Location"></div>
@@ -141,7 +141,7 @@
             <div class="col-lg-6 col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Location</h4>
+                        <h4 class="card-title">Gender</h4>
                         <figure class="highcharts-figure">
                             <div id="parent-container">
                                 <div id="containerIndustry_Gender"></div>
@@ -243,20 +243,21 @@
     var linearGradient = { x1: 0, x2: 0, y1: 0, y2: 1 };
     var colors = [{
         linearGradient: linearGradient,
-        stops: [[0, '#ff3399'], [1, '#3366AA']]
+        stops: [[0, '#0c53a7'], [1, '#072a48']]
     },
-    {
-        linearGradient: linearGradient,
-        stops: [[0, '#FFD86F'], [1, '#FC6262']]
-    },
-    {
-        linearGradient: linearGradient,
-        stops: [[0, '#ff6ec4'], [1, '#7873f5']]
-    },
-    {
-        linearGradient: linearGradient,
-        stops: [[0, '#45cafc'], [1, '#303f9f']]
-        }];
+    //{
+    //    linearGradient: linearGradient,
+    //    stops: [[0, '#FFD86F'], [1, '#FC6262']]
+    //},
+    //{
+    //    linearGradient: linearGradient,
+    //    stops: [[0, '#ff6ec4'], [1, '#7873f5']]
+    //},
+    //{
+    //    linearGradient: linearGradient,
+    //    stops: [[0, '#45cafc'], [1, '#303f9f']]
+    //    }
+    ];
 
     function courseGraph(jsonData, selector) {
         console.log(jsonData);
@@ -273,7 +274,8 @@
         Highcharts.chart(selector, {
             chart: {
                 type: 'column',
-                backgroundColor: 'rgba(0,0,0,0)'
+                backgroundColor: 'rgba(0,0,0,0)',
+                color: '#fff'
             },
             title: {
                 text: 'Course',
@@ -289,40 +291,15 @@
             //    text: 'Click the slices to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>',
             //    align: 'left'
             //},
-
-            accessibility: {
-                announceNewData: {
-                    enabled: true
-                },
-                point: {
-                    valueSuffix: '%'
-                }
-            },
-
             plotOptions: {
                 series: {
-                    borderRadius: 5,
-                    dataLabels: [{
+                    borderWidth: 0,
+                    dataLabels: {
                         enabled: true,
-                        distance: 15,
-                        format: '{point.y}'
-                    }, {
-                        enabled: true,
-                        distance: '-30%',
-                        filter: {
-                            property: 'percentage',
-                            operator: '>',
-                            value: 5
-                        },
-                        format: '{point.y:.1f}',
-                        style: {
-                            fontSize: '0.9em',
-                            textOutline: 'none'
-                        }
-                    }]
+                        format: '{point.y:.1f}'
+                    }
                 }
             },
-
             tooltip: {
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
                 pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
@@ -331,10 +308,29 @@
             //colors: ['#ea599f', '#6ec9ee', '#8a80bc','#f7c9de'],
             colors: colors,
             xAxis: {
-                categories: data.map(x => x.name)
+                categories: data.map(x => x.name),
+                labels: {
+                    style: {
+                        color: '#fff'
+                    },
+                },
+            },
+            yAxis: {
+                labels: {
+                    style: {
+                        color: '#fff'
+                    },
+                },
+                title: {
+                    text: 'Average Salary',
+                    style: {
+                        color: '#fff'
+                    },
+                }
             },
             series: [{
                 name: 'Courses',
+                showInLegend: false,
                 data: data
             }]
         });
@@ -365,10 +361,6 @@
                     display: 'none'
                 }
             },
-            //subtitle: {
-            //    align: 'left',
-            //    text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-            //},
             accessibility: {
                 announceNewData: {
                     enabled: true
@@ -396,18 +388,29 @@
             },
             colors: colors,
             xAxis: {
-                title: {
-                    text: 'Locations'
-                },
-                categories: data.map(x => x.name)
-            },
-            yAxis: {
-                title: {
-                    text: 'Average Salary'
+                categories: data.map(x => x.name),
+                labels: {
+                    style: {
+                        color: '#fff'
+                    }
                 }
             },
+            yAxis: {
+                labels: {
+                    style: {
+                        color: '#fff'
+                    },
+                },
+                title: {
+                    text: 'Average Salary',
+                    style: {
+                        color: '#fff'
+                    }
+                }               
+            },
             series: [{
-                name: 'Locations',
+                name: 'Location',
+                showInLegend: false,
                 data: data
             }]
         });
@@ -417,7 +420,10 @@
         console.log(jsonData);
         var data = [];
         for (var i = 0; i < jsonData.length; i++) {
-            data.push([jsonData[i].Gender, jsonData[i].Total, jsonData[i].Percentage]);
+            data.push({
+                name: jsonData[i].Gender,
+                y: jsonData[i].Total,
+            });
         }
 
         chart = Highcharts.chart(selector, {
@@ -435,20 +441,10 @@
             credits: {
                 enabled: false
             },
-            //subtitle: {
-            //    useHTML: true,
-            //    text: getSubtitle(),
-            //    floating: true,
-            //    verticalAlign: 'middle',
-            //    y: 30
-            //},
+
             legend: {
                 enabled: true
             },
-            //tooltip: {
-            //    valueDecimals: 0,
-            //    valueSuffix: ' Participaints'
-            //},
             tooltip: {
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
                 pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
@@ -457,36 +453,37 @@
             plotOptions: {
                 series: {
                     borderWidth: 0,
-                    colorByPoint: true,
-                    type: 'pie',
-                    size: '100%',
-                    innerSize: '50%',
                     dataLabels: {
                         enabled: true,
-                        crop: false,
-                        distance: '-10%',
-                        style: {
-                            fontWeight: 'bold',
-                            fontSize: '16px'
-                        },
-                        connectorWidth: 0
+                        format: '{point.y:.1f}'
                     }
                 }
             },
             colors: colors,
             xAxis: {
-                title: {
-                    text: 'Gender'
-                },
-                categories: data.map(x => x.name)
+                categories: data.map(x => x.name),
+                labels: {
+                    style: {
+                        color: '#fff'
+                    }
+                }
             },
             yAxis: {
+                labels: {
+                    style: {
+                        color: '#fff'
+                    },
+                },
                 title: {
-                    text: 'Average Salary'
+                    text: 'Average Salary',
+                    style: {
+                        color: '#fff'
+                    }
                 }
             },
             series: [{
                 name: 'Gender',
+                showInLegend: false,
                 data: data
             }]
         });
@@ -514,10 +511,6 @@
                     display: 'none'
                 }
             },
-            //subtitle: {
-            //    align: 'left',
-            //    text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-            //},
             accessibility: {
                 announceNewData: {
                     enabled: true
@@ -545,18 +538,29 @@
             },
             colors: colors,
             xAxis: {
-                title: {
-                    text: 'Industries'
-                },
-                categories: data.map(x => x.name)
+                categories: data.map(x => x.name),
+                labels: {
+                    style: {
+                        color: '#fff'
+                    }
+                }
             },
             yAxis: {
+                labels: {
+                    style: {
+                        color: '#fff'
+                    },
+                },
                 title: {
-                    text: 'Average Salary'
+                    text: 'Average Salary',
+                    style: {
+                        color: '#fff'
+                    }
                 }
             },
             series: [{
-                name: 'Industries',
+                name: 'Industry',
+                showInLegend: false,
                 data: data
             }]
         });

@@ -1,7 +1,7 @@
 ﻿.theam-black #navbar-container {
     background-color: #1b84ff;
-    background: -webkit-linear-gradient(50deg, #1b84ff, #0761af) !important;
-    background: linear-gradient(40deg, #1b84ff, #0761af) !important;
+    background: -webkit-linear-gradient(50deg, #0c53a7, #072a48) !important;
+    background: linear-gradient(50deg, #0c53a7, #072a48) !important;
 }
 .theam-black .main-wrapper {
     min-height: 100vh;
