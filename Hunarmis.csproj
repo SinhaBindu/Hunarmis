@@ -396,9 +396,7 @@
     <Compile Include="Manager\HtmlToText.cs" />
     <Compile Include="Manager\JsonResponseData.cs" />
     <Compile Include="Manager\OMSPManager.cs" />
-    <Compile Include="Models\AnnualHousehold_Master.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\AnnualHousehold_Master.cs" />
     <Compile Include="Models\AssessmentScheduleModel.cs" />
     <Compile Include="Models\AttendanceModel.cs" />
     <Compile Include="Models\BatchModel.cs" />
@@ -413,33 +411,21 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EducationalModel.cs" />
-    <Compile Include="Models\EmployeeType_Master.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FamilyMember_Master.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\EmployeeType_Master.cs" />
+    <Compile Include="Models\FamilyMember_Master.cs" />
     <Compile Include="Models\FileExcelModel.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\FormMaster.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FormModel.cs" />
-    <Compile Include="Models\IDType_Master.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Industry_Master.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\IDType_Master.cs" />
+    <Compile Include="Models\Industry_Master.cs" />
     <Compile Include="Models\JobEmployed_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\KnowledgeEnglish_Master.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Languages_Master.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\KnowledgeEnglish_Master.cs" />
+    <Compile Include="Models\Languages_Master.cs" />
     <Compile Include="Models\LocatedKM_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -493,9 +479,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PlacementTracker_Model.cs" />
-    <Compile Include="Models\PreTraining_Master.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\PreTraining_Master.cs" />
     <Compile Include="Models\QuestionBook.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -508,9 +492,7 @@
     <Compile Include="Models\State_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TargetGroup_Master.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\TargetGroup_Master.cs" />
     <Compile Include="Models\tbl_AssessmentSchedule.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -556,9 +538,7 @@
     <Compile Include="Models\tbl_Participant_Calling.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_PlacementTracker.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\tbl_PlacementTracker.cs" />
     <Compile Include="Models\tbl_SendMail.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -580,9 +560,7 @@
     </Compile>
     <Compile Include="Models\TrainingCentreModel.cs" />
     <Compile Include="Models\UserMappedModel.cs" />
-    <Compile Include="Models\WorkExperience_Master.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\WorkExperience_Master.cs" />
     <Compile Include="Models\Year_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -753,7 +731,6 @@
     <Content Include="Content\images\not-found.png" />
     <Content Include="Content\images\no_image.JPG" />
     <Content Include="Content\images\orange-angle-bg.png" />
-    <Content Include="Content\images\pci-trans-logo.png" />
     <Content Include="Content\images\pci.png" />
     <Content Include="Content\images\pcilogo.png" />
     <Content Include="Content\images\pi-logo.png" />
@@ -1828,8 +1805,9 @@
     <Content Include="Views\Attendance\_ParticipantSendData.cshtml" />
     <Content Include="Views\Attendance\_AttendanceSummaryData.cshtml" />
     <Content Include="Views\Attendance\AttendanceSummary.cshtml" />
-    <Content Include="Views\Participant\_AddPlacementTracker.cshtml" />
+    <Content Include="Views\Home\Dashboard1.cshtml" />
     <Content Include="Views\Participant\_ViewPlacementTracker.cshtml" />
+    <Content Include="Views\Participant\_AddPlacementTracker.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

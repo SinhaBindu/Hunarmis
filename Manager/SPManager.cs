@@ -168,6 +168,15 @@ namespace Hunarmis.Manager
             return ds;
         }
 
+        public static DataTable SP_Dashboard1_Graphs(int mode = 1, int id = 0)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_Dashboard1_Graphs");
+            sp.Command.AddParameter("@Mode", mode, DbType.Int32);
+            sp.Command.AddParameter("@Id", id, DbType.Int32);
+            var ds = sp.ExecuteDataSet().Tables[0];
+            return ds;
+        }
+
         public static DataSet Sp_DashboardPartCalling(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("Sp_PartCalling");

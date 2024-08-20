@@ -1,0 +1,748 @@
+﻿@using Hunarmis.Manager
+@{
+    ViewBag.Title = "Dashboard";
+
+    var dtGraph1 = SPManager.SP_Dashboard1_Graphs(1, 0);
+
+}
+@using Hunarmis.Helpers
+<style>
+    body {
+        background: #F5F5F5 !important;
+        height: 100vh;
+    }
+
+    img {
+        width: 100%;
+        height: auto
+    }
+
+    .bgr-icon {
+        width: 26px;
+        margin-top: -4px
+    }
+
+    .dashboard-box {
+        margin: 15px 15px 5px;
+        display: flex;
+        gap: 2%;
+        flex-wrap: wrap;
+    }
+
+    .d-box {
+        flex-basis: 18.3%;
+        border-radius: 6px;
+        background: #fff;
+        padding-bottom: 12px;
+        margin-bottom: 10px;
+        box-shadow: 0rem 0.3125rem 0.3125rem 0rem rgba(82, 63, 105, 0.05);
+    }
+
+        .d-box p, .txt-white p {
+            float: right;
+            margin: 13px 10px 0 0;
+            font-size: 22px;
+            padding: 6px 10px;
+            color: #242424;
+            width: 45px;
+            text-align: center;
+            border-radius: 6px;
+        }
+
+        .d-box h3 {
+            margin: 15px 10px 19px;
+            font-size: 30px;
+            color: #495057;
+        }
+
+        .d-box span {
+            padding-left: 10px;
+            font-size: 14px;
+            color: #9E9AA3;
+            text-transform: uppercase;
+        }
+
+    .dbg1 {
+        background: #8673F6
+    }
+
+    .dbg2 {
+        background: #6A4566
+    }
+
+    .dbg3 {
+        background: #4397C7
+    }
+
+    .dbg4 {
+        background: #D89428
+    }
+
+    .dbg5 {
+        background: #4765CA
+    }
+
+    .bgr1 {
+        background: #E5E2F6;
+        color: #8A77F4 !important
+    }
+
+    .bgr2 {
+        background: #D6F0ED;
+        color: #3EB7A1 !important
+    }
+
+    .bgr3 {
+        background: #DAECFA;
+        color: #299CDB !important;
+    }
+
+    .bgr4 {
+        background: #FFF2DB;
+        color: #F7B84B !important;
+    }
+
+    .bgr5 {
+        background: #DBE0EF;
+        color: #405189 !important;
+    }
+
+    .data-box-1, .data-box-2, .data-box-3 {
+        display: flex;
+        gap: 25px;
+        margin: 0 15px 15px;
+    }
+
+    .boxe {
+        background: #fff;
+        border-radius: 10px;
+        flex: 1;
+        box-shadow: 0rem 0.3125rem 0.3125rem 0rem rgba(82, 63, 105, 0.05);
+    }
+
+    .data-box-1 h2, .data-box-2 h2, .data-box-3 h2 {
+        font-size: 19px;
+        font-weight: bold;
+        text-transform: capitalize;
+        color: #6A4566;
+        padding: 0 15px
+    }
+
+    .data-box-1 p, .data-box-2 p, .data-box-3 p {
+        padding: 0 15px;
+    }
+
+    .flx2 {
+        flex: 2
+    }
+
+    .flx1 {
+        flex: 1
+    }
+
+    .tabber {
+        float: right;
+        background: #F4F4F4;
+        border-radius: 20px;
+        margin-top: -6px;
+    }
+
+        .tabber a {
+            display: inline-block;
+            padding: 12px 14px;
+            color: #000000;
+            font-weight: normal;
+            font-size: 14px;
+        }
+
+    .act {
+        background: #8A77F4;
+        color: #fff !important;
+        border-radius: 20px;
+    }
+
+    .navbar-top-links > li > a:not(.mainnav-toggle) > i {
+        color: #040404
+    }
+
+    #page-head {
+        display: none;
+    }
+
+    #navbar-container {
+        background-color: #fff;
+    }
+
+    .navbar-top-links > li > a {
+        color: #040404;
+        border-left: 1px solid #ECF0F5 !important;
+    }
+
+    .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
+        color: #040404;
+    }
+
+        .navbar-top-links .tgl-menu-btn > a:focus {
+            color: #040404;
+        }
+
+    .navbar-top-links:first-child {
+        margin-left: 0px !important;
+    }
+
+    .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
+        color: #040404;
+    }
+
+    #container .badge:not(.badge-default) {
+        color: #040404;
+    }
+
+    .navbar-top-links > .open > a, .navbar-top-links > .open > a:focus {
+        background: #8A77F4 !important
+    }
+
+    .navbar-top-links > li > a:hover {
+        background: #8A77F4 !important
+    }
+
+    .navbar-brand {
+        padding: 0 5px;
+    }
+
+    .dashboard-title {
+        font-size: 24px;
+        position: absolute;
+        top: 13px;
+        z-index: 999;
+        left: 55px;
+        color: #5A3653
+    }
+
+    .brand-text {
+        color: #454845;
+        margin-left: 10px;
+    }
+
+    .navbar-header:before {
+        background: #fff !important
+    }
+
+    .count-box {
+        display: flex;
+        margin-left: 10px
+    }
+
+    .d-box .count-box h3 {
+        margin: 15px 2px 19px;
+    }
+</style>
+
+<!--Section 1 Start-->
+<div class="data-box-2">
+    <div class="boxe flx2">
+        <div>
+            <h2>Course</h2>
+            @Html.DropDownList("ddlCourse", CommonModel.GetCourses(), "All", htmlAttributes: new { @class = "form-control" })
+            @*<select id="ddlCourse" name="ddlCourse" class="form-control"></select>*@
+        </div>
+        <div>
+            <figure class="highcharts-figure">
+                <div id="parent-container">
+                    <div id="containerCourse_Course"></div>
+                </div>
+            </figure>
+        </div>
+    </div>
+
+    <div class="boxe flx2">
+        <h2>
+            Location
+        </h2>
+        <div>
+            <figure class="highcharts-figure">
+                <div id="parent-container">
+                    <div id="containerCourse_Location"></div>
+                </div>
+            </figure>
+        </div>
+    </div>
+</div>
+
+<div class="data-box-2">
+    <div class="boxe flx2">
+        <h2>Gender</h2>
+        <div>
+            <figure class="highcharts-figure">
+                <div id="parent-container">
+                    <div id="containerCourse_Gender"></div>
+                </div>
+            </figure>
+        </div>
+    </div>
+
+    <div class="boxe flx2">
+        <h2>Industry</h2>
+        <div>
+            <figure class="highcharts-figure">
+                <div id="parent-container">
+                    <div id="containerCourse_Industry"></div>
+                </div>
+            </figure>
+        </div>
+    </div>
+</div>
+<!--Section 1 End-->
+<!--Section 2 Start-->
+<div class="data-box-2">
+    <div class="boxe flx2">
+        <div>
+            <h2>Industry</h2>
+            @Html.DropDownList("ddlIndustry", CommonModel.GetIndustry(1), "All", htmlAttributes: new { @class = "form-control" })
+        </div>
+
+        <div>
+            <figure class="highcharts-figure">
+                <div id="parent-container">
+                    <div id="containerIndustry_Industry"></div>
+                </div>
+            </figure>
+        </div>
+    </div>
+
+    <div class="boxe flx2">
+        <h2>
+            Course
+        </h2>
+        <div>
+            <figure class="highcharts-figure">
+                <div id="parent-container">
+                    <div id="containerIndustry_Course"></div>
+                </div>
+            </figure>
+        </div>
+    </div>
+</div>
+
+<div class="data-box-2">
+    <div class="boxe flx2">
+        <h2>
+            Location
+        </h2>
+        <div>
+            <figure class="highcharts-figure">
+                <div id="parent-container">
+                    <div id="containerIndustry_Location"></div>
+                </div>
+            </figure>
+        </div>
+    </div>
+
+    <div class="boxe flx2">
+        <h2>
+            Gender
+        </h2>
+        <div>
+            <figure class="highcharts-figure">
+                <div id="parent-container">
+                    <div id="containerIndustry_Gender"></div>
+                </div>
+            </figure>
+        </div>
+    </div>
+</div>
+<!--Section 2 End-->
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<script>
+    $('.count').each(function () {
+        $(this).prop('Counter', 0).animate({
+            Counter: $(this).text()
+        }, {
+            duration: 4000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('.tab-btn').on('click', function () {
+            $('.tab-btn').removeClass('act');
+            $(this).addClass('act');
+        });
+
+        $("#ddlCourse").change(function (e) {
+            section_Course($(this).val());
+        });
+
+        $("#ddlIndustry").change(function (e) {
+            $.ajax({
+                url: '@Url.Action("GetDashboard1", "home")',
+                data: { mode: 2, Id: $(this).val() },
+                async: false,
+                success: function (result) {
+                    console.log(result);
+                    if (result.IsSuccess) {
+
+                    }
+                }
+            });
+        });
+
+
+        section_Course(0);
+        section_Industry(0);
+    });
+
+    function escapeRegExp(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    }
+
+    function replaceAll(str, find, replace) {
+        return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+    }
+
+    function section_Course(id) {
+        $.ajax({
+            url: '@Url.Action("GetDashboard1", "home")',
+            data: { mode: 1, Id: id },
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+                    courseGraph(JSON.parse(data.CourseJsonData), 'containerCourse_Course');
+                    locationGraph(JSON.parse(data.LocationJsonData), 'containerCourse_Location');
+                    genderGraph(JSON.parse(data.GenderJsonData), 'containerCourse_Gender');
+                    industryGraph(JSON.parse(data.IndustryJsonData), 'containerCourse_Industry');
+                }
+            }
+        });
+    }
+
+    function section_Industry(id) {
+        $.ajax({
+            url: '@Url.Action("GetDashboard1", "home")',
+            data: { mode: 2, Id: id },
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+                    courseGraph(JSON.parse(data.CourseJsonData), 'containerIndustry_Course');
+                    locationGraph(JSON.parse(data.LocationJsonData), 'containerIndustry_Location');
+                    genderGraph(JSON.parse(data.GenderJsonData), 'containerIndustry_Gender');
+                    industryGraph(JSON.parse(data.IndustryJsonData), 'containerIndustry_Industry');
+                }
+            }
+        });
+    }
+
+    var linearGradient = { x1: 0, x2: 0, y1: 0, y2: 1 };
+    var colors = [{
+        linearGradient: linearGradient,
+        stops: [[0, '#ff3399'], [1, '#3366AA']]
+    },
+    {
+        linearGradient: linearGradient,
+        stops: [[0, '#f03399'], [1, '#bada55']]
+    },
+    {
+        linearGradient: linearGradient,
+        stops: [[0, '#f03399'], [1, '#bada55']]
+    },
+    {
+        linearGradient: linearGradient,
+        stops: [[0, '#f03399'], [1, '#bada55']]
+        }];
+
+    function courseGraph(jsonData, selector) {
+        console.log(jsonData);
+        var data = [];
+        for (var i = 0; i < jsonData.length; i++) {
+            data.push({
+                name: jsonData[i].CourseName,
+                //y: jsonData[i].Percentage,
+                //value: jsonData[i].Total
+                y: jsonData[i].Total
+            });
+        }
+
+        Highcharts.chart(selector, {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Course',
+                align: 'left',
+                style: {
+                    display: 'none'
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            //subtitle: {
+            //    text: 'Click the slices to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>',
+            //    align: 'left'
+            //},
+
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                },
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+
+            plotOptions: {
+                series: {
+                    borderRadius: 5,
+                    dataLabels: [{
+                        enabled: true,
+                        distance: 15,
+                        format: '{point.y}'
+                    }, {
+                        enabled: true,
+                        distance: '-30%',
+                        filter: {
+                            property: 'percentage',
+                            operator: '>',
+                            value: 5
+                        },
+                        format: '{point.y:.1f}',
+                        style: {
+                            fontSize: '0.9em',
+                            textOutline: 'none'
+                        }
+                    }]
+                }
+            },
+
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
+                    '<b>{point.y:.2f}</b><br/>'
+            },
+            //colors: ['#ea599f', '#6ec9ee', '#8a80bc','#f7c9de'],
+            colors: colors,
+            xAxis: {
+                categories: data.map(x => x.name)
+            },
+            series: [{
+                name: 'Courses',
+                colorByPoint: true,
+                data: data
+            }]
+        });
+
+    }
+
+    function locationGraph(jsonData, selector) {
+        console.log(jsonData);
+        var data = [];
+        for (var i = 0; i < jsonData.length; i++) {
+            data.push({
+                name: jsonData[i].DistrictName,
+                y: jsonData[i].Total,
+                value: jsonData[i].Percentage
+
+            });
+        }
+
+        Highcharts.chart(selector, {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                align: 'left',
+                text: 'Location',
+                style: {
+                    display: 'none'
+                }
+            },
+            //subtitle: {
+            //    align: 'left',
+            //    text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+            //},
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: 'No of locations'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:.1f}'
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
+                    '<b>{point.y:.2f}</b><br/>'
+            },
+            colors: colors,
+            series: [{
+                name: 'Locations',
+                colorByPoint: true,
+                data: data
+            }]
+        });
+    }
+
+    function genderGraph(jsonData, selector) {
+        console.log(jsonData);
+        var data = [];
+        for (var i = 0; i < jsonData.length; i++) {
+            data.push([jsonData[i].Gender, jsonData[i].Total, jsonData[i].Percentage]);
+        }
+
+        chart = Highcharts.chart(selector, {
+            title: {
+                text: 'Gender',
+                align: 'center',
+                style: {
+                    display: 'none'
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            //subtitle: {
+            //    useHTML: true,
+            //    text: getSubtitle(),
+            //    floating: true,
+            //    verticalAlign: 'middle',
+            //    y: 30
+            //},
+            legend: {
+                enabled: true
+            },
+            //tooltip: {
+            //    valueDecimals: 0,
+            //    valueSuffix: ' Participaints'
+            //},
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
+                    '<b>{point.y:.2f}</b><br/>'
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    colorByPoint: true,
+                    type: 'pie',
+                    size: '100%',
+                    innerSize: '50%',
+                    dataLabels: {
+                        enabled: true,
+                        crop: false,
+                        distance: '-10%',
+                        style: {
+                            fontWeight: 'bold',
+                            fontSize: '16px'
+                        },
+                        connectorWidth: 0
+                    }
+                }
+            },
+            colors: colors,
+            series: [{
+                type: 'pie',
+                name: 'Gender',
+                data: data
+            }]
+        });
+    }
+
+    function industryGraph(jsonData, selector) {
+        console.log(jsonData);
+        var data = [];
+        for (var i = 0; i < jsonData.length; i++) {
+            data.push({
+                name: jsonData[i].IndustryName,
+                y: jsonData[i].Total,
+            });
+        }
+
+        Highcharts.chart(selector, {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                align: 'left',
+                text: 'Batch',
+                style: {
+                    display: 'none'
+                }
+            },
+            //subtitle: {
+            //    align: 'left',
+            //    text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+            //},
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: 'No of participants '
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:.1f}'
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
+                    '<b>{point.y:.2f}</b> of total<br/>'
+            },
+            colors: colors,
+            series: [{
+                name: 'Participants',
+                colorByPoint: true,
+                data: data
+            }]
+
+        });
+    }
+
+</script>
