@@ -474,7 +474,8 @@
 
         Highcharts.chart(selector, {
             chart: {
-                type: 'column'
+                type: 'column',
+                backgroundColor: 'rgba(0,0,0,0)'
             },
             title: {
                 text: 'Course',
@@ -536,7 +537,6 @@
             },
             series: [{
                 name: 'Courses',
-                colorByPoint: true,
                 data: data
             }]
         });
@@ -557,7 +557,8 @@
 
         Highcharts.chart(selector, {
             chart: {
-                type: 'column'
+                type: 'column',
+                backgroundColor: 'rgba(0,0,0,0)'
             },
             title: {
                 align: 'left',
@@ -577,15 +578,7 @@
             },
             credits: {
                 enabled: false
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: 'No of locations'
-                }
-            },
+            },            
             legend: {
                 enabled: false
             },
@@ -604,9 +597,19 @@
                     '<b>{point.y:.2f}</b><br/>'
             },
             colors: colors,
+            xAxis: {
+                title: {
+                    text: 'Locations'
+                },
+                categories: data.map(x => x.name)
+            },
+            yAxis: {
+                title: {
+                    text: 'Average Salary'
+                }
+            },
             series: [{
                 name: 'Locations',
-                colorByPoint: true,
                 data: data
             }]
         });
@@ -620,6 +623,10 @@
         }
 
         chart = Highcharts.chart(selector, {
+            chart: {
+                type: 'column',
+                backgroundColor: 'rgba(0,0,0,0)'
+            },
             title: {
                 text: 'Gender',
                 align: 'center',
@@ -669,8 +676,18 @@
                 }
             },
             colors: colors,
+            xAxis: {
+                title: {
+                    text: 'Gender'
+                },
+                categories: data.map(x => x.name)
+            },
+            yAxis: {
+                title: {
+                    text: 'Average Salary'
+                }
+            },
             series: [{
-                type: 'pie',
                 name: 'Gender',
                 data: data
             }]
@@ -689,11 +706,12 @@
 
         Highcharts.chart(selector, {
             chart: {
-                type: 'column'
+                type: 'column',
+                backgroundColor: 'rgba(0,0,0,0)'
             },
             title: {
                 align: 'left',
-                text: 'Batch',
+                text: 'Industry',
                 style: {
                     display: 'none'
                 }
@@ -709,15 +727,7 @@
             },
             credits: {
                 enabled: false
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: 'No of participants '
-                }
-            },
+            },           
             legend: {
                 enabled: false
             },
@@ -736,12 +746,21 @@
                     '<b>{point.y:.2f}</b> of total<br/>'
             },
             colors: colors,
+            xAxis: {
+                title: {
+                    text: 'Industries'
+                },
+                categories: data.map(x => x.name)
+            },
+            yAxis: {
+                title: {
+                    text: 'Average Salary'
+                }
+            },
             series: [{
-                name: 'Participants',
-                colorByPoint: true,
+                name: 'Industries',
                 data: data
             }]
-
         });
     }
 
