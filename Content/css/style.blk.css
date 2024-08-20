@@ -1,7 +1,7 @@
 ﻿.theam-black #navbar-container {
     background-color: #1b84ff;
-    background: -webkit-linear-gradient(50deg, #0c53a7, #072a48) !important;
-    background: linear-gradient(50deg, #0c53a7, #072a48) !important;
+    background: -webkit-linear-gradient(50deg, #1b84ff, #0761af) !important;
+    background: linear-gradient(40deg, #1b84ff, #0761af) !important;
 }
 .theam-black .main-wrapper {
     min-height: 100vh;
@@ -151,5 +151,32 @@
 .card-title {
     font-size: 18px;
     margin-bottom: 8px;
-    color: var(--bs-card-title-color);
+}
+.theam-black #mainnav {
+    height: 100%;
+    background-color: #192838;
+    color: #fff;
+}
+.theam-black #mainnav-menu {
+    background-color: #192838;
+}
+.theam-black .mainnav-profile .profile-wrap {
+    background: -webkit-linear-gradient(50deg, #1b84ff, #0761af) !important;
+    background: linear-gradient(40deg, #1b84ff, #0761af) !important;
+    color:#fff;
+}
+.theam-black #mainnav-menu .main-icon {
+    color:#fff;
+}
+.theam-black #mainnav-menu > li > a:hover, .theam-black #mainnav-menu > li > a:active {
+    color:#fff;
+}
+.theam-black #mainnav-menu .active:not(.active-sub) > a {
+    color: #fff;
+}
+#mainnav-menu > .active {
+    background: -webkit-linear-gradient(50deg, #1b84ff, #0761af) !important;
+    background: linear-gradient(40deg, #1b84ff, #0761af) !important;
+    color: #fff;
+    border-radius:30px;
 }
